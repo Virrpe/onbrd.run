@@ -1,0 +1,67 @@
+{
+  "id": "audit-20250913-001",
+  "url": "https://linear.app",
+  "timestamp": "2025-09-13T10:08:49.123Z",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 150,
+      "element": "button"
+    },
+    "h_steps_count": {
+      "total": 4,
+      "forms": 1,
+      "screens": 3
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 18,
+      "passive_voice_ratio": 12,
+      "jargon_density": 3
+    },
+    "h_trust_markers": {
+      "testimonials": 1,
+      "security_badges": 1,
+      "customer_logos": 0,
+      "total": 2
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 8,
+      "required_fields": 6,
+      "estimated_seconds": 55
+    }
+  },
+  "scores": {
+    "h_cta_above_fold": 100,
+    "h_steps_count": 80,
+    "h_copy_clarity": 65,
+    "h_trust_markers": 60,
+    "h_perceived_signup_speed": 55,
+    "overall": 72
+  },
+  "recommendations": [
+    {
+      "heuristic": "h_steps_count",
+      "priority": "medium",
+      "description": "Onboarding flow has 4 steps, which may cause friction and abandonment",
+      "fix": "Reduce onboarding to 3 steps or fewer when possible"
+    },
+    {
+      "heuristic": "h_copy_clarity",
+      "priority": "medium",
+      "description": "Average sentence length is 18 words, which may reduce comprehension",
+      "fix": "Use shorter sentences, active voice, and plain language"
+    },
+    {
+      "heuristic": "h_trust_markers",
+      "priority": "medium",
+      "description": "Only 2 trust signals detected, which may reduce user confidence",
+      "fix": "Add testimonials, security badges, or customer logos"
+    },
+    {
+      "heuristic": "h_perceived_signup_speed",
+      "priority": "high",
+      "description": "Signup process appears to take 55 seconds, which may cause abandonment",
+      "fix": "Minimize required fields and show progress indicators"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "OnboardingAudit.ai",
+  "version": "1.0.1",
+  "description": "Onboarding intelligence with pulse checks and benchmarking",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Audit this onboarding flow"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

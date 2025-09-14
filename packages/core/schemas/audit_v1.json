@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Onboarding Audit Schema v1",
+  "type": "object",
+  "required": ["id", "url", "timestamp", "heuristics", "scores", "recommendations"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique audit identifier"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Audited page URL"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Audit completion timestamp"
+    },
+    "heuristics": {
+      "type": "object",
+      "required": ["h_cta_above_fold", "h_steps_count", "h_copy_clarity", "h_trust_markers", "h_perceived_signup_speed"],
+      "properties": {
+        "h_cta_above_fold": {
+          "type": "object",
+          "properties": {
+            "detected": {"type": "boolean"},
+            "position": {"type": "number"},
+            "element": {"type": "string"}
+          }
+        },
+        "h_steps_count": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "forms": {"type": "integer"},
+            "screens": {"type": "integer"}
+          }
+        },
+        "h_copy_clarity": {
+          "type": "object",
+          "properties": {
+            "avg_sentence_length": {"type": "number"},
+            "passive_voice_ratio": {"type": "number"},
+            "jargon_density": {"type": "number"}
+          }
+        },
+        "h_trust_markers": {
+          "type": "object",
+          "properties": {
+            "testimonials": {"type": "integer"},
+            "security_badges": {"type": "integer"},
+            "customer_logos": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        },
+        "h_perceived_signup_speed": {
+          "type": "object",
+          "properties": {
+            "form_fields": {"type": "integer"},
+            "required_fields": {"type": "integer"},
+            "estimated_seconds": {"type": "number"}
+          }
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "h_cta_above_fold": {"type": "number", "minimum": 0, "maximum": 100},
+        "h_steps_count": {"type": "number", "minimum": 0, "maximum": 100},
+        "h_copy_clarity": {"type": "number", "minimum": 0, "maximum": 100},
+        "h_trust_markers": {"type": "number", "minimum": 0, "maximum": 100},
+        "h_perceived_signup_speed": {"type": "number", "minimum": 0, "maximum": 100},
+        "overall": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "heuristic": {"type": "string"},
+          "priority": {"type": "string", "enum": ["high", "medium", "low"]},
+          "description": {"type": "string"},
+          "fix": {"type": "string"}
+        }
+      }
+    },
+    "screenshot": {
+      "type": "string",
+      "description": "Base64 encoded screenshot"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "user_agent": {"type": "string"},
+        "viewport": {"type": "string"},
+        "extension_version": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding Audit Report - https://linear.app</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    .header {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .score-card {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .score {
+      font-size: 2em;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .score-bad {
+      color: #dc3545;
+    }
+    .score-medium {
+      color: #ffc107;
+    }
+    .recommendation {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .priority-high {
+      border-left: 4px solid #dc3545;
+    }
+    .priority-medium {
+      border-left: 4px solid #ffc107;
+    }
+    .priority-low {
+      border-left: 4px solid #28a745;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+    .copy-to-ticket {
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .copy-button {
+      background: #2196f3;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .copy-button:hover {
+      background: #1976d2;
+    }
+    .ticket-content {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+    .heuristic-id {
+      font-family: monospace;
+      font-size: 12px;
+      color: #666;
+      background: #f8f9fa;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Onboarding Audit Report</h1>
+    <p><strong>URL:</strong> https://linear.app</p>
+    <p><strong>Audit Date:</strong> 9/13/2025, 12:08:49 PM</p>
+    <p><strong>Overall Score:</strong> <span class="score score-medium">72/100</span></p>
+  </div>
+
+  <h2>Heuristic Analysis</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Heuristic</th>
+        <th>Score</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          CTA Above Fold
+          <div class="heuristic-id">H-CTA-ABOVE-FOLD</div>
+        </td>
+        <td>100/100</td>
+        <td>Primary CTA detected above fold</td>
+      </tr>
+      <tr>
+        <td>
+          Steps Count
+          <div class="heuristic-id">H-STEPS-COUNT</div>
+        </td>
+        <td>80/100</td>
+        <td>4 total steps (1 forms, 3 screens)</td>
+      </tr>
+      <tr>
+        <td>
+          Copy Clarity
+          <div class="heuristic-id">H-COPY-CLARITY</div>
+        </td>
+        <td>65/100</td>
+        <td>Avg sentence: 18 words, 12% passive voice, 3% jargon</td>
+      </tr>
+      <tr>
+        <td>
+          Trust Markers
+          <div class="heuristic-id">H-TRUST-MARKERS</div>
+        </td>
+        <td>60/100</td>
+        <td>2 trust signals (1 testimonials, 1 security badges, 0 logos)</td>
+      </tr>
+      <tr>
+        <td>
+          Signup Speed
+          <div class="heuristic-id">H-PERCEIVED-SIGNUP-SPEED</div>
+        </td>
+        <td>55/100</td>
+        <td>~55s completion (8 fields, 6 required)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Recommendations</h2>
+  
+    <div class="recommendation priority-medium">
+      <h4>h_steps_count (medium priority)</h4>
+      <p><strong>Issue:</strong> Onboarding flow has 4 steps, which may cause friction and abandonment</p>
+      <p><strong>Fix:</strong> Reduce onboarding to 3 steps or fewer when possible</p>
+    </div>
+  
+    <div class="recommendation priority-medium">
+      <h4>h_copy_clarity (medium priority)</h4>
+      <p><strong>Issue:</strong> Average sentence length is 18 words, which may reduce comprehension</p>
+      <p><strong>Fix:</strong> Use shorter sentences, active voice, and plain language</p>
+    </div>
+  
+    <div class="recommendation priority-medium">
+      <h4>h_trust_markers (medium priority)</h4>
+      <p><strong>Issue:</strong> Only 2 trust signals detected, which may reduce user confidence</p>
+      <p><strong>Fix:</strong> Add testimonials, security badges, or customer logos</p>
+    </div>
+  
+    <div class="recommendation priority-high">
+      <h4>h_perceived_signup_speed (high priority)</h4>
+      <p><strong>Issue:</strong> Signup process appears to take 55 seconds, which may cause abandonment</p>
+      <p><strong>Fix:</strong> Minimize required fields and show progress indicators</p>
+    </div>
+  
+
+  <div class="copy-to-ticket">
+    <h3>Copy to Ticket</h3>
+    <p>Click the button below to copy a formatted summary for your project management tool:</p>
+    <button class="copy-button" onclick="copyTicketContent()">Copy Ticket Content</button>
+    <div class="ticket-content" id="ticketContent">
+## Onboarding Audit Results
+
+**URL:** https://linear.app
+**Overall Score:** 72/100
+**Audit Date:** 9/13/2025, 12:08:49 PM
+
+### Issues Found:
+- **h_steps_count** (medium priority): Onboarding flow has 4 steps, which may cause friction and abandonment
+- **h_copy_clarity** (medium priority): Average sentence length is 18 words, which may reduce comprehension
+- **h_trust_markers** (medium priority): Only 2 trust signals detected, which may reduce user confidence
+- **h_perceived_signup_speed** (high priority): Signup process appears to take 55 seconds, which may cause abandonment
+
+### Recommended Fixes:
+- **h_steps_count**: Reduce onboarding to 3 steps or fewer when possible
+- **h_copy_clarity**: Use shorter sentences, active voice, and plain language
+- **h_trust_markers**: Add testimonials, security badges, or customer logos
+- **h_perceived_signup_speed**: Minimize required fields and show progress indicators
+
+### Next Steps:
+1. Address high priority issues first
+2. Test changes with users
+3. Re-run audit to verify improvements
+    </div>
+  </div>
+
+  <footer style="margin-top: 24px; padding-top: 8px; border-top: 1px solid #eee; text-align: center; color: #666; font-size: small;">
+    Generated by OnboardingAudit.ai — 2025-09-14 11:08 — linear.app
+  </footer>
+
+  <script>
+    function copyTicketContent() {
+      const content = document.getElementById('ticketContent').textContent;
+      navigator.clipboard.writeText(content).then(() => {
+        const button = document.querySelector('.copy-button');
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard. Please copy manually.');
+      });
+    }
+  </script>
+</body>
+</html>

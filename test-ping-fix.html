@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test PING Fix</title>
+</head>
+<body>
+    <h1>OnboardingAudit.ai PING Fix Test</h1>
+    <p>This page tests the PING/PONG communication between background and content scripts.</p>
+    
+    <button id="testPing">Test PING Communication</button>
+    <div id="results"></div>
+
+    <script>
+        // Simulate the background script's PING logic
+        async function testPingCommunication() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing PING communication...</p>';
+            
+            try {
+                // This simulates what the background script does:
+                // 1. Inject content script (already done by extension)
+                // 2. Send PING message
+                // 3. Check response
+                
+                // Send PING message to content script
+                const response = await chrome.runtime.sendMessage({ type: 'PING' });
+                
+                if (response && response.ok === true) {
+                    results.innerHTML += '<p style="color: green;">✅ PING successful! Content script responded with: ' + JSON.stringify(response) + '</p>';
+                    return true;
+                } else {
+                    results.innerHTML += '<p style="color: red;">❌ PING failed! Invalid response: ' + JSON.stringify(response) + '</p>';
+                    return false;
+                }
+            } catch (error) {
+                results.innerHTML += '<p style="color: red;">❌ PING failed with error: ' + error.message + '</p>';
+                return false;
+            }
+        }
+        
+        document.getElementById('testPing').addEventListener('click', testPingCommunication);
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testPingCommunication, 1000);
+        });
+    </script>
+</body>
+</html>
