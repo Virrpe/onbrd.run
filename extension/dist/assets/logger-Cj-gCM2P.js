@@ -1,1 +1,0 @@
-"use strict";function r(t){const e=(o,g)=>{const n=new Date().toISOString();return`[OA][${t}] ${o}: ${g} (${n})`};return{start:o=>{console.log(e("START",o))},ok:o=>{console.log(e("OK",o))},error:o=>{console.error(e("ERROR",o))}}}const c=r("POPUP"),s=r("BG"),a=r("CS");exports.backgroundLogger=s;exports.contentLogger=a;exports.popupLogger=c;

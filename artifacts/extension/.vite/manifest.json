@@ -1,38 +1,43 @@
 {
   "../../../../../../@crx/manifest": {
-    "file": "assets/crx-manifest.js-QKANKyCO.js",
+    "file": "assets/crx-manifest.js-CjNygpOs.js",
     "name": "crx-manifest.js",
     "src": "../../../../../../@crx/manifest",
     "isEntry": true
   },
+  "_logger-mdW3G7Ld.js": {
+    "file": "assets/logger-mdW3G7Ld.js",
+    "name": "logger"
+  },
   "src/background/index.ts": {
     "file": "service-worker.js",
-    "name": "src/background/index",
+    "name": "service-worker",
     "src": "src/background/index.ts",
-    "isEntry": true
-  },
-  "src/content/entry.ts": {
-    "file": "assets/content.js",
-    "name": "content",
-    "src": "src/content/entry.ts",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_logger-mdW3G7Ld.js"
+    ]
   },
   "src/popup/main.ts": {
-    "file": "assets/popup-DKQRjyH6.js",
+    "file": "assets/popup-BS5ROmA3.js",
     "name": "popup",
     "src": "src/popup/main.ts",
     "isEntry": true,
+    "imports": [
+      "_logger-mdW3G7Ld.js"
+    ],
     "css": [
       "assets/popup-Be5R5Ghx.css"
     ]
   },
   "src/popup/popup.html": {
-    "file": "assets/popup.html-DQI4nCEi.js",
+    "file": "assets/popup.html-CkurqMIo.js",
     "name": "popup.html",
     "src": "src/popup/popup.html",
     "isEntry": true,
     "imports": [
-      "src/popup/main.ts"
+      "src/popup/main.ts",
+      "_logger-mdW3G7Ld.js"
     ]
   }
 }

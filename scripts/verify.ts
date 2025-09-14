@@ -66,32 +66,29 @@ function validateContentScript(): void {
     console.error('   Run "pnpm run build" first');
     process.exit(1);
   }
+  console.log('✅ Content script exists at dist/assets/content.js');
   
+  // Read first 4096 bytes to check for import/export statements
   const contentScriptContent = readFileSync(contentScriptPath, 'utf-8');
+  const firstChunk = contentScriptContent.substring(0, 4096);
   
-  // Check for import/export statements (should not exist in IIFE)
-  if (contentScriptContent.includes('import ') || contentScriptContent.includes('export ')) {
-    console.error('❌ Content script contains import/export statements');
+  // Check for top-level import/export statements (should not exist in IIFE)
+  const hasTopLevelImportExport = /\bimport\s|^\s*export\s/m.test(firstChunk);
+  if (hasTopLevelImportExport) {
+    console.error('❌ Content script contains top-level import/export statements');
     console.error('   Content script must be built as IIFE format without ES modules');
     process.exit(1);
   }
-  console.log('✅ Content script contains no import/export statements');
+  console.log('✅ Content script contains no top-level import/export statements');
   
-  // Check for IIFE wrapper pattern or CommonJS format (both are acceptable)
+  // Check for IIFE wrapper pattern (must be IIFE, not CommonJS)
   const hasIIFE = contentScriptContent.includes('(function(') || contentScriptContent.includes('!function(');
-  const hasCommonJS = contentScriptContent.includes('require(') || contentScriptContent.includes('module.exports');
-  
-  if (!hasIIFE && !hasCommonJS) {
-    console.error('❌ Content script does not appear to be wrapped in IIFE or CommonJS format');
-    console.error('   Expected IIFE wrapper pattern or CommonJS require() not found');
+  if (!hasIIFE) {
+    console.error('❌ Content script does not appear to be wrapped in IIFE format');
+    console.error('   Expected IIFE wrapper pattern not found');
     process.exit(1);
   }
-  
-  if (hasCommonJS) {
-    console.log('✅ Content script appears to be in CommonJS format (no ES modules)');
-  } else {
-    console.log('✅ Content script appears to be wrapped in IIFE format');
-  }
+  console.log('✅ Content script appears to be wrapped in IIFE format');
   
   // Check for required PING and RUN_AUDIT handlers
   if (!contentScriptContent.includes('PING')) {

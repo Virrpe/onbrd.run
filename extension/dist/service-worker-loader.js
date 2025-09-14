@@ -1,1 +1,1 @@
-import './assets/content.js';
+import './service-worker.js';
