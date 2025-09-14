@@ -7,13 +7,23 @@
   let error = null;
   let lastAudit = null;
   let showReport = false;
+  let version = '';
   
   // 5 second timeout for audit
   const AUDIT_TIMEOUT = 5000;
   
   onMount(() => {
     // Initialize popup
-    logger.ok('OnboardingAudit.ai popup initialized');
+    logger.ok('Onbrd popup initialized');
+    
+    // Get version from manifest
+    try {
+      const manifest = chrome.runtime.getManifest();
+      version = manifest.version;
+    } catch (err) {
+      logger.error('Failed to get version from manifest:', err);
+      version = '1.0.0'; // fallback version
+    }
   });
   
   async function handleRunAudit() {
@@ -141,7 +151,10 @@
 </script>
 
 <main class="w-80 p-6 bg-white">
-  <h1 class="text-xl font-bold text-gray-800 mb-4">OnboardingAudit.ai</h1>
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-xl font-bold text-gray-800">Onbrd</h1>
+    <span class="text-xs text-gray-600">v{version}</span>
+  </div>
   
   <div class="space-y-3">
     <button

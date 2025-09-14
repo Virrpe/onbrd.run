@@ -1,4 +1,4 @@
-# 5-Minute Founder Script
+# Onbrd — 5-minute founder demo
 
 ## Minute 1: Install & Capture (60s)
 1. Open Chrome → Extensions → Load unpacked → select `extension/dist/`
