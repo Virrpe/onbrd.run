@@ -2,13 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  // for now, only run this tiny sanity test so the runner is stable
-  testMatch: ['hello.spec.ts'],
   reporter: 'list',
+  timeout: 60000,
+  retries: 0,
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], headless: true }
-    }
-  ]
+    { name: 'chromium', use: { ...devices['Desktop Chrome'], headless: false } },
+  ],
 });

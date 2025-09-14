@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { popupLogger as logger } from '../shared/logger';
+  import { renderReport } from '@onboarding-audit/report';
   
   let status = 'Ready to audit';
   let isLoading = false;
@@ -11,6 +12,16 @@
   
   // 5 second timeout for audit
   const AUDIT_TIMEOUT = 5000;
+
+  // Download helper function
+  function downloadHTML(filename, html) {
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 0);
+  }
   
   onMount(() => {
     // Initialize popup
@@ -81,6 +92,11 @@
     status = `Audit complete! Score: ${auditData.scores.overall}/100`;
     isLoading = false;
     showReport = true;
+    
+    // Make audit data available on window for testing
+    if (typeof window !== 'undefined') {
+      window.lastAudit = auditData;
+    }
   }
   
   function handleViewReport() {
@@ -124,20 +140,17 @@
     try {
       // Use the report package to generate HTML
       const reportHtml = generateReportHTML(lastAudit);
-      const blob = new Blob([reportHtml], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
       
-      // Extract hostname and format date
+      // Extract hostname and format date for filename
       const hostname = new URL(lastAudit.url).hostname.replace(/\./g, '-');
-      const dateStr = new Date(lastAudit.timestamp).toISOString().split('T')[0].replace(/-/g, '');
+      const dateStr = new Date(lastAudit.timestamp).toISOString().slice(0,16).replace(/[:T]/g,'');
       
-      // Create download link
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `onboarding-audit-${hostname}-${dateStr}.html`;
-      a.click();
+      // Generate filename
+      const filename = `onboarding-audit-${hostname}-${dateStr}.html`;
       
-      URL.revokeObjectURL(url);
+      // Download the HTML
+      downloadHTML(filename, reportHtml);
+      
       status = 'HTML report exported successfully';
     } catch (error) {
       status = `Error exporting HTML: ${error.message}`;
@@ -150,64 +163,51 @@
   }
 </script>
 
-<main class="w-80 p-6 bg-white">
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-xl font-bold text-gray-800">Onbrd</h1>
-    <span class="text-xs text-gray-600">v{version}</span>
-  </div>
+<div class="card">
+  <h1 class="text-base font-semibold mb-2">Onbrd</h1>
   
-  <div class="space-y-3">
+  {#if lastAudit}
+    <div class="mb-3 text-sm text-gray-600">
+      Score: {lastAudit.scores.overall}/100
+    </div>
+  {/if}
+  
+  <div class="space-y-2">
     <button
+      id="run"
       on:click={handleRunAudit}
       disabled={isLoading}
-      class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+      class="btn w-full"
     >
-      {#if isLoading}
-        <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-      {/if}
       {isLoading ? 'Running audit...' : 'Run Audit'}
     </button>
     
-    {#if showReport}
-      <button
-        on:click={handleViewReport}
-        class="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
-      >
-        View Report
-      </button>
-    {/if}
-    
     <button
-      on:click={handleExport}
-      disabled={!lastAudit}
-      class="w-full px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-    >
-      Export JSON
-    </button>
-    
-    <button
+      id="export"
       on:click={handleExportHTML}
       disabled={!lastAudit}
-      class="w-full px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      class="btn-secondary w-full"
     >
       Export HTML
     </button>
   </div>
   
   {#if error}
-    <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
-      <div class="text-sm text-red-800 font-medium mb-1">Error</div>
-      <div class="text-sm text-red-700">{error}</div>
+    <div class="mt-3 p-2 bg-red-50 border border-red-200 rounded-md text-sm text-red-700">
+      {error}
     </div>
   {/if}
   
-  <div class="mt-4 text-sm text-gray-600">
+  <div class="mt-3 text-xs text-gray-500">
     {status}
   </div>
-</main>
+  
+  {#if showReport}
+    <div class="mt-3 text-sm text-green-600">
+      Audit complete!
+    </div>
+  {/if}
+</div>
 
 <style>
   :global(body) {

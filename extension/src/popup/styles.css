@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root { --brand-teal: #0EA5A4; --ink-900: #0B1220; }
+.btn{ @apply inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium;
+      @apply bg-[--brand-teal] text-white hover:opacity-90 active:opacity-80; }
+.btn-secondary{ @apply px-3 py-2 rounded-xl text-sm font-medium bg-white text-[--ink-900] border border-gray-200 hover:bg-gray-50; }
+.card{ @apply p-4 rounded-2xl border border-gray-200 bg-white; }
+
 /* Custom popup styles */
 body {
   width: 320px;
