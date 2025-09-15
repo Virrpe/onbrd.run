@@ -1,0 +1,13 @@
+extension/**
+packages/**
+tests/**
+scripts/verify.ts
+docs/**
+artifacts/**
+tailwind.config.js
+postcss.config.js
+package.json
+pnpm-workspace.yaml
+tsconfig*.json
+.gitignore
+.ops/**

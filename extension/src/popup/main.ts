@@ -1,8 +1,7 @@
+import './styles.css';            // ← ensures Tailwind CSS is bundled
 import App from './App.svelte';
-import './styles.css';
 
-const app = new App({
-  target: document.body,
-});
+const target = document.getElementById('app');
+if (!target) throw new Error('Popup root #app missing');
 
-export default app;
+new App({ target });

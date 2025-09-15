@@ -2,10 +2,29 @@
 // Implements deterministic handshake pattern for reliable communication
 
 import { backgroundLogger as logger } from '../shared/logger';
+import { RULES_TIMEOUT_MS } from '../config';
+import { RULES_V11_FALLBACK } from '@onboarding-audit/core/rules/defaults';
 
 chrome.runtime.onInstalled.addListener(() => {
   logger.ok('OnboardingAudit.ai extension installed');
 });
+
+async function fetchRules() {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), RULES_TIMEOUT_MS);
+  try {
+    const url = `${(self as any).API_BASE_URL || ''}/api/v1/rules`;
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(id);
+    if (!res.ok) throw new Error('rules http ' + res.status);
+    const data = await res.json();
+    await chrome.storage.session.set({ onbrd_rules: data });
+  } catch {
+    await chrome.storage.session.set({ onbrd_rules: RULES_V11_FALLBACK });
+  }
+}
+
+self.addEventListener('activate', (e: any) => { e.waitUntil(fetchRules()); });
 
 // Message handler for deterministic handshake
 chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {

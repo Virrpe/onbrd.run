@@ -4,7 +4,7 @@ import manifest from './manifest.json'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { resolve } from 'path'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   root: __dirname,
   plugins: [
     svelte({
@@ -37,7 +37,7 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        'service-worker': 'src/background/index.ts',
+        'service-worker': 'src/service-worker.ts',
         popup: 'src/popup/main.ts'
         // content script is built separately
       },
@@ -53,5 +53,8 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
     }
-  }
-})
+  },
+  define: {
+    'import.meta.env.VITE_DEBUG_LOGS': JSON.stringify(mode !== 'production'),
+  },
+}))

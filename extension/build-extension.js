@@ -8,7 +8,7 @@ const __dirname = dirname(__filename)
 
 async function buildExtension() {
   try {
-    console.log('Building service worker with IIFE format...')
+    console.log('[OA] Building service worker with IIFE format...')
     
     // Build service worker with IIFE format (separately to avoid import statements)
     await build({
@@ -28,7 +28,7 @@ async function buildExtension() {
       }
     })
     
-    console.log('Building popup...')
+    console.log('[OA] Building popup...')
     
     // Build popup separately
     await build({
@@ -50,7 +50,7 @@ async function buildExtension() {
       }
     })
     
-    console.log('Service worker and popup built successfully!')
+    console.log('[OA] Service worker and popup built successfully!')
     
     // Ensure the assets directory exists
     const assetsDir = join(__dirname, 'dist', 'assets')
@@ -58,7 +58,7 @@ async function buildExtension() {
       mkdirSync(assetsDir, { recursive: true })
     }
     
-    console.log('Extension built successfully!')
+    console.log('[OA] Extension built successfully!')
     
   } catch (error) {
     console.error('Error building extension:', error)

@@ -1,0 +1,19 @@
+repoRootPolicy: git-tools
+allowedDirectory: /home/swirky/DevHub/repos
+dryRunDefault: true
+maxToolCallsPerMessage: 8
+mcp:
+  fileSystem: enabled
+  gitTools: enabled
+  sequentialThinking: enabled
+  knowledgeGraphMemory: enabled
+  context7: enabled
+  codegen: enabled
+  playwright: optional
+extensionInvariants:
+  manifestContentScripts: forbidden
+  serviceWorkerBuiltJS: required
+  contentScriptESM: forbidden
+testsPolicy:
+  browsers: ["chromium"]
+  forbidChromeURL: true

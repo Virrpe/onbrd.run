@@ -5,39 +5,28 @@
     "src": "../../../../../../@crx/manifest",
     "isEntry": true
   },
-  "_logger-mdW3G7Ld.js": {
-    "file": "assets/logger-mdW3G7Ld.js",
-    "name": "logger"
-  },
   "src/background/index.ts": {
     "file": "service-worker.js",
     "name": "service-worker",
     "src": "src/background/index.ts",
-    "isEntry": true,
-    "imports": [
-      "_logger-mdW3G7Ld.js"
-    ]
+    "isEntry": true
   },
   "src/popup/main.ts": {
-    "file": "assets/popup-BS5ROmA3.js",
+    "file": "assets/popup-Bjp5YvRP.js",
     "name": "popup",
     "src": "src/popup/main.ts",
     "isEntry": true,
-    "imports": [
-      "_logger-mdW3G7Ld.js"
-    ],
     "css": [
-      "assets/popup-Be5R5Ghx.css"
+      "assets/popup-Gw__-69p.css"
     ]
   },
   "src/popup/popup.html": {
-    "file": "assets/popup.html-CkurqMIo.js",
+    "file": "assets/popup.html-uIdmgFge.js",
     "name": "popup.html",
     "src": "src/popup/popup.html",
     "isEntry": true,
     "imports": [
-      "src/popup/main.ts",
-      "_logger-mdW3G7Ld.js"
+      "src/popup/main.ts"
     ]
   }
 }

@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info: { title: Onbrd API, version: 1.0.0 }
+paths:
+  /api/healthz:
+    get: { responses: { '200': { description: OK } } }
+  /api/v1/rules:
+    get:
+      responses:
+        '200':
+          description: Rules manifest
+  /api/v1/ingest:
+    post:
+      requestBody: { required: true }
+      responses:
+        '200': { description: Accepted with stats }
+  /api/v1/config:
+    get:
+      responses: { '200': { description: Flags } }
+  /api/admin/stats:
+    get:
+      security: [ { AdminHeader: [] } ]
+      responses: { '200': { description: Stats } }
+components:
+  securitySchemes:
+    AdminHeader:
+      type: apiKey
+      in: header
+      name: x-onbrd-admin

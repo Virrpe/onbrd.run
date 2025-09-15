@@ -1,10 +1,34 @@
 import { Audit } from '@core/types';
 
-export function renderReport(audit: Audit): string {
-  const { url, timestamp, scores, heuristics, recommendations } = audit;
+interface Rule {
+  id: string;
+  category: string;
+  weight: number;
+  description: string;
+  fix: string;
+  confidence?: "high" | "medium" | "low";
+}
+
+interface Benchmark {
+  percentile?: number;
+  median?: number;
+  count?: number;
+}
+
+export function renderReport(audit: Audit & {
+  rules?: Rule[];
+  benchmark?: Benchmark;
+  pageHost?: string;
+  createdAt?: string;
+}): string {
+  const { url, timestamp, scores, heuristics, recommendations, rules, benchmark, pageHost, createdAt } = audit;
   const version = '1.0.1';
-  const ts = new Date(timestamp).toISOString().slice(0,16).replace('T',' ');
-  const hostname = new URL(url).hostname;
+  const timeValue = timestamp || createdAt;
+  const ts = timeValue ? new Date(timeValue).toISOString().slice(0,16).replace('T',' ') : new Date().toISOString().slice(0,16).replace('T',' ');
+  const hostname = pageHost || (url ? new URL(url).hostname : 'unknown');
+  const bmLine = benchmark?.percentile != null
+    ? `Top ${benchmark.percentile}% of ${benchmark.count} peers (median ${benchmark.median})`
+    : `Benchmark unavailable (offline or consent off)`;
   
   return `<!DOCTYPE html>
 <html lang="en">
@@ -125,8 +149,9 @@ export function renderReport(audit: Audit): string {
   <div class="header">
     <h1>Onboarding Audit Report</h1>
     <p><strong>URL:</strong> ${url}</p>
-    <p><strong>Audit Date:</strong> ${new Date(timestamp).toLocaleString()}</p>
+    <p><strong>Audit Date:</strong> ${new Date(timestamp || createdAt || Date.now()).toLocaleString()}</p>
     <p><strong>Overall Score:</strong> <span class="score ${scores.overall >= 80 ? '' : scores.overall >= 60 ? 'score-medium' : 'score-bad'}">${scores.overall}/100</span></p>
+    <p><strong>Benchmark:</strong> ${bmLine}</p>
   </div>
 
   <h2>Heuristic Analysis</h2>
@@ -183,13 +208,16 @@ export function renderReport(audit: Audit): string {
   </table>
 
   <h2>Recommendations</h2>
-  ${recommendations.map(rec => `
+  ${recommendations.map(rec => {
+    const rule = rules?.find(r => r.id === rec.heuristic);
+    const confidenceTag = rule?.confidence && rule.confidence !== 'high' ? ` <em>(confidence: ${rule.confidence})</em>` : '';
+    return `
     <div class="recommendation priority-${rec.priority}">
-      <h4>${rec.heuristic} (${rec.priority} priority)</h4>
+      <h4>${rec.heuristic} (${rec.priority} priority)${confidenceTag}</h4>
       <p><strong>Issue:</strong> ${rec.description}</p>
       <p><strong>Fix:</strong> ${rec.fix}</p>
     </div>
-  `).join('')}
+  `}).join('')}
 
   <div class="copy-to-ticket">
     <h3>Copy to Ticket</h3>

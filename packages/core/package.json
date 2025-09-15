@@ -8,7 +8,12 @@
   "exports": {
     ".": "./src/index.ts",
     "./probes": "./src/probes.ts",
+    "./probes/lcp": "./src/probes/lcp.ts",
+    "./probes/a11yFocus": "./src/probes/a11yFocus.ts",
+    "./probes/mobileResponsive": "./src/probes/mobileResponsive.ts",
     "./scoring": "./src/scoring.ts",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./rules/types": "./src/rules/types.ts",
+    "./rules/defaults": "./src/rules/defaults.ts"
   }
 }

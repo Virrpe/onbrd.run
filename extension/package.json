@@ -9,11 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@onboarding-audit/report": "workspace:*"
+    "@onboarding-audit/core": "workspace:*",
+    "@onboarding-audit/report": "workspace:*",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.19",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@types/uuid": "^9.0.0",
     "svelte": "^4.2.7",
     "vite": "^5.0.0"
   }

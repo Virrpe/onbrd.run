@@ -5,13 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch api",
-    "build": "tsc"
+    "build": "tsc",
+    "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
-    "@onboarding-audit/core": "workspace:*"
+    "@onboarding-audit/core": "workspace:*",
+    "next": "^14.0.0",
+    "pg": "^8.11.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "zod": "^3.22.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.0",
     "tsx": "^4.6.0",
     "typescript": "^5.3.0"
   }

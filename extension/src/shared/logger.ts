@@ -3,6 +3,8 @@
  * Provides consistent logging across background, content, and popup scripts
  */
 
+import logger from '@core/logger';
+
 export type LogContext = 'POPUP' | 'BG' | 'CS';
 export type LogLevel = 'START' | 'OK' | 'ERROR';
 
@@ -20,18 +22,18 @@ export interface Logger {
 export function createLogger(context: LogContext): Logger {
   const formatMessage = (level: LogLevel, message: string): string => {
     const timestamp = new Date().toISOString();
-    return `[OA][${context}] ${level}: ${message} (${timestamp})`;
+    return `[${context}] ${level}: ${message} (${timestamp})`;
   };
 
   return {
     start: (message: string) => {
-      console.log(formatMessage('START', message));
+      logger.log(formatMessage('START', message));
     },
     ok: (message: string) => {
-      console.log(formatMessage('OK', message));
+      logger.log(formatMessage('OK', message));
     },
     error: (message: string) => {
-      console.error(formatMessage('ERROR', message));
+      logger.error(formatMessage('ERROR', message));
     }
   };
 }

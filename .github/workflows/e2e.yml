@@ -1,0 +1,39 @@
+name: E2E
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Install pnpm
+        run: npm install -g pnpm
+          
+      - name: Install dependencies
+        run: pnpm install
+          
+      - name: Build extension
+        run: pnpm -w run build
+          
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+          
+      - name: Run demo path test
+        run: pnpm -w exec playwright test tests/e2e/demo-path.spec.ts --project=chromium
+          
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

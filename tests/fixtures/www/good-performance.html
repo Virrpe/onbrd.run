@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Performance Test Page</title>
+    <style>
+        /* Mobile responsive styles */
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .cta-button { width: 100%; }
+        }
+        
+        @media (max-width: 400px) {
+            .hero { font-size: 1.2em; }
+        }
+        
+        /* Focus styles for accessibility */
+        button:focus, input:focus, a:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+        
+        /* Fast loading content */
+        .hero {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .cta-button {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Get Started in Minutes</h1>
+        <p>Join thousands of users who love our simple onboarding</p>
+        <button class="cta-button">Start Free Trial</button>
+    </div>
+    
+    <div class="container">
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li>✅ Easy 3-step setup</li>
+            <li>✅ Trusted by 10,000+ companies</li>
+            <li>✅ 24/7 customer support</li>
+        </ul>
+        
+        <form>
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Get Started</button>
+        </form>
+    </div>
+    
+    <script>
+        // Simulate fast loading
+        window.addEventListener('load', function() {
+            console.log('Page loaded quickly');
+        });
+    </script>
+</body>
+</html>

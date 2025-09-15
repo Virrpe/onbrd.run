@@ -25,7 +25,7 @@ async function buildContentScript() {
         }
       }
     })
-    console.log('Content script built successfully with IIFE format!')
+    console.log('[OA] Content script built successfully with IIFE format!')
   } catch (error) {
     console.error('Error building content script:', error)
     process.exit(1)

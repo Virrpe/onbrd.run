@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Missing viewport meta tag - will fail mobile responsive test -->
+    <title>Bad Performance Test Page</title>
+    <style>
+        /* No focus styles - will fail accessibility test */
+        button, input, a {
+            outline: none;
+        }
+        
+        /* No mobile responsive styles */
+        .container {
+            width: 1200px; /* Fixed width - bad for mobile */
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Slow loading content with large images */
+        .hero {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwMCIgaGVpZ2h0PSIxMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9IiNmZjAwMDAiLz48L3N2Zz4=');
+            background-size: cover;
+            padding: 2rem;
+            text-align: center;
+            min-height: 100vh;
+        }
+        
+        .cta-button {
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 2rem; /* Below the fold */
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Welcome to Our Service</h1>
+        <p>This is a test page with poor performance characteristics</p>
+        <!-- CTA is below the fold - will fail A-CTA-ABOVE-FOLD -->
+        <button class="cta-button">Sign Up Now</button>
+    </div>
+    
+    <div class="container">
+        <h2>Features</h2>
+        <ul>
+            <li>Complex setup process</li>
+            <li>Limited mobile support</li>
+            <li>Basic accessibility</li>
+        </ul>
+        
+        <!-- Form with too many fields - will fail AC-SIGNUP-FRICTION -->
+        <form>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="tel" placeholder="Phone" required>
+            <input type="text" placeholder="Company" required>
+            <input type="text" placeholder="Job Title" required>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+    
+    <script>
+        // Simulate slow loading
+        window.addEventListener('load', function() {
+            // Add artificial delay
+            setTimeout(function() {
+                console.log('Page loaded slowly');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

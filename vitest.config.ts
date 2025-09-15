@@ -6,6 +6,19 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
+    exclude: [
+      'tests/e2e/**',
+      'tests/puppeteer/**',
+      'tests/hello.spec.ts',
+      'node_modules/**',
+      'dist/**',
+      'backend/**',
+      '**/node_modules/**'
+    ],
+    include: [
+      'tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'extension/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
+    ]
   },
   resolve: {
     alias: {

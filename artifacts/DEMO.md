@@ -36,4 +36,4 @@
 ## What You Need
 - Chrome with extension loaded
 - Prospect's onboarding URL
-- 5 minutes of focused attention
+- 5 minutes of focused attention- 2025-09-15 08:52Z — 1.0.0 — b3dc06b
