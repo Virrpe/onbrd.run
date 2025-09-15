@@ -3,17 +3,29 @@ on:
   push:
     branches: [ main ]
   pull_request:
+
 jobs:
   build-verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm i -g pnpm
-      - run: pnpm -w install
-      - run: pnpm -w run build
-      - run: pnpm -w run verify
+
+      - name: Install pnpm
+        run: npm i -g pnpm
+
+      - name: Install deps
+        run: pnpm -w install
+
+      - name: Build
+        run: pnpm -w run build
+
+      - name: Verify invariants
+        run: pnpm -w run verify
