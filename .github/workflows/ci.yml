@@ -20,6 +20,16 @@ jobs:
       - name: Install pnpm
         run: npm i -g pnpm
 
+      - name: Debug environment
+        run: |
+          echo "=== Debug: Environment info ==="
+          node --version
+          npm --version
+          pnpm --version
+          echo "=== Debug: Working directory ==="
+          pwd
+          ls -la
+
       - name: Install deps
         run: pnpm -w install
 
