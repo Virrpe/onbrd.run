@@ -29,9 +29,10 @@ jobs:
       - name: Verify invariants
         run: pnpm -w run verify
 
-      - name: Install Playwright (browsers)
-        run: pnpm exec playwright install --with-deps
+      # Use official action to install browsers & OS deps
+      - name: Install Playwright (browsers & deps)
+        uses: microsoft/playwright-github-action@v1
 
-      # Minimal E2E: do NOT load MV3 extension; just assert artifacts/regex
+      # Minimal E2E: NO extension load, just artifact + regex checks
       - name: Playwright (minimal)
         run: pnpm exec playwright test tests/e2e/demo-path.spec.ts --project=chromium
