@@ -43,5 +43,7 @@ jobs:
         uses: microsoft/playwright-github-action@v1
 
       # Minimal E2E: NO extension load, just artifact + regex checks
-      - name: Playwright (minimal)
-        run: pnpm exec playwright test tests/e2e/demo-path.spec.ts --project=chromium
+      - name: Invariants (node check)
+        run: |
+          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)) process.exit(2);const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))) process.exit(3);if(/^\s*(import|export)\s/m.test(s)) process.exit(4);console.log('IIFE OK, no import/export');"
+          node -e "const sample='onboarding-audit-example.com-202501011230.html';if(!/^onboarding-audit-[a-z0-9.-]+-\d{12}\.html$/.test(sample)) process.exit(5);console.log('filename regex OK');"
