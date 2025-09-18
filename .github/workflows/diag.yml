@@ -1,0 +1,164 @@
+name: Diag
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  infra-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Enable corepack & install pnpm
+        run: |
+          corepack enable
+          npm i -g pnpm
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "PNPM version: $(pnpm -v)"
+
+      - name: Test Actions infrastructure
+        run: |
+          echo "=== Testing GitHub Actions Infrastructure ==="
+          
+          # Test 1: Basic file system operations
+          echo "Test 1: File system operations"
+          mkdir -p test-dir
+          echo "test content" > test-dir/test-file.txt
+          if [ ! -f "test-dir/test-file.txt" ]; then
+            echo "❌ File system write test failed"
+            exit 1
+          fi
+          content=$(cat test-dir/test-file.txt)
+          if [ "$content" != "test content" ]; then
+            echo "❌ File system read test failed"
+            exit 1
+          fi
+          rm -rf test-dir
+          echo "✅ File system operations working"
+          
+          # Test 2: Network connectivity
+          echo "Test 2: Network connectivity"
+          if ! curl -s -o /dev/null -w "%{http_code}" https://api.github.com | grep -q "200"; then
+            echo "❌ GitHub API connectivity test failed"
+            exit 1
+          fi
+          echo "✅ Network connectivity working"
+          
+          # Test 3: Node.js functionality
+          echo "Test 3: Node.js functionality"
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Test basic Node operations
+            const testDir = 'node-test-dir';
+            const testFile = path.join(testDir, 'test.json');
+            
+            fs.mkdirSync(testDir, { recursive: true });
+            fs.writeFileSync(testFile, JSON.stringify({ test: true, timestamp: Date.now() }));
+            
+            const data = JSON.parse(fs.readFileSync(testFile, 'utf8'));
+            if (!data.test) {
+              console.error('Node.js JSON operations failed');
+              process.exit(1);
+            }
+            
+            fs.rmSync(testDir, { recursive: true, force: true });
+            console.log('✅ Node.js functionality working');
+          "
+          
+          # Test 4: PNPM functionality
+          echo "Test 4: PNPM functionality"
+          pnpm --version
+          if [ $? -ne 0 ]; then
+            echo "❌ PNPM not working"
+            exit 1
+          fi
+          echo "✅ PNPM functionality working"
+          
+          # Test 5: Artifact upload capability (dry run)
+          echo "Test 5: Artifact upload test"
+          mkdir -p artifact-test
+          echo "artifact test content" > artifact-test/test.txt
+          echo "✅ Artifact directory prepared"
+          
+          echo "=== All infrastructure tests passed ==="
+
+      - name: Test workspace operations
+        run: |
+          echo "=== Testing Workspace Operations ==="
+          
+          # Test pnpm workspace functionality
+          echo "Testing pnpm workspace..."
+          pnpm --version
+          if [ -f "pnpm-workspace.yaml" ]; then
+            echo "✅ pnpm-workspace.yaml found"
+          else
+            echo "⚠️ pnpm-workspace.yaml not found"
+          fi
+          
+          # Test package.json parsing
+          node -e "
+            const fs = require('fs');
+            if (fs.existsSync('package.json')) {
+              const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+              console.log('✅ Root package.json valid');
+              console.log('  Name:', pkg.name);
+              console.log('  Version:', pkg.version);
+            } else {
+              console.log('⚠️ No package.json found');
+            }
+          "
+          
+          echo "=== Workspace operations completed ==="
+
+      - name: Upload diagnostic artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: diag-artifacts-${{ github.run_id }}
+          path: |
+            artifact-test/**
+          if-no-files-found: warn
+
+      - name: Generate health report
+        run: |
+          echo "=== GitHub Actions Health Report ===" > health-report.txt
+          echo "Run ID: ${{ github.run_id }}" >> health-report.txt
+          echo "Run Number: ${{ github.run_number }}" >> health-report.txt
+          echo "Repository: ${{ github.repository }}" >> health-report.txt
+          echo "Actor: ${{ github.actor }}" >> health-report.txt
+          echo "Triggered: ${{ github.event_name }}" >> health-report.txt
+          echo "" >> health-report.txt
+          echo "Environment Info:" >> health-report.txt
+          echo "  OS: $(uname -a)" >> health-report.txt
+          echo "  Node: $(node -v)" >> health-report.txt
+          echo "  NPM: $(npm -v)" >> health-report.txt
+          echo "  PNPM: $(pnpm -v)" >> health-report.txt
+          echo "" >> health-report.txt
+          echo "Status: ✅ All systems operational" >> health-report.txt
+          echo "" >> health-report.txt
+          echo "Timestamp: $(date -u)" >> health-report.txt
+          
+          cat health-report.txt
+
+      - name: Upload health report
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-report-${{ github.run_id }}
+          path: health-report.txt
+          if-no-files-found: error

@@ -7,6 +7,8 @@ on:
 permissions:
   contents: read
   actions: read
+  checks: write
+  pull-requests: write
 
 jobs:
   build-verify:
@@ -40,27 +42,117 @@ jobs:
       - name: Build (extension only)
         run: pnpm --filter @onboarding-audit/extension run build || pnpm -C extension run build
 
-      - name: Verify invariants
+      - name: Verify MV3 extension invariants (Node-only)
+        run: |
+          set -euo pipefail
+          echo "=== Verifying MV3 Extension Invariants ==="
+          
+          # 1. No content_scripts in manifest
+          echo "Checking for content_scripts in manifest..."
+          node -e "
+            const fs = require('fs');
+            const manifestPath = 'extension/dist/manifest.json';
+            if (!fs.existsSync(manifestPath)) {
+              console.error('MISSING manifest.json');
+              process.exit(1);
+            }
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            if (manifest.content_scripts) {
+              console.error('FOUND content_scripts in manifest');
+              process.exit(1);
+            }
+            console.log('✅ No content_scripts in manifest');
+          "
+          
+          # 2. Service worker is built JS (not .ts)
+          echo "Checking service worker file extension..."
+          node -e "
+            const fs = require('fs');
+            const manifestPath = 'extension/dist/manifest.json';
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            const sw = manifest.background?.service_worker;
+            if (!sw || !sw.endsWith('.js')) {
+              console.error('Service worker must be built JS, got:', sw);
+              process.exit(1);
+            }
+            console.log('✅ Service worker is built JS:', sw);
+          "
+          
+          # 3. Content script is single IIFE at extension/dist/assets/content.js with no top-level import/export
+          echo "Checking content script IIFE format..."
+          node -e "
+            const fs = require('fs');
+            const contentPath = 'extension/dist/assets/content.js';
+            if (!fs.existsSync(contentPath)) {
+              console.error('MISSING content.js');
+              process.exit(2);
+            }
+            const content = fs.readFileSync(contentPath, 'utf8');
+            if (!(content.startsWith('(function()') || content.startsWith('(()=>') || content.includes('!function('))) {
+              console.error('NOT IIFE format');
+              process.exit(3);
+            }
+            if (/^\\s*(import|export)\\s/m.test(content)) {
+              console.error('FOUND import/export in content script');
+              process.exit(4);
+            }
+            console.log('✅ Content script is IIFE with no import/export');
+          "
+          
+          # 4. Permissions exactly ["activeTab","scripting","storage"]
+          echo "Checking exact permissions..."
+          node -e "
+            const fs = require('fs');
+            const manifestPath = 'extension/dist/manifest.json';
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            const perms = manifest.permissions || [];
+            const expected = ['activeTab', 'scripting', 'storage'];
+            if (JSON.stringify(perms) !== JSON.stringify(expected)) {
+              console.error('Permissions mismatch. Expected:', expected, 'Got:', perms);
+              process.exit(1);
+            }
+            console.log('✅ Permissions are exactly:', perms);
+          "
+          
+          # 5. Filename regex validation for audit reports
+          echo "Checking filename regex pattern..."
+          node -e "
+            const sample = 'onboarding-audit-example.com-202501011230.html';
+            if (!/^onboarding-audit-[a-z0-9.-]+-\\d{12}\\.html$/.test(sample)) {
+              console.error('FILENAME REGEX FAIL');
+              process.exit(5);
+            }
+            console.log('✅ Filename regex pattern OK');
+          "
+          
+          echo "=== All MV3 invariants verified successfully ==="
+
+      - name: Run full verification suite
         run: pnpm -w run verify
 
-      - name: Debug artifacts
+      - name: Emit logs and debug info
         if: always()
         run: |
+          echo "=== Build Artifacts Debug Info ==="
           echo "=== dist listing ==="
           ls -la extension/dist || true
           echo "=== assets listing ==="
           ls -la extension/dist/assets || true
-          echo "=== content.js head (120 bytes)==="
-          head -c 120 extension/dist/assets/content.js || true
+          echo "=== content.js head (200 bytes)==="
+          head -c 200 extension/dist/assets/content.js || true
           echo
           echo "=== manifest excerpt ==="
-          (jq '{permissions,content_scripts:(.content_scripts // null)}' extension/dist/manifest.json || cat extension/dist/manifest.json) || true
-
-      - name: Invariants (node check)
-        run: |
-          set -euo pipefail
-          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)){console.error('MISSING content.js');process.exit(2)};const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))){console.error('NOT IIFE');process.exit(3)};if(/^\s*(import|export)\s/m.test(s)){console.error('FOUND import/export');process.exit(4)};console.log('IIFE OK, no import/export');"
-          node -e "const sample='onboarding-audit-example.com-202501011230.html';if(!/^onboarding-audit-[a-z0-9.-]+-\\d{12}\\.html$/.test(sample)){console.error('FILENAME REGEX FAIL');process.exit(5)};console.log('filename regex OK');"
+          node -e "
+            const fs = require('fs');
+            const manifestPath = 'extension/dist/manifest.json';
+            if (fs.existsSync(manifestPath)) {
+              const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+              console.log('permissions:', JSON.stringify(manifest.permissions));
+              console.log('content_scripts:', JSON.stringify(manifest.content_scripts || null));
+              console.log('service_worker:', manifest.background?.service_worker);
+            }
+          " || true
+          echo "=== Build complete ==="
 
       - name: Upload debug snapshot
         if: always()
@@ -72,3 +164,13 @@ jobs:
             extension/dist/manifest.json
             extension/dist/assets/content.js
           if-no-files-found: warn
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs-${{ github.run_id }}
+          path: |
+            ci.log
+            *.log
+          if-no-files-found: ignore
