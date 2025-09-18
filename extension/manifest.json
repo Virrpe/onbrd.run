@@ -1,12 +1,18 @@
 {
   "manifest_version": 3,
   "name": "Onbrd",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_title": "Onbrd"
   },
   "permissions": ["activeTab","scripting","storage"],
-  "background": { "service_worker": "service-worker.js" },
-  "icons": { "16":"icons/16.png","48":"icons/48.png","128":"icons/128.png" }
+  "background": { "service_worker": "service-worker-loader.js" },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/content.js", "assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": { "16":"icons/icon16.png","48":"icons/icon48.png","128":"icons/icon128.png" }
 }

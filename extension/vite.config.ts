@@ -37,18 +37,14 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        'service-worker': 'src/service-worker.ts',
-        popup: 'src/popup/main.ts'
-        // content script is built separately
+        popup: resolve(__dirname, 'src/popup/main.ts')
+        // content script is built separately in vite.content.config.ts
+        // service worker is handled by CRXJS via manifest
       },
       output: {
         format: 'es',
         inlineDynamicImports: false,
-        entryFileNames: (chunk) => {
-          // Map the background script to service-worker.js
-          if (chunk.name === 'service-worker') return 'service-worker.js';
-          return 'assets/[name]-[hash].js';
-        },
+        entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]'
       }

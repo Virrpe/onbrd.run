@@ -3,6 +3,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   root: __dirname,
+  publicDir: 'public',
   build: {
     outDir: 'dist',
     emptyOutDir: false,   // DON'T wipe dist; CRX build runs first

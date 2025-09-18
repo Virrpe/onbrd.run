@@ -417,3 +417,121 @@ function main(): void {
 }
 
 main();
+
+// --- Onbrd verify guards (append) ---
+import fs from "fs";
+import path from "path";
+
+(function verifyOnbrd() {
+  const manifestPath = "extension/manifest.json";
+  if (!fs.existsSync(manifestPath)) {
+    console.error("[VERIFY] missing manifest at", manifestPath);
+    process.exit(1);
+  }
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+
+  // 1) No content_scripts
+  if (manifest.content_scripts) {
+    console.error("[VERIFY] content_scripts present (must use programmatic injection)");
+    process.exit(1);
+  }
+
+  // 2) SW must be built JS
+  const sw = manifest.background?.service_worker;
+  if (!sw || !sw.endsWith(".js")) {
+    console.error("[VERIFY] SW must be built JS, got:", sw);
+    process.exit(1);
+  }
+
+  // 3) Popup HTML exists
+  const popup = manifest.action?.default_popup;
+  if (!popup || !fs.existsSync(path.join("extension", popup))) {
+    console.error("[VERIFY] popup path missing:", popup);
+    process.exit(1);
+  }
+
+  // 4) Built content script exists and is IIFE (no top-level import/export)
+  const contentPath = "extension/dist/assets/content.js";
+  if (!fs.existsSync(contentPath)) {
+    console.error("[VERIFY] missing IIFE content:", contentPath);
+    process.exit(1);
+  }
+  const content = fs.readFileSync(contentPath, "utf8");
+  if (/^\s*import\s/m.test(content) || /^\s*export\s/m.test(content)) {
+    console.error("[VERIFY] content.js must be IIFE (no top-level import/export)");
+    process.exit(1);
+  }
+
+  // 5) Popup main imports styles.css (Tailwind wiring)
+  const mainTsPath = "extension/src/popup/main.ts";
+  if (!fs.existsSync(mainTsPath)) {
+    console.error("[VERIFY] popup main.ts missing at", mainTsPath);
+    process.exit(1);
+  }
+  const mainTs = fs.readFileSync(mainTsPath, "utf8");
+  if (!mainTs.includes("./styles.css") && !mainTs.includes("'./styles.css'") && !mainTs.includes('"./styles.css"')) {
+    console.error("[VERIFY] popup main.ts missing styles.css import");
+    process.exit(1);
+  }
+
+  console.log("[VERIFY] All guards passed");
+})();
+
+// --- Popup verification guards (append) ---
+(function verifyPopup() {
+  const manifest = JSON.parse(fs.readFileSync("extension/manifest.json","utf8"));
+
+  // Permissions exact
+  const perms = manifest.permissions || [];
+  const expected = ["activeTab","scripting","storage"];
+  if (JSON.stringify(perms) !== JSON.stringify(expected)) {
+    console.error("[VERIFY] permissions drift:", perms); process.exit(1);
+  }
+  if ("host_permissions" in manifest) {
+    console.error("[VERIFY] host_permissions not allowed"); process.exit(1);
+  }
+
+  // background SW is JS
+  const sw = manifest.background?.service_worker;
+  if (!sw || !sw.endsWith(".js")) {
+    console.error("[VERIFY] SW must be built JS, got:", sw); process.exit(1);
+  }
+
+  // popup path exists
+  const popup = manifest.action?.default_popup;
+  if (!popup || !fs.existsSync(path.join("extension", popup))) {
+    console.error("[VERIFY] popup path missing:", popup); process.exit(1);
+  }
+
+  // single source of truth: only one App.svelte under popup
+  const candidates: string[] = [];
+  const root = "extension/src";
+  function walk(dir: string) {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.isFile() && e.name === "App.svelte" && p.includes("/popup/")) candidates.push(p);
+    }
+  }
+  if (fs.existsSync(root)) walk(root);
+  const unique = [...new Set(candidates)];
+  if (unique.length !== 1) {
+    console.error("[VERIFY] expected exactly 1 popup App.svelte, found:", unique);
+    process.exit(1);
+  }
+
+  // Tailwind wiring: styles.css import in main.ts
+  const mainTsPath = "extension/src/popup/main.ts";
+  const mainTs = fs.readFileSync(mainTsPath, "utf8");
+  if (!/['"]\.\/styles\.css['"]/.test(mainTs)) {
+    console.error("[VERIFY] popup main.ts missing styles.css import"); process.exit(1);
+  }
+
+  // Built content IIFE
+  const contentPath = "extension/dist/assets/content.js";
+  if (!fs.existsSync(contentPath)) { console.error("[VERIFY] missing IIFE:", contentPath); process.exit(1); }
+  const txt = fs.readFileSync(contentPath, "utf8");
+  if (/^\s*(import|export)\s/m.test(txt)) { console.error("[VERIFY] content.js must be IIFE"); process.exit(1); }
+
+  console.log("[VERIFY] Popup & invariants OK");
+})();

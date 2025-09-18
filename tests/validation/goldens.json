@@ -1,0 +1,8 @@
+{
+  "A-CTA-ABOVE-FOLD.pass.html": { "expectPass": ["A-CTA-ABOVE-FOLD"], "expectFail": [] },
+  "A-CTA-ABOVE-FOLD.fail.html": { "expectPass": [], "expectFail": ["A-CTA-ABOVE-FOLD"] },
+  "F-ACCESSIBILITY-FOCUS.pass.html": { "expectPass": ["F-ACCESSIBILITY-FOCUS"], "expectFail": [] },
+  "F-ACCESSIBILITY-FOCUS.fail.html": { "expectPass": [], "expectFail": ["F-ACCESSIBILITY-FOCUS"] },
+  "F-MOBILE-RESPONSIVE.pass.html": { "expectPass": ["F-MOBILE-RESPONSIVE"], "expectFail": [] },
+  "F-MOBILE-RESPONSIVE.fail.html": { "expectPass": [], "expectFail": ["F-MOBILE-RESPONSIVE"] }
+}

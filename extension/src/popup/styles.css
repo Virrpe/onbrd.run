@@ -17,3 +17,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Small chips for metadata tags */
+.tag {
+  @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700;
+}
+
+.tag.alt {
+  @apply bg-teal-100 text-teal-800;
+}

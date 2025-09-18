@@ -1,6 +1,6 @@
 module.exports = {
   content: [
-    "./extension/src/**/*.{svelte,ts,js}",
+    "./extension/src/**/*.{html,svelte,ts,js}",
     "./packages/*/src/**/*.{ts,js,svelte}",
     "./extension/dist/**/*.{html,js,css}"
   ],

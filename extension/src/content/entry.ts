@@ -3,6 +3,8 @@
 // and injected programmatically by the background script
 
 import { performAudit } from '@core/probes';
+import { probeA11yFocus } from '@core/probes/a11yFocus';
+import { probeMobileResponsive } from '@core/probes/mobileResponsive';
 import { contentLogger as logger } from '../shared/logger';
 
 // Extend Window interface for our custom properties
@@ -73,9 +75,13 @@ async function runAuditWithNetworkIdle(sendResponse: (response: any) => void) {
   try {
     logger.start('Starting audit with network idle detection...');
     
-    // Wait for network idle or timeout
-    await waitForNetworkIdle(1500);
-    logger.ok('Network idle detected or timeout reached, proceeding with audit');
+    // Wait for network idle or timeout, but skip if in validation mode
+    if (!(window as any).__OA_VALIDATION_MODE__) {
+      await waitForNetworkIdle(1500);
+      logger.ok('Network idle detected or timeout reached, proceeding with audit');
+    } else {
+      logger.ok('Validation mode - skipping network idle wait');
+    }
     
     // Perform the audit
     const audit = performAudit();
@@ -149,4 +155,52 @@ if (window.__onboardingAuditInjected) {
       logger.ok('Page became visible, ready for audit');
     }
   });
+
+  // Expose a global function for validation mode to run audit directly
+  (window as any).__OA_RUN_AUDIT = async () => {
+    try {
+      const audit = await performAudit();
+      const enhancedAudit = {
+        ...audit,
+        metadata: {
+          user_agent: navigator.userAgent,
+          viewport: `${window.innerWidth}x${window.innerHeight}`,
+          extension_version: '1.0.0',
+          network_idle: false, // Skip network idle in validation
+          spa_support: true
+        }
+      };
+      
+      // Add rules for validation based on heuristics and probes
+      const rules = [
+        {
+          id: "A-CTA-ABOVE-FOLD",
+          passed: audit.heuristics.h_cta_above_fold.detected,
+          weight: 0.25,
+          category: "above_fold"
+        },
+        {
+          id: "F-ACCESSIBILITY-FOCUS",
+          passed: probeA11yFocus(document).passed,
+          weight: 0.2,
+          category: "accessibility",
+          meta: probeA11yFocus(document)
+        },
+        {
+          id: "F-MOBILE-RESPONSIVE",
+          passed: probeMobileResponsive(),
+          weight: 0.2,
+          category: "mobile"
+        }
+      ];
+      
+      // Add rules to audit object for validation
+      (enhancedAudit as any).rules = rules;
+      
+      return { ok: true, data: enhancedAudit };
+    } catch (error) {
+      logger.error(`Audit failed in validation mode: ${error instanceof Error ? error.message : String(error)}`);
+      return { ok: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    }
+  };
 }

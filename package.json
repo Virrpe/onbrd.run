@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "dev": "pnpm run --filter extension dev",
-    "build": "pnpm run --filter extension build",
+    "build": "pnpm --filter @onboarding-audit/extension run build || pnpm -C extension run build",
     "test": "vitest",
     "test:unit": "vitest -w=false",
     "test:fixtures": "tsx tests/puppeteer/fixtures.spec.ts",
@@ -21,7 +21,11 @@
     "format": "prettier --write .",
     "pack": "tsx scripts/pack.ts",
     "verify": "tsx scripts/verify.ts",
-    "type-check": "tsc --noEmit"
+    "validate:batch": "tsx tests/validation/run-batch.ts",
+    "validate:summarize": "tsx tests/validation/summarize.ts",
+    "validate:all": "pnpm -w run build && pnpm -w run validate:batch && pnpm -w run validate:summarize",
+    "type-check": "tsc --noEmit",
+    "release": "pnpm -w run build && pnpm -w run validate:all && pnpm -w run pack"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.19",

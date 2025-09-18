@@ -105,6 +105,20 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
     
     return true; // Keep channel open for async response
   }
+
+  // ONBRD_RUN_AUDIT handler - perform audit and return result directly
+  if (request.type === 'ONBRD_RUN_AUDIT') {
+    (async () => {
+      try {
+        const result = await runAudit();
+        sendResponse(result || { error: "No audit result" });
+      } catch (e) {
+        console.error("[CS] RUN_AUDIT error", e);
+        sendResponse({ error: (e as Error).message });
+      }
+    })();
+    return true; // Keep channel open for async response
+  }
   
   // Unknown message type
   console.error(`[Onbrd] Unknown message type: ${request.type}`);

@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -24,8 +23,15 @@ jobs:
       - name: Install deps
         run: pnpm -w install
 
-      - name: Build
+      - name: Build (extension only)
         run: pnpm -w run build
 
       - name: Verify invariants
         run: pnpm -w run verify
+
+      - name: Install Playwright (browsers)
+        run: pnpm exec playwright install --with-deps
+
+      # Minimal E2E: do NOT load MV3 extension; just assert artifacts/regex
+      - name: Playwright (minimal)
+        run: pnpm exec playwright test tests/e2e/demo-path.spec.ts --project=chromium

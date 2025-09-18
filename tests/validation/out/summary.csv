@@ -1,0 +1,5 @@
+rule_id,seen,pass_rate
+A-CTA-ABOVE-FOLD,6,0.833
+F-ACCESSIBILITY-FOCUS,6,0.167
+F-MOBILE-RESPONSIVE,6,0.167
+golden_cases,6,1.000

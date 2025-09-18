@@ -1,1 +1,0 @@
-function e(t){const r=(o,n)=>{const s=new Date().toISOString();return`[OA][${t}] ${o}: ${n} (${s})`};return{start:o=>{console.log(r("START",o))},ok:o=>{console.log(r("OK",o))},error:o=>{console.error(r("ERROR",o))}}}const g=e("POPUP"),c=e("BG");export{c as b,g as p};
