@@ -20,13 +20,11 @@ jobs:
       - name: Install pnpm
         run: npm i -g pnpm
 
-      - name: Debug environment
+      - name: Env debug (versions)
         run: |
-          echo "=== Debug: Environment info ==="
-          node --version
-          npm --version
-          pnpm --version
-          echo "=== Debug: Working directory ==="
+          node -v
+          npm -v
+          pnpm -v
           pwd
           ls -la
 
@@ -36,24 +34,16 @@ jobs:
       - name: Build (extension only)
         run: pnpm -w run build
 
-      - name: Debug artifacts
-        run: |
-          echo "=== Debug: Checking build artifacts ==="
-          ls -la extension/dist/assets || true
-          echo "=== Debug: Content.js first 60 chars ==="
-          head -c 60 extension/dist/assets/content.js || true
-          echo "=== Debug: Checking for import/export ==="
-          grep -E "^\s*(import|export)\s" extension/dist/assets/content.js || echo "No import/export found (good)"
-
       - name: Verify invariants
         run: pnpm -w run verify
 
-      # Use official action to install browsers & OS deps
-      - name: Install Playwright (browsers & deps)
-        uses: microsoft/playwright-github-action@v1
+      - name: Debug artifacts
+        run: |
+          ls -la extension/dist/assets || true
+          head -c 60 extension/dist/assets/content.js || true
 
-      # Minimal E2E: NO extension load, just artifact + regex checks
+      # Node-based invariant check (no browser launch)
       - name: Invariants (node check)
         run: |
-          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)) process.exit(2);const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))) process.exit(3);if(/^\s*(import|export)\s/m.test(s)) process.exit(4);console.log('IIFE OK, no import/export');"
-          node -e "const sample='onboarding-audit-example.com-202501011230.html';if(!/^onboarding-audit-[a-z0-9.-]+-\d{12}\.html$/.test(sample)) process.exit(5);console.log('filename regex OK');"
+          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)){console.error('MISSING content.js');process.exit(2)};const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))){console.error('NOT IIFE');process.exit(3)};if(/^[\\s\\S]*^\\s*(import|export)\\s/m.test(s)){console.error('FOUND import/export');process.exit(4)};console.log('IIFE OK, no import/export');"
+          node -e "const sample='onboarding-audit-example.com-202501011230.html';if(!/^onboarding-audit-[a-z0-9.-]+-\\d{12}\\.html$/.test(sample)){console.error('FILENAME REGEX FAIL');process.exit(5)};console.log('filename regex OK');"
