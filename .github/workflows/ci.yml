@@ -26,6 +26,15 @@ jobs:
       - name: Build (extension only)
         run: pnpm -w run build
 
+      - name: Debug artifacts
+        run: |
+          echo "=== Debug: Checking build artifacts ==="
+          ls -la extension/dist/assets || true
+          echo "=== Debug: Content.js first 60 chars ==="
+          head -c 60 extension/dist/assets/content.js || true
+          echo "=== Debug: Checking for import/export ==="
+          grep -E "^\s*(import|export)\s" extension/dist/assets/content.js || echo "No import/export found (good)"
+
       - name: Verify invariants
         run: pnpm -w run verify
 
