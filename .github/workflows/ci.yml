@@ -4,24 +4,31 @@ on:
     branches: [ main ]
   pull_request:
 
+# ensure the job can read repo and actions metadata
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   build-verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: npm i -g pnpm
-
-      - name: Env debug (versions)
+      - name: Enable corepack & install pnpm
         run: |
+          corepack enable
+          npm i -g pnpm
           node -v
           npm -v
           pnpm -v
@@ -32,18 +39,37 @@ jobs:
         run: pnpm -w install
 
       - name: Build (extension only)
-        run: pnpm -w run build
+        run: pnpm --filter @onboarding-audit/extension run build || pnpm -C extension run build
 
       - name: Verify invariants
         run: pnpm -w run verify
 
       - name: Debug artifacts
+        if: always()
         run: |
+          echo "=== dist listing ==="
+          ls -la extension/dist || true
+          echo "=== assets listing ==="
           ls -la extension/dist/assets || true
-          head -c 60 extension/dist/assets/content.js || true
+          echo "=== content.js head (120 bytes)==="
+          head -c 120 extension/dist/assets/content.js || true
+          echo
+          echo "=== manifest excerpt ==="
+          (jq '{permissions,content_scripts:(.content_scripts // null)}' extension/dist/manifest.json || cat extension/dist/manifest.json) || true
 
-      # Node-based invariant check (no browser launch)
       - name: Invariants (node check)
         run: |
-          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)){console.error('MISSING content.js');process.exit(2)};const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))){console.error('NOT IIFE');process.exit(3)};if(/^[\\s\\S]*^\\s*(import|export)\\s/m.test(s)){console.error('FOUND import/export');process.exit(4)};console.log('IIFE OK, no import/export');"
+          set -euxo pipefail
+          node -e "const fs=require('fs');const p='extension/dist/assets/content.js';if(!fs.existsSync(p)){console.error('MISSING content.js');process.exit(2)};const s=fs.readFileSync(p,'utf8');if(!(s.startsWith('(function()')||s.startsWith('(()=>'))){console.error('NOT IIFE');process.exit(3)};if(/^\s*(import|export)\s/m.test(s)){console.error('FOUND import/export');process.exit(4)};console.log('IIFE OK, no import/export');"
           node -e "const sample='onboarding-audit-example.com-202501011230.html';if(!/^onboarding-audit-[a-z0-9.-]+-\\d{12}\\.html$/.test(sample)){console.error('FILENAME REGEX FAIL');process.exit(5)};console.log('filename regex OK');"
+
+      - name: Upload debug snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-debug-${{ github.run_id }}
+          path: |
+            extension/dist/**
+            extension/dist/manifest.json
+            extension/dist/assets/content.js
+          if-no-files-found: warn
