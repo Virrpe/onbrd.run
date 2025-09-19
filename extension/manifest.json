@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Onbrd",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_title": "Onbrd"
