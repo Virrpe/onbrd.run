@@ -1,27 +1,58 @@
 name: Release
 on:
   push:
-    tags: ['v*']
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: read
+
 jobs:
-  release:
+  build-pack-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - name: Install pnpm
-        run: npm i -g pnpm
+      - name: Checkout (fetch tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
       - name: Install deps
         run: pnpm -w install
-      - name: Build
-        run: pnpm -w run build
-      - name: Verify
+
+      - name: Build extension (no workspace filter flake)
+        run: pnpm --filter @onboarding-audit/extension run build || pnpm -C extension run build
+
+      - name: Verify invariants
         run: pnpm -w run verify
+
       - name: Pack
         run: pnpm -w run pack
-      - name: Upload artifact
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: onbrd-extension
+          name: onbrd-extension-${{ github.ref_name }}
           path: artifacts/onboarding-audit-extension.zip
+          if-no-files-found: error
+
+      - name: Create GitHub Release + attach ZIP
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Onbrd ${{ github.ref_name }}"
+          body: "MVP build ${{ github.ref_name }} with MV3 invariants, API benchmarks, and HTML export."
+          files: artifacts/onboarding-audit-extension.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
