@@ -25,7 +25,8 @@
     "validate:summarize": "tsx tests/validation/summarize.ts",
     "validate:all": "pnpm -w run build && pnpm -w run validate:batch && pnpm -w run validate:summarize",
     "type-check": "tsc --noEmit",
-    "release": "pnpm -w run build && pnpm -w run validate:all && pnpm -w run pack"
+    "release": "pnpm -w run build && pnpm -w run validate:all && pnpm -w run pack",
+    "lhci": "lhci autorun --config=lighthouserc.json"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.19",

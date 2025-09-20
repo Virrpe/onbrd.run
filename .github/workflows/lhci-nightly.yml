@@ -1,0 +1,50 @@
+name: lhci-nightly
+on:
+  schedule:
+    - cron: "17 2 * * *"   # 02:17 UTC nightly
+  workflow_dispatch:
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install LHCI
+        run: npm i -g @lhci/cli@0.13.x
+
+      - name: Install Chromium
+        run: sudo apt-get update && sudo apt-get install -y chromium-browser || sudo snap install chromium
+
+      - name: Run Lighthouse
+        run: |
+          CHROME="$(command -v chromium || command -v /snap/bin/chromium || command -v chromium-browser)"
+          echo "Using Chrome: $CHROME"
+          cat > lighthouserc.json <<JSON
+          {
+            "ci": {
+              "collect": {
+                "url": [
+                  "https://virrpe.github.io/onbrd.run/",
+                  "https://virrpe.github.io/onbrd.run/demo/"
+                ],
+                "numberOfRuns": 1,
+                "chromePath": "$CHROME",
+                "settings": { "preset": "desktop" }
+              },
+              "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
+            }
+          }
+          JSON
+          lhci autorun --config=lighthouserc.json
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lhci-reports
+          path: .lighthouseci/*
