@@ -6,30 +6,32 @@
   <title>Onbrd — Score Your Onboarding in 60 Seconds</title>
   <meta name="description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.">
   <link rel="canonical" href="https://onbrd.run">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png">
-  <link rel="manifest" href="./site.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=%BUILD_ID%">
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=%BUILD_ID%">
+  <link rel="manifest" href="./site.webmanifest?v=%BUILD_ID%">
   
   <!-- Open Graph -->
   <meta property="og:title" content="Onbrd — Score Your Onboarding in 60 Seconds">
   <meta property="og:description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report.">
-  <meta property="og:image" content="/og/og-onbrd.png">
+  <meta property="og:image" content="./assets/logo/bird-1024.png?v=%BUILD_ID%">
   <meta property="og:type" content="website">
   
   <!-- Performance optimizations -->
-  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/geist/GeistVariable.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/satoshi/Satoshi-Variable.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/satoshi/Satoshi-Variable.woff2?v=%BUILD_ID%" crossorigin>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Custom fonts -->
-  <link rel="stylesheet" href="./styles.css">
+  <!-- Brand tokens -->
+  <link rel="stylesheet" href="./tokens.css?v=%BUILD_ID%">
+  <!-- Site styles -->
+  <link rel="stylesheet" href="./styles.css?v=%BUILD_ID%">
   
   <style>
     /* Custom focus styles for accessibility */
     *:focus-visible {
-      outline: 2px solid #2563eb;
+      outline: 2px solid var(--brand-500);
       outline-offset: 2px;
     }
     
@@ -45,7 +47,7 @@
     
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 8px 24px rgba(14, 165, 164, 0.25);
     }
     
     /* Trust badge animations */
@@ -56,6 +58,13 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .trust-badge { animation: none !important; }
+      .btn-primary:hover { transform: none; box-shadow: none; }
     }
     
     /* Mobile responsive adjustments */
@@ -70,7 +79,7 @@
 <body class="bg-gray-50 text-gray-900">
   <!-- Header -->
   <header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
-    <img src="./assets/logo/bird-128.png" width="24" height="24" alt="Onbrd">
+    <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" width="24" height="24" alt="Onbrd">
     <div class="brand" style="font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
   </header>
   
@@ -466,7 +475,7 @@
       <div class="grid md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-2 mb-4">
-            <img src="../assets/brand/onbrd-favicon.svg" alt="Onbrd" class="h-6 w-6">
+            <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" alt="Onbrd" class="h-6 w-6">
             <span class="text-lg font-bold">Onbrd</span>
           </div>
           <p class="text-gray-400">
@@ -507,5 +516,6 @@
       </div>
     </div>
   </footer>
+  <!-- build: %GIT_SHA% @ %ISO_TIME% -->
 </body>
 </html>

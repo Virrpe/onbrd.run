@@ -23,6 +23,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Inject build metadata and cache-bust
+        run: |
+          set -euo pipefail
+          BUILD_ID="$(git rev-parse --short HEAD)"
+          GIT_SHA="$(git rev-parse HEAD)"
+          ISO_TIME="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          export BUILD_ID GIT_SHA ISO_TIME
+          for f in site/index.html site/tokens.css site/styles.css site/site.webmanifest; do
+            if [ -f "$f" ]; then
+              sed -i \
+                -e "s|%BUILD_ID%|$BUILD_ID|g" \
+                -e "s|%GIT_SHA%|$GIT_SHA|g" \
+                -e "s|%ISO_TIME%|$ISO_TIME|g" \
+                "$f"
+            fi
+          done
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
