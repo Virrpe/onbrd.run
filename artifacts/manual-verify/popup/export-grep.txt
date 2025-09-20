@@ -1,0 +1,3 @@
+46:  async function exportHtml() {
+52:      id: 'popup-export-' + Date.now(),
+125:    <button class="px-3 rounded-xl border" on:click={exportHtml}>Export HTML</button>

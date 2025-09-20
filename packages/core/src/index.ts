@@ -1,5 +1,6 @@
 // Core exports for OnboardingAudit.ai
 export * from './types';
+export * from './types/api';
 export * from './probes';
 export * from './scoring';
 export * from './rules/types';

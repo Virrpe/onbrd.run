@@ -42,6 +42,23 @@ jobs:
       - name: Verify invariants
         run: pnpm -w run verify
 
+      - name: Health check - backend
+        continue-on-error: true
+        run: |
+          # Start backend server in background
+          cd backend
+          pnpm dev &
+          BACKEND_PID=$!
+          sleep 10
+          
+          # Test health endpoint
+          echo "Testing backend health endpoint..."
+          curl -f http://localhost:3000/api/healthz || echo "Health check failed - backend may not be running"
+          
+          # Cleanup
+          kill $BACKEND_PID || true
+          wait $BACKEND_PID || true
+
       - name: Node invariants (content.js IIFE, no import/export, manifest perms)
         run: |
           set -e

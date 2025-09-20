@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 export const revalidate = 3600; // cache on edge proxies
 
 // add manifest integrity check on boot (unique IDs, weights sum ≈ 1)
@@ -30,6 +32,18 @@ function validateManifest(manifest: any): { valid: boolean; errors: string[] } {
   }
   
   return { valid: errors.length === 0, errors };
+}
+
+// Generate stable hash for ETag
+function generateETag(data: any): string {
+  return crypto.createHash('md5').update(JSON.stringify(data)).digest('hex');
+}
+
+// Calculate expires_at (5 minutes from now)
+function getExpiresAt(): string {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 5);
+  return now.toISOString();
 }
 
 const manifest = {
@@ -66,7 +80,33 @@ if (!validation.valid) {
 }
 
 export async function GET() {
-  return new Response(JSON.stringify(manifest), {
-    headers: { 'content-type': 'application/json', 'cache-control':'public, max-age=0, s-maxage=3600' }
+  // Calculate scoring configuration from rule weights
+  const scoring = {
+    categories: manifest.categories.reduce((acc: any, category: string) => {
+      const categoryRules = manifest.rules.filter((rule: any) => rule.category === category);
+      const categoryWeight = categoryRules.reduce((sum: number, rule: any) => sum + rule.weight, 0);
+      acc[category] = categoryWeight;
+      return acc;
+    }, {}),
+    total: 1.0 // Normalized to 1.0
+  };
+
+  // Build response with required fields
+  const response = {
+    version: manifest.version,
+    rules: manifest.rules,
+    scoring,
+    expires_at: getExpiresAt()
+  };
+
+  // Generate ETag for the response
+  const etag = generateETag(response);
+
+  return new Response(JSON.stringify(response), {
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': 'public, max-age=300',
+      'etag': `"${etag}"`
+    }
   });
 }

@@ -1,163 +1,149 @@
-<script>
+<script lang="ts">
+  import { onMount } from 'svelte';
   import { renderReport } from '@onboarding-audit/report';
-  
-  let score = 88; // hard-coded visual sanity
-  let audit = null; // audit data
-  let benchmark = null; // benchmark data
-  let telemetryOptIn = false; // telemetry opt-in status
-  const topFixes = [
-    { id: 'A-CTA-ABOVE-FOLD', fix: 'Move your main signup CTA above the fold.', tags: ['UX', 'Conversion'] },
-    { id: 'T-SOCIAL-PROOF', fix: 'Add logos/testimonials near the CTA.', tags: ['Trust'] },
-    { id: 'AC-SIGNUP-FRICTION', fix: 'Ask ≤3 fields in the first step.', tags: ['UX', 'Form'] }
-  ];
 
-  // helper
-  function tsStamp(d = new Date()) {
-    const pad = (n) => String(n).padStart(2, "0");
-    return (
-      d.getFullYear() +
-      pad(d.getMonth() + 1) +
-      pad(d.getDate()) +
-      pad(d.getHours()) +
-      pad(d.getMinutes())
-    );
+  let telemetryOptIn = false;
+  let device: 'desktop'|'mobile' = 'desktop';
+  let cohort: 'global'|'saas'|'ecommerce'|'content' = 'global';
+  let benchmark: { percentile?: number; median?: number; count?: number } | null = null;
+  let score: number | null = null;
+  let fixes: Array<{id:string; fix:string; weight:number}> = [];
+
+  onMount(async () => {
+    const s = await chrome.storage.sync.get({ telemetry_opt_in: false, onbrd_device: 'desktop', onbrd_cohort: 'global' });
+    telemetryOptIn = s.telemetry_opt_in;
+    device = s.onbrd_device;
+    cohort = s.onbrd_cohort;
+  });
+
+  function savePrefs() {
+    chrome.storage.sync.set({ telemetry_opt_in: telemetryOptIn, onbrd_device: device, onbrd_cohort: cohort });
   }
 
-  async function getActiveTabId() {
-    return new Promise((resolve, reject) => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        const id = tabs?.[0]?.id;
-        if (id != null) return resolve(id);
-        reject(new Error("No active tab"));
-      });
-    });
+  function selectDevice(d: string) {
+    device = d as 'desktop' | 'mobile';
+    savePrefs();
   }
 
-  async function injectFromPopup(tabId) {
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      files: ["assets/content.js"],
-    });
-  }
-
-  async function askContentToRun(tabId) {
-    return new Promise((resolve) => {
-      try {
-        chrome.tabs.sendMessage(tabId, { type: "ONBRD_RUN_AUDIT" }, (resp) => resolve(resp));
-      } catch (e) {
-        resolve({ error: e.message });
-      }
-    });
+  function selectCohort(c: string) {
+    cohort = c as 'global' | 'saas' | 'ecommerce' | 'content';
+    savePrefs();
   }
 
   async function runAudit() {
-    try {
-      const tabId = await getActiveTabId();
-
-      // 1) Try service worker path first
-      const swResp = await new Promise((resolve) => {
-        chrome.runtime.sendMessage({ type: "ONBRD_RUN_AUDIT_ACTIVE_TAB" }, (resp) => resolve(resp));
-      });
-
-      if (swResp && swResp.audit) {
-        audit = swResp.audit;
-        benchmark = swResp.benchmark ?? null;
-        return;
-      }
-
-      // 2) Fallback: inject from popup, then ask content to run
-      await injectFromPopup(tabId);
-      const resp = await askContentToRun(tabId);
-
-      if (resp && resp.audit) {
-        audit = resp.audit;
-        benchmark = resp.benchmark ?? null;
-      } else {
-        console.error("Run audit failed", resp || chrome.runtime.lastError);
-        alert("Onbrd: failed to run audit on this page.");
-      }
-    } catch (err) {
-      console.error("runAudit error", err, chrome.runtime.lastError);
-      alert("Onbrd: no active tab or injection blocked.");
+    const resp = await chrome.runtime.sendMessage({ type: 'ONBRD_RUN_AUDIT_ACTIVE_TAB', device, cohort });
+    if (resp?.error) {
+      console.error(resp.error);
+      return;
     }
+    const { audit, benchmark: bmk } = resp ?? {};
+    score = audit?.score ?? null;
+    fixes = audit?.topFixes ?? [];
+    benchmark = telemetryOptIn ? (bmk ?? null) : null;
   }
 
-  function exportHtml() {
-    // inside your export handler
-    const host =
-      (location.hostname || "local")
-        .replace(/^https?:\/\//, "")
-        .replace(/^www\./, "")
-        .trim() || "local";
-
-    const filename = `onboarding-audit-${host}-${tsStamp()}.html`;
-
-    // existing code continues…
-    const html = renderReport(audit); // already implemented
-    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(a.href);
+  function tsStamp(d=new Date()){const p=(n:number)=>n.toString().padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}`;}
+  async function exportHtml() {
+    const [{ url }] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const host = (url || '').replace(/^https?:\/\//,'').replace(/^www\./,'').split(/[/?#]/)[0] || 'site';
+    
+    // Create a complete audit object for renderReport
+    const auditData = {
+      id: 'popup-export-' + Date.now(),
+      url: url || 'https://example.com',
+      timestamp: new Date().toISOString(),
+      scores: score ? {
+        overall: score,
+        h_cta_above_fold: 0,
+        h_steps_count: 0,
+        h_copy_clarity: 0,
+        h_trust_markers: 0,
+        h_perceived_signup_speed: 0
+      } : {
+        overall: 0,
+        h_cta_above_fold: 0,
+        h_steps_count: 0,
+        h_copy_clarity: 0,
+        h_trust_markers: 0,
+        h_perceived_signup_speed: 0
+      },
+      heuristics: {
+        h_cta_above_fold: { detected: false, position: 0, element: 'div' },
+        h_steps_count: { total: 0, forms: 0, screens: 0 },
+        h_copy_clarity: { avg_sentence_length: 0, passive_voice_ratio: 0, jargon_density: 0 },
+        h_trust_markers: { total: 0, testimonials: 0, security_badges: 0, customer_logos: 0 },
+        h_perceived_signup_speed: { estimated_seconds: 0, form_fields: 0, required_fields: 0 }
+      },
+      recommendations: fixes.map(fix => ({
+        heuristic: fix.id,
+        priority: 'high' as const,
+        description: fix.fix,
+        fix: fix.fix
+      })),
+      benchmark: benchmark || undefined,
+      pageHost: host,
+      createdAt: new Date().toISOString()
+    };
+    
+    const html = renderReport(auditData);
+    const blob = new Blob([html], { type: 'text/html' });
+    const fn = `onboarding-audit-${host}-${tsStamp()}.html`;
+    const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = fn; link.click();
   }
 </script>
 
-<div class="p-4 space-y-4">
-  <div class="card">
-    <div class="flex justify-between items-start">
-      <div>
-        <div class="h1">Onbrd</div>
-        <div class="sub">Onboarding Audit AI</div>
-      </div>
-      <div class="text-right">
-        <div class="text-5xl font-bold text-[color:var(--ink-900)]">{score}</div>
-        <div class="text-sm text-slate-600">
-          {#if benchmark}
-            vs. benchmark {benchmark}
-          {:else}
-            benchmark offline
-          {/if}
-        </div>
-      </div>
-    </div>
+<div class="p-4 w-[360px] text-sm">
+  <h1 class="text-xl font-bold mb-2">Onbrd</h1>
 
-    <!-- Actions -->
-    <div class="flex gap-2 mb-3">
-      <button type="button" class="btn flex-1" on:click={runAudit}>Run Audit</button>
-      <button
-        type="button"
-        class="btn-secondary flex-1"
-        disabled={!audit}
-        on:click={exportHtml}
-      >
-        Export HTML
-      </button>
-    </div>
-
-    <div class="mt-4 pt-4 border-t border-slate-200">
-      <label class="flex items-center gap-2 text-sm">
-        <input type="checkbox" bind:checked={telemetryOptIn} />
-        <span>Opt-in to telemetry to improve Onbrd</span>
-      </label>
-    </div>
+  <div class="mb-3 flex items-center gap-2">
+    <label class="inline-flex items-center gap-1">
+      <input type="checkbox" bind:checked={telemetryOptIn} on:change={savePrefs} />
+      <span>Share anonymous benchmarks</span>
+    </label>
   </div>
 
-  <div class="card">
-    <div class="text-sm font-medium mb-3">Top recommendations:</div>
-    <ul class="space-y-3">
-      {#each topFixes as f}
-        <li class="text-sm">
-          <div class="font-medium">{f.fix}</div>
-          {#if f.tags}
-            <div class="mt-1 flex flex-wrap gap-1">
-              {#each f.tags as tag}
-                <span class="tag {tag === 'UX' ? 'alt' : ''}">{tag}</span>
-              {/each}
-            </div>
-          {/if}
-        </li>
-      {/each}
-    </ul>
+  <div class="mb-3 flex flex-wrap gap-2">
+    <div class="text-xs text-gray-500">Device</div>
+    {#each ['desktop','mobile'] as d}
+      <button class="px-2 py-1 rounded-full border hover:bg-gray-50"
+        class:bg-teal-100={device===d}
+        on:click={() => selectDevice(d)}>{d}</button>
+    {/each}
   </div>
+
+  <div class="mb-4 flex flex-wrap gap-2">
+    <div class="text-xs text-gray-500">Cohort</div>
+    {#each ['global','saas','ecommerce','content'] as c}
+      <button class="px-2 py-1 rounded-full border hover:bg-gray-50"
+        class:bg-teal-100={cohort===c}
+        on:click={() => selectCohort(c)}>{c}</button>
+    {/each}
+  </div>
+
+  <div class="flex gap-2 mb-3">
+    <button class="flex-1 py-2 rounded-xl bg-teal-500 text-white font-medium" on:click={runAudit}>Run Audit</button>
+    <button class="px-3 rounded-xl border" on:click={exportHtml}>Export HTML</button>
+  </div>
+
+  {#if score !== null}
+    <div class="mb-2 text-lg font-semibold">{score}</div>
+    {#if benchmark}
+      {#if benchmark.count && benchmark.count >= 200 && benchmark.percentile !== undefined}
+        <div class="text-xs text-gray-600">Top {benchmark.percentile}% of {benchmark.count} peers (median {benchmark.median}) • {cohort} • {device}</div>
+      {:else}
+        <div class="text-xs text-gray-500">Benchmark building…</div>
+      {/if}
+    {:else}
+      <div class="text-xs text-gray-500">Benchmark offline</div>
+    {/if}
+
+    <div class="mt-3">
+      <div class="text-xs uppercase text-gray-400 mb-1">Fix these to improve</div>
+      <ul class="list-disc pl-5 space-y-1">
+        {#each fixes.slice(0,3) as f}
+          <li><span class="font-medium">{f.id}</span> — {f.fix}</li>
+        {/each}
+      </ul>
+    </div>
+  {/if}
 </div>

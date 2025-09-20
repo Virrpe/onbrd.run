@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+cache-control: public, max-age=300
+content-type: application/json
+etag: "4e3e17dc363f2462874ef04bf36595b2"
+Date: Fri, 19 Sep 2025 21:24:28 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

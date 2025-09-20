@@ -2,6 +2,11 @@
 
 Onbrd (onbrd.run) — score and benchmark your onboarding in 60 seconds.
 
+### Live
+- **Landing:** https://virrpe.github.io/onbrd.run/
+- **Direct Download:** https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip
+- **Demo Flow:** https://virrpe.github.io/onbrd.run/demo/
+
 ## Development
 
 ```bash

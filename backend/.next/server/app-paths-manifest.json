@@ -1,0 +1,4 @@
+{
+  "/api/healthz/route": "app/api/healthz/route.js",
+  "/api/v1/rules/route": "app/api/v1/rules/route.js"
+}

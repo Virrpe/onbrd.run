@@ -3,19 +3,17 @@ import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { resolve } from 'path'
+import preprocess from 'svelte-preprocess'
 
 export default defineConfig(({ mode }) => ({
   root: __dirname,
   plugins: [
     svelte({
-      preprocess: {
-        script: ({ content, attributes }) => {
-          if (attributes.lang === 'ts') {
-            // TypeScript preprocessing is handled by Vite's built-in TypeScript support
-            return { code: content }
-          }
-          return { code: content }
-        }
+      preprocess: preprocess({
+        typescript: true
+      }),
+      compilerOptions: {
+        dev: mode !== 'production'
       }
     }),
     crx({

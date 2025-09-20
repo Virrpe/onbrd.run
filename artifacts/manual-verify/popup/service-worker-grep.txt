@@ -1,0 +1,1 @@
+78:  if (message?.type === 'ONBRD_RUN_AUDIT_ACTIVE_TAB') {

@@ -1,0 +1,6 @@
+5:  let telemetryOptIn = false;
+13:    const s = await chrome.storage.sync.get({ telemetry_opt_in: false, onbrd_device: 'desktop', onbrd_cohort: 'global' });
+14:    telemetryOptIn = s.telemetry_opt_in;
+20:    chrome.storage.sync.set({ telemetry_opt_in: telemetryOptIn, onbrd_device: device, onbrd_cohort: cohort });
+42:    benchmark = telemetryOptIn ? (bmk ?? null) : null;
+100:      <input type="checkbox" bind:checked={telemetryOptIn} on:change={savePrefs} />

@@ -1,5 +1,6 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { q } from '../../../../lib/db';
+import { getBenchmarks } from '../../../../lib/stats';
 import { IngestSchema } from '../../../../lib/zod';
 
 export const dynamic = 'force-dynamic';
@@ -24,15 +25,6 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-async function percentileOf(score: number): Promise<{percentile:number, median:number, count:number}> {
-  const rows = await q<{ score: number }>('select score from audits order by created_at desc limit 1000');
-  const arr: number[] = rows.map((r: { score: number }) => r.score).sort((a: number, b: number) => a - b);
-  const count = arr.length || 1;
-  const median = arr.length ? (arr[Math.floor((arr.length-1)/2)] + arr[Math.ceil((arr.length-1)/2)]) / 2 : score;
-  const below = arr.filter((s: number) => s <= score).length;
-  const percentile = Math.round((below / count) * 100);
-  return { percentile, median: Math.round(median), count };
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -59,13 +51,13 @@ export async function POST(req: NextRequest) {
     const parsed = IngestSchema.safeParse(body);
     if (!parsed.success) return new Response(JSON.stringify({ error: 'bad_request' }), { status: 400, headers });
 
-    const { audit_id, url_hash, score, metrics, user_agent, created_at } = parsed.data;
-    await q('insert into audits (audit_id, url_hash, score, metrics, ua, ts) values ($1,$2,$3,$4,$5,$6) on conflict (audit_id) do nothing',
-      [audit_id, url_hash || null, score, metrics, user_agent || null, created_at || new Date().toISOString()]);
+    const { audit_id, url_hash, score, metrics, user_agent, device, cohort, region } = parsed.data;
+    await q('insert into audits (audit_id, url_hash, score, metrics, ua, device, cohort, region, ts) values ($1,$2,$3,$4,$5,$6,$7,$8,$9) on conflict (audit_id) do nothing',
+      [audit_id, url_hash || null, score, metrics, user_agent || null, device, cohort, region || null, new Date().toISOString()]);
 
-    const stats = await percentileOf(score);
-    return new Response(JSON.stringify({ status: 'accepted', ...stats }), { headers });
-  } catch {
-    return new Response(JSON.stringify({ error: 'server_error' }), { status: 500, headers: { 'content-type': 'application/json' } });
+    const stats = await getBenchmarks({ score: score, device: device, cohort: cohort });
+    return NextResponse.json({ status: 'accepted', ...stats }, { headers: { 'Cache-Control': 'no-store' }});
+  } catch (e: any) {
+    return NextResponse.json({ error: e?.message ?? 'bad-request' }, { status: 400 });
   }
 }

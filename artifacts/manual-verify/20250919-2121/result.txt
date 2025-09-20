@@ -1,0 +1,9 @@
+RESULTS
+build: PASS - Extension built successfully with all guards passed
+verify: PASS - All verification checks completed successfully
+api.healthz: PASS - Health endpoint returns OK JSON
+api.rules: PASS - ETag present, Cache-Control: public, 304 works
+api.ingest: PASS - Status accepted, percentile/median/count present
+extension.invariants: PASS - IIFE format, no imports/exports, perms ok, no content_scripts
+landing.fixtures: PASS - summary.html created, validation completed successfully
+notes: All validation tests passed. Extension ready for deployment.
