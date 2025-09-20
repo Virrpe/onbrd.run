@@ -1,0 +1,30 @@
+/* Onbrd brand tokens and utility bridge */
+
+:root {
+  --brand-teal: #0EA5A4;
+  --brand-600: #0EA5A4;
+  --brand-500: #0EA5A4;
+  --brand-400: #23B9B7;
+  --brand-300: #6BD8D7;
+
+  --bg: #0B0F14;
+  --text: #E7ECEF;
+  --muted: #9AA3A7;
+  --radius: 16px;
+
+  --font-sans: "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+  --font-headings: "Satoshi Variable", Satoshi, "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+}
+
+html { font-family: var(--font-sans); background-color: var(--bg); color: var(--text); }
+h1,h2,h3,h4 { font-family: var(--font-headings); }
+
+/* utility bridge for classnames used in HTML */
+.text-brand-400 { color: var(--brand-400); }
+.text-brand-300 { color: var(--brand-300); }
+
+:focus-visible { outline-color: var(--brand-500); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

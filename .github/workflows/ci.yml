@@ -42,6 +42,26 @@ jobs:
       - name: Verify invariants
         run: pnpm -w run verify
 
+      - name: Verify fonts are real WOFF2
+        shell: bash
+        run: |
+          set -euo pipefail
+          FAIL=0
+          check() {
+            local p="$1"
+            if [[ ! -f "$p" ]]; then echo "missing: $p"; FAIL=1; return; fi
+            head=$(xxd -l 4 -p "$p")
+            mime=$(file --mime-type -b "$p")
+            if [[ "$head" != "774f4632" ]]; then echo "bad magic (want wOF2): $p ($head)"; FAIL=1; fi
+            if [[ "$mime" != "font/woff2" ]]; then echo "bad mime ($mime): $p"; FAIL=1; fi
+            if grep -aq "<html" "$p"; then echo "html detected in $p"; FAIL=1; fi
+            sz=$(stat -c%s "$p"); if (( sz < 10000 )); then echo "too small ($sz): $p"; FAIL=1; fi
+          }
+          check extension/dist/assets/*.woff2 || true
+          check site/assets/fonts/geist/GeistVariable.woff2 || true
+          check site/assets/fonts/satoshi/Satoshi-Variable.woff2 || true
+          if (( FAIL > 0 )); then exit 1; fi
+
       - name: Health check - backend
         continue-on-error: true
         run: |

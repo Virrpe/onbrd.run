@@ -6,30 +6,32 @@
   <title>Onbrd — Score Your Onboarding in 60 Seconds</title>
   <meta name="description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.">
   <link rel="canonical" href="https://onbrd.run">
-  <link rel="icon" href="../assets/brand/onbrd-favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=%BUILD_ID%">
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon-180.png?v=%BUILD_ID%">
+  <link rel="manifest" href="./site.webmanifest?v=%BUILD_ID%">
   
   <!-- Open Graph -->
   <meta property="og:title" content="Onbrd — Score Your Onboarding in 60 Seconds">
   <meta property="og:description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report.">
-  <meta property="og:image" content="/og/og-onbrd.png">
+  <meta property="og:image" content="./assets/logo/bird-1024.png?v=%BUILD_ID%">
   <meta property="og:type" content="website">
   
   <!-- Performance optimizations -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="../assets/brand/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="../assets/brand/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/satoshi/Satoshi-Variable.woff2?v=%BUILD_ID%" crossorigin>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Custom fonts -->
-  <link rel="stylesheet" href="../assets/brand/fonts/fonts.css">
+  <!-- Brand tokens -->
+  <link rel="stylesheet" href="./tokens.css?v=%BUILD_ID%">
+  <!-- Site styles -->
+  <link rel="stylesheet" href="./styles.css?v=%BUILD_ID%">
   
   <style>
     /* Custom focus styles for accessibility */
     *:focus-visible {
-      outline: 2px solid #2563eb;
+      outline: 2px solid var(--brand-500);
       outline-offset: 2px;
     }
     
@@ -45,7 +47,7 @@
     
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 8px 24px rgba(14, 165, 164, 0.25);
     }
     
     /* Trust badge animations */
@@ -56,6 +58,13 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .trust-badge { animation: none !important; }
+      .btn-primary:hover { transform: none; box-shadow: none; }
     }
     
     /* Mobile responsive adjustments */
@@ -69,6 +78,26 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
   <!-- Header -->
+  <header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
+    <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" width="24" height="24" alt="Onbrd">
+    <div class="brand" style="font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
+  </header>
+  
+  <!-- Navigation -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-6">
+        <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+        <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+        <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+        <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary">
+          Download Extension
+        </a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Original Header (commented out for reference)
   <header class="bg-white shadow-sm">
     <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
@@ -89,26 +118,26 @@
   </header>
 
   <!-- Hero Section - CTA Above Fold -->
-  <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+  <section class="hero-bg py-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-          Score Your Onboarding in 
-          <span class="text-blue-600">60 Seconds</span>
+        <h1 class="text-4xl md:text-6xl font-bold text-ink-50 mb-6">
+          Score Your Onboarding in
+          <span class="text-brand-400">60 Seconds</span>
         </h1>
-        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        <p class="text-xl text-ink-50/80 mb-8 max-w-3xl mx-auto">
           Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="hero-cta btn-primary bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 inline-flex items-center space-x-2">
+          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary px-8 py-4 text-lg inline-flex items-center space-x-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
             <span>Download Free Extension</span>
           </a>
-          <a href="mailto:hello@onbrd.run" rel="noopener" class="text-blue-600 hover:text-blue-700 font-medium text-lg">
+          <a href="mailto:hello@onbrd.run" rel="noopener" class="text-brand-400 hover:text-brand-300 font-medium text-lg">
             Join Waitlist →
           </a>
         </div>
@@ -446,7 +475,7 @@
       <div class="grid md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-2 mb-4">
-            <img src="../assets/brand/onbrd-favicon.svg" alt="Onbrd" class="h-6 w-6">
+            <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" alt="Onbrd" class="h-6 w-6">
             <span class="text-lg font-bold">Onbrd</span>
           </div>
           <p class="text-gray-400">
@@ -487,5 +516,6 @@
       </div>
     </div>
   </footer>
+  <!-- build: %GIT_SHA% @ %ISO_TIME% -->
 </body>
 </html>
