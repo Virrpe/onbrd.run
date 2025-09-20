@@ -93,7 +93,10 @@
 </script>
 
 <div class="p-4 w-[360px] text-sm">
-  <h1 class="text-xl font-bold mb-2">Onbrd</h1>
+  <header class="flex items-center gap-2 mb-3">
+    <img src="./../../icons/icon16.png" width="20" height="20" alt="Onbrd" />
+    <h1 class="font-brand text-sm tracking-tight text-ink-900">Onbrd</h1>
+  </header>
 
   <div class="mb-3 flex items-center gap-2">
     <label class="inline-flex items-center gap-1">
@@ -103,26 +106,26 @@
   </div>
 
   <div class="mb-3 flex flex-wrap gap-2">
-    <div class="text-xs text-gray-500">Device</div>
+    <div class="text-xs text-ink-500">Device</div>
     {#each ['desktop','mobile'] as d}
-      <button class="px-2 py-1 rounded-full border hover:bg-gray-50"
-        class:bg-teal-100={device===d}
+      <button class="chip"
+        class:bg-brand-100={device===d} class:text-brand-800={device===d}
         on:click={() => selectDevice(d)}>{d}</button>
     {/each}
   </div>
 
   <div class="mb-4 flex flex-wrap gap-2">
-    <div class="text-xs text-gray-500">Cohort</div>
+    <div class="text-xs text-ink-500">Cohort</div>
     {#each ['global','saas','ecommerce','content'] as c}
-      <button class="px-2 py-1 rounded-full border hover:bg-gray-50"
-        class:bg-teal-100={cohort===c}
+      <button class="chip"
+        class:bg-brand-100={cohort===c} class:text-brand-800={cohort===c}
         on:click={() => selectCohort(c)}>{c}</button>
     {/each}
   </div>
 
   <div class="flex gap-2 mb-3">
-    <button class="flex-1 py-2 rounded-xl bg-teal-500 text-white font-medium" on:click={runAudit}>Run Audit</button>
-    <button class="px-3 rounded-xl border" on:click={exportHtml}>Export HTML</button>
+    <button class="btn-primary flex-1" on:click={runAudit}>Run Audit</button>
+    <button class="chip" on:click={exportHtml}>Export HTML</button>
   </div>
 
   {#if score !== null}

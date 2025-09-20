@@ -1,6 +1,6 @@
 {
   "../../../../../../@crx/manifest": {
-    "file": "assets/crx-manifest.js-Ba8iROsI.js",
+    "file": "assets/crx-manifest.js-B9_kqg5D.js",
     "name": "crx-manifest.js",
     "src": "../../../../../../@crx/manifest",
     "isEntry": true
@@ -11,22 +11,32 @@
     "src": "service-worker-loader.js",
     "isEntry": true
   },
+  "src/popup/fonts/satoshi/Satoshi-Variable.woff2": {
+    "file": "assets/Satoshi-Variable-BxSmXtXv.woff2",
+    "src": "src/popup/fonts/satoshi/Satoshi-Variable.woff2"
+  },
   "src/popup/main.ts": {
-    "file": "assets/popup-BeZMwRRb.js",
+    "file": "assets/popup-BqVzBBmE.js",
     "name": "popup",
     "src": "src/popup/main.ts",
     "isEntry": true,
     "css": [
-      "assets/popup-BVeorj5g.css"
+      "assets/popup-UJvAfUO6.css"
+    ],
+    "assets": [
+      "assets/Satoshi-Variable-BxSmXtXv.woff2"
     ]
   },
   "src/popup/popup.html": {
-    "file": "assets/popup.html-Cu1h6kpg.js",
+    "file": "assets/popup.html-DHM3qKSe.js",
     "name": "popup.html",
     "src": "src/popup/popup.html",
     "isEntry": true,
     "imports": [
       "src/popup/main.ts"
+    ],
+    "assets": [
+      "assets/Satoshi-Variable-BxSmXtXv.woff2"
     ]
   }
 }

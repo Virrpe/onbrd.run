@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "Geist Variable";
+  src: url("./assets/fonts/geist/GeistVariable.woff2") format("woff2-variations");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("./assets/fonts/satoshi/Satoshi-Variable.woff2") format("woff2-variations");
+  font-weight: 300 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  --bg: #0B0F14;
+  --ink-900:#0B0F14; --ink-50:#F9FAFB;
+  --brand-500:#14B8A6; --brand-400:#2DD4BF;
+  font-family:"Geist Variable",system-ui,ui-sans-serif,sans-serif;
+}
+.brand { font-family:"Satoshi Variable","Geist Variable",ui-sans-serif,sans-serif; }
+
+/* Premium hero background */
+.hero-bg {
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(20,184,166,.18), transparent 60%),
+    radial-gradient(900px 500px at 90% -20%, rgba(45,212,191,.14), transparent 60%),
+    linear-gradient(180deg, #0B0F14 0%, #0F172A 100%);
+}
+
+.btn-primary {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.75rem 1rem;border-radius:1rem;
+  background:var(--brand-500);color:#fff;font-weight:600;
+  transition:transform .15s ease,box-shadow .2s ease;
+}
+.btn-primary:hover { transform:translateY(1px); box-shadow:0 10px 30px rgba(20,184,166,.25); }
+.btn-primary:focus-visible { outline:2px solid var(--brand-400); outline-offset:2px; }
+.card {
+  border:1px solid rgba(148,163,184,.25);
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(8px);
+  border-radius:1rem;
+  box-shadow:0 8px 30px rgba(2,6,23,.06);
+}

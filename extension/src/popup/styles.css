@@ -1,14 +1,37 @@
+@font-face {
+  font-family: "Geist Variable";
+  src: url("./fonts/geist/GeistVariable.woff2") format("woff2-variations");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("./fonts/satoshi/Satoshi-Variable.woff2") format("woff2-variations");
+  font-weight: 300 900; font-style: normal; font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* visual sanity so we can SEE styling */
-:root { --brand-teal:#0ea5a4; --ink-900:#0b1220; }
-.btn { @apply inline-flex items-center justify-center px-3 py-2 rounded-xl font-medium bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-700; }
-.btn-secondary { @apply inline-flex items-center justify-center px-3 py-2 rounded-xl font-medium bg-slate-100 text-slate-900 hover:bg-slate-200; }
-.card { @apply rounded-2xl shadow-md border border-slate-200 p-4 bg-white; }
-.h1 { @apply text-lg font-semibold; }
-.sub { @apply text-sm text-slate-600; }
+@layer base {
+  html { font-family: theme('fontFamily.sans'); }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-2xl px-4 py-2
+           bg-brand-500 text-white font-medium transition
+           hover:translate-y-0.5 hover:shadow-soft active:scale-[0.99]
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-400;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-2xl px-3 py-1.5
+           bg-ink-50 text-ink-700 border border-ink-200 hover:bg-ink-100 transition;
+  }
+  .card {
+    @apply rounded-2xl border border-ink-100 bg-white/70 shadow-soft backdrop-blur;
+  }
+}
 
 /* Custom popup styles */
 body {
@@ -20,9 +43,9 @@ body {
 
 /* Small chips for metadata tags */
 .tag {
-  @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700;
+  @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-ink-100 text-ink-700;
 }
 
 .tag.alt {
-  @apply bg-teal-100 text-teal-800;
+  @apply bg-brand-100 text-brand-800;
 }

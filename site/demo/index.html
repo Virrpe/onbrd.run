@@ -1,16 +1,84 @@
-<!doctype html><meta charset="utf-8" />
-<title>Onbrd — Demo Flow</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-<main class="container">
-  <h1>Onbrd — 60-second Demo Flow</h1>
-  <ol>
-    <li><strong>Install:</strong> <a href="../dl" download>Download the extension ZIP</a> → Chrome → <code>chrome://extensions</code> → Enable <em>Developer mode</em> → <em>Load unpacked</em> → select the unzipped folder.</li>
-    <li><strong>Open any site:</strong> e.g. <a href="https://calendly.com" target="_blank" rel="noopener">calendly.com</a>.</li>
-    <li><strong>Run audit:</strong> Click the Onbrd icon → <em>Run Audit</em>. You should see a score and 3 fixes.</li>
-    <li><strong>Benchmarks (optional):</strong> Toggle "Share anonymous benchmarks" → re-run → see "Top X% of Y (median Z)".</li>
-    <li><strong>Export:</strong> Click <em>Export HTML</em>. Filename should be <code>onboarding-audit-<hostname>-<YYYYMMDDHHmm>.html</code>.</li>
-  </ol>
-  <p><a href="../" role="button">← Back to home</a></p>
-</main>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Onbrd — Demo Flow</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon-180.png">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist/GeistVariable.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/satoshi/Satoshi-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body {
+      background: var(--bg);
+      color: var(--ink-50);
+      font-family: "Geist Variable", system-ui, ui-sans-serif, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 {
+      font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, sans-serif;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--ink-50);
+    }
+    ol {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(148,163,184,.25);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    li { margin-bottom: 1rem; }
+    a {
+      color: var(--brand-400);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--brand-500); }
+    code {
+      background: rgba(255,255,255,0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: monospace;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background: var(--brand-500);
+      color: white;
+      text-decoration: none;
+      border-radius: 1rem;
+      font-weight: 500;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .btn-back:hover {
+      transform: translateY(1px);
+      box-shadow: 0 10px 30px rgba(20,184,166,.25);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header style="display:flex;align-items:center;gap:.5rem;margin-bottom:2rem;">
+      <img src="../assets/logo/bird-128.png" width="32" height="32" alt="Onbrd">
+      <h1 style="font-family:'Satoshi Variable','Geist Variable',ui-sans-serif,sans-serif;font-size:2rem;margin:0;">Onbrd — 60-second Demo Flow</h1>
+    </header>
+    
+    <ol>
+      <li><strong>Install:</strong> <a href="../dl" download>Download the extension ZIP</a> → Chrome → <code>chrome://extensions</code> → Enable <em>Developer mode</em> → <em>Load unpacked</em> → select the unzipped folder.</li>
+      <li><strong>Open any site:</strong> e.g. <a href="https://calendly.com" target="_blank" rel="noopener">calendly.com</a>.</li>
+      <li><strong>Run audit:</strong> Click the Onbrd icon → <em>Run Audit</em>. You should see a score and 3 fixes.</li>
+      <li><strong>Benchmarks (optional):</strong> Toggle "Share anonymous benchmarks" → re-run → see "Top X% of Y (median Z)".</li>
+      <li><strong>Export:</strong> Click <em>Export HTML</em>. Filename should be <code>onboarding-audit-<hostname>-<YYYYMMDDHHmm>.html</code>.</li>
+    </ol>
+    
+    <a href="../" class="btn-back">← Back to home</a>
+  </div>
+</body>
+</html>
