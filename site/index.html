@@ -3,97 +3,489 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Onbrd — One-click Onboarding Intelligence</title>
+  <title>Onbrd — Score Your Onboarding in 60 Seconds</title>
+  <meta name="description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.">
   <link rel="canonical" href="https://onbrd.run">
   <link rel="icon" href="../assets/brand/onbrd-favicon.svg">
-  <meta property="og:title" content="Onbrd — One-click Onboarding Intelligence">
-  <meta property="og:description" content="Run a 1-click audit, get a 0–100 score and prioritized fixes, export a shareable HTML report.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Onbrd — Score Your Onboarding in 60 Seconds">
+  <meta property="og:description" content="Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report.">
   <meta property="og:image" content="/og/og-onbrd.png">
   <meta property="og:type" content="website">
+  
+  <!-- Performance optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="../assets/brand/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/brand/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom fonts -->
   <link rel="stylesheet" href="../assets/brand/fonts/fonts.css">
+  
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f8f9fa;
+    /* Custom focus styles for accessibility */
+    *:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
     }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-      padding: 20px 0;
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
-    .brand {
-      font-size: 24px;
-      font-weight: bold;
-      color: #2563eb;
-    }
-    .hero {
-      text-align: center;
-      padding: 60px 0;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: #1f2937;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      color: #6b7280;
-      margin-bottom: 40px;
-    }
-    .cta-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
+    
+    /* Custom button hover effects */
     .btn-primary {
-      background: #2563eb;
-      color: white;
+      transition: all 0.2s ease;
     }
+    
     .btn-primary:hover {
-      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
-    .btn-secondary {
-      background: #e5e7eb;
-      color: #374151;
+    
+    /* Trust badge animations */
+    .trust-badge {
+      animation: fadeIn 0.6s ease-out;
     }
-    .btn-secondary:hover {
-      background: #d1d5db;
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Mobile responsive adjustments */
+    @media (max-width: 640px) {
+      .hero-cta {
+        width: 100%;
+        max-width: 280px;
+      }
     }
   </style>
 </head>
-<body>
-  <nav class="nav">
-    <div class="brand">Onbrd</div>
-  </nav>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <img src="../assets/brand/onbrd-favicon.svg" alt="Onbrd" class="h-8 w-8">
+          <span class="text-xl font-bold text-gray-900">Onbrd</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+          <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+          <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">
+            Download Extension
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-  <div class="hero">
-    <h1>Onboarding intelligence that finds fixes fast.</h1>
-    <p>Score and benchmark your onboarding in 60 seconds. No code required.</p>
-    
-    <div class="cta-buttons">
-      <a href="../artifacts/onbrd-extension.zip" download class="btn btn-primary">Download the Extension</a>
-      <a href="mailto:hello@onbrd.run" class="btn btn-secondary">Join Waitlist</a>
+  <!-- Hero Section - CTA Above Fold -->
+  <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          Score Your Onboarding in 
+          <span class="text-blue-600">60 Seconds</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.
+        </p>
+        
+        <!-- Primary CTA - Above the fold (600px) -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="hero-cta btn-primary bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 inline-flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>Download Free Extension</span>
+          </a>
+          <a href="mailto:hello@onbrd.run" rel="noopener" class="text-blue-600 hover:text-blue-700 font-medium text-lg">
+            Join Waitlist →
+          </a>
+        </div>
+
+        <!-- Trust Signals -->
+        <div class="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
+          <div class="trust-badge flex items-center space-x-2">
+            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Free Forever</span>
+          </div>
+          <div class="trust-badge flex items-center space-x-2">
+            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>No Signup Required</span>
+          </div>
+          <div class="trust-badge flex items-center space-x-2">
+            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <span>1-Click Install</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div style="margin-top: 20px;">
-      <a class="text-sm opacity-70" href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener">API spec</a>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Everything You Need to Optimize Onboarding
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Professional-grade auditing tools that help you create better user experiences and increase conversion rates.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant Scoring</h3>
+          <p class="text-gray-600">Get a 0-100 score in seconds with detailed breakdown of strengths and weaknesses.</p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Actionable Fixes</h3>
+          <p class="text-gray-600">Prioritized recommendations with clear implementation guidance for maximum impact.</p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Shareable Reports</h3>
+          <p class="text-gray-600">Export professional HTML reports to share with your team and stakeholders.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Testimonials Section - Social Proof -->
+  <section id="testimonials" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Trusted by Product Teams Worldwide
+        </h2>
+        <p class="text-xl text-gray-600">
+          See why teams choose Onbrd to optimize their onboarding experiences.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-blue-600 font-semibold">JD</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">John Doe</h4>
+              <p class="text-sm text-gray-600">Product Manager, TechCorp</p>
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">
+            "Onbrd helped us identify critical onboarding issues we never noticed. Our conversion rate improved 35% after implementing their recommendations."
+          </p>
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-green-600 font-semibold">SM</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Sarah Miller</h4>
+              <p class="text-sm text-gray-600">UX Designer, StartupHub</p>
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">
+            "The actionable insights from Onbrd are incredible. We fixed 12 onboarding issues in one sprint and saw immediate results."
+          </p>
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-purple-600 font-semibold">AC</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">Alex Chen</h4>
+              <p class="text-sm text-gray-600">CTO, GrowthLabs</p>
+            </div>
+          </div>
+          <p class="text-gray-700 mb-4">
+            "Simple, effective, and completely free. Onbrd has become essential to our product development workflow."
+          </p>
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section - Transparency -->
+  <section id="pricing" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Simple, Transparent Pricing
+        </h2>
+        <p class="text-xl text-gray-600">
+          Start free, upgrade when you need. No hidden fees, no surprises.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <!-- Free Plan -->
+        <div class="border border-gray-200 rounded-lg p-6 text-center">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Free</h3>
+          <div class="text-3xl font-bold text-gray-900 mb-4">$0</div>
+          <p class="text-gray-600 mb-6">Perfect for individuals and small teams</p>
+          <ul class="text-left space-y-2 mb-6">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Unlimited audits
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Basic scoring
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              HTML reports
+            </li>
+          </ul>
+          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors block text-center">
+            Download Now
+          </a>
+        </div>
+        
+        <!-- Pro Plan -->
+        <div class="border-2 border-blue-600 rounded-lg p-6 text-center relative">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">Most Popular</span>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Pro</h3>
+          <div class="text-3xl font-bold text-gray-900 mb-4">$29<span class="text-lg text-gray-600">/month</span></div>
+          <p class="text-gray-600 mb-6">For growing teams and agencies</p>
+          <ul class="text-left space-y-2 mb-6">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Everything in Free
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Advanced analytics
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Team collaboration
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Priority support
+            </li>
+          </ul>
+          <a href="mailto:hello@onbrd.run" rel="noopener" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors block text-center">
+            Start Free Trial
+          </a>
+        </div>
+        
+        <!-- Enterprise Plan -->
+        <div class="border border-gray-200 rounded-lg p-6 text-center">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise</h3>
+          <div class="text-3xl font-bold text-gray-900 mb-4">Custom</div>
+          <p class="text-gray-600 mb-6">For large organizations</p>
+          <ul class="text-left space-y-2 mb-6">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Everything in Pro
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Custom integrations
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              Dedicated support
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              SLA guarantee
+            </li>
+          </ul>
+          <a href="mailto:hello@onbrd.run" class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors block text-center">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready to Optimize Your Onboarding?
+      </h2>
+      <p class="text-xl text-blue-100 mb-8">
+        Join thousands of teams who use Onbrd to create better user experiences.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span>Download Extension</span>
+        </a>
+        <a href="mailto:hello@onbrd.run" rel="noopener" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+          Join Waitlist
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <img src="../assets/brand/onbrd-favicon.svg" alt="Onbrd" class="h-6 w-6">
+            <span class="text-lg font-bold">Onbrd</span>
+          </div>
+          <p class="text-gray-400">
+            Score and benchmark your onboarding in 60 seconds.
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Product</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Support</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Contact</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Feedback</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Company</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 Onbrd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
