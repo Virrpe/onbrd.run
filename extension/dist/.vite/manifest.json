@@ -11,24 +11,28 @@
     "src": "service-worker-loader.js",
     "isEntry": true
   },
+  "src/popup/fonts/geist/GeistVariable.woff2": {
+    "file": "assets/GeistVariable-p2GUc8qZ.woff2",
+    "src": "src/popup/fonts/geist/GeistVariable.woff2"
+  },
   "src/popup/fonts/satoshi/Satoshi-Variable.woff2": {
-    "file": "assets/Satoshi-Variable-BxSmXtXv.woff2",
-    "src": "src/popup/fonts/satoshi/Satoshi-Variable.woff2"
+    "file": "assets/GeistVariable-p2GUc8qZ.woff2",
+    "src": "src/popup/fonts/geist/GeistVariable.woff2"
   },
   "src/popup/main.ts": {
-    "file": "assets/popup-BqVzBBmE.js",
+    "file": "assets/popup-B7WVFD2R.js",
     "name": "popup",
     "src": "src/popup/main.ts",
     "isEntry": true,
     "css": [
-      "assets/popup-UJvAfUO6.css"
+      "assets/popup-B1C7fCIG.css"
     ],
     "assets": [
-      "assets/Satoshi-Variable-BxSmXtXv.woff2"
+      "assets/GeistVariable-p2GUc8qZ.woff2"
     ]
   },
   "src/popup/popup.html": {
-    "file": "assets/popup.html-DHM3qKSe.js",
+    "file": "assets/popup.html-CPVcCy40.js",
     "name": "popup.html",
     "src": "src/popup/popup.html",
     "isEntry": true,
@@ -36,7 +40,7 @@
       "src/popup/main.ts"
     ],
     "assets": [
-      "assets/Satoshi-Variable-BxSmXtXv.woff2"
+      "assets/GeistVariable-p2GUc8qZ.woff2"
     ]
   }
 }

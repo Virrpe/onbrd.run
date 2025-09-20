@@ -46,7 +46,9 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
-    }
+    },
+    // Prevent font inlining - keep fonts as separate files
+    assetsInlineLimit: 0
   },
   define: {
     'import.meta.env.VITE_DEBUG_LOGS': JSON.stringify(mode !== 'production'),

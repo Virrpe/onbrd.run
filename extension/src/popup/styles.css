@@ -14,7 +14,7 @@
 @tailwind utilities;
 
 @layer base {
-  html { font-family: theme('fontFamily.sans'); }
+  html { font-family: "Geist Variable", system-ui, ui-sans-serif, sans-serif; }
 }
 
 @layer components {
