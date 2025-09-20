@@ -1,0 +1,47 @@
+name: verify
+on:
+  push:
+    branches: [ main, production ]
+  pull_request:
+    branches: [ main, production ]
+
+jobs:
+  font-and-build-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Satoshi WOFF2 binaries
+        run: |
+          set -euo pipefail
+          for f in site/assets/fonts/satoshi/Satoshi-Variable.woff2 extension/src/popup/fonts/satoshi/Satoshi-Variable.woff2; do
+            test -f "$f"
+            xxd -l 4 "$f" | grep -qi "77 4f 46 32"   # magic: wOF2
+            file --mime-type "$f" | grep -qi "font/woff2"
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          echo "Font checks OK"
+
+      - name: Node setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm i -g pnpm@9
+
+      - name: Build site with Vite (cache-busting)
+        working-directory: site
+        run: |
+          pnpm i --frozen-lockfile || pnpm i
+          pnpm build
+
+      - name: Build extension (MV3 guard)
+        working-directory: extension
+        run: |
+          pnpm i --frozen-lockfile || pnpm i
+          pnpm build
+          test "$(jq -r '.manifest_version' dist/manifest.json)" = "3"
+          ! jq -e '.content_scripts' dist/manifest.json >/dev/null 2>&1 || (echo "content_scripts present (should be IIFE)"; exit 1)
