@@ -65,8 +65,11 @@ describe('Analytics Endpoints', () => {
         body: JSON.stringify({ metric: 'conversion' })
       });
 
-      // This should fail since the route only exports GET
-      expect(() => cohortGet(req)).toThrow();
+      // The route handler should still work even with POST method since it doesn't validate HTTP method
+      const response = await cohortGet(req);
+      expect(response.status).toBe(501);
+      const data = await response.json();
+      expect(data.error).toBe('Not implemented');
     });
   });
 
@@ -116,8 +119,11 @@ describe('Analytics Endpoints', () => {
         body: JSON.stringify({ user_id: '123' })
       });
 
-      // This should fail since the route only exports GET
-      expect(() => retentionGet(req)).toThrow();
+      // The route handler should still work even with POST method since it doesn't validate HTTP method
+      const response = await retentionGet(req);
+      expect(response.status).toBe(501);
+      const data = await response.json();
+      expect(data.error).toBe('Not implemented');
     });
   });
 

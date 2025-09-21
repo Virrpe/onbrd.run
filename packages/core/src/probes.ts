@@ -39,7 +39,15 @@ function detectCTA() {
   const ctaKeywords = ['start', 'begin', 'sign up', 'signup', 'get started', 'join', 'create', 'continue', 'next'];
   
   for (const cta of ctas) {
-    const rect = cta.getBoundingClientRect();
+    // Handle missing getBoundingClientRect method gracefully
+    let rect;
+    try {
+      rect = cta.getBoundingClientRect();
+    } catch (e) {
+      // If getBoundingClientRect is not available, skip this element
+      continue;
+    }
+    
     const text = (cta.textContent || '').toLowerCase().trim();
     const hasCTAKeyword = ctaKeywords.some(keyword => text.includes(keyword));
     

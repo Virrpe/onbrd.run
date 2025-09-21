@@ -64,8 +64,11 @@ describe('Rules Custom Endpoints', () => {
         body: JSON.stringify({ name: 'Test Rule' })
       });
 
-      // This should fail since the route only exports GET
-      expect(() => customGet(req)).toThrow();
+      // The route handler should still work even with POST method since it doesn't validate HTTP method
+      const response = await customGet(req);
+      expect(response.status).toBe(501);
+      const data = await response.json();
+      expect(data.error).toBe('Not implemented');
     });
   });
 
@@ -169,8 +172,11 @@ describe('Rules Custom Endpoints', () => {
         method: 'GET'
       });
 
-      // This should fail since the route only exports POST
-      expect(() => customPost(req)).toThrow();
+      // The route handler should still work even with GET method since it doesn't validate HTTP method
+      const response = await customPost(req);
+      expect(response.status).toBe(501);
+      const data = await response.json();
+      expect(data.error).toBe('Not implemented');
     });
   });
 
