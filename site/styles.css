@@ -1,3 +1,5 @@
+@import url("./styles/motion.css");
+
 @font-face {
   font-family: "Geist Variable";
   src: url("./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%") format("woff2-variations");
@@ -16,7 +18,12 @@ html { font-family: "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-sy
 h1, h2, h3, h4 { font-family: "Satoshi Variable", Satoshi, "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif; }
 
 /* Premium hero background */
-.hero-bg { background: var(--hero-gradient); }
+.hero-bg {
+  background: var(--hero-gradient);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
 
 .btn-primary {
   display:inline-flex;align-items:center;justify-content:center;

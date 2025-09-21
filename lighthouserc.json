@@ -1,12 +1,13 @@
 {
   "ci": {
     "collect": {
-      "url": [
-        "https://virrpe.github.io/onbrd.run/",
-        "https://virrpe.github.io/onbrd.run/demo/"
-      ],
+      "url": ["https://virrpe.github.io/onbrd.run/"],
       "numberOfRuns": 1,
-      "settings": { "preset": "desktop" }
+      "chromePath": "/home/swirky/.cache/ms-playwright/chromium-1187/chrome-linux/chrome",
+      "settings": {
+        "preset": "desktop",
+        "chromeFlags": ["--headless=new","--no-sandbox","--disable-dev-shm-usage","--no-first-run","--disable-gpu"]
+      }
     },
     "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
   }
