@@ -1,0 +1,19 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://virrpe.github.io/onbrd.run/",
+        "https://virrpe.github.io/onbrd.run/demo/"
+      ],
+      "numberOfRuns": 1,
+      "chromePath": "/snap/bin/chromium",
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
+  }
+}
