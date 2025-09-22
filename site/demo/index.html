@@ -80,5 +80,40 @@
     
     <a href="../" class="btn-back">← Back to home</a>
   </div>
+  
+  <!-- Analytics tracking -->
+  <script type="module">
+    // analytics-probe: Import analytics and feature flags
+    import { track, EVENT_NAMES } from '../lib/analytics.ts';
+    import { isFeatureEnabled } from '../lib/featureFlags.ts';
+    
+    // analytics-probe: Track demo page view on load
+    window.addEventListener('load', async () => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        try {
+          await track(EVENT_NAMES.LP_VIEW, { page: 'demo' });
+        } catch (error) {
+          console.warn('Analytics tracking failed:', error);
+        }
+      }
+    });
+    
+    // analytics-probe: Track download clicks
+    document.addEventListener('click', async (event) => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        const target = event.target.closest('a[download], [href*="download"]');
+        if (target) {
+          try {
+            await track(EVENT_NAMES.EXPORT_CLICK, {
+              fileType: 'extension-zip',
+              href: target.href
+            });
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
