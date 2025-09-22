@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -79,46 +79,46 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { z } from 'zod';</span></span></span>
-<span class="cstat-no" title="statement not covered" >export const IngestSchema = z.object({</span>
-<span class="cstat-no" title="statement not covered" >  audit_id: z.string().uuid(),</span>
-<span class="cstat-no" title="statement not covered" >  url_hash: z.string().length(64).optional(),</span>
-<span class="cstat-no" title="statement not covered" >  score: z.number().int().min(0).max(1000),</span>
-<span class="cstat-no" title="statement not covered" >  metrics: z.record(z.object({</span>
-<span class="cstat-no" title="statement not covered" >    score: z.number().int().min(0).max(1000),</span>
-<span class="cstat-no" title="statement not covered" >    rules_passed: z.number().int().min(0),</span>
-<span class="cstat-no" title="statement not covered" >    rules_failed: z.number().int().min(0)</span>
-<span class="cstat-no" title="statement not covered" >  })),</span>
-<span class="cstat-no" title="statement not covered" >  user_agent: z.string().optional(),</span>
-<span class="cstat-no" title="statement not covered" >  created_at: z.string().datetime(),</span>
-<span class="cstat-no" title="statement not covered" >  device: z.enum(['desktop','mobile']).default('desktop'),</span>
-<span class="cstat-no" title="statement not covered" >  cohort: z.enum(['global','saas','ecommerce','content']).default('global'),</span>
-<span class="cstat-no" title="statement not covered" >  region: z.string().optional()</span>
-<span class="cstat-no" title="statement not covered" >});</span>
-<span class="cstat-no" title="statement not covered" >export type IngestBody = z.infer&lt;typeof IngestSchema&gt;;</span></pre></td></tr></table></pre>
+<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { z } from 'zod';
+export const IngestSchema = z.object({
+  audit_id: z.string().uuid(),
+  url_hash: z.string().length(64).optional(),
+  score: z.number().int().min(0).max(1000),
+  metrics: z.record(z.object({
+    score: z.number().int().min(0).max(1000),
+    rules_passed: z.number().int().min(0),
+    rules_failed: z.number().int().min(0)
+  })),
+  user_agent: z.string().optional(),
+  created_at: z.string().datetime(),
+  device: z.enum(['desktop','mobile']).default('desktop'),
+  cohort: z.enum(['global','saas','ecommerce','content']).default('global'),
+  region: z.string().optional()
+});
+export type IngestBody = z.infer&lt;typeof IngestSchema&gt;;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-21T21:14:56.757Z
+                at 2025-09-22T09:28:31.942Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
