@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>20 UX Heuristics for Perfect User Onboarding | Onbrd</title>
+  <meta name="description" content="Master user onboarding with 20 proven UX heuristics. From first impressions to activation, learn the principles that drive conversion and retention.">
+  <meta name="keywords" content="UX heuristics, user onboarding, user experience, conversion optimization, product design, usability principles">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="20 UX Heuristics for Perfect User Onboarding">
+  <meta property="og:description" content="Master user onboarding with 20 proven UX heuristics. From first impressions to activation, learn the principles that drive conversion and retention.">
+  <meta property="og:image" content="../assets/logo/bird-1024.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://onbrd.run/heuristics">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="20 UX Heuristics for Perfect User Onboarding">
+  <meta name="twitter:description" content="Master user onboarding with 20 proven UX heuristics. From first impressions to activation, learn the principles that drive conversion and retention.">
+  <meta name="twitter:image" content="../assets/logo/bird-1024.png">
+  
+  <link rel="canonical" href="https://onbrd.run/heuristics">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon-180.png">
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geist/GeistVariable.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/satoshi/Satoshi-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../tokens.css">
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "20 UX Heuristics for Perfect User Onboarding",
+    "description": "Master user onboarding with 20 proven UX heuristics. From first impressions to activation, learn the principles that drive conversion and retention.",
+    "author": {
+      "@type": "Organization",
+      "name": "Onbrd",
+      "url": "https://onbrd.run"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Onbrd",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://onbrd.run/assets/logo/bird-128.png"
+      }
+    },
+    "datePublished": "2024-09-22",
+    "dateModified": "2024-09-22",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://onbrd.run/heuristics"
+    },
+    "image": "https://onbrd.run/assets/logo/bird-1024.png"
+  }
+  </script>
+  
+  <style>
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Geist Variable", system-ui, ui-sans-serif, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    h1 {
+      font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+      color: var(--ink-50);
+      line-height: 1.2;
+    }
+    h2 {
+      font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2.5rem 0 1rem 0;
+      color: var(--brand-400);
+      scroll-margin-top: 2rem;
+    }
+    h3 {
+      font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem 0;
+      color: var(--ink-50);
+    }
+    p {
+      margin: 0 0 1rem 0;
+      color: var(--text);
+    }
+    ul, ol {
+      margin: 0 0 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    .intro {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .heuristic {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(148,163,184,.25);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .heuristic-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .heuristic-number {
+      background: var(--brand-500);
+      color: white;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .heuristic-title {
+      margin: 0;
+      color: var(--ink-50);
+      font-size: 1.3rem;
+    }
+    .heuristic-description {
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .heuristic-examples {
+      background: rgba(255,255,255,0.03);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    .heuristic-examples h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--brand-300);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .example-list {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    .example-list li {
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+    .cta-section {
+      background: linear-gradient(135deg, rgba(14,165,164,0.1) 0%, rgba(45,212,191,0.05) 100%);
+      border: 1px solid rgba(14,165,164,0.3);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .cta-title {
+      font-size: 1.8rem;
+      margin: 0 0 1rem 0;
+      color: var(--ink-50);
+    }
+    .cta-description {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+      background: var(--brand-500);
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      font-size: 1.1rem;
+    }
+    .btn-primary:hover {
+      transform: translateY(1px);
+      box-shadow: 0 10px 30px rgba(20,184,166,.25);
+      color: white;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+      background: transparent;
+      color: var(--brand-500);
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(14,165,164,.35);
+      transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      margin-left: 1rem;
+    }
+    .btn-secondary:hover {
+      transform: translateY(1px);
+      box-shadow: 0 6px 20px rgba(20,184,166,.20);
+      border-color: var(--brand-400);
+      color: var(--brand-400);
+    }
+    .toc {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(148,163,184,.25);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc h3 {
+      margin: 0 0 1rem 0;
+      color: var(--ink-50);
+      font-size: 1.1rem;
+    }
+    .toc-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0.5rem;
+    }
+    .toc-list li {
+      margin: 0;
+    }
+    .toc-list a {
+      color: var(--brand-400);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .toc-list a:hover {
+      color: var(--brand-300);
+    }
+    .footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(148,163,184,.25);
+      text-align: center;
+      color: var(--muted);
+    }
+    .footer a {
+      color: var(--brand-400);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: var(--brand-300);
+    }
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      h1 { font-size: 2rem; }
+      .toc-list { grid-template-columns: 1fr; }
+      .cta-section { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="../assets/logo/bird-128.png" width="32" height="32" alt="Onbrd">
+      <div style="font-family:'Satoshi Variable','Geist Variable',ui-sans-serif,sans-serif;font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
+    </header>
+    
+    <!-- Top CTA -->
+    <div class="cta-section">
+      <h2 class="cta-title">Ready to Audit Your Onboarding?</h2>
+      <p class="cta-description">
+        See how your site scores against these 20 heuristics. Get actionable insights in 60 seconds.
+      </p>
+      <a href="../demo" class="btn-primary">Try the Demo →</a>
+      <a href="../dl" download class="btn-secondary">Download Extension</a>
+    </div>
+    
+    <main>
+      <h1>20 UX Heuristics for Perfect User Onboarding</h1>
+      <p class="intro">
+        Master the art of user onboarding with these proven UX principles. Each heuristic is backed by research and real-world examples to help you create experiences that convert and retain users.
+      </p>
+      
+      <!-- Table of Contents -->
+      <nav class="toc">
+        <h3>Quick Navigation</h3>
+        <ul class="toc-list">
+          <li><a href="#h-01">First Impression Impact</a></li>
+          <li><a href="#h-02">Clear Value Proposition</a></li>
+          <li><a href="#h-03">Progressive Disclosure</a></li>
+          <li><a href="#h-04">Cognitive Load Management</a></li>
+          <li><a href="#h-05">Visual Hierarchy</a></li>
+          <li><a href="#h-06">Feedback & Response Time</a></li>
+          <li><a href="#h-07">Error Prevention & Recovery</a></li>
+          <li><a href="#h-08">Consistency & Standards</a></li>
+          <li><a href="#h-09">User Control & Freedom</a></li>
+          <li><a href="#h-10">Recognition vs Recall</a></li>
+          <li><a href="#h-11">Flexibility & Efficiency</a></li>
+          <li><a href="#h-12">Aesthetic & Minimal Design</a></li>
+          <li><a href="#h-13">Help & Documentation</a></li>
+          <li><a href="#h-14">Trust & Credibility</a></li>
+          <li><a href="#h-15">Social Proof & Community</a></li>
+          <li><a href="#h-16">Personalization & Context</a></li>
+          <li><a href="#h-17">Accessibility & Inclusion</a></li>
+          <li><a href="#h-18">Mobile-First Experience</a></li>
+          <li><a href="#h-19">Performance & Speed</a></li>
+          <li><a href="#h-20">Analytics & Iteration</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Heuristics -->
+      <article class="heuristic" id="h-01">
+        <div class="heuristic-header">
+          <div class="heuristic-number">01</div>
+          <h2 class="heuristic-title">First Impression Impact</h2>
+        </div>
+        <p class="heuristic-description">
+          Users form lasting impressions within 50 milliseconds. Your onboarding experience must immediately communicate professionalism, trustworthiness, and value while establishing clear expectations for what's to come.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use high-quality visuals and consistent branding from the first screen</li>
+            <li>Display loading states that reassure rather than frustrate</li>
+            <li>Show progress indicators early to set expectation</li>
+            <li>Avoid overwhelming users with too many choices initially</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-02">
+        <div class="heuristic-header">
+          <div class="heuristic-number">02</div>
+          <h2 class="heuristic-title">Clear Value Proposition</h2>
+        </div>
+        <p class="heuristic-description">
+          Users need to understand exactly what they'll gain by completing your onboarding process. The value proposition should be specific, measurable, and directly relevant to their goals or pain points.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Lead with concrete benefits, not features</li>
+            <li>Use specific numbers or outcomes when possible</li>
+            <li>Address the user's primary pain point within the first 2-3 screens</li>
+            <li>Provide social proof or testimonials early in the process</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-03">
+        <div class="heuristic-header">
+          <div class="heuristic-number">03</div>
+          <h2 class="heuristic-title">Progressive Disclosure</h2>
+        </div>
+        <p class="heuristic-description">
+          Present information and choices gradually, revealing complexity only when necessary. This reduces cognitive load and prevents users from feeling overwhelmed by too many decisions or too much information at once.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Start with essential information only</li>
+            <li>Use multi-step forms with clear progress indicators</li>
+            <li>Hide advanced options behind "show more" toggles</li>
+            <li>Group related information logically</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-04">
+        <div class="heuristic-header">
+          <div class="heuristic-number">04</div>
+          <h2 class="heuristic-title">Cognitive Load Management</h2>
+        </div>
+        <p class="heuristic-description">
+          Minimize the mental effort required to complete onboarding. Users should be able to focus on one primary task at a time without juggling multiple pieces of information or making complex decisions simultaneously.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use simple, conversational language</li>
+            <li>Limit form fields to essential information only</li>
+            <li>Provide smart defaults and auto-complete where possible</li>
+            <li>Break complex tasks into smaller, manageable steps</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-05">
+        <div class="heuristic-header">
+          <div class="heuristic-number">05</div>
+          <h2 class="heuristic-title">Visual Hierarchy</h2>
+        </div>
+        <p class="heuristic-description">
+          Guide users' attention through strategic use of size, color, contrast, and spacing. The most important elements should be immediately noticeable, while secondary elements should recede appropriately into the background.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use size and weight to emphasize primary actions</li>
+            <li>Maintain consistent spacing and alignment</li>
+            <li>Ensure sufficient contrast for readability</li>
+            <li>Use white space effectively to reduce visual clutter</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-06">
+        <div class="heuristic-header">
+          <div class="heuristic-number">06</div>
+          <h2 class="heuristic-title">Feedback & Response Time</h2>
+        </div>
+        <p class="heuristic-description">
+          Provide immediate, clear feedback for every user action. Users should always know the system status and what will happen next, with response times that meet or exceed expectations to maintain engagement and trust.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Show loading states for any operation taking longer than 1 second</li>
+            <li>Provide success confirmations for completed actions</li>
+            <li>Use micro-interactions to acknowledge user input</li>
+            <li>Display progress bars for multi-step processes</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-07">
+        <div class="heuristic-header">
+          <div class="heuristic-number">07</div>
+          <h2 class="heuristic-title">Error Prevention & Recovery</h2>
+        </div>
+        <p class="heuristic-description">
+          Design to prevent errors before they occur, and when errors do happen, make them easy to understand and recover from. Clear error messages should guide users toward resolution rather than creating frustration.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use inline validation with helpful error messages</li>
+            <li>Provide clear password requirements upfront</li>
+            <li>Offer suggestions for fixing common errors</li>
+            <li>Allow users to go back and correct mistakes easily</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-08">
+        <div class="heuristic-header">
+          <div class="heuristic-number">08</div>
+          <h2 class="heuristic-title">Consistency & Standards</h2>
+        </div>
+        <p class="heuristic-description">
+          Follow established conventions and maintain internal consistency throughout the onboarding experience. Users should be able to transfer knowledge from other applications and predict how your interface will behave.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use standard UI patterns and conventions</li>
+            <li>Maintain consistent terminology throughout</li>
+            <li>Keep navigation and interaction patterns uniform</li>
+            <li>Follow platform-specific design guidelines</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-09">
+        <div class="heuristic-header">
+          <div class="heuristic-number">09</div>
+          <h2 class="heuristic-title">User Control & Freedom</h2>
+        </div>
+        <p class="heuristic-description">
+          Give users the ability to control their experience, including the option to skip, go back, or exit the onboarding process. Users should never feel trapped or forced into actions they're not ready for.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Provide clear skip or "I'll do this later" options</li>
+            <li>Allow users to navigate between steps freely</li>
+            <li>Include a way to exit or minimize onboarding</li>
+            <li>Save progress so users can return later</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-10">
+        <div class="heuristic-header">
+          <div class="heuristic-number">10</div>
+          <h2 class="heuristic-title">Recognition vs Recall</h2>
+        </div>
+        <p class="heuristic-description">
+          Minimize the user's memory load by making objects, actions, and options visible. Users should recognize what to do rather than having to remember information from previous screens or steps.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Use descriptive labels instead of requiring users to remember icons</li>
+            <li>Display previously entered information when relevant</li>
+            <li>Provide visual cues and affordances for interactive elements</li>
+            <li>Use familiar icons and symbols with clear labels</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-11">
+        <div class="heuristic-header">
+          <div class="heuristic-number">11</div>
+          <h2 class="heuristic-title">Flexibility & Efficiency</h2>
+        </div>
+        <p class="heuristic-description">
+        Accommodate both novice and expert users by providing multiple ways to accomplish tasks. Allow experienced users to bypass lengthy processes while ensuring beginners can follow guided paths comfortably.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Offer keyboard shortcuts for power users</li>
+            <li>Provide "quick setup" vs "detailed setup" options</li>
+            <li>Allow bulk actions where appropriate</li>
+            <li>Support copy-paste and drag-drop interactions</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-12">
+        <div class="heuristic-header">
+          <div class="heuristic-number">12</div>
+          <h2 class="heuristic-title">Aesthetic & Minimal Design</h2>
+        </div>
+        <p class="heuristic-description">
+          Every element should serve a purpose. Remove unnecessary information and visual clutter that doesn't directly support the user's primary goals or the onboarding process objectives.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Eliminate redundant or unnecessary UI elements</li>
+            <li>Use white space strategically to improve focus</li>
+            <li>Keep text concise and scannable</li>
+            <li>Remove decorative elements that don't add value</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-13">
+        <div class="heuristic-header">
+          <div class="heuristic-number">13</div>
+          <h2 class="heuristic-title">Help & Documentation</h2>
+        </div>
+        <p class="heuristic-description">
+          Provide easily accessible help when users need it, but design the interface to be intuitive enough that most users won't require extensive documentation. Contextual help is more effective than separate help sections.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Include contextual tooltips and help text</li>
+            <li>Provide examples and templates where helpful</li>
+            <li>Offer searchable help documentation</li>
+            <li>Include contact information for human support</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-14">
+        <div class="heuristic-header">
+          <div class="heuristic-number">14</div>
+          <h2 class="heuristic-title">Trust & Credibility</h2>
+        </div>
+        <p class="heuristic-description">
+          Build trust through transparency, security indicators, and social proof. Users are more likely to complete onboarding when they feel confident about the legitimacy and safety of your product or service.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Display security badges and SSL certificates</li>
+            <li>Show customer testimonials or user counts</li>
+            <li>Be transparent about data usage and privacy</li>
+            <li>Include company information and contact details</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-15">
+        <div class="heuristic-header">
+          <div class="heuristic-number">15</div>
+          <h2 class="heuristic-title">Social Proof & Community</h2>
+        </div>
+        <p class="heuristic-description">
+          Leverage the power of social validation to encourage completion. Users are more likely to continue when they see that others have successfully completed the process and achieved positive outcomes.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Show user testimonials or success stories</li>
+            <li>Display social media follower counts or reviews</li>
+            <li>Highlight community features or user-generated content</li>
+            <li>Mention notable customers or partnerships</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-16">
+        <div class="heuristic-header">
+          <div class="heuristic-number">16</div>
+          <h2 class="heuristic-title">Personalization & Context</h2>
+        </div>
+        <p class="heuristic-description">
+          Tailor the onboarding experience based on user preferences, behavior, or context. Personalized experiences feel more relevant and engaging, leading to higher completion rates and user satisfaction.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Ask about user goals or use cases upfront</li>
+            <li>Customize content based on user type or industry</li>
+            <li>Use the user's name and preferences when appropriate</li>
+            <li>Adapt the flow based on previous interactions</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-17">
+        <div class="heuristic-header">
+          <div class="heuristic-number">17</div>
+          <h2 class="heuristic-title">Accessibility & Inclusion</h2>
+        </div>
+        <p class="heuristic-description">
+          Ensure your onboarding experience is usable by people with diverse abilities and circumstances. Inclusive design not only serves more users but often improves the experience for everyone.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Provide alt text for all images and icons</li>
+            <li>Ensure sufficient color contrast ratios</li>
+            <li>Support keyboard navigation throughout</li>
+            <li>Include captions or transcripts for audio/video content</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-18">
+        <div class="heuristic-header">
+          <div class="heuristic-number">18</div>
+          <h2 class="heuristic-title">Mobile-First Experience</h2>
+        </div>
+        <p class="heuristic-description">
+          Design onboarding experiences that work seamlessly across all devices, with particular attention to mobile users who may represent the majority of your audience. Touch-friendly interfaces and responsive design are essential.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Optimize for touch interactions and thumb-friendly design</li>
+            <li>Ensure forms work well with mobile keyboards</li>
+            <li>Test on various screen sizes and orientations</li>
+            <li>Consider mobile-specific constraints like bandwidth and battery</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-19">
+        <div class="heuristic-header">
+          <div class="heuristic-number">19</div>
+          <h2 class="heuristic-title">Performance & Speed</h2>
+        </div>
+        <p class="heuristic-description">
+          Optimize for fast loading times and smooth interactions. Slow performance during onboarding can lead to abandonment, especially for users who are still evaluating whether to commit to your product.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Optimize images and assets for fast loading</li>
+            <li>Implement lazy loading for non-critical content</li>
+            <li>Minimize the number of HTTP requests</li>
+            <li>Provide offline capabilities where possible</li>
+          </ul>
+        </div>
+      </article>
+      
+      <article class="heuristic" id="h-20">
+        <div class="heuristic-header">
+          <div class="heuristic-number">20</div>
+          <h2 class="heuristic-title">Analytics & Iteration</h2>
+        </div>
+        <p class="heuristic-description">
+          Continuously measure and improve your onboarding experience based on real user data. What works for one audience or context may not work for another, so ongoing optimization is crucial for long-term success.
+        </p>
+        <div class="heuristic-examples">
+          <h4>Key Implementation Points:</h4>
+          <ul class="example-list">
+            <li>Track completion rates at each step of onboarding</li>
+            <li>Monitor time-to-completion and abandonment points</li>
+            <li>Collect user feedback through surveys or interviews</li>
+            <li>A/B test different approaches and measure impact</li>
+          </ul>
+        </div>
+      </article>
+    </main>
+    
+    <!-- Bottom CTA -->
+    <div class="cta-section">
+      <h2 class="cta-title">Put These Heuristics to Work</h2>
+      <p class="cta-description">
+        See how your onboarding experience measures up. Get a detailed audit with actionable recommendations in under 60 seconds.
+      </p>
+      <a href="../demo" class="btn-primary">Start Your Audit →</a>
+      <a href="../dl" download class="btn-secondary">Download Extension</a>
+    </div>
+    
+    <footer class="footer">
+      <p>
+        <a href="../">Back to Home</a> • 
+        <a href="../demo">Try Demo</a> • 
+        <a href="https://github.com/Virrpe/onbrd.run">GitHub</a>
+      </p>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">
+        © 2024 Onbrd. Master user onboarding with data-driven insights.
+      </p>
+    </footer>
+  </div>
+  
+  <!-- Analytics tracking -->
+  <script type="module">
+    // analytics-probe: Import analytics and feature flags
+    import { track, EVENT_NAMES } from '../lib/analytics.ts';
+    import { isFeatureEnabled } from '../lib/featureFlags.ts';
+    
+    // Track page view
+    window.addEventListener('load', async () => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        try {
+          await track(EVENT_NAMES.LP_VIEW, {
+            page: 'heuristics',
+            title: '20 UX Heuristics for Perfect User Onboarding'
+          });
+        } catch (error) {
+          console.warn('Analytics tracking failed:', error);
+        }
+      }
+    });
+    
+    // Track CTA clicks
+    document.addEventListener('click', async (event) => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        const target = event.target.closest('a[href*="../demo"]');
+        if (target) {
+          try {
+            await track(EVENT_NAMES.DEMO_CLICK, {
+              source: 'heuristics-cta',
+              position: target.closest('.cta-section') ? 'cta-section' : 'content'
+            });
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+        
+        const downloadTarget = event.target.closest('a[download]');
+        if (downloadTarget) {
+          try {
+            await track(EVENT_NAMES.EXPORT_CLICK, {
+              fileType: 'extension-zip',
+              source: 'heuristics-page',
+              href: downloadTarget.href
+            });
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+      }
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

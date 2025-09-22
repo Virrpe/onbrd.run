@@ -46,6 +46,7 @@
         <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
         <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
         <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+        <a href="./heuristics" class="text-gray-600 hover:text-gray-900 transition-colors">Heuristics</a>
         <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary">
           Download Extension
         </a>
@@ -124,6 +125,80 @@
             <span>1-Click Install</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Intent Section - Below the fold -->
+  <section id="pricing-intent" class="py-20 bg-gray-50 hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          What features matter most to you?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Help us prioritize development by selecting the features you'd find most valuable.
+        </p>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-sm p-8">
+        <form id="pricing-intent-form" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-4">
+              Select all that apply:
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="team-collaboration" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">Team collaboration & sharing</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="advanced-analytics" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">Advanced analytics & insights</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="custom-rules" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">Custom audit rules</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="api-access" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">API access & integrations</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="white-label" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">White-label reports</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="intentFeatures" value="priority-support" class="w-4 h-4 text-blue-600 rounded">
+                <span class="text-gray-700">Priority support</span>
+              </label>
+            </div>
+          </div>
+          
+          <div>
+            <label for="intentEmail" class="block text-sm font-medium text-gray-700 mb-2">
+              Email (optional, for early access)
+            </label>
+            <input type="email" id="intentEmail" name="email" placeholder="your@email.com"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="intentComments" class="block text-sm font-medium text-gray-700 mb-2">
+              Additional comments (optional)
+            </label>
+            <textarea id="intentComments" name="comments" rows="3"
+                      placeholder="Tell us more about your needs..."
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+          </div>
+          
+          <button type="submit" id="intent-submit"
+                  class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            Share My Feedback
+          </button>
+          
+          <div id="intent-status" class="hidden p-3 rounded-md text-sm"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -449,6 +524,7 @@
           <ul class="space-y-2 text-gray-400">
             <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
             <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="./heuristics" class="hover:text-white transition-colors">Heuristics</a></li>
             <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
           </ul>
         </div>
@@ -469,6 +545,12 @@
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Careers</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Privacy</a></li>
           </ul>
+          <!-- Auth Beta Link (hidden by default, shown via feature flag) -->
+          <div id="auth-beta-link" class="mt-4 hidden">
+            <a href="#" id="auth-signin-link" class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
+              Sign in (beta)
+            </a>
+          </div>
         </div>
       </div>
       
@@ -477,6 +559,380 @@
       </div>
     </div>
   </footer>
+
+  <!-- Auth Modal (hidden by default, shown via feature flag) -->
+  <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-900">Sign in (beta)</h3>
+        <button id="auth-modal-close" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="auth-form" class="space-y-4">
+        <div>
+          <label for="auth-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="auth-email" name="email" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                 placeholder="your@email.com">
+        </div>
+        
+        <div id="auth-status" class="hidden p-3 rounded-md text-sm"></div>
+        
+        <button type="submit" id="auth-submit"
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+          Send Magic Link
+        </button>
+      </form>
+      
+      <div class="mt-4 text-center">
+        <p class="text-xs text-gray-500">
+          This is a beta feature for development/testing only. Magic links are printed to console.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics tracking -->
+  <script type="module">
+    // analytics-probe: Import analytics and feature flags
+    import { track, EVENT_NAMES } from './lib/analytics.ts';
+    import { isFeatureEnabled } from './lib/featureFlags.ts';
+    
+    // analytics-probe: Track landing page view on load
+    window.addEventListener('load', async () => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        try {
+          await track(EVENT_NAMES.LP_VIEW);
+        } catch (error) {
+          console.warn('Analytics tracking failed:', error);
+        }
+      }
+    });
+    
+    // analytics-probe: Track demo clicks on hero CTA buttons
+    document.addEventListener('click', async (event) => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        const target = event.target.closest('a[href*="demo"], a[href*="/demo"]');
+        if (target) {
+          try {
+            await track(EVENT_NAMES.DEMO_CLICK);
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+      }
+    });
+    
+    // analytics-probe: Track export/download clicks
+    document.addEventListener('click', async (event) => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        const target = event.target.closest('a[download], [href*="download"], [href*=".zip"], [href*=".html"]');
+        if (target) {
+          try {
+            await track(EVENT_NAMES.EXPORT_CLICK, {
+              fileType: target.getAttribute('download') || 'unknown',
+              href: target.href
+            });
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+      }
+    });
+    
+    // analytics-probe: Track waitlist/subscribe form submissions
+    document.addEventListener('click', async (event) => {
+      if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+        const target = event.target.closest('a[href^="mailto:"]');
+        if (target && target.href.includes('hello@onbrd.run')) {
+          try {
+            // Hash the email for privacy (extract from mailto link)
+            const emailMatch = target.href.match(/mailto:hello@onbrd\.run\?.*body=([^&]*)/);
+            const emailBody = emailMatch ? emailMatch[1] : '';
+            
+            await track(EVENT_NAMES.SIGNUP_START, {
+              emailHash: emailBody ? btoa(emailBody).slice(0, 16) : 'unknown'
+            });
+            
+            // Track success after a short delay (simulating form submission)
+            setTimeout(async () => {
+              try {
+                await track(EVENT_NAMES.SIGNUP_SUCCESS, {
+                  emailHash: emailBody ? btoa(emailBody).slice(0, 16) : 'unknown'
+                });
+              } catch (error) {
+                console.warn('Analytics tracking failed:', error);
+              }
+            }, 1000);
+          } catch (error) {
+            console.warn('Analytics tracking failed:', error);
+          }
+        }
+      }
+    });
+
+    // Auth beta functionality
+    // Show auth beta UI if feature flag is enabled
+    function initializeAuthBeta() {
+      if (isFeatureEnabled('AUTH_BETA')) {
+        // Show auth link in footer
+        const authLink = document.getElementById('auth-beta-link');
+        if (authLink) {
+          authLink.classList.remove('hidden');
+        }
+        
+        // Add auth modal functionality
+        const authModal = document.getElementById('auth-modal');
+        const authSigninLink = document.getElementById('auth-signin-link');
+        const authModalClose = document.getElementById('auth-modal-close');
+        const authForm = document.getElementById('auth-form');
+        const authStatus = document.getElementById('auth-status');
+        const authSubmit = document.getElementById('auth-submit');
+        
+        // Show modal when sign in link is clicked
+        if (authSigninLink) {
+          authSigninLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (authModal) {
+              authModal.classList.remove('hidden');
+              authModal.classList.add('flex');
+            }
+          });
+        }
+        
+        // Hide modal when close button is clicked
+        if (authModalClose) {
+          authModalClose.addEventListener('click', () => {
+            if (authModal) {
+              authModal.classList.add('hidden');
+              authModal.classList.remove('flex');
+            }
+          });
+        }
+        
+        // Hide modal when clicking outside
+        if (authModal) {
+          authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+              authModal.classList.add('hidden');
+              authModal.classList.remove('flex');
+            }
+          });
+        }
+        
+        // Handle auth form submission
+        if (authForm) {
+          authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('auth-email')?.value;
+            if (!email) return;
+            
+            // Show loading state
+            if (authSubmit) {
+              authSubmit.disabled = true;
+              authSubmit.textContent = 'Sending...';
+            }
+            
+            try {
+              // Simulate auth API call (stub implementation)
+              const magicLink = `http://localhost:3000/auth/verify?token=demo_${Date.now()}&email=${encodeURIComponent(email)}`;
+              
+              // Show success message
+              if (authStatus) {
+                authStatus.className = 'p-3 rounded-md text-sm bg-green-100 text-green-700';
+                authStatus.textContent = 'Magic link sent! Check your email (demo: link printed to console)';
+                authStatus.classList.remove('hidden');
+              }
+              
+              // Log magic link to console for development
+              console.log(`[Auth Beta] Magic link for ${email}: ${magicLink}`);
+              
+              // Track auth event
+              if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+                try {
+                  await track(EVENT_NAMES.AUTH_MAGIC_LINK_SENT, { email: email.substring(0, 3) + '***' });
+                } catch (error) {
+                  console.warn('Analytics tracking failed:', error);
+                }
+              }
+              
+              // Clear form
+              if (authForm) {
+                authForm.reset();
+              }
+              
+              // Hide modal after delay
+              setTimeout(() => {
+                if (authModal) {
+                  authModal.classList.add('hidden');
+                  authModal.classList.remove('flex');
+                }
+                if (authStatus) {
+                  authStatus.classList.add('hidden');
+                }
+              }, 3000);
+              
+            } catch (error) {
+              console.error('Auth error:', error);
+              
+              // Show error message
+              if (authStatus) {
+                authStatus.className = 'p-3 rounded-md text-sm bg-red-100 text-red-700';
+                authStatus.textContent = 'Failed to send magic link. Please try again.';
+                authStatus.classList.remove('hidden');
+              }
+              
+              // Track error event
+              if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+                try {
+                  await track('auth_error', { error: error.message });
+                } catch (error) {
+                  console.warn('Analytics tracking failed:', error);
+                }
+              }
+            } finally {
+              // Reset button state
+              if (authSubmit) {
+                authSubmit.disabled = false;
+                authSubmit.textContent = 'Send Magic Link';
+              }
+            }
+          });
+        }
+      }
+    }
+    
+    // Initialize auth beta on page load
+    window.addEventListener('DOMContentLoaded', initializeAuthBeta);
+    
+    // Pricing Intent Probe functionality
+    async function initializePricingIntent() {
+      // Check if pricing intent beta is enabled
+      const isPricingIntentEnabled = await (async () => {
+        try {
+          const featureFlagsModule = await import('./lib/featureFlags.ts');
+          return featureFlagsModule.isFeatureEnabled('PRICING_INTENT_BETA');
+        } catch (error) {
+          return false;
+        }
+      })();
+      
+      if (!isPricingIntentEnabled) {
+        return;
+      }
+      
+      // Show pricing intent section
+      const pricingIntentSection = document.getElementById('pricing-intent');
+      if (pricingIntentSection) {
+        pricingIntentSection.classList.remove('hidden');
+      }
+      
+      // Handle form submission
+      const form = document.getElementById('pricing-intent-form');
+      const submitButton = document.getElementById('intent-submit');
+      const statusElement = document.getElementById('intent-status');
+      
+      if (!form || !submitButton || !statusElement) {
+        return;
+      }
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const selectedFeatures = formData.getAll('intentFeatures');
+        const email = formData.get('email');
+        const comments = formData.get('comments');
+        
+        // Validate at least one feature is selected
+        if (selectedFeatures.length === 0) {
+          statusElement.className = 'p-3 rounded-md text-sm bg-red-100 text-red-700';
+          statusElement.textContent = 'Please select at least one feature.';
+          statusElement.classList.remove('hidden');
+          return;
+        }
+        
+        // Set loading state
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+        
+        try {
+          // Track analytics event
+          if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+            try {
+              const { track, EVENT_NAMES } = await import('./lib/analytics.ts');
+              await track(EVENT_NAMES.UPGRADE_INTENT_DETAIL, {
+                features: selectedFeatures,
+                hasEmail: !!email,
+                hasComments: !!comments,
+                featureCount: selectedFeatures.length
+              });
+            } catch (error) {
+              console.warn('Analytics tracking failed:', error);
+            }
+          }
+          
+          // Send to backend (stub implementation)
+          const response = await fetch('/api/v1/intent/pricing', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              features: selectedFeatures,
+              email,
+              comments,
+              timestamp: Date.now()
+            })
+          });
+          
+          // Show success message
+          statusElement.className = 'p-3 rounded-md text-sm bg-green-100 text-green-700';
+          statusElement.textContent = 'Thank you! Your feedback helps us prioritize development.';
+          statusElement.classList.remove('hidden');
+          
+          // Reset form
+          form.reset();
+          
+          // Hide section after delay
+          setTimeout(() => {
+            pricingIntentSection.classList.add('hidden');
+          }, 3000);
+          
+        } catch (error) {
+          console.error('Pricing intent submission error:', error);
+          
+          // Show error message
+          statusElement.className = 'p-3 rounded-md text-sm bg-red-100 text-red-700';
+          statusElement.textContent = 'Failed to submit feedback. Please try again.';
+          statusElement.classList.remove('hidden');
+          
+          // Track error event
+          if (isFeatureEnabled('ANALYTICS_EVENTS')) {
+            try {
+              const { track, EVENT_NAMES } = await import('./lib/analytics.ts');
+              await track(EVENT_NAMES.AUTH_ERROR, { error: error.message });
+            } catch (error) {
+              console.warn('Analytics tracking failed:', error);
+            }
+          }
+        } finally {
+          // Reset button state
+          submitButton.disabled = false;
+          submitButton.textContent = 'Share My Feedback';
+        }
+      });
+    }
+    
+    // Initialize pricing intent on page load
+    window.addEventListener('DOMContentLoaded', initializePricingIntent);
+  </script>
   <!-- build: %GIT_SHA% @ %ISO_TIME% -->
 </body>
 </html>

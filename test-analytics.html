@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Test</title>
+</head>
+<body>
+  <h1>Analytics Test Page</h1>
+  <p>This page tests the analytics tracking functionality.</p>
+  
+  <button id="test-track">Test Track Event</button>
+  <button id="test-feature-flag">Test Feature Flag</button>
+  <button id="view-events">View Stored Events</button>
+  <button id="clear-events">Clear Events</button>
+  
+  <div id="output" style="margin-top: 20px; padding: 10px; background: #f0f0f0; font-family: monospace;"></div>
+
+  <script type="module">
+    import { track, getEvents, clearEvents, EVENT_NAMES } from './site/lib/analytics.ts';
+    import { isFeatureEnabled, setFeatureFlag } from './site/lib/featureFlags.ts';
+    
+    const output = document.getElementById('output');
+    
+    function log(message) {
+      output.innerHTML += message + '<br>';
+      console.log(message);
+    }
+    
+    // Test feature flag
+    document.getElementById('test-feature-flag').addEventListener('click', async () => {
+      const enabled = isFeatureEnabled('ANALYTICS_EVENTS');
+      log(`Analytics feature flag: ${enabled}`);
+      
+      if (!enabled) {
+        log('Enabling analytics feature flag...');
+        setFeatureFlag('ANALYTICS_EVENTS', true);
+        log('Analytics enabled! Refresh page to test.');
+      }
+    });
+    
+    // Test track event
+    document.getElementById('test-track').addEventListener('click', async () => {
+      try {
+        log('Testing track event...');
+        await track(EVENT_NAMES.LP_VIEW, { test: true, timestamp: Date.now() });
+        log('Track event successful!');
+      } catch (error) {
+        log(`Track event failed: ${error.message}`);
+      }
+    });
+    
+    // View stored events
+    document.getElementById('view-events').addEventListener('click', () => {
+      try {
+        const events = getEvents();
+        log(`Stored events: ${events.length}`);
+        events.slice(-5).forEach((event, index) => {
+          log(`Event ${index + 1}: ${event.name} - ${JSON.stringify(event.payload)}`);
+        });
+      } catch (error) {
+        log(`Failed to view events: ${error.message}`);
+      }
+    });
+    
+    // Clear events
+    document.getElementById('clear-events').addEventListener('click', () => {
+      try {
+        clearEvents();
+        log('Events cleared!');
+      } catch (error) {
+        log(`Failed to clear events: ${error.message}`);
+      }
+    });
+    
+    // Initial status
+    log('Analytics test page loaded');
+    log(`Feature flag enabled: ${isFeatureEnabled('ANALYTICS_EVENTS')}`);
+  </script>
+</body>
+</html>
