@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { renderReport } from '@onboarding-audit/report';
-  
+  import Paywall from '../lib/paywall.svelte';
+
   // analytics-probe: Import analytics tracking
   let analyticsEnabled = false;
   let trackEvent: ((eventName: string, payload?: Record<string, any>) => Promise<void>) | null = null;
@@ -14,11 +15,24 @@
   let score: number | null = null;
   let fixes: Array<{id:string; fix:string; weight:number}> = [];
 
+  // Paywall state
+  let showPaywall = false;
+  let paywallVariant: 'benchmarks' | 'compliance' = 'benchmarks';
+  let currentIntent: { kind: 'export' | 'artifact', payload?: any } | null = null;
+  let isPollingEntitlements = false;
+  let paymentProcessingMessage = '';
+
   onMount(async () => {
     const s = await chrome.storage.sync.get({ telemetry_opt_in: false, onbrd_device: 'desktop', onbrd_cohort: 'global' });
     telemetryOptIn = s.telemetry_opt_in;
     device = s.onbrd_device;
     cohort = s.onbrd_cohort;
+    
+    // Check for payment success return
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('paid')) {
+      handlePaymentReturn();
+    }
     
     // analytics-probe: Initialize analytics tracking
     try {
@@ -39,6 +53,206 @@
 
   function savePrefs() {
     chrome.storage.sync.set({ telemetry_opt_in: telemetryOptIn, onbrd_device: device, onbrd_cohort: cohort });
+  }
+
+  async function handlePaymentReturn() {
+    isPollingEntitlements = true;
+    paymentProcessingMessage = 'Payment received! Checking access...';
+    
+    // Poll entitlements up to 5 times with 1s interval
+    for (let i = 0; i < 5; i++) {
+      try {
+        const response = await fetch('/api/v1/entitlements', {
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const entitlements = await response.json();
+          if (entitlements.plan_status === 'active') {
+            // Payment successful, execute original intent
+            isPollingEntitlements = false;
+            paymentProcessingMessage = '';
+            
+            // Track checkout success
+            if (analyticsEnabled && trackEvent && eventNames) {
+              try {
+                await trackEvent(eventNames.CHECKOUT_SUCCESS, {
+                  variant: paywallVariant,
+                  device,
+                  cohort
+                });
+              } catch (error) {
+                console.warn('Analytics tracking failed:', error);
+              }
+            }
+            
+            // Execute original intent
+            if (currentIntent) {
+              if (currentIntent.kind === 'export') {
+                await executeExport();
+              } else if (currentIntent.kind === 'artifact') {
+                await executeArtifact();
+              }
+            }
+            
+            // Close paywall if open
+            showPaywall = false;
+            currentIntent = null;
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn('Error polling entitlements:', error);
+      }
+      
+      // Wait 1 second before next poll
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+    
+    // If still not active after polling
+    isPollingEntitlements = false;
+    paymentProcessingMessage = 'Payment is processing—try again in a few seconds.';
+  }
+
+  async function executeExport() {
+    try {
+      const response = await fetch('/api/v1/benchmarks/export.csv', {
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'onbrd-benchmarks.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      } else if (response.status === 402) {
+        // Should not happen after payment, but handle gracefully
+        console.warn('Still not entitled after payment');
+      }
+    } catch (error) {
+      console.error('Export failed:', error);
+    }
+  }
+
+  async function executeArtifact() {
+    try {
+      // For artifact creation, we need audit data
+      const auditData = {
+        score,
+        fixes,
+        benchmark,
+        device,
+        cohort
+      };
+      
+      const response = await fetch('/api/v1/artifacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(auditData)
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        if (result.downloadUrl) {
+          window.open(result.downloadUrl, '_blank');
+        }
+      } else if (response.status === 402) {
+        // Should not happen after payment, but handle gracefully
+        console.warn('Still not entitled after payment');
+      }
+    } catch (error) {
+      console.error('Artifact creation failed:', error);
+    }
+  }
+
+  async function handlePaywalledAction(kind: 'export' | 'artifact') {
+    // Track attempt
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        if (kind === 'export') {
+          await trackEvent(eventNames.EXPORT_ATTEMPT, {
+            variant: 'benchmarks',
+            device,
+            cohort
+          });
+        } else {
+          await trackEvent(eventNames.ARTIFACT_ATTEMPT, {
+            variant: 'evidence',
+            device,
+            cohort
+          });
+        }
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+    
+    // Store current intent
+    currentIntent = { kind };
+    paywallVariant = kind === 'export' ? 'benchmarks' : 'compliance';
+    
+    // Show paywall
+    showPaywall = true;
+    
+    // Track paywall shown
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.PAYWALL_SHOWN, {
+          reason: 'payment_required',
+          variant: paywallVariant,
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+  }
+
+  async function handleCheckout() {
+    // Track checkout click
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.CHECKOUT_CLICK, {
+          source: 'paywall_modal',
+          variant: paywallVariant,
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+    
+    try {
+      const returnTo = encodeURIComponent(window.location.href.split('?')[0] + '?paid=1');
+      const response = await fetch('/api/v1/billing/checkout?returnTo=' + returnTo, {
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const checkoutUrl = await response.text();
+        window.open(checkoutUrl, '_blank');
+      } else {
+        const errorData = await response.json();
+        if (errorData.reason === 'missing_env') {
+          console.log('Stripe not configured. Please set STRIPE_SECRET_KEY and STRIPE_PRICE_ID environment variables.');
+          paymentProcessingMessage = 'Checkout not configured. Please contact support.';
+        } else {
+          console.error('Checkout failed:', errorData);
+          paymentProcessingMessage = 'Checkout failed. Please try again.';
+        }
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      paymentProcessingMessage = 'Checkout error. Please try again.';
+    }
   }
 
   function selectDevice(d: string) {
@@ -144,78 +358,13 @@
     const fn = `onboarding-audit-${host}-${tsStamp()}.html`;
     const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = fn; link.click();
   }
-  // Falsification sprint analytics stubs
-  async function trackExportAttempt() {
-    if (analyticsEnabled && trackEvent && eventNames) {
-      try {
-        await trackEvent(eventNames.EXPORT_ATTEMPT, {
-          type: 'benchmarks_csv',
-          device,
-          cohort
-        });
-      } catch (error) {
-        console.warn('Analytics tracking failed:', error);
-      }
-    }
+
+  async function exportCsv() {
+    await handlePaywalledAction('export');
   }
 
-  async function trackArtifactAttempt() {
-    if (analyticsEnabled && trackEvent && eventNames) {
-      try {
-        await trackEvent(eventNames.ARTIFACT_ATTEMPT, {
-          type: 'wcag_evidence',
-          device,
-          cohort
-        });
-      } catch (error) {
-        console.warn('Analytics tracking failed:', error);
-      }
-    }
-  }
-
-  async function trackCheckoutClick() {
-    if (analyticsEnabled && trackEvent && eventNames) {
-      try {
-        await trackEvent(eventNames.CHECKOUT_CLICK, {
-          source: 'paywall_modal',
-          device,
-          cohort
-        });
-      } catch (error) {
-console.warn('Analytics tracking failed:', error);
-      }
-    }
-  }
-
-  async function trackPaywallShown() {
-    if (analyticsEnabled && trackEvent && eventNames) {
-      try {
-        await trackEvent(eventNames.PAYWALL_SHOWN, {
-          reason: 'payment_required',
-          device,
-          cohort
-        });
-      } catch (error) {
-        console.warn('Analytics tracking failed:', error);
-      }
-    }
-  }
-
-  // Test function to verify analytics events work
-  async function testAnalyticsEvents() {
-    if (analyticsEnabled && trackEvent && eventNames) {
-      try {
-        await trackEvent(eventNames.AUDIT_RUN);
-        await trackEvent(eventNames.EXPORT_ATTEMPT);
-        await trackEvent(eventNames.ARTIFACT_ATTEMPT);
-        await trackEvent(eventNames.CHECKOUT_CLICK);
-        await trackEvent(eventNames.CHECKOUT_SUCCESS);
-        await trackEvent(eventNames.PAYWALL_SHOWN);
-        console.log('All analytics events tracked successfully');
-      } catch (error) {
-        console.warn('Analytics test failed:', error);
-      }
-    }
+  async function generateArtifact() {
+    await handlePaywalledAction('artifact');
   }
 </script>
 
@@ -255,6 +404,11 @@ console.warn('Analytics tracking failed:', error);
     <button class="chip" on:click={exportHtml}>Export HTML</button>
   </div>
 
+  <div class="flex gap-2 mb-3">
+    <button class="chip" on:click={exportCsv}>Export CSV</button>
+    <button class="chip" on:click={generateArtifact}>Evidence Pack</button>
+  </div>
+
   {#if score !== null}
     <div class="mb-2 text-lg font-semibold">{score}</div>
     {#if benchmark}
@@ -274,6 +428,26 @@ console.warn('Analytics tracking failed:', error);
           <li><span class="font-medium">{f.id}</span> — {f.fix}</li>
         {/each}
       </ul>
+    </div>
+  {/if}
+
+  {#if showPaywall}
+    <Paywall variant={paywallVariant} onClose={() => showPaywall = false} onCheckout={handleCheckout} />
+  {/if}
+
+  {#if paymentProcessingMessage}
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <div class="text-center">
+          <div class="text-lg font-semibold mb-2">Processing Payment</div>
+          <div class="text-gray-600">{paymentProcessingMessage}</div>
+          {#if isPollingEntitlements}
+            <div class="mt-4">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          {/if}
+        </div>
+      </div>
     </div>
   {/if}
 </div>

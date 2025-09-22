@@ -44,6 +44,8 @@ Use this test card for checkout testing:
 
 This card will successfully create test subscriptions without charging real money.
 
+Use test card 4242 4242 4242 4242, any future expiry, any CVC/ZIP.
+
 ## Expected Outcomes
 
 ### Successful Payment Flow
