@@ -217,6 +217,14 @@ export const EVENT_NAMES = {
   
   // Track F: Marketing/SEO
   HEURISTICS_VIEW: 'heuristics_view',
+
+  // Falsification Sprint Events
+  AUDIT_RUN: 'audit_run',
+  EXPORT_ATTEMPT: 'export_attempt',
+  ARTIFACT_ATTEMPT: 'artifact_attempt',
+  CHECKOUT_CLICK: 'checkout_click',
+  CHECKOUT_SUCCESS: 'checkout_success',
+  PAYWALL_SHOWN: 'paywall_shown',
 } as const;
 
 export type EventName = typeof EVENT_NAMES[keyof typeof EVENT_NAMES];

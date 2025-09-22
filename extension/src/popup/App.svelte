@@ -52,9 +52,15 @@
   }
 
   async function runAudit() {
-    // analytics-probe: Track audit start event
+    // analytics-probe: Track audit events
     if (analyticsEnabled && trackEvent && eventNames) {
       try {
+        await trackEvent(eventNames.AUDIT_RUN, {
+          device,
+          cohort,
+          telemetryOptIn
+        });
+        // Also track legacy AUDIT_START for backward compatibility
         await trackEvent(eventNames.AUDIT_START, {
           device,
           cohort,
@@ -137,6 +143,79 @@
     const blob = new Blob([html], { type: 'text/html' });
     const fn = `onboarding-audit-${host}-${tsStamp()}.html`;
     const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = fn; link.click();
+  }
+  // Falsification sprint analytics stubs
+  async function trackExportAttempt() {
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.EXPORT_ATTEMPT, {
+          type: 'benchmarks_csv',
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+  }
+
+  async function trackArtifactAttempt() {
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.ARTIFACT_ATTEMPT, {
+          type: 'wcag_evidence',
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+  }
+
+  async function trackCheckoutClick() {
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.CHECKOUT_CLICK, {
+          source: 'paywall_modal',
+          device,
+          cohort
+        });
+      } catch (error) {
+console.warn('Analytics tracking failed:', error);
+      }
+    }
+  }
+
+  async function trackPaywallShown() {
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.PAYWALL_SHOWN, {
+          reason: 'payment_required',
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+  }
+
+  // Test function to verify analytics events work
+  async function testAnalyticsEvents() {
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.AUDIT_RUN);
+        await trackEvent(eventNames.EXPORT_ATTEMPT);
+        await trackEvent(eventNames.ARTIFACT_ATTEMPT);
+        await trackEvent(eventNames.CHECKOUT_CLICK);
+        await trackEvent(eventNames.CHECKOUT_SUCCESS);
+        await trackEvent(eventNames.PAYWALL_SHOWN);
+        console.log('All analytics events tracked successfully');
+      } catch (error) {
+        console.warn('Analytics test failed:', error);
+      }
+    }
   }
 </script>
 
