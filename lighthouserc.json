@@ -4,11 +4,11 @@
       "url": ["https://virrpe.github.io/onbrd.run/"],
       "numberOfRuns": 1,
       "chromePath": "/home/swirky/.cache/ms-playwright/chromium-1187/chrome-linux/chrome",
-      "settings": {
-        "preset": "desktop",
-        "chromeFlags": ["--headless=new","--no-sandbox","--disable-dev-shm-usage","--no-first-run","--disable-gpu"]
-      }
+      "settings": { "preset": "desktop" }
     },
-    "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    }
   }
 }

@@ -1,0 +1,310 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OnboardingAudit.ai/backend/.next/server/app/api/v1/rules/route.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../../../../index.html">All files</a> / <a href="index.html">OnboardingAudit.ai/backend/.next/server/app/api/v1/rules</a> route.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/76</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/76</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >"use strict";</span></span></span>
+<span class="cstat-no" title="statement not covered" >/*</span>
+<span class="cstat-no" title="statement not covered" > * ATTENTION: An "eval-source-map" devtool has been used.</span>
+<span class="cstat-no" title="statement not covered" > * This devtool is neither made for production nor for readable output files.</span>
+<span class="cstat-no" title="statement not covered" > * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.</span>
+<span class="cstat-no" title="statement not covered" > * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)</span>
+<span class="cstat-no" title="statement not covered" > * or disable the default devtool with "devtool: false".</span>
+<span class="cstat-no" title="statement not covered" > * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >var exports = {};</span>
+<span class="cstat-no" title="statement not covered" >exports.id = "app/api/v1/rules/route";</span>
+<span class="cstat-no" title="statement not covered" >exports.ids = ["app/api/v1/rules/route"];</span>
+<span class="cstat-no" title="statement not covered" >exports.modules = {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "next/dist/compiled/next-server/app-page.runtime.dev.js":</span>
+<span class="cstat-no" title="statement not covered" >/*!*************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** external "next/dist/compiled/next-server/app-page.runtime.dev.js" ***!</span>
+<span class="cstat-no" title="statement not covered" >  \*************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >module.exports = require("next/dist/compiled/next-server/app-page.runtime.dev.js");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "next/dist/compiled/next-server/app-route.runtime.dev.js":</span>
+<span class="cstat-no" title="statement not covered" >/*!**************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** external "next/dist/compiled/next-server/app-route.runtime.dev.js" ***!</span>
+<span class="cstat-no" title="statement not covered" >  \**************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >module.exports = require("next/dist/compiled/next-server/app-route.runtime.dev.js");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "crypto":</span>
+<span class="cstat-no" title="statement not covered" >/*!*************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** external "crypto" ***!</span>
+<span class="cstat-no" title="statement not covered" >  \*************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >module.exports = require("crypto");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fv1%2Frules%2Froute&amp;page=%2Fapi%2Fv1%2Frules%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fv1%2Frules%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!":</span>
+<span class="cstat-no" title="statement not covered" >/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** ../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fv1%2Frules%2Froute&amp;page=%2Fapi%2Fv1%2Frules%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fv1%2Frules%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D! ***!</span>
+<span class="cstat-no" title="statement not covered" >  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   originalPathname: () =&gt; (/* binding */ originalPathname),\n/* harmony export */   patchFetch: () =&gt; (/* binding */ patchFetch),\n/* harmony export */   requestAsyncStorage: () =&gt; (/* binding */ requestAsyncStorage),\n/* harmony export */   routeModule: () =&gt; (/* binding */ routeModule),\n/* harmony export */   serverHooks: () =&gt; (/* binding */ serverHooks),\n/* harmony export */   staticGenerationAsyncStorage: () =&gt; (/* binding */ staticGenerationAsyncStorage)\n/* harmony export */ });\n/* harmony import */ var next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/dist/server/future/route-modules/app-route/module.compiled */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/future/route-modules/app-route/module.compiled.js\");\n/* harmony import */ var next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var next_dist_server_future_route_kind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/dist/server/future/route-kind */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/future/route-kind.js\");\n/* harmony import */ var next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/dist/server/lib/patch-fetch */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/lib/patch-fetch.js\");\n/* harmony import */ var next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _home_swirky_DevHub_repos_OnboardingAudit_ai_backend_src_app_api_v1_rules_route_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/app/api/v1/rules/route.ts */ \"(rsc)/./src/app/api/v1/rules/route.ts\");\n\n\n\n\n// We inject the nextConfigOutput here so that we can use them in the route\n// module.\nconst nextConfigOutput = \"\"\nconst routeModule = new next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__.AppRouteRouteModule({\n    definition: {\n        kind: next_dist_server_future_route_kind__WEBPACK_IMPORTED_MODULE_1__.RouteKind.APP_ROUTE,\n        page: \"/api/v1/rules/route\",\n        pathname: \"/api/v1/rules\",\n        filename: \"route\",\n        bundlePath: \"app/api/v1/rules/route\"\n    },\n    resolvedPagePath: \"/home/swirky/DevHub/repos/OnboardingAudit.ai/backend/src/app/api/v1/rules/route.ts\",\n    nextConfigOutput,\n    userland: _home_swirky_DevHub_repos_OnboardingAudit_ai_backend_src_app_api_v1_rules_route_ts__WEBPACK_IMPORTED_MODULE_3__\n});\n// Pull out the exports that we need to expose from the module. This should\n// be eliminated when we've moved the other routes to the new format. These\n// are used to hook into the route.\nconst { requestAsyncStorage, staticGenerationAsyncStorage, serverHooks } = routeModule;\nconst originalPathname = \"/api/v1/rules/route\";\nfunction patchFetch() {\n    return (0,next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__.patchFetch)({\n        serverHooks,\n        staticGenerationAsyncStorage\n    });\n}\n\n\n//# sourceMappingURL=app-route.js.map//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi4vbm9kZV9tb2R1bGVzLy5wbnBtL25leHRAMTQuMi4zMl9AcGxheXdyaWdodCt0ZXN0QDEuNTUuMF9yZWFjdC1kb21AMTguMy4xX3JlYWN0QDE4LjMuMV9fcmVhY3RAMTguMy4xL25vZGVfbW9kdWxlcy9uZXh0L2Rpc3QvYnVpbGQvd2VicGFjay9sb2FkZXJzL25leHQtYXBwLWxvYWRlci5qcz9uYW1lPWFwcCUyRmFwaSUyRnYxJTJGcnVsZXMlMkZyb3V0ZSZwYWdlPSUyRmFwaSUyRnYxJTJGcnVsZXMlMkZyb3V0ZSZhcHBQYXRocz0mcGFnZVBhdGg9cHJpdmF0ZS1uZXh0LWFwcC1kaXIlMkZhcGklMkZ2MSUyRnJ1bGVzJTJGcm91dGUudHMmYXBwRGlyPSUyRmhvbWUlMkZzd2lya3klMkZEZXZIdWIlMkZyZXBvcyUyRk9uYm9hcmRpbmdBdWRpdC5haSUyRmJhY2tlbmQlMkZzcmMlMkZhcHAmcGFnZUV4dGVuc2lvbnM9dHN4JnBhZ2VFeHRlbnNpb25zPXRzJnBhZ2VFeHRlbnNpb25zPWpzeCZwYWdlRXh0ZW5zaW9ucz1qcyZyb290RGlyPSUyRmhvbWUlMkZzd2lya3klMkZEZXZIdWIlMkZyZXBvcyUyRk9uYm9hcmRpbmdBdWRpdC5haSUyRmJhY2tlbmQmaXNEZXY9dHJ1ZSZ0c2NvbmZpZ1BhdGg9dHNjb25maWcuanNvbiZiYXNlUGF0aD0mYXNzZXRQcmVmaXg9Jm5leHRDb25maWdPdXRwdXQ9JnByZWZlcnJlZFJlZ2lvbj0mbWlkZGxld2FyZUNvbmZpZz1lMzAlM0QhIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFzRztBQUN2QztBQUNjO0FBQ2tDO0FBQy9HO0FBQ0E7QUFDQTtBQUNBLHdCQUF3QixnSEFBbUI7QUFDM0M7QUFDQSxjQUFjLHlFQUFTO0FBQ3ZCO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsS0FBSztBQUNMO0FBQ0E7QUFDQSxZQUFZO0FBQ1osQ0FBQztBQUNEO0FBQ0E7QUFDQTtBQUNBLFFBQVEsaUVBQWlFO0FBQ3pFO0FBQ0E7QUFDQSxXQUFXLDRFQUFXO0FBQ3RCO0FBQ0E7QUFDQSxLQUFLO0FBQ0w7QUFDdUg7O0FBRXZIIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vQG9uYm9hcmRpbmctYXVkaXQvYmFja2VuZC8/MzBkOSJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBcHBSb3V0ZVJvdXRlTW9kdWxlIH0gZnJvbSBcIm5leHQvZGlzdC9zZXJ2ZXIvZnV0dXJlL3JvdXRlLW1vZHVsZXMvYXBwLXJvdXRlL21vZHVsZS5jb21waWxlZFwiO1xuaW1wb3J0IHsgUm91dGVLaW5kIH0gZnJvbSBcIm5leHQvZGlzdC9zZXJ2ZXIvZnV0dXJlL3JvdXRlLWtpbmRcIjtcbmltcG9ydCB7IHBhdGNoRmV0Y2ggYXMgX3BhdGNoRmV0Y2ggfSBmcm9tIFwibmV4dC9kaXN0L3NlcnZlci9saWIvcGF0Y2gtZmV0Y2hcIjtcbmltcG9ydCAqIGFzIHVzZXJsYW5kIGZyb20gXCIvaG9tZS9zd2lya3kvRGV2SHViL3JlcG9zL09uYm9hcmRpbmdBdWRpdC5haS9iYWNrZW5kL3NyYy9hcHAvYXBpL3YxL3J1bGVzL3JvdXRlLnRzXCI7XG4vLyBXZSBpbmplY3QgdGhlIG5leHRDb25maWdPdXRwdXQgaGVyZSBzbyB0aGF0IHdlIGNhbiB1c2UgdGhlbSBpbiB0aGUgcm91dGVcbi8vIG1vZHVsZS5cbmNvbnN0IG5leHRDb25maWdPdXRwdXQgPSBcIlwiXG5jb25zdCByb3V0ZU1vZHVsZSA9IG5ldyBBcHBSb3V0ZVJvdXRlTW9kdWxlKHtcbiAgICBkZWZpbml0aW9uOiB7XG4gICAgICAgIGtpbmQ6IFJvdXRlS2luZC5BUFBfUk9VVEUsXG4gICAgICAgIHBhZ2U6IFwiL2FwaS92MS9ydWxlcy9yb3V0ZVwiLFxuICAgICAgICBwYXRobmFtZTogXCIvYXBpL3YxL3J1bGVzXCIsXG4gICAgICAgIGZpbGVuYW1lOiBcInJvdXRlXCIsXG4gICAgICAgIGJ1bmRsZVBhdGg6IFwiYXBwL2FwaS92MS9ydWxlcy9yb3V0ZVwiXG4gICAgfSxcbiAgICByZXNvbHZlZFBhZ2VQYXRoOiBcIi9ob21lL3N3aXJreS9EZXZIdWIvcmVwb3MvT25ib2FyZGluZ0F1ZGl0LmFpL2JhY2tlbmQvc3JjL2FwcC9hcGkvdjEvcnVsZXMvcm91dGUudHNcIixcbiAgICBuZXh0Q29uZmlnT3V0cHV0LFxuICAgIHVzZXJsYW5kXG59KTtcbi8vIFB1bGwgb3V0IHRoZSBleHBvcnRzIHRoYXQgd2UgbmVlZCB0byBleHBvc2UgZnJvbSB0aGUgbW9kdWxlLiBUaGlzIHNob3VsZFxuLy8gYmUgZWxpbWluYXRlZCB3aGVuIHdlJ3ZlIG1vdmVkIHRoZSBvdGhlciByb3V0ZXMgdG8gdGhlIG5ldyBmb3JtYXQuIFRoZXNlXG4vLyBhcmUgdXNlZCB0byBob29rIGludG8gdGhlIHJvdXRlLlxuY29uc3QgeyByZXF1ZXN0QXN5bmNTdG9yYWdlLCBzdGF0aWNHZW5lcmF0aW9uQXN5bmNTdG9yYWdlLCBzZXJ2ZXJIb29rcyB9ID0gcm91dGVNb2R1bGU7XG5jb25zdCBvcmlnaW5hbFBhdGhuYW1lID0gXCIvYXBpL3YxL3J1bGVzL3JvdXRlXCI7XG5mdW5jdGlvbiBwYXRjaEZldGNoKCkge1xuICAgIHJldHVybiBfcGF0Y2hGZXRjaCh7XG4gICAgICAgIHNlcnZlckhvb2tzLFxuICAgICAgICBzdGF0aWNHZW5lcmF0aW9uQXN5bmNTdG9yYWdlXG4gICAgfSk7XG59XG5leHBvcnQgeyByb3V0ZU1vZHVsZSwgcmVxdWVzdEFzeW5jU3RvcmFnZSwgc3RhdGljR2VuZXJhdGlvbkFzeW5jU3RvcmFnZSwgc2VydmVySG9va3MsIG9yaWdpbmFsUGF0aG5hbWUsIHBhdGNoRmV0Y2gsICB9O1xuXG4vLyMgc291cmNlTWFwcGluZ1VSTD1hcHAtcm91dGUuanMubWFwIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fv1%2Frules%2Froute&amp;page=%2Fapi%2Fv1%2Frules%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fv1%2Frules%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!\n");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "(rsc)/./src/app/api/v1/rules/route.ts":</span>
+<span class="cstat-no" title="statement not covered" >/*!***************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** ./src/app/api/v1/rules/route.ts ***!</span>
+<span class="cstat-no" title="statement not covered" >  \***************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   GET: () =&gt; (/* binding */ GET),\n/* harmony export */   revalidate: () =&gt; (/* binding */ revalidate)\n/* harmony export */ });\n/* harmony import */ var crypto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! crypto */ \"crypto\");\n/* harmony import */ var crypto__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(crypto__WEBPACK_IMPORTED_MODULE_0__);\n\nconst revalidate = 3600; // cache on edge proxies\n// add manifest integrity check on boot (unique IDs, weights sum ≈ 1)\nfunction validateManifest(manifest) {\n    const errors = [];\n    // Check for unique rule IDs\n    const ruleIds = new Set();\n    for (const rule of manifest.rules){\n        if (ruleIds.has(rule.id)) {\n            errors.push(`Duplicate rule ID: ${rule.id}`);\n        }\n        ruleIds.add(rule.id);\n    }\n    // Check weights sum to approximately 1 (allowing small rounding errors)\n    const totalWeight = manifest.rules.reduce((sum, rule)=&gt;sum + rule.weight, 0);\n    if (Math.abs(totalWeight - 1.0) &gt; 0.01) {\n        errors.push(`Weights sum to ${totalWeight}, expected ~1.0`);\n    }\n    // Check required fields\n    for (const rule of manifest.rules){\n        if (!rule.id || !rule.category || !rule.weight || !rule.description || !rule.fix) {\n            errors.push(`Rule missing required fields: ${JSON.stringify(rule)}`);\n        }\n        if (typeof rule.weight !== \"number\" || rule.weight &lt;= 0) {\n            errors.push(`Invalid weight for rule ${rule.id}: ${rule.weight}`);\n        }\n    }\n    return {\n        valid: errors.length === 0,\n        errors\n    };\n}\n// Generate stable hash for ETag\nfunction generateETag(data) {\n    return crypto__WEBPACK_IMPORTED_MODULE_0___default().createHash(\"md5\").update(JSON.stringify(data)).digest(\"hex\");\n}\n// Calculate expires_at (5 minutes from now)\nfunction getExpiresAt() {\n    const now = new Date();\n    now.setMinutes(now.getMinutes() + 5);\n    return now.toISOString();\n}\nconst manifest = {\n    \"version\": \"1.1.0\",\n    \"updatedAt\": \"2025-09-15T18:30:00Z\",\n    \"categories\": [\n        \"Foundation\",\n        \"Attention\",\n        \"Clarity\",\n        \"Trust\",\n        \"Action\",\n        \"Retention\"\n    ],\n    \"rules\": [\n        {\n            \"id\": \"F-PERFORMANCE-LCP\",\n            \"category\": \"Foundation\",\n            \"weight\": 0.0727,\n            \"description\": \"Largest Contentful Paint should occur within ~2.5s.\",\n            \"fix\": \"Optimize hero media, lazy-load non-critical JS, compress images.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"F-ACCESSIBILITY-FOCUS\",\n            \"category\": \"Foundation\",\n            \"weight\": 0.0545,\n            \"description\": \"Interactive elements are keyboard accessible with visible focus.\",\n            \"fix\": \"Restore focus outlines; ensure Tab reaches all CTAs/inputs.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"F-MOBILE-RESPONSIVE\",\n            \"category\": \"Foundation\",\n            \"weight\": 0.0455,\n            \"description\": \"Critical onboarding elements usable on mobile.\",\n            \"fix\": \"Add viewport meta; ensure hero CTA &amp; form are usable &lt;400px.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"A-CTA-ABOVE-FOLD\",\n            \"category\": \"Attention\",\n            \"weight\": 0.0909,\n            \"description\": \"Primary CTA visible without scrolling (desktop &amp; mobile).\",\n            \"fix\": \"Place primary signup CTA within initial viewport.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"A-HEADLINE-VALUE-PROP\",\n            \"category\": \"Attention\",\n            \"weight\": 0.0727,\n            \"description\": \"Hero headline states value proposition clearly.\",\n            \"fix\": \"Lead with outcome-based headline, not features.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"A-VISUAL-HIERARCHY\",\n            \"category\": \"Attention\",\n            \"weight\": 0.0545,\n            \"description\": \"CTA has strongest visual weight in hero.\",\n            \"fix\": \"Increase size/contrast; directional cues to CTA.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"C-COGNITIVE-LOAD\",\n            \"category\": \"Clarity\",\n            \"weight\": 0.0636,\n            \"description\": \"Hero presents ≤5 distinct chunks (headline, subhead, 3 bullets).\",\n            \"fix\": \"Consolidate; use progressive disclosure.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"C-READABILITY-SCORE\",\n            \"category\": \"Clarity\",\n            \"weight\": 0.0455,\n            \"description\": \"Primary copy ≤ grade 8 reading level.\",\n            \"fix\": \"Shorten sentences; simpler vocabulary.\",\n            \"confidence\": \"low\"\n        },\n        {\n            \"id\": \"C-BENEFIT-CLARITY\",\n            \"category\": \"Clarity\",\n            \"weight\": 0.0455,\n            \"description\": \"Benefits are specific, outcome-focused.\",\n            \"fix\": \"Replace feature lists with concrete outcomes/time saved.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"T-SOCIAL-PROOF\",\n            \"category\": \"Trust\",\n            \"weight\": 0.0818,\n            \"description\": \"Credible social proof within signup viewport.\",\n            \"fix\": \"Add testimonials/logos/usage stats near CTA.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"T-PRICING-TRANSPARENCY\",\n            \"category\": \"Trust\",\n            \"weight\": 0.0545,\n            \"description\": \"Pricing discoverable pre-signup.\",\n            \"fix\": \"Visible Pricing link in nav or near signup.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"T-SECURITY-ASSURANCE\",\n            \"category\": \"Trust\",\n            \"weight\": 0.0364,\n            \"description\": \"Security/privacy reassurance near sensitive fields.\",\n            \"fix\": \"Add SSL/privacy text, policy links, or lock icon.\",\n            \"confidence\": \"low\"\n        },\n        {\n            \"id\": \"AC-SIGNUP-FRICTION\",\n            \"category\": \"Action\",\n            \"weight\": 0.0727,\n            \"description\": \"Initial account creation ≤3 fields.\",\n            \"fix\": \"Defer optional fields post-signup.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"AC-PROGRESS-VISIBILITY\",\n            \"category\": \"Action\",\n            \"weight\": 0.0455,\n            \"description\": \"Multi-step flows show clear progress.\",\n            \"fix\": \"Add progress bar or 'Step X of Y'.\",\n            \"confidence\": \"high\"\n        },\n        {\n            \"id\": \"AC-ERROR-PREVENTION\",\n            \"category\": \"Action\",\n            \"weight\": 0.0364,\n            \"description\": \"Forms prevent common input errors.\",\n            \"fix\": \"Inline validation, input masks, helpful placeholders.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"R-TIME-TO-VALUE\",\n            \"category\": \"Retention\",\n            \"weight\": 0.0727,\n            \"description\": \"First core value reached in first session.\",\n            \"fix\": \"Quick-start, demo data, guided first task.\",\n            \"confidence\": \"medium\"\n        },\n        {\n            \"id\": \"R-EMPTY-STATE-DESIGN\",\n            \"category\": \"Retention\",\n            \"weight\": 0.0273,\n            \"description\": \"Avoid blank first-use screens.\",\n            \"fix\": \"Seed with sample content/next steps.\",\n            \"confidence\": \"low\"\n        },\n        {\n            \"id\": \"R-COMPLETION-FEEDBACK\",\n            \"category\": \"Retention\",\n            \"weight\": 0.0273,\n            \"description\": \"Positive reinforcement after first actions.\",\n            \"fix\": \"Success animation or confirmation with next action.\",\n            \"confidence\": \"medium\"\n        }\n    ]\n};\n// Validate manifest on boot\nconst validation = validateManifest(manifest);\nif (!validation.valid) {\n    console.error(\"Manifest validation failed:\", validation.errors);\n// In production, you might want to throw an error or use a fallback\n}\nasync function GET() {\n    // Calculate scoring configuration from rule weights\n    const scoring = {\n        categories: manifest.categories.reduce((acc, category)=&gt;{\n            const categoryRules = manifest.rules.filter((rule)=&gt;rule.category === category);\n            const categoryWeight = categoryRules.reduce((sum, rule)=&gt;sum + rule.weight, 0);\n            acc[category] = categoryWeight;\n            return acc;\n        }, {}),\n        total: 1.0 // Normalized to 1.0\n    };\n    // Build response with required fields\n    const response = {\n        version: manifest.version,\n        rules: manifest.rules,\n        scoring,\n        expires_at: getExpiresAt()\n    };\n    // Generate ETag for the response\n    const etag = generateETag(response);\n    return new Response(JSON.stringify(response), {\n        headers: {\n            \"content-type\": \"application/json\",\n            \"cache-control\": \"public, max-age=300\",\n            \"etag\": `\"${etag}\"`\n        }\n    });\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,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QUFjO1lBQThDLE9BQU07WUFBc0QsY0FBYTtRQUFRO0tBQ25OO0FBQ0g7QUFFQSw0QkFBNEI7QUFDNUIsTUFBTWtDLGFBQWFuQyxpQkFBaUJDO0FBQ3BDLElBQUksQ0FBQ2tDLFdBQVdiLEtBQUssRUFBRTtJQUNyQmMsUUFBUUMsS0FBSyxDQUFDLCtCQUErQkYsV0FBV2pDLE1BQU07QUFDOUQsb0VBQW9FO0FBQ3RFO0FBRU8sZUFBZW9DO0lBQ3BCLG9EQUFvRDtJQUNwRCxNQUFNQyxVQUFVO1FBQ2RDLFlBQVl2QyxTQUFTdUMsVUFBVSxDQUFDNUIsTUFBTSxDQUFDLENBQUM2QixLQUFVeEI7WUFDaEQsTUFBTXlCLGdCQUFnQnpDLFNBQVNLLEtBQUssQ0FBQ3FDLE1BQU0sQ0FBQyxDQUFDdEMsT0FBY0EsS0FBS1ksUUFBUSxLQUFLQTtZQUM3RSxNQUFNMkIsaUJBQWlCRixjQUFjOUIsTUFBTSxDQUFDLENBQUNDLEtBQWFSLE9BQWNRLE1BQU1SLEtBQUtTLE1BQU0sRUFBRTtZQUMzRjJCLEdBQUcsQ0FBQ3hCLFNBQVMsR0FBRzJCO1lBQ2hCLE9BQU9IO1FBQ1QsR0FBRyxDQUFDO1FBQ0pJLE9BQU8sSUFBSSxvQkFBb0I7SUFDakM7SUFFQSxzQ0FBc0M7SUFDdEMsTUFBTUMsV0FBVztRQUNmQyxTQUFTOUMsU0FBUzhDLE9BQU87UUFDekJ6QyxPQUFPTCxTQUFTSyxLQUFLO1FBQ3JCaUM7UUFDQVMsWUFBWW5CO0lBQ2Q7SUFFQSxpQ0FBaUM7SUFDakMsTUFBTW9CLE9BQU96QixhQUFhc0I7SUFFMUIsT0FBTyxJQUFJSSxTQUFTOUIsS0FBS0MsU0FBUyxDQUFDeUIsV0FBVztRQUM1Q0ssU0FBUztZQUNQLGdCQUFnQjtZQUNoQixpQkFBaUI7WUFDakIsUUFBUSxDQUFDLENBQUMsRUFBRUYsS0FBSyxDQUFDLENBQUM7UUFDckI7SUFDRjtBQUNGIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vQG9uYm9hcmRpbmctYXVkaXQvYmFja2VuZC8uL3NyYy9hcHAvYXBpL3YxL3J1bGVzL3JvdXRlLnRzPzc0ZDMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGNyeXB0byBmcm9tICdjcnlwdG8nO1xuXG5leHBvcnQgY29uc3QgcmV2YWxpZGF0ZSA9IDM2MDA7IC8vIGNhY2hlIG9uIGVkZ2UgcHJveGllc1xuXG4vLyBhZGQgbWFuaWZlc3QgaW50ZWdyaXR5IGNoZWNrIG9uIGJvb3QgKHVuaXF1ZSBJRHMsIHdlaWdodHMgc3VtIOKJiCAxKVxuZnVuY3Rpb24gdmFsaWRhdGVNYW5pZmVzdChtYW5pZmVzdDogYW55KTogeyB2YWxpZDogYm9vbGVhbjsgZXJyb3JzOiBzdHJpbmdbXSB9IHtcbiAgY29uc3QgZXJyb3JzOiBzdHJpbmdbXSA9IFtdO1xuICBcbiAgLy8gQ2hlY2sgZm9yIHVuaXF1ZSBydWxlIElEc1xuICBjb25zdCBydWxlSWRzID0gbmV3IFNldDxzdHJpbmc+KCk7XG4gIGZvciAoY29uc3QgcnVsZSBvZiBtYW5pZmVzdC5ydWxlcykge1xuICAgIGlmIChydWxlSWRzLmhhcyhydWxlLmlkKSkge1xuICAgICAgZXJyb3JzLnB1c2goYER1cGxpY2F0ZSBydWxlIElEOiAke3J1bGUuaWR9YCk7XG4gICAgfVxuICAgIHJ1bGVJZHMuYWRkKHJ1bGUuaWQpO1xuICB9XG4gIFxuICAvLyBDaGVjayB3ZWlnaHRzIHN1bSB0byBhcHByb3hpbWF0ZWx5IDEgKGFsbG93aW5nIHNtYWxsIHJvdW5kaW5nIGVycm9ycylcbiAgY29uc3QgdG90YWxXZWlnaHQgPSBtYW5pZmVzdC5ydWxlcy5yZWR1Y2UoKHN1bTogbnVtYmVyLCBydWxlOiBhbnkpID0+IHN1bSArIHJ1bGUud2VpZ2h0LCAwKTtcbiAgaWYgKE1hdGguYWJzKHRvdGFsV2VpZ2h0IC0gMS4wKSA+IDAuMDEpIHtcbiAgICBlcnJvcnMucHVzaChgV2VpZ2h0cyBzdW0gdG8gJHt0b3RhbFdlaWdodH0sIGV4cGVjdGVkIH4xLjBgKTtcbiAgfVxuICBcbiAgLy8gQ2hlY2sgcmVxdWlyZWQgZmllbGRzXG4gIGZvciAoY29uc3QgcnVsZSBvZiBtYW5pZmVzdC5ydWxlcykge1xuICAgIGlmICghcnVsZS5pZCB8fCAhcnVsZS5jYXRlZ29yeSB8fCAhcnVsZS53ZWlnaHQgfHwgIXJ1bGUuZGVzY3JpcHRpb24gfHwgIXJ1bGUuZml4KSB7XG4gICAgICBlcnJvcnMucHVzaChgUnVsZSBtaXNzaW5nIHJlcXVpcmVkIGZpZWxkczogJHtKU09OLnN0cmluZ2lmeShydWxlKX1gKTtcbiAgICB9XG4gICAgaWYgKHR5cGVvZiBydWxlLndlaWdodCAhPT0gJ251bWJlcicgfHwgcnVsZS53ZWlnaHQgPD0gMCkge1xuICAgICAgZXJyb3JzLnB1c2goYEludmFsaWQgd2VpZ2h0IGZvciBydWxlICR7cnVsZS5pZH06ICR7cnVsZS53ZWlnaHR9YCk7XG4gICAgfVxuICB9XG4gIFxuICByZXR1cm4geyB2YWxpZDogZXJyb3JzLmxlbmd0aCA9PT0gMCwgZXJyb3JzIH07XG59XG5cbi8vIEdlbmVyYXRlIHN0YWJsZSBoYXNoIGZvciBFVGFnXG5mdW5jdGlvbiBnZW5lcmF0ZUVUYWcoZGF0YTogYW55KTogc3RyaW5nIHtcbiAgcmV0dXJuIGNyeXB0by5jcmVhdGVIYXNoKCdtZDUnKS51cGRhdGUoSlNPTi5zdHJpbmdpZnkoZGF0YSkpLmRpZ2VzdCgnaGV4Jyk7XG59XG5cbi8vIENhbGN1bGF0ZSBleHBpcmVzX2F0ICg1IG1pbnV0ZXMgZnJvbSBub3cpXG5mdW5jdGlvbiBnZXRFeHBpcmVzQXQoKTogc3RyaW5nIHtcbiAgY29uc3Qgbm93ID0gbmV3IERhdGUoKTtcbiAgbm93LnNldE1pbnV0ZXMobm93LmdldE1pbnV0ZXMoKSArIDUpO1xuICByZXR1cm4gbm93LnRvSVNPU3RyaW5nKCk7XG59XG5cbmNvbnN0IG1hbmlmZXN0ID0ge1xuICBcInZlcnNpb25cIjpcIjEuMS4wXCIsXG4gIFwidXBkYXRlZEF0XCI6XCIyMDI1LTA5LTE1VDE4OjMwOjAwWlwiLFxuICBcImNhdGVnb3JpZXNcIjpbXCJGb3VuZGF0aW9uXCIsXCJBdHRlbnRpb25cIixcIkNsYXJpdHlcIixcIlRydXN0XCIsXCJBY3Rpb25cIixcIlJldGVudGlvblwiXSxcbiAgXCJydWxlc1wiOltcbiAgICB7XCJpZFwiOlwiRi1QRVJGT1JNQU5DRS1MQ1BcIixcImNhdGVnb3J5XCI6XCJGb3VuZGF0aW9uXCIsXCJ3ZWlnaHRcIjowLjA3MjcsXCJkZXNjcmlwdGlvblwiOlwiTGFyZ2VzdCBDb250ZW50ZnVsIFBhaW50IHNob3VsZCBvY2N1ciB3aXRoaW4gfjIuNXMuXCIsXCJmaXhcIjpcIk9wdGltaXplIGhlcm8gbWVkaWEsIGxhenktbG9hZCBub24tY3JpdGljYWwgSlMsIGNvbXByZXNzIGltYWdlcy5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifSxcbiAgICB7XCJpZFwiOlwiRi1BQ0NFU1NJQklMSVRZLUZPQ1VTXCIsXCJjYXRlZ29yeVwiOlwiRm91bmRhdGlvblwiLFwid2VpZ2h0XCI6MC4wNTQ1LFwiZGVzY3JpcHRpb25cIjpcIkludGVyYWN0aXZlIGVsZW1lbnRzIGFyZSBrZXlib2FyZCBhY2Nlc3NpYmxlIHdpdGggdmlzaWJsZSBmb2N1cy5cIixcImZpeFwiOlwiUmVzdG9yZSBmb2N1cyBvdXRsaW5lczsgZW5zdXJlIFRhYiByZWFjaGVzIGFsbCBDVEFzL2lucHV0cy5cIixcImNvbmZpZGVuY2VcIjpcImhpZ2hcIn0sXG4gICAge1wiaWRcIjpcIkYtTU9CSUxFLVJFU1BPTlNJVkVcIixcImNhdGVnb3J5XCI6XCJGb3VuZGF0aW9uXCIsXCJ3ZWlnaHRcIjowLjA0NTUsXCJkZXNjcmlwdGlvblwiOlwiQ3JpdGljYWwgb25ib2FyZGluZyBlbGVtZW50cyB1c2FibGUgb24gbW9iaWxlLlwiLFwiZml4XCI6XCJBZGQgdmlld3BvcnQgbWV0YTsgZW5zdXJlIGhlcm8gQ1RBICYgZm9ybSBhcmUgdXNhYmxlIDw0MDBweC5cIixcImNvbmZpZGVuY2VcIjpcImhpZ2hcIn0sXG4gICAge1wiaWRcIjpcIkEtQ1RBLUFCT1ZFLUZPTERcIixcImNhdGVnb3J5XCI6XCJBdHRlbnRpb25cIixcIndlaWdodFwiOjAuMDkwOSxcImRlc2NyaXB0aW9uXCI6XCJQcmltYXJ5IENUQSB2aXNpYmxlIHdpdGhvdXQgc2Nyb2xsaW5nIChkZXNrdG9wICYgbW9iaWxlKS5cIixcImZpeFwiOlwiUGxhY2UgcHJpbWFyeSBzaWdudXAgQ1RBIHdpdGhpbiBpbml0aWFsIHZpZXdwb3J0LlwiLFwiY29uZmlkZW5jZVwiOlwiaGlnaFwifSxcbiAgICB7XCJpZFwiOlwiQS1IRUFETElORS1WQUxVRS1QUk9QXCIsXCJjYXRlZ29yeVwiOlwiQXR0ZW50aW9uXCIsXCJ3ZWlnaHRcIjowLjA3MjcsXCJkZXNjcmlwdGlvblwiOlwiSGVybyBoZWFkbGluZSBzdGF0ZXMgdmFsdWUgcHJvcG9zaXRpb24gY2xlYXJseS5cIixcImZpeFwiOlwiTGVhZCB3aXRoIG91dGNvbWUtYmFzZWQgaGVhZGxpbmUsIG5vdCBmZWF0dXJlcy5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifSxcbiAgICB7XCJpZFwiOlwiQS1WSVNVQUwtSElFUkFSQ0hZXCIsXCJjYXRlZ29yeVwiOlwiQXR0ZW50aW9uXCIsXCJ3ZWlnaHRcIjowLjA1NDUsXCJkZXNjcmlwdGlvblwiOlwiQ1RBIGhhcyBzdHJvbmdlc3QgdmlzdWFsIHdlaWdodCBpbiBoZXJvLlwiLFwiZml4XCI6XCJJbmNyZWFzZSBzaXplL2NvbnRyYXN0OyBkaXJlY3Rpb25hbCBjdWVzIHRvIENUQS5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifSxcbiAgICB7XCJpZFwiOlwiQy1DT0dOSVRJVkUtTE9BRFwiLFwiY2F0ZWdvcnlcIjpcIkNsYXJpdHlcIixcIndlaWdodFwiOjAuMDYzNixcImRlc2NyaXB0aW9uXCI6XCJIZXJvIHByZXNlbnRzIOKJpDUgZGlzdGluY3QgY2h1bmtzIChoZWFkbGluZSwgc3ViaGVhZCwgMyBidWxsZXRzKS5cIixcImZpeFwiOlwiQ29uc29saWRhdGU7IHVzZSBwcm9ncmVzc2l2ZSBkaXNjbG9zdXJlLlwiLFwiY29uZmlkZW5jZVwiOlwibWVkaXVtXCJ9LFxuICAgIHtcImlkXCI6XCJDLVJFQURBQklMSVRZLVNDT1JFXCIsXCJjYXRlZ29yeVwiOlwiQ2xhcml0eVwiLFwid2VpZ2h0XCI6MC4wNDU1LFwiZGVzY3JpcHRpb25cIjpcIlByaW1hcnkgY29weSDiiaQgZ3JhZGUgOCByZWFkaW5nIGxldmVsLlwiLFwiZml4XCI6XCJTaG9ydGVuIHNlbnRlbmNlczsgc2ltcGxlciB2b2NhYnVsYXJ5LlwiLFwiY29uZmlkZW5jZVwiOlwibG93XCJ9LFxuICAgIHtcImlkXCI6XCJDLUJFTkVGSVQtQ0xBUklUWVwiLFwiY2F0ZWdvcnlcIjpcIkNsYXJpdHlcIixcIndlaWdodFwiOjAuMDQ1NSxcImRlc2NyaXB0aW9uXCI6XCJCZW5lZml0cyBhcmUgc3BlY2lmaWMsIG91dGNvbWUtZm9jdXNlZC5cIixcImZpeFwiOlwiUmVwbGFjZSBmZWF0dXJlIGxpc3RzIHdpdGggY29uY3JldGUgb3V0Y29tZXMvdGltZSBzYXZlZC5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifSxcbiAgICB7XCJpZFwiOlwiVC1TT0NJQUwtUFJPT0ZcIixcImNhdGVnb3J5XCI6XCJUcnVzdFwiLFwid2VpZ2h0XCI6MC4wODE4LFwiZGVzY3JpcHRpb25cIjpcIkNyZWRpYmxlIHNvY2lhbCBwcm9vZiB3aXRoaW4gc2lnbnVwIHZpZXdwb3J0LlwiLFwiZml4XCI6XCJBZGQgdGVzdGltb25pYWxzL2xvZ29zL3VzYWdlIHN0YXRzIG5lYXIgQ1RBLlwiLFwiY29uZmlkZW5jZVwiOlwiaGlnaFwifSxcbiAgICB7XCJpZFwiOlwiVC1QUklDSU5HLVRSQU5TUEFSRU5DWVwiLFwiY2F0ZWdvcnlcIjpcIlRydXN0XCIsXCJ3ZWlnaHRcIjowLjA1NDUsXCJkZXNjcmlwdGlvblwiOlwiUHJpY2luZyBkaXNjb3ZlcmFibGUgcHJlLXNpZ251cC5cIixcImZpeFwiOlwiVmlzaWJsZSBQcmljaW5nIGxpbmsgaW4gbmF2IG9yIG5lYXIgc2lnbnVwLlwiLFwiY29uZmlkZW5jZVwiOlwiaGlnaFwifSxcbiAgICB7XCJpZFwiOlwiVC1TRUNVUklUWS1BU1NVUkFOQ0VcIixcImNhdGVnb3J5XCI6XCJUcnVzdFwiLFwid2VpZ2h0XCI6MC4wMzY0LFwiZGVzY3JpcHRpb25cIjpcIlNlY3VyaXR5L3ByaXZhY3kgcmVhc3N1cmFuY2UgbmVhciBzZW5zaXRpdmUgZmllbGRzLlwiLFwiZml4XCI6XCJBZGQgU1NML3ByaXZhY3kgdGV4dCwgcG9saWN5IGxpbmtzLCBvciBsb2NrIGljb24uXCIsXCJjb25maWRlbmNlXCI6XCJsb3dcIn0sXG4gICAge1wiaWRcIjpcIkFDLVNJR05VUC1GUklDVElPTlwiLFwiY2F0ZWdvcnlcIjpcIkFjdGlvblwiLFwid2VpZ2h0XCI6MC4wNzI3LFwiZGVzY3JpcHRpb25cIjpcIkluaXRpYWwgYWNjb3VudCBjcmVhdGlvbiDiiaQzIGZpZWxkcy5cIixcImZpeFwiOlwiRGVmZXIgb3B0aW9uYWwgZmllbGRzIHBvc3Qtc2lnbnVwLlwiLFwiY29uZmlkZW5jZVwiOlwiaGlnaFwifSxcbiAgICB7XCJpZFwiOlwiQUMtUFJPR1JFU1MtVklTSUJJTElUWVwiLFwiY2F0ZWdvcnlcIjpcIkFjdGlvblwiLFwid2VpZ2h0XCI6MC4wNDU1LFwiZGVzY3JpcHRpb25cIjpcIk11bHRpLXN0ZXAgZmxvd3Mgc2hvdyBjbGVhciBwcm9ncmVzcy5cIixcImZpeFwiOlwiQWRkIHByb2dyZXNzIGJhciBvciAnU3RlcCBYIG9mIFknLlwiLFwiY29uZmlkZW5jZVwiOlwiaGlnaFwifSxcbiAgICB7XCJpZFwiOlwiQUMtRVJST1ItUFJFVkVOVElPTlwiLFwiY2F0ZWdvcnlcIjpcIkFjdGlvblwiLFwid2VpZ2h0XCI6MC4wMzY0LFwiZGVzY3JpcHRpb25cIjpcIkZvcm1zIHByZXZlbnQgY29tbW9uIGlucHV0IGVycm9ycy5cIixcImZpeFwiOlwiSW5saW5lIHZhbGlkYXRpb24sIGlucHV0IG1hc2tzLCBoZWxwZnVsIHBsYWNlaG9sZGVycy5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifSxcbiAgICB7XCJpZFwiOlwiUi1USU1FLVRPLVZBTFVFXCIsXCJjYXRlZ29yeVwiOlwiUmV0ZW50aW9uXCIsXCJ3ZWlnaHRcIjowLjA3MjcsXCJkZXNjcmlwdGlvblwiOlwiRmlyc3QgY29yZSB2YWx1ZSByZWFjaGVkIGluIGZpcnN0IHNlc3Npb24uXCIsXCJmaXhcIjpcIlF1aWNrLXN0YXJ0LCBkZW1vIGRhdGEsIGd1aWRlZCBmaXJzdCB0YXNrLlwiLFwiY29uZmlkZW5jZVwiOlwibWVkaXVtXCJ9LFxuICAgIHtcImlkXCI6XCJSLUVNUFRZLVNUQVRFLURFU0lHTlwiLFwiY2F0ZWdvcnlcIjpcIlJldGVudGlvblwiLFwid2VpZ2h0XCI6MC4wMjczLFwiZGVzY3JpcHRpb25cIjpcIkF2b2lkIGJsYW5rIGZpcnN0LXVzZSBzY3JlZW5zLlwiLFwiZml4XCI6XCJTZWVkIHdpdGggc2FtcGxlIGNvbnRlbnQvbmV4dCBzdGVwcy5cIixcImNvbmZpZGVuY2VcIjpcImxvd1wifSxcbiAgICB7XCJpZFwiOlwiUi1DT01QTEVUSU9OLUZFRURCQUNLXCIsXCJjYXRlZ29yeVwiOlwiUmV0ZW50aW9uXCIsXCJ3ZWlnaHRcIjowLjAyNzMsXCJkZXNjcmlwdGlvblwiOlwiUG9zaXRpdmUgcmVpbmZvcmNlbWVudCBhZnRlciBmaXJzdCBhY3Rpb25zLlwiLFwiZml4XCI6XCJTdWNjZXNzIGFuaW1hdGlvbiBvciBjb25maXJtYXRpb24gd2l0aCBuZXh0IGFjdGlvbi5cIixcImNvbmZpZGVuY2VcIjpcIm1lZGl1bVwifVxuICBdXG59O1xuXG4vLyBWYWxpZGF0ZSBtYW5pZmVzdCBvbiBib290XG5jb25zdCB2YWxpZGF0aW9uID0gdmFsaWRhdGVNYW5pZmVzdChtYW5pZmVzdCk7XG5pZiAoIXZhbGlkYXRpb24udmFsaWQpIHtcbiAgY29uc29sZS5lcnJvcignTWFuaWZlc3QgdmFsaWRhdGlvbiBmYWlsZWQ6JywgdmFsaWRhdGlvbi5lcnJvcnMpO1xuICAvLyBJbiBwcm9kdWN0aW9uLCB5b3UgbWlnaHQgd2FudCB0byB0aHJvdyBhbiBlcnJvciBvciB1c2UgYSBmYWxsYmFja1xufVxuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gR0VUKCkge1xuICAvLyBDYWxjdWxhdGUgc2NvcmluZyBjb25maWd1cmF0aW9uIGZyb20gcnVsZSB3ZWlnaHRzXG4gIGNvbnN0IHNjb3JpbmcgPSB7XG4gICAgY2F0ZWdvcmllczogbWFuaWZlc3QuY2F0ZWdvcmllcy5yZWR1Y2UoKGFjYzogYW55LCBjYXRlZ29yeTogc3RyaW5nKSA9PiB7XG4gICAgICBjb25zdCBjYXRlZ29yeVJ1bGVzID0gbWFuaWZlc3QucnVsZXMuZmlsdGVyKChydWxlOiBhbnkpID0+IHJ1bGUuY2F0ZWdvcnkgPT09IGNhdGVnb3J5KTtcbiAgICAgIGNvbnN0IGNhdGVnb3J5V2VpZ2h0ID0gY2F0ZWdvcnlSdWxlcy5yZWR1Y2UoKHN1bTogbnVtYmVyLCBydWxlOiBhbnkpID0+IHN1bSArIHJ1bGUud2VpZ2h0LCAwKTtcbiAgICAgIGFjY1tjYXRlZ29yeV0gPSBjYXRlZ29yeVdlaWdodDtcbiAgICAgIHJldHVybiBhY2M7XG4gICAgfSwge30pLFxuICAgIHRvdGFsOiAxLjAgLy8gTm9ybWFsaXplZCB0byAxLjBcbiAgfTtcblxuICAvLyBCdWlsZCByZXNwb25zZSB3aXRoIHJlcXVpcmVkIGZpZWxkc1xuICBjb25zdCByZXNwb25zZSA9IHtcbiAgICB2ZXJzaW9uOiBtYW5pZmVzdC52ZXJzaW9uLFxuICAgIHJ1bGVzOiBtYW5pZmVzdC5ydWxlcyxcbiAgICBzY29yaW5nLFxuICAgIGV4cGlyZXNfYXQ6IGdldEV4cGlyZXNBdCgpXG4gIH07XG5cbiAgLy8gR2VuZXJhdGUgRVRhZyBmb3IgdGhlIHJlc3BvbnNlXG4gIGNvbnN0IGV0YWcgPSBnZW5lcmF0ZUVUYWcocmVzcG9uc2UpO1xuXG4gIHJldHVybiBuZXcgUmVzcG9uc2UoSlNPTi5zdHJpbmdpZnkocmVzcG9uc2UpLCB7XG4gICAgaGVhZGVyczoge1xuICAgICAgJ2NvbnRlbnQtdHlwZSc6ICdhcHBsaWNhdGlvbi9qc29uJyxcbiAgICAgICdjYWNoZS1jb250cm9sJzogJ3B1YmxpYywgbWF4LWFnZT0zMDAnLFxuICAgICAgJ2V0YWcnOiBgXCIke2V0YWd9XCJgXG4gICAgfVxuICB9KTtcbn0iXSwibmFtZXMiOlsiY3J5cHRvIiwicmV2YWxpZGF0ZSIsInZhbGlkYXRlTWFuaWZlc3QiLCJtYW5pZmVzdCIsImVycm9ycyIsInJ1bGVJZHMiLCJTZXQiLCJydWxlIiwicnVsZXMiLCJoYXMiLCJpZCIsInB1c2giLCJhZGQiLCJ0b3RhbFdlaWdodCIsInJlZHVjZSIsInN1bSIsIndlaWdodCIsIk1hdGgiLCJhYnMiLCJjYXRlZ29yeSIsImRlc2NyaXB0aW9uIiwiZml4IiwiSlNPTiIsInN0cmluZ2lmeSIsInZhbGlkIiwibGVuZ3RoIiwiZ2VuZXJhdGVFVGFnIiwiZGF0YSIsImNyZWF0ZUhhc2giLCJ1cGRhdGUiLCJkaWdlc3QiLCJnZXRFeHBpcmVzQXQiLCJub3ciLCJEYXRlIiwic2V0TWludXRlcyIsImdldE1pbnV0ZXMiLCJ0b0lTT1N0cmluZyIsInZhbGlkYXRpb24iLCJjb25zb2xlIiwiZXJyb3IiLCJHRVQiLCJzY29yaW5nIiwiY2F0ZWdvcmllcyIsImFjYyIsImNhdGVnb3J5UnVsZXMiLCJmaWx0ZXIiLCJjYXRlZ29yeVdlaWdodCIsInRvdGFsIiwicmVzcG9uc2UiLCJ2ZXJzaW9uIiwiZXhwaXJlc19hdCIsImV0YWciLCJSZXNwb25zZSIsImhlYWRlcnMiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./src/app/api/v1/rules/route.ts\n");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ })</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >};</span>
+<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >// load runtime</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_require__ = require("../../../../webpack-runtime.js");</span>
+<span class="cstat-no" title="statement not covered" >__webpack_require__.C(exports);</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_exec__ = (moduleId) =&gt; (__webpack_require__(__webpack_require__.s = moduleId))</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1"], () =&gt; (__webpack_exec__("(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fv1%2Frules%2Froute&amp;page=%2Fapi%2Fv1%2Frules%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fv1%2Frules%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!")));</span>
+<span class="cstat-no" title="statement not covered" >module.exports = __webpack_exports__;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >})();</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-21T21:14:56.757Z
+            </div>
+        <script src="../../../../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -1,0 +1,5 @@
+## v0.1.1 - 2025-09-20
+- Fix: Replaced corrupted Satoshi Variable with valid WOFF2 (magic 774f4632, MIME font/woff2).
+- Build: Cache-busting verified; Pages deploy success; build stamp present on /, /demo/, /dl/.
+- Extension: MV3 invariants preserved; assetsInlineLimit=0 guards against inlined fonts.
+

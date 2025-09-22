@@ -1,0 +1,280 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for OnboardingAudit.ai/backend/.next/server/app/api/healthz/route.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">OnboardingAudit.ai/backend/.next/server/app/api/healthz</a> route.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/66</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/66</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >"use strict";</span></span></span>
+<span class="cstat-no" title="statement not covered" >/*</span>
+<span class="cstat-no" title="statement not covered" > * ATTENTION: An "eval-source-map" devtool has been used.</span>
+<span class="cstat-no" title="statement not covered" > * This devtool is neither made for production nor for readable output files.</span>
+<span class="cstat-no" title="statement not covered" > * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.</span>
+<span class="cstat-no" title="statement not covered" > * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)</span>
+<span class="cstat-no" title="statement not covered" > * or disable the default devtool with "devtool: false".</span>
+<span class="cstat-no" title="statement not covered" > * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).</span>
+<span class="cstat-no" title="statement not covered" > */</span>
+<span class="cstat-no" title="statement not covered" >(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >var exports = {};</span>
+<span class="cstat-no" title="statement not covered" >exports.id = "app/api/healthz/route";</span>
+<span class="cstat-no" title="statement not covered" >exports.ids = ["app/api/healthz/route"];</span>
+<span class="cstat-no" title="statement not covered" >exports.modules = {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "next/dist/compiled/next-server/app-page.runtime.dev.js":</span>
+<span class="cstat-no" title="statement not covered" >/*!*************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** external "next/dist/compiled/next-server/app-page.runtime.dev.js" ***!</span>
+<span class="cstat-no" title="statement not covered" >  \*************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >module.exports = require("next/dist/compiled/next-server/app-page.runtime.dev.js");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "next/dist/compiled/next-server/app-route.runtime.dev.js":</span>
+<span class="cstat-no" title="statement not covered" >/*!**************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** external "next/dist/compiled/next-server/app-route.runtime.dev.js" ***!</span>
+<span class="cstat-no" title="statement not covered" >  \**************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((module) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >module.exports = require("next/dist/compiled/next-server/app-route.runtime.dev.js");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fhealthz%2Froute&amp;page=%2Fapi%2Fhealthz%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fhealthz%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!":</span>
+<span class="cstat-no" title="statement not covered" >/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** ../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fhealthz%2Froute&amp;page=%2Fapi%2Fhealthz%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fhealthz%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D! ***!</span>
+<span class="cstat-no" title="statement not covered" >  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   originalPathname: () =&gt; (/* binding */ originalPathname),\n/* harmony export */   patchFetch: () =&gt; (/* binding */ patchFetch),\n/* harmony export */   requestAsyncStorage: () =&gt; (/* binding */ requestAsyncStorage),\n/* harmony export */   routeModule: () =&gt; (/* binding */ routeModule),\n/* harmony export */   serverHooks: () =&gt; (/* binding */ serverHooks),\n/* harmony export */   staticGenerationAsyncStorage: () =&gt; (/* binding */ staticGenerationAsyncStorage)\n/* harmony export */ });\n/* harmony import */ var next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/dist/server/future/route-modules/app-route/module.compiled */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/future/route-modules/app-route/module.compiled.js\");\n/* harmony import */ var next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var next_dist_server_future_route_kind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/dist/server/future/route-kind */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/future/route-kind.js\");\n/* harmony import */ var next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/dist/server/lib/patch-fetch */ \"(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/lib/patch-fetch.js\");\n/* harmony import */ var next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _home_swirky_DevHub_repos_OnboardingAudit_ai_backend_src_app_api_healthz_route_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/app/api/healthz/route.ts */ \"(rsc)/./src/app/api/healthz/route.ts\");\n\n\n\n\n// We inject the nextConfigOutput here so that we can use them in the route\n// module.\nconst nextConfigOutput = \"\"\nconst routeModule = new next_dist_server_future_route_modules_app_route_module_compiled__WEBPACK_IMPORTED_MODULE_0__.AppRouteRouteModule({\n    definition: {\n        kind: next_dist_server_future_route_kind__WEBPACK_IMPORTED_MODULE_1__.RouteKind.APP_ROUTE,\n        page: \"/api/healthz/route\",\n        pathname: \"/api/healthz\",\n        filename: \"route\",\n        bundlePath: \"app/api/healthz/route\"\n    },\n    resolvedPagePath: \"/home/swirky/DevHub/repos/OnboardingAudit.ai/backend/src/app/api/healthz/route.ts\",\n    nextConfigOutput,\n    userland: _home_swirky_DevHub_repos_OnboardingAudit_ai_backend_src_app_api_healthz_route_ts__WEBPACK_IMPORTED_MODULE_3__\n});\n// Pull out the exports that we need to expose from the module. This should\n// be eliminated when we've moved the other routes to the new format. These\n// are used to hook into the route.\nconst { requestAsyncStorage, staticGenerationAsyncStorage, serverHooks } = routeModule;\nconst originalPathname = \"/api/healthz/route\";\nfunction patchFetch() {\n    return (0,next_dist_server_lib_patch_fetch__WEBPACK_IMPORTED_MODULE_2__.patchFetch)({\n        serverHooks,\n        staticGenerationAsyncStorage\n    });\n}\n\n\n//# sourceMappingURL=app-route.js.map//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi4vbm9kZV9tb2R1bGVzLy5wbnBtL25leHRAMTQuMi4zMl9AcGxheXdyaWdodCt0ZXN0QDEuNTUuMF9yZWFjdC1kb21AMTguMy4xX3JlYWN0QDE4LjMuMV9fcmVhY3RAMTguMy4xL25vZGVfbW9kdWxlcy9uZXh0L2Rpc3QvYnVpbGQvd2VicGFjay9sb2FkZXJzL25leHQtYXBwLWxvYWRlci5qcz9uYW1lPWFwcCUyRmFwaSUyRmhlYWx0aHolMkZyb3V0ZSZwYWdlPSUyRmFwaSUyRmhlYWx0aHolMkZyb3V0ZSZhcHBQYXRocz0mcGFnZVBhdGg9cHJpdmF0ZS1uZXh0LWFwcC1kaXIlMkZhcGklMkZoZWFsdGh6JTJGcm91dGUudHMmYXBwRGlyPSUyRmhvbWUlMkZzd2lya3klMkZEZXZIdWIlMkZyZXBvcyUyRk9uYm9hcmRpbmdBdWRpdC5haSUyRmJhY2tlbmQlMkZzcmMlMkZhcHAmcGFnZUV4dGVuc2lvbnM9dHN4JnBhZ2VFeHRlbnNpb25zPXRzJnBhZ2VFeHRlbnNpb25zPWpzeCZwYWdlRXh0ZW5zaW9ucz1qcyZyb290RGlyPSUyRmhvbWUlMkZzd2lya3klMkZEZXZIdWIlMkZyZXBvcyUyRk9uYm9hcmRpbmdBdWRpdC5haSUyRmJhY2tlbmQmaXNEZXY9dHJ1ZSZ0c2NvbmZpZ1BhdGg9dHNjb25maWcuanNvbiZiYXNlUGF0aD0mYXNzZXRQcmVmaXg9Jm5leHRDb25maWdPdXRwdXQ9JnByZWZlcnJlZFJlZ2lvbj0mbWlkZGxld2FyZUNvbmZpZz1lMzAlM0QhIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7OztBQUFzRztBQUN2QztBQUNjO0FBQ2lDO0FBQzlHO0FBQ0E7QUFDQTtBQUNBLHdCQUF3QixnSEFBbUI7QUFDM0M7QUFDQSxjQUFjLHlFQUFTO0FBQ3ZCO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsS0FBSztBQUNMO0FBQ0E7QUFDQSxZQUFZO0FBQ1osQ0FBQztBQUNEO0FBQ0E7QUFDQTtBQUNBLFFBQVEsaUVBQWlFO0FBQ3pFO0FBQ0E7QUFDQSxXQUFXLDRFQUFXO0FBQ3RCO0FBQ0E7QUFDQSxLQUFLO0FBQ0w7QUFDdUg7O0FBRXZIIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vQG9uYm9hcmRpbmctYXVkaXQvYmFja2VuZC8/ZmUyYyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBcHBSb3V0ZVJvdXRlTW9kdWxlIH0gZnJvbSBcIm5leHQvZGlzdC9zZXJ2ZXIvZnV0dXJlL3JvdXRlLW1vZHVsZXMvYXBwLXJvdXRlL21vZHVsZS5jb21waWxlZFwiO1xuaW1wb3J0IHsgUm91dGVLaW5kIH0gZnJvbSBcIm5leHQvZGlzdC9zZXJ2ZXIvZnV0dXJlL3JvdXRlLWtpbmRcIjtcbmltcG9ydCB7IHBhdGNoRmV0Y2ggYXMgX3BhdGNoRmV0Y2ggfSBmcm9tIFwibmV4dC9kaXN0L3NlcnZlci9saWIvcGF0Y2gtZmV0Y2hcIjtcbmltcG9ydCAqIGFzIHVzZXJsYW5kIGZyb20gXCIvaG9tZS9zd2lya3kvRGV2SHViL3JlcG9zL09uYm9hcmRpbmdBdWRpdC5haS9iYWNrZW5kL3NyYy9hcHAvYXBpL2hlYWx0aHovcm91dGUudHNcIjtcbi8vIFdlIGluamVjdCB0aGUgbmV4dENvbmZpZ091dHB1dCBoZXJlIHNvIHRoYXQgd2UgY2FuIHVzZSB0aGVtIGluIHRoZSByb3V0ZVxuLy8gbW9kdWxlLlxuY29uc3QgbmV4dENvbmZpZ091dHB1dCA9IFwiXCJcbmNvbnN0IHJvdXRlTW9kdWxlID0gbmV3IEFwcFJvdXRlUm91dGVNb2R1bGUoe1xuICAgIGRlZmluaXRpb246IHtcbiAgICAgICAga2luZDogUm91dGVLaW5kLkFQUF9ST1VURSxcbiAgICAgICAgcGFnZTogXCIvYXBpL2hlYWx0aHovcm91dGVcIixcbiAgICAgICAgcGF0aG5hbWU6IFwiL2FwaS9oZWFsdGh6XCIsXG4gICAgICAgIGZpbGVuYW1lOiBcInJvdXRlXCIsXG4gICAgICAgIGJ1bmRsZVBhdGg6IFwiYXBwL2FwaS9oZWFsdGh6L3JvdXRlXCJcbiAgICB9LFxuICAgIHJlc29sdmVkUGFnZVBhdGg6IFwiL2hvbWUvc3dpcmt5L0Rldkh1Yi9yZXBvcy9PbmJvYXJkaW5nQXVkaXQuYWkvYmFja2VuZC9zcmMvYXBwL2FwaS9oZWFsdGh6L3JvdXRlLnRzXCIsXG4gICAgbmV4dENvbmZpZ091dHB1dCxcbiAgICB1c2VybGFuZFxufSk7XG4vLyBQdWxsIG91dCB0aGUgZXhwb3J0cyB0aGF0IHdlIG5lZWQgdG8gZXhwb3NlIGZyb20gdGhlIG1vZHVsZS4gVGhpcyBzaG91bGRcbi8vIGJlIGVsaW1pbmF0ZWQgd2hlbiB3ZSd2ZSBtb3ZlZCB0aGUgb3RoZXIgcm91dGVzIHRvIHRoZSBuZXcgZm9ybWF0LiBUaGVzZVxuLy8gYXJlIHVzZWQgdG8gaG9vayBpbnRvIHRoZSByb3V0ZS5cbmNvbnN0IHsgcmVxdWVzdEFzeW5jU3RvcmFnZSwgc3RhdGljR2VuZXJhdGlvbkFzeW5jU3RvcmFnZSwgc2VydmVySG9va3MgfSA9IHJvdXRlTW9kdWxlO1xuY29uc3Qgb3JpZ2luYWxQYXRobmFtZSA9IFwiL2FwaS9oZWFsdGh6L3JvdXRlXCI7XG5mdW5jdGlvbiBwYXRjaEZldGNoKCkge1xuICAgIHJldHVybiBfcGF0Y2hGZXRjaCh7XG4gICAgICAgIHNlcnZlckhvb2tzLFxuICAgICAgICBzdGF0aWNHZW5lcmF0aW9uQXN5bmNTdG9yYWdlXG4gICAgfSk7XG59XG5leHBvcnQgeyByb3V0ZU1vZHVsZSwgcmVxdWVzdEFzeW5jU3RvcmFnZSwgc3RhdGljR2VuZXJhdGlvbkFzeW5jU3RvcmFnZSwgc2VydmVySG9va3MsIG9yaWdpbmFsUGF0aG5hbWUsIHBhdGNoRmV0Y2gsICB9O1xuXG4vLyMgc291cmNlTWFwcGluZ1VSTD1hcHAtcm91dGUuanMubWFwIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fhealthz%2Froute&amp;page=%2Fapi%2Fhealthz%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fhealthz%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!\n");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ }),</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ "(rsc)/./src/app/api/healthz/route.ts":</span>
+<span class="cstat-no" title="statement not covered" >/*!**************************************!*\</span>
+<span class="cstat-no" title="statement not covered" >  !*** ./src/app/api/healthz/route.ts ***!</span>
+<span class="cstat-no" title="statement not covered" >  \**************************************/</span>
+<span class="cstat-no" title="statement not covered" >/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   GET: () =&gt; (/* binding */ GET),\n/* harmony export */   dynamic: () =&gt; (/* binding */ dynamic)\n/* harmony export */ });\nconst dynamic = \"force-dynamic\";\nasync function GET() {\n    return new Response(JSON.stringify({\n        ok: true,\n        ts: new Date().toISOString()\n    }), {\n        headers: {\n            \"content-type\": \"application/json\"\n        }\n    });\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9zcmMvYXBwL2FwaS9oZWFsdGh6L3JvdXRlLnRzIiwibWFwcGluZ3MiOiI7Ozs7O0FBQU8sTUFBTUEsVUFBVSxnQkFBZ0I7QUFDaEMsZUFBZUM7SUFDcEIsT0FBTyxJQUFJQyxTQUFTQyxLQUFLQyxTQUFTLENBQUM7UUFBRUMsSUFBSTtRQUFNQyxJQUFJLElBQUlDLE9BQU9DLFdBQVc7SUFBRyxJQUFJO1FBQzlFQyxTQUFTO1lBQUUsZ0JBQWdCO1FBQW1CO0lBQ2hEO0FBQ0YiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9Ab25ib2FyZGluZy1hdWRpdC9iYWNrZW5kLy4vc3JjL2FwcC9hcGkvaGVhbHRoei9yb3V0ZS50cz9iNWM1Il0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBkeW5hbWljID0gJ2ZvcmNlLWR5bmFtaWMnO1xuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIEdFVCgpIHtcbiAgcmV0dXJuIG5ldyBSZXNwb25zZShKU09OLnN0cmluZ2lmeSh7IG9rOiB0cnVlLCB0czogbmV3IERhdGUoKS50b0lTT1N0cmluZygpIH0pLCB7XG4gICAgaGVhZGVyczogeyAnY29udGVudC10eXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nIH1cbiAgfSk7XG59Il0sIm5hbWVzIjpbImR5bmFtaWMiLCJHRVQiLCJSZXNwb25zZSIsIkpTT04iLCJzdHJpbmdpZnkiLCJvayIsInRzIiwiRGF0ZSIsInRvSVNPU3RyaW5nIiwiaGVhZGVycyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(rsc)/./src/app/api/healthz/route.ts\n");</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >/***/ })</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >};</span>
+<span class="cstat-no" title="statement not covered" >;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >// load runtime</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_require__ = require("../../../webpack-runtime.js");</span>
+<span class="cstat-no" title="statement not covered" >__webpack_require__.C(exports);</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_exec__ = (moduleId) =&gt; (__webpack_require__(__webpack_require__.s = moduleId))</span>
+<span class="cstat-no" title="statement not covered" >var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1"], () =&gt; (__webpack_exec__("(rsc)/../node_modules/.pnpm/next@14.2.32_@playwright+test@1.55.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2Fapi%2Fhealthz%2Froute&amp;page=%2Fapi%2Fhealthz%2Froute&amp;appPaths=&amp;pagePath=private-next-app-dir%2Fapi%2Fhealthz%2Froute.ts&amp;appDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend%2Fsrc%2Fapp&amp;pageExtensions=tsx&amp;pageExtensions=ts&amp;pageExtensions=jsx&amp;pageExtensions=js&amp;rootDir=%2Fhome%2Fswirky%2FDevHub%2Frepos%2FOnboardingAudit.ai%2Fbackend&amp;isDev=true&amp;tsconfigPath=tsconfig.json&amp;basePath=&amp;assetPrefix=&amp;nextConfigOutput=&amp;preferredRegion=&amp;middlewareConfig=e30%3D!")));</span>
+<span class="cstat-no" title="statement not covered" >module.exports = __webpack_exports__;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >})();</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-09-21T21:14:56.790Z
+            </div>
+        <script src="../../../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
