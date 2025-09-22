@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalStorage Analytics Test</title>
+</head>
+<body>
+  <h1>LocalStorage Analytics Test</h1>
+  <p>This page tests the localStorage persistence of analytics events.</p>
+  
+  <button id="enable-analytics">Enable Analytics</button>
+  <button id="track-event">Track Test Event</button>
+  <button id="view-events">View Stored Events</button>
+  <button id="clear-events">Clear Events</button>
+  
+  <div id="output" style="margin-top: 20px; padding: 10px; background: #f0f0f0; font-family: monospace;"></div>
+
+  <script>
+    const output = document.getElementById('output');
+    
+    function log(message) {
+      output.innerHTML += message + '<br>';
+      console.log(message);
+    }
+    
+    // Enable analytics by setting feature flag
+    document.getElementById('enable-analytics').addEventListener('click', () => {
+      localStorage.setItem('featureFlags', JSON.stringify({ ANALYTICS_EVENTS: true }));
+      log('Analytics enabled via localStorage');
+    });
+    
+    // Track a test event using the analytics system
+    document.getElementById('track-event').addEventListener('click', async () => {
+      try {
+        // Simulate the analytics track function
+        const event = {
+          name: 'test_event',
+          payload: { test: true, timestamp: Date.now() },
+          timestamp: Date.now(),
+          sessionId: 'test_session_' + Date.now()
+        };
+        
+        // Store in localStorage
+        const events = JSON.parse(localStorage.getItem('analytics_events') || '[]');
+        events.push(event);
+        localStorage.setItem('analytics_events', JSON.stringify(events));
+        
+        log('Test event tracked successfully');
+      } catch (error) {
+        log(`Error tracking event: ${error.message}`);
+      }
+    });
+    
+    // View stored events
+    document.getElementById('view-events').addEventListener('click', () => {
+      try {
+        const events = JSON.parse(localStorage.getItem('analytics_events') || '[]');
+        log(`Stored events: ${events.length}`);
+        events.slice(-3).forEach((event, index) => {
+          log(`Event ${index + 1}: ${event.name} - ${JSON.stringify(event.payload)}`);
+        });
+      } catch (error) {
+        log(`Error viewing events: ${error.message}`);
+      }
+    });
+    
+    // Clear events
+    document.getElementById('clear-events').addEventListener('click', () => {
+      try {
+        localStorage.removeItem('analytics_events');
+        log('Events cleared!');
+      } catch (error) {
+        log(`Error clearing events: ${error.message}`);
+      }
+    });
+    
+    // Initial status
+    log('LocalStorage analytics test page loaded');
+    const featureFlags = JSON.parse(localStorage.getItem('featureFlags') || '{}');
+    log(`Analytics feature flag: ${featureFlags.ANALYTICS_EVENTS || false}`);
+  </script>
+</body>
+</html>
