@@ -1,6 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { renderReport } from '@onboarding-audit/report';
+  
+  // analytics-probe: Import analytics tracking
+  let analyticsEnabled = false;
+  let trackEvent: ((eventName: string, payload?: Record<string, any>) => Promise<void>) | null = null;
+  let eventNames: any = null;
 
   let telemetryOptIn = false;
   let device: 'desktop'|'mobile' = 'desktop';
@@ -14,6 +19,22 @@
     telemetryOptIn = s.telemetry_opt_in;
     device = s.onbrd_device;
     cohort = s.onbrd_cohort;
+    
+    // analytics-probe: Initialize analytics tracking
+    try {
+      // Check if analytics is enabled via feature flag
+      const response = await fetch('/lib/featureFlags.ts');
+      if (response.ok) {
+        analyticsEnabled = true; // Simplified for extension context
+        // Import analytics functions dynamically
+        const analyticsModule = await import('../../../site/lib/analytics.ts');
+        trackEvent = analyticsModule.track;
+        eventNames = analyticsModule.EVENT_NAMES;
+      }
+    } catch (error) {
+      console.warn('Analytics initialization failed:', error);
+      analyticsEnabled = false;
+    }
   });
 
   function savePrefs() {
@@ -31,6 +52,19 @@
   }
 
   async function runAudit() {
+    // analytics-probe: Track audit start event
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.AUDIT_START, {
+          device,
+          cohort,
+          telemetryOptIn
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+    
     const resp = await chrome.runtime.sendMessage({ type: 'ONBRD_RUN_AUDIT_ACTIVE_TAB', device, cohort });
     if (resp?.error) {
       console.error(resp.error);
@@ -44,6 +78,20 @@
 
   function tsStamp(d=new Date()){const p=(n:number)=>n.toString().padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}`;}
   async function exportHtml() {
+    // analytics-probe: Track export click event
+    if (analyticsEnabled && trackEvent && eventNames) {
+      try {
+        await trackEvent(eventNames.EXPORT_CLICK, {
+          fileType: 'html-report',
+          hasScore: score !== null,
+          device,
+          cohort
+        });
+      } catch (error) {
+        console.warn('Analytics tracking failed:', error);
+      }
+    }
+    
     const [{ url }] = await chrome.tabs.query({ active: true, currentWindow: true });
     const host = (url || '').replace(/^https?:\/\//,'').replace(/^www\./,'').split(/[/?#]/)[0] || 'site';
     

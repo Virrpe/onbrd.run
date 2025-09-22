@@ -2,10 +2,10 @@
   {
     "url": "https://virrpe.github.io/onbrd.run/",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/swirky/DevHub/repos/OnboardingAudit.ai/.lighthouseci/virrpe_github_io-_onbrd_run_-2025_09_21_10_37_18.report.html",
-    "jsonPath": "/home/swirky/DevHub/repos/OnboardingAudit.ai/.lighthouseci/virrpe_github_io-_onbrd_run_-2025_09_21_10_37_18.report.json",
+    "htmlPath": "/home/swirky/DevHub/repos/OnboardingAudit.ai/.lighthouseci/virrpe_github_io-_onbrd_run_-2025_09_22_07_26_30.report.html",
+    "jsonPath": "/home/swirky/DevHub/repos/OnboardingAudit.ai/.lighthouseci/virrpe_github_io-_onbrd_run_-2025_09_22_07_26_30.report.json",
     "summary": {
-      "performance": 0.99,
+      "performance": 0.97,
       "accessibility": 0.89,
       "best-practices": 0.96,
       "seo": 1,
