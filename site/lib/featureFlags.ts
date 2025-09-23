@@ -15,6 +15,12 @@ export interface FeatureFlags {
   
   // Track D: Rule Packs
   RULE_PACKS_BETA: boolean;
+
+  // Falsification Sprint: Benchmarks Probe
+  BENCHMARKS_BETA: boolean;
+
+  // Falsification Sprint: Evidence Probe
+  EVIDENCE_BETA: boolean;
 }
 
 /**
@@ -26,6 +32,8 @@ const DEFAULT_FLAGS: FeatureFlags = {
   AUTH_BETA: false,
   PRICING_INTENT_BETA: false,
   RULE_PACKS_BETA: false,
+  BENCHMARKS_BETA: false,
+  EVIDENCE_BETA: false,
 };
 
 /**
@@ -45,6 +53,8 @@ function getEnvironmentFlags(): Partial<FeatureFlags> {
       AUTH_BETA: true,
       PRICING_INTENT_BETA: true,
       RULE_PACKS_BETA: true,
+      BENCHMARKS_BETA: true,
+      EVIDENCE_BETA: true,
     };
   }
   
@@ -73,6 +83,14 @@ function getUrlParamFlags(): Partial<FeatureFlags> {
   
   if (urlParams.get('packs') === 'true') {
     flags.RULE_PACKS_BETA = true;
+  }
+
+  if (urlParams.get('benchmarks') === 'true') {
+    flags.BENCHMARKS_BETA = true;
+  }
+
+  if (urlParams.get('evidence') === 'true') {
+    flags.EVIDENCE_BETA = true;
   }
   
   return flags;
