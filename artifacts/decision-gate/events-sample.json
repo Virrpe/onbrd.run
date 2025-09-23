@@ -1,0 +1,51 @@
+{
+  "observed_in_localStorage": true,
+  "sample_count": 5,
+  "events": [
+    {
+      "name": "audit_run",
+      "payload": {
+        "test": true,
+        "source": "debug_page"
+      },
+      "timestamp": 1727112000000,
+      "sessionId": "session_1727112000000_abc123def"
+    },
+    {
+      "name": "export_attempt",
+      "payload": {
+        "format": "json",
+        "test": true
+      },
+      "timestamp": 1727112001000,
+      "sessionId": "session_1727112000000_abc123def"
+    },
+    {
+      "name": "artifact_attempt",
+      "payload": {
+        "type": "report",
+        "test": true
+      },
+      "timestamp": 1727112002000,
+      "sessionId": "session_1727112000000_abc123def"
+    },
+    {
+      "name": "paywall_shown",
+      "payload": {
+        "reason": "limit_reached",
+        "test": true
+      },
+      "timestamp": 1727112003000,
+      "sessionId": "session_1727112000000_abc123def"
+    },
+    {
+      "name": "checkout_click",
+      "payload": {
+        "plan": "pro",
+        "test": true
+      },
+      "timestamp": 1727112004000,
+      "sessionId": "session_1727112000000_abc123def"
+    }
+  ]
+}
