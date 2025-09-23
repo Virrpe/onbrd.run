@@ -17,7 +17,7 @@ jobs:
           set -euo pipefail
           for f in site/assets/fonts/satoshi/Satoshi-Variable.woff2 extension/src/popup/fonts/satoshi/Satoshi-Variable.woff2; do
             test -f "$f"
-            xxd -l 4 "$f" | grep -qi "77 4f 46 32"   # magic: wOF2
+            od -t x1 -N 4 "$f" | grep -q "77 4f 46 32"   # magic: wOF2
             file --mime-type "$f" | grep -qi "font/woff2"
             test "$(wc -c < "$f")" -gt 10000
           done
