@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "url": ["https://virrpe.github.io/onbrd.run/"],
+      "url": ["http://localhost:8000/"],
       "numberOfRuns": 1,
       "chromePath": "/home/swirky/.cache/ms-playwright/chromium-1187/chrome-linux/chrome",
       "settings": { "preset": "desktop" }
