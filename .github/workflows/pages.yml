@@ -23,6 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+
       - name: Inject build metadata and cache-bust
         run: |
           set -euo pipefail
@@ -30,7 +31,10 @@ jobs:
           GIT_SHA="$(git rev-parse HEAD)"
           ISO_TIME="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           export BUILD_ID GIT_SHA ISO_TIME
-          for f in site/index.html site/tokens.css site/styles.css site/site.webmanifest; do
+
+          # Edit BOTH root and site copies if present
+          for f in index.html tokens.css styles.css site.webmanifest \
+                   site/index.html site/tokens.css site/styles.css site/site.webmanifest; do
             if [ -f "$f" ]; then
               sed -i \
                 -e "s|%BUILD_ID%|$BUILD_ID|g" \
@@ -40,7 +44,9 @@ jobs:
             fi
           done
 
-      - name: Upload static site
+          echo "=== DEBUG: first lines of root index.html (if exists) ==="
+          [ -f index.html ] && sed -n '1,40p' index.html || true
+      - name:  Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
