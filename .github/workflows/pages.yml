@@ -38,7 +38,7 @@ jobs:
                 "$f"
             fi
           done
-          # Ensure build comment exists inside <body>
+          # Ensure visible build comment inside <body>
           if ! grep -qi '<!-- build:' site/index.html; then
             printf '\n<!-- build: %s @ %s -->\n' "${GIT_SHA}" "${ISO_TIME}" >> site/index.html
           fi
