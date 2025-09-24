@@ -34,26 +34,41 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- Header -->
-<header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
-    <img src="./assets/logo/bird-1024.png?v=%BUILD_ID%" srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w, ./assets/logo/bird-512.png?v=%BUILD_ID% 512w, ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w" sizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px" width="40" height="40" alt="Onbrd" aria-hidden="true" decoding="async" fetchpriority="high" class="brand__mark">
-    <div class="brand" style="font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
-  </header>
-  
-  <!-- Navigation -->
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center space-x-6">
-        <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-        <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
-        <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
-        <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary">
-          Download Extension
-        </a>
-      </div>
+<!-- Header + Navigation -->
+<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+  <div class="flex items-center justify-between">
+
+    <!-- Brand (left) -->
+    <a href="/" class="flex items-center gap-2 brand-wrap no-underline">
+      <img
+        src="./assets/logo/bird-1024.png?v=%BUILD_ID%"
+        srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w,
+                ./assets/logo/bird-512.png?v=%BUILD_ID% 512w,
+                ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w"
+        sizes="(max-width:640px) 28px, (max-width:1200px) 32px, 36px"
+        width="1024" height="1024"
+        alt="Onbrd"
+        class="brand__mark"
+        decoding="async"
+        fetchpriority="high">
+      <span class="brand">Onbrd</span>
+    </a>
+
+    <!-- Menu (right) -->
+    <div class="flex items-center space-x-6">
+      <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+      <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+      <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+      <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip"
+         download rel="noopener"
+         class="btn-primary">
+        Download Extension
+      </a>
     </div>
-  </nav>
-  
+
+  </div>
+</nav>
+
   <!-- Original Header (commented out for reference)
   <header class="bg-white shadow-sm">
     <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -409,27 +424,6 @@
   </section>
 
   <!-- Final CTA Section -->
-  <section class="py-20 hero-bg">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        Ready to Optimize Your Onboarding?
-      </h2>
-      <p class="text-xl text-blue-100 mb-8">
-        Join thousands of teams who use Onbrd to create better user experiences.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <span>Download Extension</span>
-        </a>
-        <a href="mailto:hello@onbrd.run" rel="noopener" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
-          Join Waitlist
-        </a>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
