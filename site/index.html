@@ -65,8 +65,9 @@
       <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip"
          download rel="noopener"
          class="btn-primary">
-        Download Extension
+        Download Extension (ZIP)<span class="sr-only">—</span>
       </a>
+      <p class="mt-3 text-xs text-white/70">Build: <code>%BUILD_ID%</code> · SHA-256 available in <a class="underline" href="./changelog.html">Changelog</a></p>
     </div>
 
   </div>
@@ -121,6 +122,9 @@
           </a>
         </div>
 
+        <!-- Privacy & Security Microcopy -->
+        <p class="mt-4 text-sm text-white/70">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
+
         <!-- Trust Signals -->
         <div class="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
           <div class="trust-badge flex items-center space-x-2">
@@ -143,6 +147,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <!-- Demo teaser (optional) -->
+    <div class="mt-8 flex justify-center">
+      <a href="./demo/video.html" class="text-white/80 hover:text-white underline">Watch 90-sec demo →</a>
     </div>
   </section>
 
@@ -251,6 +259,8 @@
 
   <!-- Pricing Section - Transparency -->
   <section id="pricing" class="py-20 bg-white">
+    <!-- Comparison micro-row -->
+    <p class="text-center text-sm text-gray-600 mt-4">What Pro adds over Free: <strong>more check categories</strong> · <strong>email support</strong> · (API usage billed separately)</p>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -386,6 +396,7 @@
             <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
             <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
             <li><a href="./docs/checks.html" class="hover:text-white transition-colors">Docs</a></li>
+            <li><a href="./docs/parity.html" class="hover:text-white transition-colors">Parity</a></li>
           </ul>
         </div>
         
@@ -393,6 +404,7 @@
           <h4 class="font-semibold mb-4">Support</h4>
           <ul class="space-y-2 text-gray-400">
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Contact</a></li>
+            <li><a href="mailto:hello@onbrd.run?subject=Enterprise%20Intro" rel="noopener" class="hover:text-white transition-colors">Book intro</a></li>
             <li><a href="mail极客时间 to:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Feedback</a></li>
             <li><a href="./changelog.html" class="hover:text-white transition-colors">Changelog</a></li>
@@ -402,7 +414,7 @@
         <div>
           <h4 class="font-semibold mb-4">Company</h4>
           <ul class="space-y-2 text-gray-400">
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="/about.html" class="hover:text-white transition-colors">Team</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Careers</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Privacy</a></li>
           </ul>
@@ -414,6 +426,8 @@
       </div>
     </div>
   </footer>
+  <!-- Service expectation -->
+  <p class="text-center text-xs text-gray-500 mt-6">We respond to support and sales emails within 2 business days.</p>
   <!-- Analytics tracking -->
   <script type="module">
     // analytics-probe: Import analytics and feature flags
