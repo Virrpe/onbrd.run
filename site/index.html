@@ -110,7 +110,7 @@
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
           <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary px-8 py-4 text-lg inline-flex items-center space-x-2 cta-ping btn-magnetic">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -123,29 +123,30 @@
         </div>
 
         <!-- Privacy & Security Microcopy -->
-        <p class="mt-4 text-sm text-white/70">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
+        <p class="mt-4 text-sm text-white/70 hero-privacy">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
 
         <!-- Trust Signals -->
-        <div class="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+        <ul class="k-list flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
             </svg>
             <span>Free Forever</span>
-          </div>
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          </li>
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
             </svg>
             <span>No Signup Required</span>
-          </div>
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          </li>
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
             </svg>
             <span>1-Click Install</span>
-          </div>
-        </div>
+          </li>
+        </ul>
+        <p class="subnote-lg mt-2 text-xs text-white/60 text-center">Privacy-first: zero data collection, open-source, GDPR-ready</p>
       </div>
     </div>
     <!-- Demo teaser (optional) -->
@@ -155,7 +156,7 @@
   </section>
 
   <!-- How it works -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white section-soft">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How it works</h2>
@@ -163,16 +164,19 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="card p-6 reveal">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">1) Install & run</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">1</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Install & run</h3>
           <p class="text-gray-700">Install the Chrome extension and open your onboarding flow. Click "Audit" — it runs locally in the browser.</p>
         </div>
-        <div class="card p-6 reveal">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">2) Review checks</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">2</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Review checks</h3>
           <p class="text-gray-700">See a 0–100 score with prioritized checks across signup friction, activation path, copy/clarity, momentum, and technical basics.</p>
         </div>
-        <div class="card p-6 reveal">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">3) Share or iterate</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">3</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Share or iterate</h3>
           <p class="text-gray-700">Export an HTML report and share it as-is. Re-run after fixes to track improvements.</p>
         </div>
       </div>
@@ -197,9 +201,9 @@
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center p-6 reveal">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
           </div>
@@ -207,9 +211,9 @@
           <p class="text-gray-600">0–100 score with a breakdown by category. Re-run to see progress after changes.</p>
         </div>
         
-        <div class="text-center p-6 reveal">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
@@ -217,9 +221,9 @@
           <p class="text-gray-600">Each check explains why it matters and how to fix it. Prioritized so sprints stay focused.</p>
         </div>
         
-        <div class="text-center p-6 reveal">
-          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
           </div>
@@ -239,15 +243,15 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-sm reveal">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">SaaS product teams</h4>
           <p class="text-gray-700">"The prioritized list made it obvious what to tackle first. We fixed the top 5 items in one sprint."</p>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm reveal">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">PLG growth squads</h4>
           <p class="text-gray-700">"Great at catching friction in signup and activation that we'd normalized. The report is perfect for async."</p>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm reveal">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">Mobile-first teams</h4>
           <p class="text-gray-700">"Helpful for sanity-checking copy and first-time-use flows across viewports without a long QA cycle."</p>
         </div>

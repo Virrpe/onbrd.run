@@ -225,3 +225,286 @@ h1, h2, h3, h4 {
 
 /* === Premium Polish v1 — underline utility for hero secondary CTA too === */
 .btn-ghost.u-underline::after { bottom: 0; height: 2px; }
+
+/* === Premium Polish v1.2 — CSS Utilities === */
+.subnote-lg {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--gray-600);
+  font-weight: 400;
+}
+
+.k-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.k-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  line-height: 1.6;
+}
+
+.k-item::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--brand-500);
+  border-radius: 50%;
+  margin-top: 0.125rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* === Premium Polish v1.2 — Section Soft Background === */
+.section-soft {
+  position: relative;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+  backdrop-filter: blur(8px);
+  border-radius: 2rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  margin: clamp(2rem, 4vw, 4rem) 0;
+  overflow: hidden;
+}
+
+.section-soft::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* === Premium Polish v1.2 — How it Works Cards === */
+.how-step {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.how-step:hover {
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.08);
+}
+
+.step-num {
+  position: absolute;
+  top: -1rem;
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--brand-500);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  font-family: "Satoshi Variable", Satoshi, sans-serif;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+/* === Premium Polish v1.2 — Feature Cards === */
+.feature-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px) translateZ(0);
+  box-shadow: 0 25px 50px rgba(2, 6, 23, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.feature-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(3rem, 4vw, 3.5rem);
+  height: clamp(3rem, 4vw, 3.5rem);
+  background: linear-gradient(135deg, var(--brand-500), #3b82f6);
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-icon-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.feature-card:hover .feature-icon-wrap::before {
+  transform: translateX(100%);
+}
+
+.feature-icon {
+  width: clamp(1.5rem, 2vw, 1.75rem);
+  height: clamp(1.5rem, 2vw, 1.75rem);
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+
+/* === Premium Polish v1.2 — Quote Cards === */
+.quote-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.quote-card::before,
+.quote-card::after {
+  content: '"';
+  position: absolute;
+  font-family: "Satoshi Variable", Satoshi, sans-serif;
+  font-size: clamp(3rem, 6vw, 4rem);
+  color: var(--brand-400);
+  opacity: 0.3;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote-card::before {
+  top: clamp(0.5rem, 2vw, 1rem);
+  left: clamp(0.5rem, 2vw, 1rem);
+}
+
+.quote-card::after {
+  bottom: clamp(0.5rem, 2vw, 1rem);
+  right: clamp(0.5rem, 2vw, 1rem);
+  transform: rotate(180deg);
+}
+
+/* === Premium Polish v1.2 — Hero Aurora Enhanced === */
+.headline-aurora {
+  background: linear-gradient(135deg, var(--brand-400), #8b5cf6 40%, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.headline-aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 50%, transparent 100%);
+  transform: translateX(-120%);
+  filter: blur(6px);
+  animation: shine-sweep 1.8s ease-out 0.5s 1 both;
+}
+
+@keyframes shine-sweep {
+  0% { transform: translateX(-120%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headline-aurora::after { display: none; }
+}
+
+/* === Premium Polish v1.2 — CTA Ping Enhanced === */
+.cta-ping {
+  position: relative;
+  display: inline-block;
+}
+
+.cta-ping::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 20px;
+  border: 3px solid var(--brand-400);
+  opacity: 0;
+  transform: scale(0.8);
+  animation: ring-ping 2s ease-out 1s infinite;
+}
+
+@keyframes ring-ping {
+  0% { opacity: 0.6; transform: scale(0.8); }
+  50% { opacity: 0.3; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-ping::after { animation: none; }
+}
+
+/* === Premium Polish v1.2 — Performance Optimizations === */
+.how-step,
+.feature-card,
+.quote-card {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* === Premium Polish v1.2 — Responsive Utilities === */
+@media (max-width: 768px) {
+  .section-soft {
+    padding: clamp(1.5rem, 4vw, 2rem);
+    margin: clamp(1.5rem, 3vw, 2rem) 0;
+  }
+  
+  .how-step,
+  .feature-card,
+  .quote-card {
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+}
+
+/* === Premium Polish v1.2 — Dark Mode Support === */
+@media (prefers-color-scheme: dark) {
+  .section-soft::before {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(17, 24, 39, 0.4) 100%);
+  }
+  
+  .how-step,
+  .feature-card,
+  .quote-card {
+    background: rgba(17, 24, 39, 0.8);
+    border-color: rgba(148, 163, 184, 0.1);
+  }
+  
+  .how-step:hover,
+  .feature-card:hover,
+  .quote-card:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+  }
+}
