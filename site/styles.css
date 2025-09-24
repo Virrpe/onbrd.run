@@ -117,3 +117,22 @@ h4 {
   border-radius: 1rem;
   box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
 }
+/* === Brand balance tweaks === */
+.brand {
+  font-size: clamp(18px, 1.6vw, 22px); /* scale slightly with viewport */
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1;
+  color: #111827; /* gray-900 for contrast */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.brand__mark {
+  height: clamp(28px, 2.5vw, 36px); /* responsive scaling */
+  width: auto;
+  margin-right: 0.35rem; /* consistent spacing before text */
+  vertical-align: middle;
+  object-fit: contain;
+  image-rendering: auto;
+}
