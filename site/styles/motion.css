@@ -85,3 +85,84 @@ html:not([data-motion="true"]) .parallax { display: none !important; }
 .parallax__layer {
   background-blend-mode: lighten;
 }
+/* === Floating orbs background (lightweight, CSS-only) === */
+.orb-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;            /* behind all content */
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 1200px at 120% -10%, rgba(14,165,233,0.10), transparent 60%),
+    radial-gradient(800px 800px at -10% 120%, rgba(16,185,129,0.10), transparent 60%);
+}
+
+/* Orbs container (we'll create 3 orbs via generated content) */
+.orb-layer::before,
+.orb-layer::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(20px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+/* Orb A */
+.orb-layer::before {
+  width: 420px; height: 420px;
+  left: 10%; top: 15%;
+  background: radial-gradient(circle at 30% 30%, rgba(56,189,248,0.55), rgba(59,130,246,0.25) 60%, rgba(0,0,0,0) 70%);
+  animation: orb-float-a 16s ease-in-out infinite;
+}
+
+/* Orb B */
+.orb-layer::after {
+  width: 520px; height: 520px;
+  right: 8%; bottom: 12%;
+  background: radial-gradient(circle at 60% 40%, rgba(20,184,166,0.50), rgba(16,185,129,0.25) 60%, rgba(0,0,0,0) 70%);
+  animation: orb-float-b 20s ease-in-out infinite;
+}
+
+/* A small drifting spark, added as a child element */
+.orb-layer .spark {
+  position: absolute;
+  left: 55%; top: 35%;
+  width: 160px; height: 160px;
+  border-radius: 9999px;
+  opacity: 0.45;
+  background: radial-gradient(circle at 40% 40%, rgba(99,102,241,0.45), rgba(168,85,247,0.20) 60%, rgba(0,0,0,0) 70%);
+  filter: blur(14px);
+  will-change: transform;
+  animation: orb-drift 24s ease-in-out infinite;
+}
+
+@keyframes orb-float-a {
+  0%   { transform: translate3d(0, 0, 0) scale(1.00) rotate(0deg); }
+  50%  { transform: translate3d(18px, -10px, 0) scale(1.03) rotate(3deg); }
+  100% { transform: translate3d(0, 0, 0) scale(1.00) rotate(0deg); }
+}
+
+@keyframes orb-float-b {
+  0%   { transform: translate3d(0, 0, 0) scale(1.00) rotate(0deg); }
+  50%  { transform: translate3d(-22px, 14px, 0) scale(0.98) rotate(-3deg); }
+  100% { transform: translate3d(0, 0, 0) scale(1.00) rotate(0deg); }
+}
+
+@keyframes orb-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1.00); }
+  33%  { transform: translate3d(10px, -8px, 0) scale(1.02); }
+  66%  { transform: translate3d(-12px, 9px, 0) scale(0.99); }
+  100% { transform: translate3d(0, 0, 0) scale(1.00); }
+}
+
+/* Motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .orb-layer::before,
+  .orb-layer::after,
+  .orb-layer .spark {
+    animation: none;
+    transform: none;
+    opacity: 0.25;
+  }
+}

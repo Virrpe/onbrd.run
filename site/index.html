@@ -34,12 +34,15 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
+<!-- Premium ambient background (CSS-only) -->
+<div class="orb-layer" aria-hidden="true"><div class="spark"></div></div>
+
 <!-- Header + Navigation -->
 <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
   <div class="flex items-center justify-between">
 
     <!-- Brand (left) -->
-    <a href="/" class="flex items-center gap-2 brand-wrap no-underline">
+    <a href="/" aria-label="Onbrd Home" class="flex items-center gap-2 brand-wrap no-underline">
       <img
         src="./assets/logo/bird-1024.png?v=%BUILD_ID%"
         srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w,
@@ -99,11 +102,10 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-          Score Your Onboarding in
-          <span class="text-brand-400">60 Seconds</span>
+          Audit your onboarding in about a minute
         </h1>
         <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-          Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.
+          Run a free browser audit to find friction in signup, activation, and first-run. Get a 0–100 score with prioritized, actionable checks and a shareable HTML report.
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
@@ -112,10 +114,10 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
-            <span>Download Free Extension</span>
+            <span>Get the free extension</span>
           </a>
-          <a href="mailto:hello@onbrd.run" rel="noopener" class="btn-ghost text-lg">
-            Join Waitlist →
+          <a href="./demo/sample-report.html" rel="noopener" class="btn-ghost text-lg">
+            View sample report →
           </a>
         </div>
 
@@ -144,6 +146,36 @@
     </div>
   </section>
 
+  <!-- How it works -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How it works</h2>
+        <p class="text-lg text-gray-600">Run it free in your browser. Upgrade later if you need more checks or automation.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">1) Install & run</h3>
+          <p class="text-gray-700">Install the Chrome extension and open your onboarding flow. Click "Audit" — it runs locally in the browser.</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">2) Review checks</h3>
+          <p class="text-gray-700">See a 0–100 score with prioritized checks across signup friction, activation path, copy/clarity, momentum, and technical basics.</p>
+        </div>
+        <div class="card p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">3) Share or iterate</h3>
+          <p class="text-gray-700">Export an HTML report and share it as-is. Re-run after fixes to track improvements.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center text-sm text-gray-500">
+        <p>Prefer automation? The API mirrors the checks for CI or scheduled audits. Start with the extension, move to API when you need scale.</p>
+        <p class="mt-2"><a href="./docs/checks.html" class="text-brand-500 hover:text-brand-400 underline">See check categories</a> · <a href="./docs/scoring.html" class="text-brand-500 hover:text-brand-400 underline">Scoring</a></p>
+      </div>
+    </div>
+  </section>
+
   <!-- Features Section -->
   <section id="features" class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,8 +195,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant Scoring</h3>
-          <p class="text-gray-600">Get a 0-100 score in seconds with detailed breakdown of strengths and weaknesses.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant scoring</h3>
+          <p class="text-gray-600">0–100 score with a breakdown by category. Re-run to see progress after changes.</p>
         </div>
         
         <div class="text-center p-6">
@@ -173,8 +205,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Actionable Fixes</h3>
-          <p class="text-gray-600">Prioritized recommendations with clear implementation guidance for maximum impact.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Actionable fixes</h3>
+          <p class="text-gray-600">Each check explains why it matters and how to fix it. Prioritized so sprints stay focused.</p>
         </div>
         
         <div class="text-center p-6">
@@ -183,122 +215,37 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Shareable Reports</h3>
-          <p class="text-gray-600">Export professional HTML reports to share with your team and stakeholders.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Shareable report</h3>
+          <p class="text-gray-600">Export a compact HTML report for PMs, Designers, and Engineers — no extra tooling required.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials Section - Social Proof -->
+  <!-- Testimonials / Early feedback -->
   <section id="testimonials" class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Trusted by Product Teams Worldwide
-        </h2>
-        <p class="text-xl text-gray-600">
-          See why teams choose Onbrd to optimize their onboarding experiences.
-        </p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What teams like</h2>
+        <p class="text-xl text-gray-600">Feedback we hear most often from early users and pilot teams.</p>
       </div>
-      
+
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white p-6 rounded-lg shadow-sm">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-              <span class="text-blue-600 font-semibold">JD</span>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900">John Doe</h4>
-              <p class="text-sm text-gray-600">Product Manager, TechCorp</p>
-            </div>
-          </div>
-          <p class="text-gray-700 mb-4">
-            "Onbrd helped us identify critical onboarding issues we never noticed. Our conversion rate improved 35% after implementing their recommendations."
-          </p>
-          <div class="flex text-yellow-400">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-          </div>
+          <h4 class="font-semibold text-gray-900 mb-2">SaaS product teams</h4>
+          <p class="text-gray-700">"The prioritized list made it obvious what to tackle first. We fixed the top 5 items in one sprint."</p>
         </div>
-        
         <div class="bg-white p-6 rounded-lg shadow-sm">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-              <span class="text-green-600 font-semibold">SM</span>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900">Sarah Miller</h4>
-              <p class="text-sm text-gray-600">UX Designer, StartupHub</p>
-            </div>
-          </div>
-          <p class="text-gray-700 mb-4">
-            "The actionable insights from Onbrd are incredible. We fixed 12 onboarding issues in one sprint and saw immediate results."
-          </p>
-          <div class="flex text-yellow-400">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-          </div>
+          <h4 class="font-semibold text-gray-900 mb-2">PLG growth squads</h4>
+          <p class="text-gray-700">"Great at catching friction in signup and activation that we'd normalized. The report is perfect for async."</p>
         </div>
-        
         <div class="bg-white p-6 rounded-lg shadow-sm">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-              <span class="text-purple-600 font-semibold">AC</span>
-            </div>
-            <div>
-              <h4 class="font-semibold text-gray-900">Alex Chen</h4>
-              <p class="text-sm text-gray-600">CTO, GrowthLabs</p>
-            </div>
-          </div>
-          <p class="text-gray-700 mb-4">
-            "Simple, effective, and completely free. Onbrd has become essential to our product development workflow."
-          </p>
-          <div class="flex text-yellow-400">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-            </svg>
-          </div>
+          <h4 class="font-semibold text-gray-900 mb-2">Mobile-first teams</h4>
+          <p class="text-gray-700">"Helpful for sanity-checking copy and first-time-use flows across viewports without a long QA cycle."</p>
         </div>
       </div>
+
+      <p class="text-xs text-gray-500 mt-8 text-center">Notes: Anonymized summaries from early pilots; we'll add named case studies once published.</p>
     </div>
   </section>
 
@@ -331,13 +278,13 @@
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              Basic scoring
+              Core checks & scoring
             </li>
             <li class="flex items-center">
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              HTML reports
+              HTML report export
             </li>
           </ul>
           <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors block text-center">
@@ -364,19 +311,13 @@
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              Advanced analytics
+              Additional check categories
             </li>
             <li class="flex items-center">
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              Team collaboration
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-              </svg>
-              Priority support
+              Email support
             </li>
           </ul>
           <a href="mailto:hello@onbrd.run" rel="noopener" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors block text-center">
@@ -400,7 +341,7 @@
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              Custom integrations
+              Custom checks & integrations
             </li>
             <li class="flex items-center">
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -412,7 +353,7 @@
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              SLA guarantee
+              SLA
             </li>
           </ul>
           <a href="mailto:hello@onbrd.run" class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors block text-center">
@@ -444,6 +385,7 @@
             <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
             <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
             <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
+            <li><a href="./docs/checks.html" class="hover:text-white transition-colors">Docs</a></li>
           </ul>
         </div>
         
@@ -451,8 +393,9 @@
           <h4 class="font-semibold mb-4">Support</h4>
           <ul class="space-y-2 text-gray-400">
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Contact</a></li>
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="mail极客时间 to:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Feedback</a></li>
+            <li><a href="./changelog.html" class="hover:text-white transition-colors">Changelog</a></li>
           </ul>
         </div>
         
