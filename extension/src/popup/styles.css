@@ -48,4 +48,22 @@ body {
 
 .tag.alt {
   @apply bg-brand-100 text-brand-800;
+}/* Brand logo sizing */
+.brand__mark {
+  height: clamp(28px, 2.5vw, 36px);
+  width: auto;
+  margin-right: 0.5rem; /* spacing between bird + text */
+  vertical-align: middle;
+  object-fit: contain;
+  image-rendering: auto;
+}
+/* Brand text styling */
+.brand {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: #111827; /* gray-900 */
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
 }

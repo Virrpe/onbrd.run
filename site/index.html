@@ -34,12 +34,15 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
+<!-- Premium ambient background (CSS-only) -->
+<div class="orb-layer" aria-hidden="true"><div class="spark"></div></div>
+
 <!-- Header + Navigation -->
 <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
   <div class="flex items-center justify-between">
 
     <!-- Brand (left) -->
-    <a href="/" class="flex items-center gap-2 brand-wrap no-underline">
+    <a href="/" aria-label="Onbrd Home" class="flex items-center gap-2 brand-wrap no-underline">
       <img
         src="./assets/logo/bird-1024.png?v=%BUILD_ID%"
         srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w,
@@ -99,11 +102,10 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-          Score Your Onboarding in
-          <span class="text-brand-400">60 Seconds</span>
+          Audit your onboarding in about a minute
         </h1>
         <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-          Get a 0-100 onboarding score with prioritized fixes. One-click audit, shareable HTML report. No code required.
+          Run a free browser audit to find friction in signup, activation, and first-run. Get a 0–100 score with prioritized, actionable checks and a shareable HTML report.
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
@@ -112,10 +114,10 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
-            <span>Download Free Extension</span>
+            <span>Get the free extension</span>
           </a>
-          <a href="mailto:hello@onbrd.run" rel="noopener" class="btn-ghost text-lg">
-            Join Waitlist →
+          <a href="./demo/sample-report.html" rel="noopener" class="btn-ghost text-lg">
+            View sample report →
           </a>
         </div>
 
@@ -184,7 +186,7 @@
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Shareable Reports</h3>
-          <p class="text-gray-600">Export professional HTML reports to share with your team and stakeholders.</p>
+          <p class="text-gray-600">Export professional HTML report export to share with your team and stakeholders.</p>
         </div>
       </div>
     </div>
@@ -195,10 +197,10 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Trusted by Product Teams Worldwide
+          What teams like
         </h2>
         <p class="text-xl text-gray-600">
-          See why teams choose Onbrd to optimize their onboarding experiences.
+          Feedback we hear most often from early users and pilot teams.
         </p>
       </div>
       
@@ -331,13 +333,13 @@
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              Basic scoring
+              Core checks & scoring
             </li>
             <li class="flex items-center">
               <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
               </svg>
-              HTML reports
+              HTML report export
             </li>
           </ul>
           <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors block text-center">
@@ -444,6 +446,7 @@
             <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
             <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
             <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
+            <li><a href="./docs/checks.html" class="hover:text-white transition-colors">Docs</a></li>
           </ul>
         </div>
         
@@ -451,8 +454,9 @@
           <h4 class="font-semibold mb-4">Support</h4>
           <ul class="space-y-2 text-gray-400">
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Contact</a></li>
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
+            <li><a href="mail极客时间 to:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
             <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Feedback</a></li>
+            <li><a href="./changelog.html" class="hover:text-white transition-colors">Changelog</a></li>
           </ul>
         </div>
         
