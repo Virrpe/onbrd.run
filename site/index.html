@@ -19,6 +19,7 @@
   <!-- Performance optimizations -->
   <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/satoshi/Satoshi-Variable.woff2?v=%BUILD_ID%" crossorigin>
+  <link rel="preload" as="image" href="./assets/logo/bird-1024.png?v=%BUILD_ID%" imagesrcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w, ./assets/logo/bird-512.png?v=%BUILD_ID% 512w, ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w" imagesizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -35,7 +36,7 @@
 <body class="bg-gray-50 text-gray-900">
   <!-- Header -->
   <header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
-    <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" width="24" height="24" alt="Onbrd">
+    <img src="./assets/logo/bird-1024.png?v=%BUILD_ID%" srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w, ./assets/logo/bird-512.png?v=%BUILD_ID% 512w, ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w" sizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px" width="40" height="40" alt="Onbrd" aria-hidden="true" decoding="async" fetchpriority="high" class="brand__mark">
     <div class="brand" style="font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
   </header>
   
@@ -436,7 +437,7 @@
       <div class="grid md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-2 mb-4">
-            <img src="./assets/logo/bird-128.png?v=%BUILD_ID%" alt="Onbrd" class="h-6 w-6">
+            <img src="./assets/logo/bird-1024.png?v=%BUILD_ID%" srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w, ./assets/logo/bird-512.png?v=%BUILD_ID% 512w, ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w" sizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px" width="24" height="24" alt="Onbrd" aria-hidden="true" decoding="async" class="brand__mark">
             <span class="text-lg font-bold">Onbrd</span>
           </div>
           <p class="text-gray-400">
@@ -554,6 +555,63 @@
           }
         }
       }
+    });
+
+    // CTA A/B Testing Implementation
+    window.addEventListener('load', async () => {
+      // Import analytics and feature flags
+      const { track, EVENT_NAMES } = await import('./lib/analytics.ts');
+      const { isFeatureEnabled } = await import('./lib/featureFlags.ts');
+
+      if (!isFeatureEnabled('CTA_TEST')) {
+        return;
+      }
+
+      // Get CTA variant from URL parameter or default to 'A'
+      const urlParams = new URLSearchParams(window.location.search);
+      const ctaVariant = urlParams.get('cta') || 'A';
+      const validVariants = ['A', 'B', 'C'];
+      const activeVariant = validVariants.includes(ctaVariant) ? ctaVariant : 'A';
+
+      // CTA variant texts
+      const ctaTexts = {
+        A: 'Get Your Onboarding Score',
+        B: 'Join 1000+ Teams Using Onbrd',
+        C: 'Audit Your Onboarding in 60s'
+      };
+
+      // Update both CTAs on the page
+      const mainCta = document.getElementById('main-cta');
+      const footerCta = document.getElementById('footer-cta');
+      
+      if (mainCta) {
+        const span = mainCta.querySelector('span');
+        if (span) span.textContent = ctaTexts[activeVariant];
+      }
+      
+      if (footerCta) {
+        const span = footerCta.querySelector('span');
+        if (span) span.textContent = ctaTexts[activeVariant];
+      }
+
+      // Track CTA view event
+      try {
+        await track(EVENT_NAMES.CTA_VIEW, { variant: activeVariant });
+      } catch (error) {
+        console.warn('CTA view tracking failed:', error);
+      }
+
+      // Track CTA click events
+      document.addEventListener('click', async (event) => {
+        const target = event.target.closest('#main-cta, #footer-cta');
+        if (target) {
+          try {
+            await track(EVENT_NAMES.CTA_CLICK, { variant: activeVariant });
+          } catch (error) {
+            console.warn('CTA click tracking failed:', error);
+          }
+        }
+      });
     });
   </script>
   <!-- build: %GIT_SHA% @ %ISO_TIME% -->
