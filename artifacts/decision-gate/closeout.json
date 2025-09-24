@@ -1,0 +1,52 @@
+{
+  "decision_window": "2025-09-23T20:00:00Z/2025-09-23T20:40:00Z",
+  "probes_verified": [
+    {
+      "name": "OBaaS Percentile API",
+      "status": "verified",
+      "evidence": "artifacts/decision-gate/percentile-fallback.json",
+      "notes": "Fallback mode operational with PCTL_FALLBACK=1, returns expected percentile data structure"
+    },
+    {
+      "name": "WCAG Evidence Analytics",
+      "status": "verified", 
+      "evidence": "artifacts/decision-gate/events-sample.json",
+      "notes": "Analytics events captured successfully via localStorage and exporter, sample of 5 events recorded"
+    }
+  ],
+  "paywall_loop": {
+    "status": "verified",
+    "evidence": "artifacts/decision-gate/paywall-proof.json",
+    "notes": "Paywall flow tested with ENTITLEMENTS_TEST=1 shim, pre=402 → post=200 flow confirmed"
+  },
+  "performance_metrics": {
+    "lhci_scores": "artifacts/decision-gate/scores.json",
+    "lhci_report": "artifacts/decision-gate/lhci.json",
+    "visual_sanity": "artifacts/decision-gate/visuals.json",
+    "funnel_attempts": "artifacts/decision-gate/attempts.json",
+    "notes": "All performance metrics within acceptable ranges, Lighthouse scores excellent"
+  },
+  "stripe_integration": {
+    "status": "tested_with_shim",
+    "test_card_note": "Added to site/docs/try.md",
+    "notes": "Real Stripe integration requires production environment testing, test shim confirms entitlement flow"
+  },
+  "compliance_docs": {
+    "privacy_policy": "site/privacy.html",
+    "terms_of_service": "site/terms.html",
+    "status": "created"
+  },
+  "decision": "GO",
+  "risks": [
+    "Production Stripe integration needs live testing with real payments",
+    "Database connectivity for percentile API requires production setup",
+    "Real-world conversion rates need monitoring post-launch"
+  ],
+  "next_steps": [
+    "Deploy to production environment",
+    "Test with real Stripe payments",
+    "Monitor conversion rates and user feedback",
+    "Prepare for public beta launch"
+  ],
+  "generated_at": "2025-09-23T20:40:00Z"
+}
