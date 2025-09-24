@@ -2,22 +2,61 @@
 
 @font-face {
   font-family: "Geist Variable";
-  src: url("./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%") format("woff2-variations");
-  font-weight: 100 900; font-style: normal; font-display: swap;
+  src: url("./assets/fonts/geist/GeistVariable.woff2?v=%BUILD_ID%")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Satoshi Variable";
-  src: url("./assets/fonts/satoshi/Satoshi-Variable.woff2?v=%BUILD_ID%") format("woff2-variations");
-  font-weight: 300 900; font-style: normal; font-display: swap;
+  src: url("./assets/fonts/satoshi/Satoshi-Variable.woff2?v=%BUILD_ID%")
+    format("woff2-variations");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* tokens consolidated in tokens.css */
-.brand { font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif; }
+/* === Typography tokens === */
+html {
+  font-family: "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Satoshi Variable", Satoshi, "Geist Variable", Geist,
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter,
+    "Helvetica Neue", Arial, sans-serif;
+}
+.brand {
+  font-family: "Satoshi Variable", "Geist Variable", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+  line-height: 1;
+}
 
-html { font-family: "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif; }
-h1, h2, h3, h4 { font-family: "Satoshi Variable", Satoshi, "Geist Variable", Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif; }
+/* === Brand & Logo === */
+.brand-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
 
-/* Premium hero background */
+.brand__mark {
+  height: clamp(28px, var(--brand-height, 36px), 40px);
+  width: auto; /* keep aspect ratio */
+  object-fit: contain;
+  image-rendering: auto;
+  contain: paint;
+}
+
+/* === Hero background === */
 .hero-bg {
   background: var(--hero-gradient);
   position: relative;
@@ -25,36 +64,56 @@ h1, h2, h3, h4 { font-family: "Satoshi Variable", Satoshi, "Geist Variable", Gei
   overflow: hidden;
 }
 
+/* === Buttons === */
 .btn-primary {
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:.75rem 1rem;border-radius:1rem;
-  background:var(--brand-500);color:#fff;font-weight:600;
-  transition:transform .15s ease,box-shadow .2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: var(--brand-500);
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
-.btn-primary:hover { transform:translateY(1px); box-shadow:0 10px 30px rgba(20,184,166,.25); }
-.btn-primary:focus-visible { outline:2px solid var(--brand-400); outline-offset:2px; }
-.btn-ghost {
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:.75rem 1rem;border-radius:1rem;
-  background:transparent;color:var(--brand-500);font-weight:600;
-  border:1.5px solid rgba(14,165,164,.35);
-  transition:transform .15s ease,box-shadow .2s ease,border-color .2s ease,color .2s ease;
+.btn-primary:hover {
+  transform: translateY(1px);
+  box-shadow: 0 10px 30px rgba(20, 184, 166, 0.25);
 }
-.btn-ghost:hover { transform:translateY(1px); box-shadow:0 6px 20px rgba(20,184,166,.20); border-color:var(--brand-400); color:var(--brand-400); }
-.btn-ghost:focus-visible { outline:2px solid var(--brand-400); outline-offset:2px; }
-.card {
-  border:1px solid rgba(148,163,184,.25);
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(8px);
-  border-radius:1rem;
-  box-shadow:0 8px 30px rgba(2,6,23,.06);
+.btn-primary:focus-visible {
+  outline: 2px solid var(--brand-400);
+  outline-offset: 2px;
 }
 
-/* Brand mark optimizations for HiDPI */
-.brand__mark {
-  height: clamp(24px, var(--brand-height), 40px);
-  width: clamp(24px, var(--brand-height), 40px);
-  object-fit: contain;
-  image-rendering: auto;
-  contain: paint;
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--brand-500);
+  font-weight: 600;
+  border: 1.5px solid rgba(14, 165, 164, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease;
+}
+.btn-ghost:hover {
+  transform: translateY(1px);
+  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.2);
+  border-color: var(--brand-400);
+  color: var(--brand-400);
+}
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--brand-400);
+  outline-offset: 2px;
+}
+
+/* === Cards === */
+.card {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
 }
