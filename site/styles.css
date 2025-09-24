@@ -52,8 +52,8 @@ h1, h2, h3, h4 { font-family: "Satoshi Variable", Satoshi, "Geist Variable", Gei
 
 /* Brand mark optimizations for HiDPI */
 .brand__mark {
-  height: var(--brand-height);
-  width: auto;
+  height: clamp(24px, var(--brand-height), 40px);
+  width: clamp(24px, var(--brand-height), 40px);
   object-fit: contain;
   image-rendering: auto;
   contain: paint;

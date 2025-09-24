@@ -11,46 +11,64 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-
-      - name: Inject build metadata and cache-bust
+      - name: Compute build metadata
         run: |
-          set -euo pipefail
-          BUILD_ID="$(git rev-parse --short HEAD)"
-          GIT_SHA="$(git rev-parse HEAD)"
-          ISO_TIME="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-          export BUILD_ID GIT_SHA ISO_TIME
+          echo "GIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+          echo "ISO_TIME=$(date -u +%FT%TZ)" >> $GITHUB_ENV
+          echo "BUILD_ID=$(date -u +%Y%m%dT%H%M%SZ)-${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-          # Edit BOTH root and site copies if present
-          for f in index.html tokens.css styles.css site.webmanifest \
-                   site/index.html site/tokens.css site/styles.css site/site.webmanifest; do
+      - name: Inject build metadata
+        run: |
+          set -euxo pipefail
+          for f in site/index.html site/tokens.css site/styles.css site/site.webmanifest; do
             if [ -f "$f" ]; then
               sed -i \
-                -e "s|%BUILD_ID%|$BUILD_ID|g" \
-                -e "s|%GIT_SHA%|$GIT_SHA|g" \
-                -e "s|%ISO_TIME%|$ISO_TIME|g" \
+                -e "s|%BUILD_ID%|${BUILD_ID}|g" \
+                -e "s|%GIT_SHA%|${GIT_SHA}|g" \
+                -e "s|%ISO_TIME%|${ISO_TIME}|g" \
                 "$f"
             fi
           done
+          # Ensure build comment exists inside <body>
+          if ! grep -qi '<!-- build:' site/index.html; then
+            printf '\n<!-- build: %s @ %s -->\n' "${GIT_SHA}" "${ISO_TIME}" >> site/index.html
+          fi
 
-          echo "=== DEBUG: first lines of root index.html (if exists) ==="
-          [ -f index.html ] && sed -n '1,40p' index.html || true
-      - name:  Upload static site
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Post-deploy smoke test
+        run: |
+          set -euxo pipefail
+          URL="${{ steps.deployment.outputs.page_url }}"
+          TS=$(date +%s)
+          HTML=$(curl -s "${URL}?cb=${TS}")
+          echo "$HTML" | grep -i '<!-- build:'             >/dev/null
+          echo "$HTML" | grep -i 'brand__mark'             >/dev/null
+          echo "$HTML" | grep -i 'srcset'                  >/dev/null
+          echo "$HTML" | grep -Ei 'width="40"|height="40"' >/dev/null
