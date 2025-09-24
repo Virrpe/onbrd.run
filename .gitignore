@@ -107,3 +107,7 @@ Thumbs.db
 
 # Local development
 .local/
+
+# local safety backups
+*.bak.*
+
