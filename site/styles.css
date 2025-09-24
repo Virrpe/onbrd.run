@@ -49,3 +49,12 @@ h1, h2, h3, h4 { font-family: "Satoshi Variable", Satoshi, "Geist Variable", Gei
   border-radius:1rem;
   box-shadow:0 8px 30px rgba(2,6,23,.06);
 }
+
+/* Brand mark optimizations for HiDPI */
+.brand__mark {
+  height: var(--brand-height);
+  width: auto;
+  object-fit: contain;
+  image-rendering: auto;
+  contain: paint;
+}
