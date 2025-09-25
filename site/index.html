@@ -33,12 +33,12 @@
     /* Button and motion handled in styles.css and tokens.css (DRY) */
   </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 texture-layer">
 <!-- Premium ambient background (CSS-only) -->
 <div class="orb-layer" aria-hidden="true"><div class="spark"></div></div>
 
 <!-- Header + Navigation -->
-<nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+<nav id="site-nav" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
   <div class="flex items-center justify-between">
 
     <!-- Brand (left) -->
@@ -59,9 +59,9 @@
 
     <!-- Menu (right) -->
     <div class="flex items-center space-x-6">
-      <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-      <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
-      <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors">Testimonials</a>
+      <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Features</a>
+      <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Pricing</a>
+      <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Testimonials</a>
       <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip"
          download rel="noopener"
          class="btn-primary">
@@ -102,7 +102,7 @@
     </div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 headline-aurora">
           Audit your onboarding in about a minute
         </h1>
         <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
@@ -110,52 +110,53 @@
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary px-8 py-4 text-lg inline-flex items-center space-x-2">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip" download rel="noopener" class="btn-primary px-8 py-4 text-lg inline-flex items-center space-x-2 cta-ping btn-magnetic">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
             <span>Get the free extension</span>
           </a>
-          <a href="./demo/sample-report.html" rel="noopener" class="btn-ghost text-lg">
+          <a href="./demo/sample-report.html" rel="noopener" class="btn-ghost text-lg u-underline">
             View sample report →
           </a>
         </div>
 
         <!-- Privacy & Security Microcopy -->
-        <p class="mt-4 text-sm text-white/70">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
+        <p class="mt-4 text-sm text-white/70 hero-privacy">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
 
         <!-- Trust Signals -->
-        <div class="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+        <ul class="k-list flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
             </svg>
             <span>Free Forever</span>
-          </div>
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          </li>
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
             </svg>
             <span>No Signup Required</span>
-          </div>
-          <div class="trust-badge flex items-center space-x-2">
-            <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          </li>
+          <li class="k-item">
+            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
             </svg>
             <span>1-Click Install</span>
-          </div>
-        </div>
+          </li>
+        </ul>
+        <p class="subnote-lg mt-2 text-xs text-white/60 text-center">Privacy-first: zero data collection, open-source, GDPR-ready</p>
       </div>
     </div>
     <!-- Demo teaser (optional) -->
     <div class="mt-8 flex justify-center">
-      <a href="./demo/video.html" class="text-white/80 hover:text-white underline">Watch 90-sec demo →</a>
+      <a href="./demo/video.html" class="text-white/80 hover:text-white underline u-underline">Watch 90-sec demo →</a>
     </div>
   </section>
 
   <!-- How it works -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white section-soft">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How it works</h2>
@@ -163,16 +164,19 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="card p-6">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">1) Install & run</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">1</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Install & run</h3>
           <p class="text-gray-700">Install the Chrome extension and open your onboarding flow. Click "Audit" — it runs locally in the browser.</p>
         </div>
-        <div class="card p-6">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">2) Review checks</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">2</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Review checks</h3>
           <p class="text-gray-700">See a 0–100 score with prioritized checks across signup friction, activation path, copy/clarity, momentum, and technical basics.</p>
         </div>
-        <div class="card p-6">
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">3) Share or iterate</h3>
+        <div class="how-step p-6 reveal">
+          <span class="step-num">3</span>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Share or iterate</h3>
           <p class="text-gray-700">Export an HTML report and share it as-is. Re-run after fixes to track improvements.</p>
         </div>
       </div>
@@ -197,9 +201,9 @@
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
           </div>
@@ -207,9 +211,9 @@
           <p class="text-gray-600">0–100 score with a breakdown by category. Re-run to see progress after changes.</p>
         </div>
         
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
@@ -217,9 +221,9 @@
           <p class="text-gray-600">Each check explains why it matters and how to fix it. Prioritized so sprints stay focused.</p>
         </div>
         
-        <div class="text-center p-6">
-          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="feature-card text-center p-6 reveal">
+          <div class="feature-icon-wrap w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="feature-icon w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
           </div>
@@ -239,15 +243,15 @@
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-sm">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">SaaS product teams</h4>
           <p class="text-gray-700">"The prioritized list made it obvious what to tackle first. We fixed the top 5 items in one sprint."</p>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">PLG growth squads</h4>
           <p class="text-gray-700">"Great at catching friction in signup and activation that we'd normalized. The report is perfect for async."</p>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-sm">
+        <div class="quote-card bg-white p-6 rounded-lg shadow-sm reveal">
           <h4 class="font-semibold text-gray-900 mb-2">Mobile-first teams</h4>
           <p class="text-gray-700">"Helpful for sanity-checking copy and first-time-use flows across viewports without a long QA cycle."</p>
         </div>
@@ -273,7 +277,7 @@
       
       <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
         <!-- Free Plan -->
-        <div class="border border-gray-200 rounded-lg p-6 text-center">
+        <div class="border border-gray-200 rounded-lg p-6 text-center reveal">
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Free</h3>
           <div class="text-3xl font-bold text-gray-900 mb-4">$0</div>
           <p class="text-gray-600 mb-6">Perfect for individuals and small teams</p>
@@ -303,7 +307,7 @@
         </div>
         
         <!-- Pro Plan -->
-        <div class="border-2 border-blue-600 rounded-lg p-6 text-center relative">
+        <div class="border-2 border-blue-600 rounded-lg p-6 text-center relative reveal">
           <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
             <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">Most Popular</span>
           </div>
@@ -336,7 +340,7 @@
         </div>
         
         <!-- Enterprise Plan -->
-        <div class="border border-gray-200 rounded-lg p-6 text-center">
+        <div class="border border-gray-200 rounded-lg p-6 text-center reveal">
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Enterprise</h3>
           <div class="text-3xl font-bold text-gray-900 mb-4">Custom</div>
           <p class="text-gray-600 mb-6">For large organizations</p>
@@ -392,31 +396,31 @@
         <div>
           <h4 class="font-semibold mb-4">Product</h4>
           <ul class="space-y-2 text-gray-400">
-            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
-            <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
-            <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors">API</a></li>
-            <li><a href="./docs/checks.html" class="hover:text-white transition-colors">Docs</a></li>
-            <li><a href="./docs/parity.html" class="hover:text-white transition-colors">Parity</a></li>
+            <li><a href="#features" class="hover:text-white transition-colors u-underline">Features</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors u-underline">Pricing</a></li>
+            <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors u-underline">API</a></li>
+            <li><a href="./docs/checks.html" class="hover:text-white transition-colors u-underline">Docs</a></li>
+            <li><a href="./docs/parity.html" class="hover:text-white transition-colors u-underline">Parity</a></li>
           </ul>
         </div>
         
         <div>
           <h4 class="font-semibold mb-4">Support</h4>
           <ul class="space-y-2 text-gray-400">
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Contact</a></li>
-            <li><a href="mailto:hello@onbrd.run?subject=Enterprise%20Intro" rel="noopener" class="hover:text-white transition-colors">Book intro</a></li>
-            <li><a href="mail极客时间 to:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Help Center</a></li>
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Feedback</a></li>
-            <li><a href="./changelog.html" class="hover:text-white transition-colors">Changelog</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors u-underline">Contact</a></li>
+            <li><a href="mailto:hello@onbrd.run?subject=Enterprise%20Intro" rel="noopener" class="hover:text-white transition-colors u-underline">Book intro</a></li>
+            <li><a href="mail极客时间 to:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors u-underline">Help Center</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors u-underline">Feedback</a></li>
+            <li><a href="./changelog.html" class="hover:text-white transition-colors u-underline">Changelog</a></li>
           </ul>
         </div>
         
         <div>
           <h4 class="font-semibold mb-4">Company</h4>
           <ul class="space-y-2 text-gray-400">
-            <li><a href="/about.html" class="hover:text-white transition-colors">Team</a></li>
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Careers</a></li>
-            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="/about.html" class="hover:text-white transition-colors u-underline">Team</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors u-underline">Careers</a></li>
+            <li><a href="mailto:hello@onbrd.run" rel="noopener" class="hover:text-white transition-colors u-underline">Privacy</a></li>
           </ul>
         </div>
       </div>
@@ -566,6 +570,49 @@
   </script>
   <!-- Add Stripe test card reminder to build: a3a275bce624ca45e712d7b3c75cae64a2431a9c @ 2025-09-24T12:38:29Z -->
   <!-- build: %GIT_SHA% @ %ISO_TIME% -->
+  <script>
+    // Respect reduced motion
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Nav blur on scroll
+    (function(){
+      const nav = document.getElementById('site-nav') || document.querySelector('nav');
+      if (!nav) return;
+      let on = false;
+      const tick = () => {
+        const s = window.scrollY > 24;
+        if (s !== on) { nav.classList.toggle('nav-blur', s); on = s; }
+      };
+      tick();
+      addEventListener('scroll', tick, { passive: true });
+    })();
+
+    // Reveal on scroll (IO)
+    (function(){
+      if (reduce) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => e.isIntersecting && e.target.classList.add('is-in'));
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    })();
+
+    // Magnetic micro-move for primary CTA (optional)
+    (function(){
+      if (reduce) return;
+      document.querySelectorAll('.btn-magnetic').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+          const y = (e.clientY - (r.top + r.height/2)) / (r.height/2);
+          btn.style.transform = `translate(${x*3}px, ${y*3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => btn.style.transform = '');
+      });
+    })();
+  </script>
 </body>
 </html>
   
