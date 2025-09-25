@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { guardedFetch } from '../net/guard';
   import { renderReport } from '@onboarding-audit/report';
   import Paywall from '../lib/paywall.svelte';
 
@@ -9,6 +10,7 @@
   let eventNames: any = null;
 
   let telemetryOptIn = false;
+  let aiOptIn = false;
   let device: 'desktop'|'mobile' = 'desktop';
   let cohort: 'global'|'saas'|'ecommerce'|'content' = 'global';
   let benchmark: { percentile?: number; median?: number; count?: number } | null = null;
@@ -23,8 +25,14 @@
   let paymentProcessingMessage = '';
 
   onMount(async () => {
-    const s = await chrome.storage.sync.get({ telemetry_opt_in: false, onbrd_device: 'desktop', onbrd_cohort: 'global' });
+    const s = await chrome.storage.sync.get({
+      telemetry_opt_in: false,
+      ai_opt_in: false,
+      onbrd_device: 'desktop',
+      onbrd_cohort: 'global'
+    });
     telemetryOptIn = s.telemetry_opt_in;
+    aiOptIn = s.ai_opt_in;
     device = s.onbrd_device;
     cohort = s.onbrd_cohort;
     
@@ -37,7 +45,7 @@
     // analytics-probe: Initialize analytics tracking
     try {
       // Check if analytics is enabled via feature flag
-      const response = await fetch('/lib/featureFlags.ts');
+      const response = await guardedFetch('/lib/featureFlags.ts');
       if (response.ok) {
         analyticsEnabled = true; // Simplified for extension context
         // Import analytics functions dynamically
@@ -52,7 +60,12 @@
   });
 
   function savePrefs() {
-    chrome.storage.sync.set({ telemetry_opt_in: telemetryOptIn, onbrd_device: device, onbrd_cohort: cohort });
+    chrome.storage.sync.set({
+      telemetry_opt_in: telemetryOptIn,
+      ai_opt_in: aiOptIn,
+      onbrd_device: device,
+      onbrd_cohort: cohort
+    });
   }
 
   async function handlePaymentReturn() {
@@ -62,7 +75,7 @@
     // Poll entitlements up to 5 times with 1s interval
     for (let i = 0; i < 5; i++) {
       try {
-        const response = await fetch('/api/v1/entitlements', {
+        const response = await guardedFetch('/api/v1/entitlements', {
           credentials: 'include'
         });
         
@@ -116,7 +129,7 @@
 
   async function executeExport() {
     try {
-      const response = await fetch('/api/v1/benchmarks/export.csv', {
+      const response = await guardedFetch('/api/v1/benchmarks/export.csv', {
         credentials: 'include'
       });
       
@@ -148,7 +161,7 @@
         cohort
       };
       
-      const response = await fetch('/api/v1/artifacts', {
+      const response = await guardedFetch('/api/v1/artifacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -232,7 +245,7 @@
     
     try {
       const returnTo = encodeURIComponent(window.location.href.split('?')[0] + '?paid=1');
-      const response = await fetch('/api/v1/billing/checkout?returnTo=' + returnTo, {
+      const response = await guardedFetch('/api/v1/billing/checkout?returnTo=' + returnTo, {
         credentials: 'include'
       });
       
@@ -272,13 +285,15 @@
         await trackEvent(eventNames.AUDIT_RUN, {
           device,
           cohort,
-          telemetryOptIn
+          telemetryOptIn,
+          aiOptIn
         });
         // Also track legacy AUDIT_START for backward compatibility
         await trackEvent(eventNames.AUDIT_START, {
           device,
           cohort,
-          telemetryOptIn
+          telemetryOptIn,
+          aiOptIn
         });
       } catch (error) {
         console.warn('Analytics tracking failed:', error);
@@ -379,6 +394,20 @@
       <input type="checkbox" bind:checked={telemetryOptIn} on:change={savePrefs} />
       <span>Share anonymous benchmarks</span>
     </label>
+  </div>
+
+  <div class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+    <div class="flex items-center gap-2 mb-2">
+      <label class="inline-flex items-center gap-1">
+        <input type="checkbox" bind:checked={aiOptIn} on:change={savePrefs} />
+        <span class="font-medium">Enable AI insights</span>
+      </label>
+    </div>
+    <div class="text-xs text-gray-600 leading-relaxed">
+      When enabled, AI features send page content to cloud services for analysis.
+      This includes text, structure, and metadata from the audited page.
+      AI insights provide enhanced recommendations but require internet connectivity.
+    </div>
   </div>
 
   <div class="mb-3 flex flex-wrap gap-2">
