@@ -1,6 +1,84 @@
 #!/usr/bin/env node
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs/promises';
+
+// --- Deterministic PRNG for falsification/ablation ---
+function mulberry32(seed) {
+  return function() {
+    let t = (seed += 0x6D2B79F5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// --- Utilities ---
+function computeR2(y, yhat){
+  const n = y.length; if (!n) return null;
+  const mean = y.reduce((a,b)=>a+b,0)/n;
+  let ssRes=0, ssTot=0;
+  for (let i=0;i<n;i++){ ssRes += (y[i]-yhat[i])**2; ssTot += (y[i]-mean)**2; }
+  return ssTot ? 1 - (ssRes/ssTot) : null;
+}
+
+// Picks numeric target: prefer explicit numeric; else midpoint; when ablation=false uses midpoint; when ablation=true sample within band.
+function deriveNumericTarget(exp, rand, bandMidpoint=true){
+  if (!exp) return null;
+  if (typeof exp.score_numeric === 'number') return exp.score_numeric;
+  if (Array.isArray(exp.score_band) && exp.score_band.length === 2) {
+    const [lo, hi] = exp.score_band;
+    if (typeof lo === 'number' && typeof hi === 'number') {
+      if (bandMidpoint) return (lo + hi) / 2;
+      const r = rand ? rand() : Math.random();
+      return lo + r * (hi - lo);
+    }
+  }
+  return null;
+}
+
+// Build per-check confusion counts, then precision/recall/F1
+function computePerCheckMetrics(items){
+  const counts = {}; // h -> {tp,fp,fn,tn}
+  for (const it of items){
+    const p = (it.pred && it.pred.checks) || {};
+    const e = (it.expected && it.expected.checks) || {};
+    const keys = new Set([...Object.keys(p), ...Object.keys(e)]);
+    for (const k of keys){
+      const pv = !!p[k];
+      const ev = !!e[k];
+      counts[k] ||= {tp:0, fp:0, fn:0, tn:0};
+      if (pv && ev) counts[k].tp++;
+      else if (pv && !ev) counts[k].fp++;
+      else if (!pv && ev) counts[k].fn++;
+      else counts[k].tn++;
+    }
+  }
+  const metrics = {};
+  for (const [k,c] of Object.entries(counts)){
+    const prec = (c.tp + c.fp) ? c.tp / (c.tp + c.fp) : 1;
+    const rec  = (c.tp + c.fn) ? c.tp / (c.tp + c.fn) : 1;
+    const f1   = (prec+rec) ? 2*prec*rec/(prec+rec) : 0;
+    metrics[k] = { precision: +prec.toFixed(4), recall: +rec.toFixed(4), f1: +f1.toFixed(4) };
+  }
+  return metrics;
+}
+
+function macroF1(perCheck){
+  const vals = Object.values(perCheck).map(x => x.f1).filter(x => typeof x === 'number');
+  return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+
+function computeCalibration(items){
+  const y=[], yhat=[];
+  for (const it of items){
+    if (typeof it.pred?.score === 'number' && typeof it.expected_numeric === 'number'){
+      y.push(it.expected_numeric);
+      yhat.push(it.pred.score);
+    }
+  }
+  const n = y.length;
+  const r2 = n ? computeR2(y,yhat) : null;
+  return { r2: r2==null ? null : +r2.toFixed(4), n };
+}
 
 // Command line argument parsing
 const parseArgs = () => {
@@ -28,191 +106,81 @@ const SHUFFLE_LABELS = args["--shuffle-labels"] === 'true';
 const BAND_MIDPOINT = args["--band-midpoint"] !== 'false'; // default true
 const SEED = parseInt(args["--seed"] || "1337", 10);
 
-// Seeded PRNG implementation (Mulberry32)
-class SeededPRNG {
-  constructor(seed) {
-    this.seed = seed >>> 0;
-  }
-  
-  next() {
-    let t = this.seed += 0x6D2B79F5;
-    t = Math.imul(t ^ t >>> 15, t | 1);
-    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-    this.seed = (t ^ t >>> 14) >>> 0;
-    return this.seed / 4294967296;
-  }
+// Load results
+const resultsRaw = await fs.readFile(IN, "utf8");
+const results = JSON.parse(resultsRaw);
+
+// Build a working list that includes predictions and expected labels
+const baseItems = results.map(r => ({
+  pred: { score: r.score, checks: r.checks || {} },
+  expected: r.expected || {}
+}));
+
+// Derive numeric targets for baseline calibration (midpoint mode)
+for (const it of baseItems) {
+  it.expected_numeric = deriveNumericTarget(it.expected, null, /*bandMidpoint=*/true);
 }
 
-// Fisher-Yates shuffle implementation
-const shuffleArray = (array, prng) => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(prng.next() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
-const results = JSON.parse(fs.readFileSync(IN, "utf8"));
-const fixturesRoot = path.join("benchmarks", "fixtures");
-
-// Helpers
-const prf = (tp, fp, fn) => {
-  const precision = tp + fp === 0 ? 1 : tp / (tp + fp);
-  const recall = tp + fn === 0 ? 1 : tp / (tp + fn);
-  const f1 = (precision + recall) === 0 ? 0 : (2 * precision * recall) / (precision + recall);
-  return { precision, recall, f1 };
-};
-
-// Compute metrics function
-const computeMetrics = (results, fixturesRoot, bandMidpoint = true) => {
-  const perCheck = {};
-  const perCategory = {};
-  let globalPairs = []; // for calibration (pred vs truth)
-
-  // Collect all score bands for potential shuffling
-  const allScoreBands = [];
-  const resultToBandMap = new Map();
-
-  // First pass: collect all score bands
-  for (const r of results.results) {
-    const metaPath = path.join(fixturesRoot, r.category, r.name.replaceAll(" ", "-").toLowerCase(), "meta.json");
-    const meta = fs.existsSync(metaPath)
-      ? JSON.parse(fs.readFileSync(metaPath, "utf8"))
-      : (r.meta || {});
-
-    if (meta.expected?.score_band) {
-      allScoreBands.push([...meta.expected.score_band]);
-      resultToBandMap.set(r.id || r.name, meta.expected.score_band);
-    }
-  }
-
-  // Shuffle score bands if requested
-  let shuffledBands = [];
-  if (SHUFFLE_LABELS && allScoreBands.length > 0) {
-    const shufflePrng = new SeededPRNG(SEED);
-    shuffledBands = shuffleArray(allScoreBands, shufflePrng);
-  }
-
-  // Second pass: process results
-  for (let i = 0; i < results.results.length; i++) {
-    const r = results.results[i];
-    const metaPath = path.join(fixturesRoot, r.category, r.name.replaceAll(" ", "-").toLowerCase(), "meta.json");
-    const meta = fs.existsSync(metaPath)
-      ? JSON.parse(fs.readFileSync(metaPath, "utf8"))
-      : (r.meta || {});
-
-    const truth = meta.ground_truth || {};
-    
-    // Example boolean check
-    const checks = Object.keys(r.individual_scores || {});
-    for (const key of checks) {
-      if (!(key in perCheck)) perCheck[key] = { tp: 0, fp: 0, fn: 0, count: 0 };
-      perCheck[key].count++;
-      // Binary truth if present
-      if (typeof truth[key] === "boolean") {
-        const predictedPos = (r.individual_scores[key] || 0) > 50;
-        const truthPos = truth[key] === true;
-        if (predictedPos && truthPos) perCheck[key].tp++;
-        else if (predictedPos && !truthPos) perCheck[key].fp++;
-        else if (!predictedPos && truthPos) perCheck[key].fn++;
-      }
-    }
-
-    // Category band check
-    if (!(r.category in perCategory)) perCategory[r.category] = { total: 0, inBand: 0, scores: [] };
-    perCategory[r.category].total++;
-    perCategory[r.category].scores.push(r.score);
-    
-    let band = meta.expected?.score_band;
-    
-    // Apply shuffling if requested
-    if (SHUFFLE_LABELS && band && shuffledBands.length > 0) {
-      // Find a shuffled band for this result
-      const bandIndex = allScoreBands.findIndex(b =>
-        b[0] === band[0] && b[1] === band[1]
-      );
-      if (bandIndex !== -1 && shuffledBands[bandIndex]) {
-        band = shuffledBands[bandIndex];
-      }
-    }
-    
-    if (band && r.score >= band[0] && r.score <= band[1]) perCategory[r.category].inBand++;
-
-    // Calibration pair
-    if (band) {
-      let truthValue;
-      if (bandMidpoint) {
-        // Use midpoint (original behavior)
-        truthValue = (band[0] + band[1]) / 2;
-      } else {
-        // Use random point within band (ablation)
-        const ablationPrng = new SeededPRNG(SEED + i);
-        const range = band[1] - band[0];
-        truthValue = band[0] + (ablationPrng.next() * range);
-      }
-      globalPairs.push({ predicted: r.score, truth: truthValue });
-    }
-  }
-
-  // Compute metrics
-  const checkMetrics = Object.fromEntries(Object.entries(perCheck).map(([k, v]) => [k, prf(v.tp, v.fp, v.fn)]));
-  const categoryMetrics = Object.fromEntries(Object.entries(perCategory).map(([_k, v]) => {
-    const inBandPct = v.total ? (v.inBand / v.total) : 0;
-    const mean = v.scores.reduce((a, b) => a + b, 0) / (v.scores.length || 1);
-    const variance = v.scores.reduce((a, b) => a + (b - mean) * (b - mean), 0) / (v.scores.length || 1);
-    return { total: v.total, inBandPct, mean, std: Math.sqrt(variance) };
-  }));
-
-  // Simple R^2 for calibration
-  const meanTruth = globalPairs.reduce((a, p) => a + p.truth, 0) / (globalPairs.length || 1);
-  const ssTot = globalPairs.reduce((a, p) => a + (p.truth - meanTruth) ** 2, 0);
-  const ssRes = globalPairs.reduce((a, p) => a + (p.truth - p.predicted) ** 2, 0);
-  const r2 = ssTot === 0 ? 1 : 1 - (ssRes / ssTot);
-
-  return {
-    checks: checkMetrics,
-    categories: categoryMetrics,
-    calibration: { r2, n: globalPairs.length }
-  };
-};
-
-// Compute baseline metrics (original behavior)
-const baselineMetrics = computeMetrics(results, fixturesRoot, true, null);
-
-// Compute falsified metrics (shuffled labels)
-let falsifiedMetrics = null;
-if (SHUFFLE_LABELS) {
-  falsifiedMetrics = computeMetrics(results, fixturesRoot, true, new SeededPRNG(SEED));
-}
-
-// Compute ablated metrics (random band points instead of midpoints)
-let ablatedMetrics = null;
-if (!BAND_MIDPOINT) {
-  ablatedMetrics = computeMetrics(results, fixturesRoot, false, new SeededPRNG(SEED));
-}
-
-// Build output structure
+// Baseline per-check + calibration
+const baselineChecks = computePerCheckMetrics(baseItems);
+const baselineCal    = computeCalibration(baseItems);
 const out = {
   generatedAt: new Date().toISOString(),
-  config: {
-    shuffleLabels: SHUFFLE_LABELS,
-    bandMidpoint: BAND_MIDPOINT,
-    seed: SEED
-  },
-  baseline_metrics: baselineMetrics
+  config: { shuffleLabels: SHUFFLE_LABELS, bandMidpoint: BAND_MIDPOINT, seed: SEED },
+  baseline_metrics: {
+    checks: baselineChecks,
+    calibration: baselineCal,
+    macro_f1: macroF1(baselineChecks)
+  }
 };
 
-// Add falsified metrics if shuffling was enabled
-if (falsifiedMetrics) {
-  out.falsified_metrics = falsifiedMetrics;
+// Falsification: shuffle expected labels per-check consistently
+if (SHUFFLE_LABELS) {
+  const rnd = mulberry32(SEED);
+  const keys = Object.keys(baselineChecks);
+  const perm = [...keys];
+  for (let i=perm.length-1;i>0;i--){
+    const j = Math.floor(rnd()*(i+1));
+    [perm[i],perm[j]] = [perm[j],perm[i]];
+  }
+  const mapTo = new Map(keys.map((k,i)=>[k, perm[i]]));
+
+  const falsifiedItems = baseItems.map(it => {
+    const exp = it.expected?.checks || {};
+    const shuffledExpected = {};
+    for (const [k,v] of Object.entries(exp)){
+      const k2 = mapTo.get(k) ?? k;
+      shuffledExpected[k2] = v;
+    }
+    return {
+      pred: it.pred,
+      expected: { ...it.expected, checks: shuffledExpected },
+      expected_numeric: it.expected_numeric
+    };
+  });
+  const fChecks = computePerCheckMetrics(falsifiedItems);
+  out.falsified_metrics = {
+    checks: fChecks,
+    macro_f1: macroF1(fChecks)
+  };
 }
 
-// Add ablated metrics if midpoint ablation was disabled
-if (ablatedMetrics) {
-  out.ablated_metrics = ablatedMetrics;
+// Ablation: use random-in-band instead of midpoints for numeric targets
+if (BAND_MIDPOINT === false) {
+  const rnd = mulberry32(SEED);
+  const ablated = baseItems.map(it => {
+    const expNum = deriveNumericTarget(it.expected, rnd, /*bandMidpoint=*/false);
+    return { pred: it.pred, expected: it.expected, expected_numeric: expNum };
+  });
+  const aChecks = computePerCheckMetrics(ablated); // labels unchanged
+  const aCal    = computeCalibration(ablated);
+  out.ablated_metrics = {
+    checks: aChecks,
+    calibration: aCal,
+    macro_f1: macroF1(aChecks)
+  };
 }
 
-fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + "\n");
+await fs.writeFile(OUT, JSON.stringify(out, null, 2) + "\n");
 console.log("Wrote", OUT);
 console.log(`Configuration: shuffle-labels=${SHUFFLE_LABELS}, band-midpoint=${BAND_MIDPOINT}, seed=${SEED}`);

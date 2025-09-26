@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2025-09-26T19:37:24.130Z",
+  "config": {
+    "shuffleLabels": false,
+    "bandMidpoint": true,
+    "seed": 1337
+  },
+  "baseline_metrics": {
+    "checks": {
+      "h_cta_above_fold": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "h_steps_count": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "h_copy_clarity": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "h_trust_markers": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "h_perceived_signup_speed": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      }
+    },
+    "categories": {},
+    "calibration": {
+      "r2": 1,
+      "n": 0
+    }
+  }
+}

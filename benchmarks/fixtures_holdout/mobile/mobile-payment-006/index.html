@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MusicStream - Premium Upgrade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: #000;
+            min-height: 100vh;
+            position: relative;
+            color: white;
+        }
+        
+        .status-bar {
+            background: #000;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: #000;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #8e8e93;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .content-area {
+            padding: 1.5rem;
+            min-height: calc(100vh - 120px);
+            padding-bottom: 120px;
+        }
+        
+        .upgrade-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .upgrade-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .upgrade-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .upgrade-subtitle {
+            color: #8e8e93;
+            font-size: 0.9rem;
+        }
+        
+        .premium-benefits {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .benefits-title {
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: #1db954;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        .benefit-title {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        
+        .benefit-description {
+            color: #8e8e93;
+            font-size: 0.85rem;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card:hover,
+        .pricing-card.selected {
+            border-color: #1db954;
+            background: #1a1a1a;
+        }
+        
+        .pricing-card.recommended {
+            border-color: #1db954;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f2a0f 100%);
+        }
+        
+        .recommended-badge {
+            position: absolute;
+            top: -10px;
+            right: 1rem;
+            background: #1db954;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .plan-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1db954;
+        }
+        
+        .plan-period {
+            font-size: 0.8rem;
+            color: #8e8e93;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #8e8e93;
+            font-size: 0.85rem;
+        }
+        
+        .plan-feature::before {
+            content: '✓';
+            color: #1db954;
+            font-weight: bold;
+        }
+        
+        .plan-savings {
+            background: #0f2a0f;
+            color: #1db954;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        
+        .payment-methods {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-title {
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #000;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option:hover,
+        .payment-option.selected {
+            background: #333;
+        }
+        
+        .payment-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .payment-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .payment-details {
+            flex: 1;
+        }
+        
+        .payment-name {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .payment-info {
+            color: #8e8e93;
+            font-size: 0.8rem;
+        }
+        
+        .payment-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8e8e93;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .payment-option.selected .payment-radio {
+            border-color: #1db954;
+        }
+        
+        .payment-option.selected .payment-radio::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #1db954;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .security-info {
+            background: #0f2a0f;
+            border: 1px solid #1db954;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .security-title {
+            color: #1db954;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .security-text {
+            color: #8e8e93;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border-top: 1px solid #333;
+        }
+        
+        .btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: #1a1a1a;
+            color: #8e8e93;
+            border: 1px solid #333;
+        }
+        
+        .btn-secondary:active {
+            background: #333;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .terms-text {
+            text-align: center;
+            color: #8e8e93;
+            font-size: 0.7rem;
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+        
+        .terms-text a {
+            color: #1db954;
+            text-decoration: none;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #8e8e93;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #1db954;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+            
+            .pricing-cards {
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-title">MusicStream Premium</div>
+            <a href="#" class="close-btn">×</a>
+        </div>
+        
+        <div class="content-area">
+            <div class="upgrade-header">
+                <div class="upgrade-icon">🎵</div>
+                <h1 class="upgrade-title">Upgrade to Premium</h1>
+                <p class="upgrade-subtitle">Unlock the full MusicStream experience</p>
+            </div>
+            
+            <div class="premium-benefits">
+                <div class="benefits-title">Premium Benefits</div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎧</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Ad-Free Listening</div>
+                        <div class="benefit-description">Enjoy uninterrupted music streaming</div>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">📱</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Offline Downloads</div>
+                        <div class="benefit-description">Download up to 10,000 songs</div>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔊</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">High Quality Audio</div>
+                        <div class="benefit-description">320kbps premium audio quality</div>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔄</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Unlimited Skips</div>
+                        <div class="benefit-description">Skip as many songs as you want</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card" onclick="selectPlan(this, 'monthly')">
+                    <div class="plan-header">
+                        <div class="plan-name">Monthly</div>
+                        <div class="plan-price">$9.99</div>
+                    </div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li class="plan-feature">Billed monthly</li>
+                        <li class="plan-feature">Cancel anytime</li>
+                        <li class="plan-feature">All premium features</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card recommended" onclick="selectPlan(this, 'yearly')">
+                    <div class="recommended-badge">SAVE 20%</div>
+                    <div class="plan-header">
+                        <div class="plan-name">Yearly</div>
+                        <div class="plan-price">$99.99</div>
+                    </div>
+                    <div class="plan-period">per year</div>
+                    <ul class="plan-features">
+                        <li class="plan-feature">Billed annually</li>
+                        <li class="plan-feature">2 months free</li>
+                        <li class="plan-feature">All premium features</li>
+                    </ul>
+                    <div class="plan-savings">Save $19.89 per year</div>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-title">Payment Method</div>
+                
+                <div class="payment-option selected" onclick="selectPayment(this)">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Credit Card</div>
+                        <div class="payment-info">Visa, Mastercard, Amex</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+                
+                <div class="payment-option" onclick="selectPayment(this)">
+                    <div class="payment-icon">📱</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Apple Pay</div>
+                        <div class="payment-info">Secure and fast</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+                
+                <div class="payment-option" onclick="selectPayment(this)">
+                    <div class="payment-icon">💰</div>
+                    <div class="payment-details">
+                        <div class="payment-name">PayPal</div>
+                        <div class="payment-info">Pay with your PayPal account</div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+            </div>
+            
+            <div class="security-info">
+                <div class="security-title">🔒 Secure Payment</div>
+                <div class="security-text">
+                    Your payment information is encrypted and secure. We never store your payment details on our servers.
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>SSL Encrypted</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>PCI Compliant</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Cancel Anytime</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-primary" onclick="startSubscription()">Start Premium</button>
+            <button type="button" class="btn btn-secondary" onclick="continueFree()">Continue with Free</button>
+            <div class="terms-text">
+                By subscribing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. Subscription auto-renews unless cancelled.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlan = 'yearly';
+        let selectedPayment = 'card';
+        
+        function selectPlan(element, plan) {
+            // Remove selection from all cards
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            element.classList.add('selected');
+            selectedPlan = plan;
+        }
+        
+        function selectPayment(element) {
+            // Remove selection from all payment options
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            element.classList.add('selected');
+            
+            // Update selected payment method
+            const paymentName = element.querySelector('.payment-name').textContent;
+            selectedPayment = paymentName.toLowerCase().replace(' ', '');
+        }
+        
+        function startSubscription() {
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+            
+            // Simulate subscription process
+            setTimeout(() => {
+                const success = Math.random() > 0.1; // 90% success rate
+                
+                if (success) {
+                    alert(`🎉 Welcome to MusicStream Premium! Your ${selectedPlan} subscription is now active.`);
+                } else {
+                    alert('Payment failed. Please try a different payment method.');
+                }
+                
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+        
+        function continueFree() {
+            if (confirm('Continue with the free version? You\'ll miss out on premium features.')) {
+                alert('You can upgrade to Premium anytime in settings.');
+            }
+        }
+        
+        // Auto-select yearly plan (recommended)
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearlyCard = document.querySelector('.pricing-card.recommended');
+            if (yearlyCard) {
+                yearlyCard.click();
+            }
+        });
+    </script>
+</body>
+</html>

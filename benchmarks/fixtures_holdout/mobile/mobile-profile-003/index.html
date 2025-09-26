@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PhotoShare - Create Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #000;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: #000;
+            min-height: 100vh;
+            position: relative;
+            color: white;
+        }
+        
+        .status-bar {
+            background: #000;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: #000;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .skip-btn {
+            color: #8e8e93;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        .content-area {
+            padding: 1.5rem 1rem;
+            min-height: calc(100vh - 120px);
+            padding-bottom: 100px;
+        }
+        
+        .profile-setup {
+            text-align: center;
+        }
+        
+        .setup-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .setup-subtitle {
+            color: #8e8e93;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .profile-photo-section {
+            margin-bottom: 2rem;
+        }
+        
+        .photo-upload-area {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 2px dashed #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: #8e8e93;
+        }
+        
+        .photo-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #8e8e93;
+        }
+        
+        .photo-upload-text {
+            font-size: 0.8rem;
+            color: #8e8e93;
+            text-align: center;
+        }
+        
+        .add-photo-btn {
+            background: transparent;
+            border: 1px solid #8e8e93;
+            color: #8e8e93;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-photo-btn:hover {
+            border-color: white;
+            color: white;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #8e8e93;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #8e8e93;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .username-input {
+            position: relative;
+        }
+        
+        .username-input input {
+            padding-right: 3rem;
+        }
+        
+        .username-check {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8e8e93;
+            font-size: 1.2rem;
+        }
+        
+        .username-check.available {
+            color: #34d399;
+        }
+        
+        .bio-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #8e8e93;
+            margin-top: 0.25rem;
+        }
+        
+        .interests-section {
+            margin-bottom: 2rem;
+        }
+        
+        .interests-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #8e8e93;
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .interest-tag {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #8e8e93;
+            padding: 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interest-tag:hover,
+        .interest-tag.selected {
+            background: #333;
+            color: white;
+            border-color: #8e8e93;
+        }
+        
+        .custom-interest {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .custom-interest input {
+            flex: 1;
+        }
+        
+        .add-interest-btn {
+            background: #333;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .privacy-settings {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .privacy-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .privacy-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .privacy-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .privacy-label {
+            font-size: 0.9rem;
+            color: #8e8e93;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #3b82f6;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            border-top: 1px solid #333;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #1a1a1a;
+            color: #8e8e93;
+            border: 1px solid #333;
+        }
+        
+        .btn-secondary:active {
+            background: #333;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:active {
+            background: #2563eb;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #8e8e93;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #34d399;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+            
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-title">PhotoShare</div>
+            <a href="#" class="skip-btn">Skip</a>
+        </div>
+        
+        <div class="content-area">
+            <div class="profile-setup">
+                <h1 class="setup-title">Set up your profile</h1>
+                <p class="setup-subtitle">Help others discover your amazing photos</p>
+                
+                <div class="profile-photo-section">
+                    <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+                        <div class="photo-upload-icon">📷</div>
+                        <div class="photo-upload-text">Add Profile Photo</div>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                    <button type="button" class="add-photo-btn">Add Photo</button>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <div class="username-input">
+                            <input type="text" placeholder="Choose a username" id="username" maxlength="30">
+                            <span class="username-check" id="usernameCheck">✓</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" placeholder="How should we display your name?" id="displayName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea placeholder="Tell us about yourself and your photography style" id="bio" maxlength="150"></textarea>
+                        <div class="bio-counter"><span id="bioCount">0</span>/150</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" placeholder="Where are you based?" id="location">
+                    </div>
+                </div>
+                
+                <div class="interests-section">
+                    <h3 class="interests-title">What do you love to photograph?</h3>
+                    <div class="interests-grid">
+                        <div class="interest-tag" data-interest="landscape">Landscape</div>
+                        <div class="interest-tag" data-interest="portrait">Portrait</div>
+                        <div class="interest-tag" data-interest="street">Street</div>
+                        <div class="interest-tag" data-interest="nature">Nature</div>
+                        <div class="interest-tag" data-interest="architecture">Architecture</div>
+                        <div class="interest-tag" data-interest="food">Food</div>
+                        <div class="interest-tag" data-interest="travel">Travel</div>
+                        <div class="interest-tag" data-interest="wildlife">Wildlife</div>
+                        <div class="interest-tag" data-interest="macro">Macro</div>
+                    </div>
+                    
+                    <div class="custom-interest">
+                        <input type="text" placeholder="Add your own interest" id="customInterest">
+                        <button type="button" class="add-interest-btn">Add</button>
+                    </div>
+                </div>
+                
+                <div class="privacy-settings">
+                    <h3 class="privacy-title">Privacy Settings</h3>
+                    <div class="privacy-option">
+                        <span class="privacy-label">Private Account</span>
+                        <div class="toggle-switch" id="privateAccount"></div>
+                    </div>
+                    <div class="privacy-option">
+                        <span class="privacy-label">Show Location</span>
+                        <div class="toggle-switch active" id="showLocation"></div>
+                    </div>
+                    <div class="privacy-option">
+                        <span class="privacy-label">Allow Comments</span>
+                        <div class="toggle-switch active" id="allowComments"></div>
+                    </div>
+                </div>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Private by default</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Full control</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="skipSetup()">Skip for now</button>
+            <button type="button" class="btn btn-primary" onclick="completeSetup()">Complete Profile</button>
+        </div>
+    </div>
+
+    <script>
+        // Username availability check
+        document.getElementById('username').addEventListener('input', function() {
+            const username = this.value;
+            const checkIcon = document.getElementById('usernameCheck');
+            
+            if (username.length > 2) {
+                // Simulate availability check
+                setTimeout(() => {
+                    const isAvailable = Math.random() > 0.3; // 70% chance available
+                    checkIcon.className = isAvailable ? 'username-check available' : 'username-check';
+                    checkIcon.textContent = isAvailable ? '✓' : '✗';
+                }, 500);
+            } else {
+                checkIcon.className = 'username-check';
+                checkIcon.textContent = '✓';
+            }
+        });
+        
+        // Bio character counter
+        document.getElementById('bio').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('bioCount').textContent = count;
+        });
+        
+        // Interest selection
+        document.querySelectorAll('.interest-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Custom interest
+        document.querySelector('.add-interest-btn').addEventListener('click', function() {
+            const input = document.getElementById('customInterest');
+            const interest = input.value.trim();
+            
+            if (interest) {
+                const newTag = document.createElement('div');
+                newTag.className = 'interest-tag selected';
+                newTag.textContent = interest;
+                newTag.addEventListener('click', function() {
+                    this.remove();
+                });
+                
+                document.querySelector('.interests-grid').appendChild(newTag);
+                input.value = '';
+            }
+        });
+        
+        // Toggle switches
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Skip setup
+        function skipSetup() {
+            if (confirm('Skip profile setup? You can complete this later in settings.')) {
+                alert('Welcome to PhotoShare! You can complete your profile anytime in settings.');
+            }
+        }
+        
+        // Complete setup
+        function completeSetup() {
+            const username = document.getElementById('username').value;
+            const displayName = document.getElementById('displayName').value;
+            
+            if (!username || !displayName) {
+                alert('Please fill in at least your username and display name.');
+                return;
+            }
+            
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Creating profile...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Profile created successfully! Welcome to PhotoShare.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+        
+        // Photo upload
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadArea = document.querySelector('.photo-upload-area');
+                uploadArea.innerHTML = '<div class="photo-upload-icon">✓</div><div class="photo-upload-text">Photo Added!</div>';
+                uploadArea.style.borderColor = '#34d399';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TechStore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+        
+        .header {
+            background: #1e293b;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+        
+        .main-content {
+            padding: 3rem 0;
+        }
+        
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .checkout-form {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .order-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-header h3 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .order-items {
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .item-info h4 {
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-info p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .order-totals {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 1rem;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .total-row.final {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .payment-methods {
+            margin-bottom: 2rem;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: #3b82f6;
+        }
+        
+        .payment-method.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+        
+        .payment-icon {
+            font-size: 1.5rem;
+        }
+        
+        .payment-info h4 {
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .payment-info p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .security-badge {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .security-icon {
+            color: #0ea5e9;
+            font-size: 1.2rem;
+        }
+        
+        .security-text {
+            color: #0369a1;
+            font-size: 0.9rem;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .promo-code {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .promo-code input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+        }
+        
+        .promo-code button {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .promo-code button:hover {
+            background: #4b5563;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">TechStore</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Account</a></li>
+                        <li><a href="#">Cart (3)</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="checkout-container">
+                <div class="checkout-form">
+                    <form id="checkoutForm">
+                        <!-- Contact Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span>👤</span>
+                                Contact Information
+                            </h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping Address -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span>📦</span>
+                                Shipping Address
+                            </h2>
+                            
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" name="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State/Province *</label>
+                                    <input type="text" id="state" name="state" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP/Postal Code *</label>
+                                    <input type="text" id="zipCode" name="zipCode" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <select id="country" name="country" required>
+                                        <option value="">Select Country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Information -->
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span>💳</span>
+                                Payment Information
+                            </h2>
+                            
+                            <div class="security-badge">
+                                <span class="security-icon">🔒</span>
+                                <span class="security-text">Your payment information is encrypted and secure</span>
+                            </div>
+                            
+                            <div class="payment-methods">
+                                <div class="payment-method selected" data-method="card">
+                                    <div class="payment-icon">💳</div>
+                                    <div class="payment-info">
+                                        <h4>Credit/Debit Card</h4>
+                                        <p>Visa, Mastercard, American Express</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method" data-method="paypal">
+                                    <div class="payment-icon">🅿️</div>
+                                    <div class="payment-info">
+                                        <h4>PayPal</h4>
+                                        <p>Pay with your PayPal account</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-method" data-method="apple">
+                                    <div class="payment-icon">🍎</div>
+                                    <div class="payment-info">
+                                        <h4>Apple Pay</h4>
+                                        <p>Fast and secure payment</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="cardPayment">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number *</label>
+                                    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry">Expiry Date *</label>
+                                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV *</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="cardName">Name on Card *</label>
+                                    <input type="text" id="cardName" name="cardName" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Complete Order - $1,247.99</button>
+                    </form>
+                </div>
+                
+                <div class="order-summary">
+                    <div class="order-header">
+                        <h3>Order Summary</h3>
+                    </div>
+                    
+                    <div class="promo-code">
+                        <input type="text" placeholder="Promo code">
+                        <button type="button">Apply</button>
+                    </div>
+                    
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-info">
+                                <h4>MacBook Pro 14"</h4>
+                                <p>M2 Pro, 16GB RAM, 512GB SSD</p>
+                            </div>
+                            <div class="item-price">$1,999.00</div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-info">
+                                <h4>USB-C Hub</h4>
+                                <p>7-in-1 Adapter</p>
+                            </div>
+                            <div class="item-price">$49.99</div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-info">
+                                <h4>Laptop Sleeve</h4>
+                                <p>Premium Leather, 14"</p>
+                            </div>
+                            <div class="item-price">$79.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span>$2,128.98</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax</span>
+                            <span>$191.61</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>Total</span>
+                            <span>$2,320.59</span>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span class="trust-icon">✓</span>
+                            <span>Secure Checkout</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">✓</span>
+                            <span>Free Returns</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">✓</span>
+                            <span>24/7 Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Order placed successfully! You will receive a confirmation email shortly.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

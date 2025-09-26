@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invisible CTA Test - Should Not Detect CTA</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    h1 { 
+      color: #2c3e50; 
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    .form-group { 
+      margin-bottom: 20px; 
+      text-align: left;
+    }
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: 600;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    button:hover { background: #2980b9; }
+    /* This CTA is positioned off-screen and should NOT be detected */
+    .invisible-cta {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <h1>Get Started</h1>
+      <p class="subtitle">Join thousands of users who trust our service</p>
+      
+      <form id="mainForm">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        
+        <!-- This button is visible and should be the real CTA -->
+        <button type="submit">Create Account</button>
+      </form>
+      
+      <!-- This is an invisible CTA that should NOT be detected by heuristics -->
+      <button class="invisible-cta" type="button">Start Now</button>
+    </div>
+  </main>
+</body>
+</html>

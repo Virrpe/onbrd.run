@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevAPI - API Key Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .api-setup-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .setup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .setup-header h2 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .setup-header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .api-steps {
+            margin-bottom: 3rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #e2e8f0;
+        }
+        
+        .step.active {
+            border-left-color: #4299e1;
+            background: #ebf8ff;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .step.active .step-number {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .step-content h3 {
+            font-size: 1.2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .api-demo {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-header h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-header p {
+            color: #718096;
+        }
+        
+        .signup-form {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #718096;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .btn-primary {
+            grid-column: 1 / -1;
+            padding: 1rem 2rem;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #3182ce;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+        }
+        
+        .api-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DevAPI Platform</h1>
+            <p>Get instant access to powerful APIs with your free developer account</p>
+        </div>
+        
+        <div class="api-setup-card">
+            <div class="setup-header">
+                <h2>Your API Journey Starts Here</h2>
+                <p>Create your account and get your API keys in minutes</p>
+            </div>
+            
+            <div class="api-features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Fast Integration</div>
+                    <div class="feature-desc">Get started in under 5 minutes</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Real-time Analytics</div>
+                    <div class="feature-desc">Monitor your API usage live</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Secure & Reliable</div>
+                    <div class="feature-desc">99.9% uptime guarantee</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <div class="feature-title">Great Docs</div>
+                    <div class="feature-desc">Comprehensive documentation</div>
+                </div>
+            </div>
+            
+            <div class="api-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Create Your Account</h3>
+                        <p>Sign up for your free developer account and get instant access</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Get Your API Key</h3>
+                        <p>Your unique API key will be generated automatically</p>
+                        <div class="code-block">curl -H "Authorization: Bearer YOUR_API_KEY" https://api.devapi.com/v1/</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Start Building</h3>
+                        <p>Use our comprehensive documentation to integrate quickly</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="api-demo">
+                <div class="demo-header">
+                    <h3>Try It Now</h3>
+                    <p>Test our API with this interactive demo</p>
+                </div>
+                <div class="code-block">// Example: Get user data
+const response = await fetch('https://api.devapi.com/v1/users', {
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+});
+
+const data = await response.json();
+console.log(data);</div>
+            </div>
+            
+            <div class="signup-form">
+                <div class="form-header">
+                    <h3>Create Your Developer Account</h3>
+                    <p>Get 10,000 free API calls per month</p>
+                </div>
+                
+                <form class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="useCase">Primary Use Case</label>
+                        <input type="text" id="useCase" name="useCase" placeholder="e.g., Mobile App, Web App" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Get Your API Key</button>
+                </form>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Free 10K calls/month</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>No credit card required</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Instant access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

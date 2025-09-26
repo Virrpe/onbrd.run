@@ -1,5 +1,13 @@
 import { Heuristics, Scores, Recommendation } from './types';
 
+// Environment interface for deterministic operations
+export interface Env {
+  clock?: {
+    now(): number;
+  };
+  random?: () => number;
+}
+
 // Heuristic weights from docs/heuristics.md
 const HEURISTIC_WEIGHTS = {
   h_cta_above_fold: 0.25,
@@ -24,8 +32,8 @@ export interface ScoringResult {
   issues: string[];
 }
 
-export function calculateWeightedScore(heuristics: Heuristics): number {
-  const scores = calculateScores(heuristics);
+export function calculateWeightedScore(heuristics: Heuristics, env?: Env): number {
+  const scores = calculateScores(heuristics, env);
   
   return Math.round(
     scores.h_cta_above_fold * HEURISTIC_WEIGHTS.h_cta_above_fold +
@@ -36,7 +44,7 @@ export function calculateWeightedScore(heuristics: Heuristics): number {
   );
 }
 
-export function calculateScores(heuristics: Heuristics): Scores {
+export function calculateScores(heuristics: Heuristics, _env?: Env): Scores {
   // Calculate scores based on heuristics with proper scoring logic from docs/heuristics.md
   
   // H-CTA-ABOVE-FOLD: 100% if detected, 0% if not
@@ -92,7 +100,7 @@ export function calculateScores(heuristics: Heuristics): Scores {
   };
 }
 
-export function generateIssues(heuristics: Heuristics): string[] {
+export function generateIssues(heuristics: Heuristics, _env?: Env): string[] {
   const issues: string[] = [];
   
   // H-CTA-ABOVE-FOLD issue
@@ -131,7 +139,7 @@ export function generateIssues(heuristics: Heuristics): string[] {
   return issues;
 }
 
-export function generateRecommendations(heuristics: Heuristics): Recommendation[] {
+export function generateRecommendations(heuristics: Heuristics, _env?: Env): Recommendation[] {
   const recommendations: Recommendation[] = [];
   
   // H-CTA-ABOVE-FOLD recommendation

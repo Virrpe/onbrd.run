@@ -1,0 +1,25 @@
+{
+  "id": "mobile/mobile-phone-verification-010",
+  "category": "mobile",
+  "viewport": {
+    "width": 375,
+    "height": 812,
+    "deviceScaleFactor": 2
+  },
+  "seed": 101010,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 3,
+    "h_copy_clarity": "excellent",
+    "h_trust_markers": 4,
+    "h_perceived_signup_speed_sec": 45,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      75,
+      90
+    ],
+    "top_issues_contains": []
+  }
+}

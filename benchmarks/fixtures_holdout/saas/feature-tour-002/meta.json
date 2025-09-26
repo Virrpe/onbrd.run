@@ -1,0 +1,27 @@
+{
+  "id": "saas/feature-tour-002",
+  "category": "saas",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 65433,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 4,
+    "h_copy_clarity": "excellent",
+    "h_trust_markers": 5,
+    "h_perceived_signup_speed_sec": 75,
+    "a11y_focus_trap": false
+  },
+  "expected": {
+    "score_band": [
+      70,
+      85
+    ],
+    "top_issues_contains": [
+      "steps_count"
+    ]
+  }
+}

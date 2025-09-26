@@ -1,0 +1,37 @@
+{
+  "id": "shipping-address",
+  "name": "Shipping Address Collection",
+  "category": "ecommerce",
+  "description": "Address validation and shipping method selection",
+  "url": "https://shop.example.com/shipping",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 120,
+      "element": "button.continue-shipping"
+    },
+    "h_steps_count": {
+      "total": 2,
+      "forms": 1,
+      "screens": 1
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 10,
+      "passive_voice_ratio": 7,
+      "jargon_density": 2
+    },
+    "h_trust_markers": {
+      "testimonials": 0,
+      "security_badges": 2,
+      "customer_logos": 0,
+      "total": 2
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 8,
+      "required_fields": 6,
+      "estimated_seconds": 50
+    }
+  },
+  "expected_score_range": [70, 85],
+  "notes": "Standard shipping form with address validation"
+}

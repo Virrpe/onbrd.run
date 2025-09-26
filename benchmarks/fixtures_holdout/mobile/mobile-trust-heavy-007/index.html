@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secure Mobile Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .security-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .security-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="0.8" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="0.6" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+        
+        .security-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .security-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        
+        .security-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .security-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .trust-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 10px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content {
+            padding: 24px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .security-info {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .security-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .security-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .security-check {
+            width: 20px;
+            height: 20px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .security-text {
+            font-size: 13px;
+            color: #495057;
+        }
+        
+        .security-text strong {
+            color: #212529;
+        }
+        
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .password-strength {
+            margin-top: 8px;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            background: #dc3545;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+        
+        .security-features {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .security-features h3 {
+            color: #1565c0;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .security-features h3::before {
+            content: "🔒";
+            margin-right: 8px;
+        }
+        
+        .security-features ul {
+            list-style: none;
+        }
+        
+        .security-features li {
+            font-size: 12px;
+            color: #424242;
+            padding: 3px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .security-features li::before {
+            content: "•";
+            color: #1976d2;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+        
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+        
+        .certifications {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .cert-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .cert-icon {
+            width: 32px;
+            height: 32px;
+            background: #28a745;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            margin: 0 auto 6px;
+        }
+        
+        .cert-text {
+            font-size: 9px;
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 375px) {
+            .content {
+                padding: 20px 12px;
+            }
+            
+            .security-info,
+            .form-section {
+                padding: 20px;
+            }
+            
+            .trust-badges {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .certifications {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="security-header">
+        <div class="security-content">
+            <div class="security-icon">🔒</div>
+            <h1 class="security-title">Secure Account Creation</h1>
+            <p class="security-subtitle">Bank-level security protects your data</p>
+            <div class="trust-badges">
+                <div class="trust-badge">SSL/TLS</div>
+                <div class="trust-badge">256-bit</div>
+                <div class="trust-badge">PCI DSS</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="security-info">
+            <div class="security-row">
+                <div class="security-check">✓</div>
+                <div class="security-text">
+                    <strong>Encrypted Data</strong> - All information is protected with military-grade encryption
+                </div>
+            </div>
+            <div class="security-row">
+                <div class="security-check">✓</div>
+                <div class="security-text">
+                    <strong>Privacy Protected</strong> - We never share your data with third parties
+                </div>
+            </div>
+            <div class="security-row">
+                <div class="security-check">✓</div>
+                <div class="security-text">
+                    <strong>24/7 Monitoring</strong> - Advanced fraud detection keeps your account safe
+                </div>
+            </div>
+        </div>
+        
+        <div class="security-features">
+            <h3>Security Features</h3>
+            <ul>
+                <li>Multi-factor authentication</li>
+                <li>Real-time threat detection</li>
+                <li>Automatic session timeout</li>
+                <li>Encrypted password storage</li>
+            </ul>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="form-title">Create Your Secure Account</h2>
+            
+            <form id="secureSignupForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Create Secure Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Min 8 characters">
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText">Enter a password</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password">
+                </div>
+                
+                <button type="submit" class="btn-primary">Create Secure Account</button>
+            </form>
+            
+            <button class="btn-secondary">Continue without account</button>
+            
+            <div class="certifications">
+                <div class="cert-item">
+                    <div class="cert-icon">🏆</div>
+                    <div class="cert-text">TRUSTe</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">🔒</div>
+                    <div class="cert-text">SSL</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">✓</div>
+                    <div class="cert-text">PCI</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-icon">⭐</div>
+                    <div class="cert-text">A+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const passwordField = document.getElementById('password');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        
+        passwordField.addEventListener('input', function(e) {
+            const password = e.target.value;
+            let strength = 0;
+            let strengthLabel = 'Weak';
+            let strengthColor = '#dc3545';
+            
+            if (password.length >= 8) strength += 25;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 25;
+            if (password.match(/[0-9]/)) strength += 25;
+            if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+            
+            if (strength >= 75) {
+                strengthLabel = 'Strong';
+                strengthColor = '#28a745';
+            } else if (strength >= 50) {
+                strengthLabel = 'Medium';
+                strengthColor = '#ffc107';
+            }
+            
+            strengthFill.style.width = strength + '%';
+            strengthFill.style.background = strengthColor;
+            strengthText.textContent = 'Password strength: ' + strengthLabel;
+            strengthText.style.color = strengthColor;
+        });
+        
+        document.getElementById('secureSignupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long!');
+                return;
+            }
+            
+            alert('Secure account created successfully! Your data is now protected with enterprise-grade security.');
+        });
+    </script>
+</body>
+</html>

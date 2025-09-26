@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Setup - EnterpriseFlow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+        
+        .setup-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .setup-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .setup-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .setup-subtitle {
+            opacity: 0.9;
+        }
+        
+        .setup-content {
+            padding: 3rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-description {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .team-member-card {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .team-member-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .member-number {
+            background: #3b82f6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .remove-member {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .remove-member:hover {
+            background: #dc2626;
+        }
+        
+        .add-member-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .add-member-btn:hover {
+            background: #059669;
+        }
+        
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .role-card {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .role-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .role-card.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+        
+        .role-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .role-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .role-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .permission-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .permission-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        .permission-list li::before {
+            content: "•";
+            color: #3b82f6;
+            font-weight: bold;
+        }
+        
+        .setup-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Set Up Your Team</h1>
+            <p>Configure your team structure and member roles</p>
+        </div>
+        
+        <div class="setup-container">
+            <div class="setup-header">
+                <div class="setup-title">Team Configuration</div>
+                <div class="setup-subtitle">Add team members and assign their roles</div>
+            </div>
+            
+            <div class="setup-content">
+                <!-- Team Members Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>👥</span>
+                        Team Members
+                    </h2>
+                    <p class="section-description">Add your team members to the workspace</p>
+                    
+                    <div id="teamMembers">
+                        <div class="team-member-card">
+                            <div class="team-member-header">
+                                <div class="member-number">1</div>
+                                <button type="button" class="remove-member" onclick="removeMember(this)">Remove</button>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" name="memberFirstName[]" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="memberLastName[]" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="memberEmail[]" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <select name="memberRole[]" required>
+                                    <option value="">Select role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="member">Team Member</option>
+                                    <option value="viewer">Viewer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-member-btn" onclick="addMember()">
+                        <span>+</span>
+                        Add Team Member
+                    </button>
+                </div>
+                
+                <!-- Role Templates Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>🎯</span>
+                        Role Templates
+                    </h2>
+                    <p class="section-description">Choose from pre-defined role templates or create custom roles</p>
+                    
+                    <div class="role-grid">
+                        <div class="role-card" data-role="admin">
+                            <div class="role-icon">👑</div>
+                            <div class="role-title">Administrator</div>
+                            <div class="role-description">Full access to all features</div>
+                            <ul class="permission-list">
+                                <li>Manage workspace settings</li>
+                                <li>Invite/remove members</li>
+                                <li>Access all projects</li>
+                                <li>Manage billing</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="role-card" data-role="manager">
+                            <div class="role-icon">📊</div>
+                            <div class="role-title">Manager</div>
+                            <div class="role-description">Manage teams and projects</div>
+                            <ul class="permission-list">
+                                <li>Create and manage projects</li>
+                                <li>Assign tasks to team</li>
+                                <li>View team analytics</li>
+                                <li>Manage integrations</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="role-card" data-role="member">
+                            <div class="role-icon">👤</div>
+                            <div class="role-title">Team Member</div>
+                            <div class="role-description">Collaborate on projects</div>
+                            <ul class="permission-list">
+                                <li>Access assigned projects</li>
+                                <li>Create and edit tasks</li>
+                                <li>Collaborate with team</li>
+                                <li>View project progress</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="role-card" data-role="viewer">
+                            <div class="role-icon">👁️</div>
+                            <div class="role-title">Viewer</div>
+                            <div class="role-description">Read-only access</div>
+                            <ul class="permission-list">
+                                <li>View assigned projects</li>
+                                <li>See task progress</li>
+                                <li>Access shared files</li>
+                                <li>Comment on tasks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Settings Section -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <span>⚙️</span>
+                        Team Settings
+                    </h2>
+                    <p class="section-description">Configure your team preferences</p>
+                    
+                    <div class="form-group">
+                        <label>Team Name</label>
+                        <input type="text" placeholder="Enter your team name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Team Description</label>
+                        <textarea placeholder="Describe your team's purpose and goals..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Default Notification Settings</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <label for="emailNotifications">Email notifications for important updates</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="mobileNotifications" checked>
+                            <label for="mobileNotifications">Mobile push notifications</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="weeklyDigest" checked>
+                            <label for="weeklyDigest">Weekly team digest email</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setup-footer">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Previous</button>
+                <button type="button" class="btn btn-primary" onclick="completeSetup()">Complete Setup</button>
+            </div>
+        </div>
+        
+        <div class="trust-indicators">
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Enterprise Security</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>Role-Based Access</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>24/7 Support</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <span>99.9% Uptime</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let memberCount = 1;
+        
+        function addMember() {
+            memberCount++;
+            const teamMembers = document.getElementById('teamMembers');
+            const newMember = document.createElement('div');
+            newMember.className = 'team-member-card';
+            newMember.innerHTML = `
+                <div class="team-member-header">
+                    <div class="member-number">${memberCount}</div>
+                    <button type="button" class="remove-member" onclick="removeMember(this)">Remove</button>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="memberFirstName[]" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="memberLastName[]" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="memberEmail[]" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select name="memberRole[]" required>
+                        <option value="">Select role</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="member">Team Member</option>
+                        <option value="viewer">Viewer</option>
+                    </select>
+                </div>
+            `;
+            teamMembers.appendChild(newMember);
+        }
+        
+        function removeMember(button) {
+            if (memberCount > 1) {
+                button.closest('.team-member-card').remove();
+                memberCount--;
+                updateMemberNumbers();
+            }
+        }
+        
+        function updateMemberNumbers() {
+            const members = document.querySelectorAll('.team-member-card');
+            members.forEach((member, index) => {
+                member.querySelector('.member-number').textContent = index + 1;
+            });
+        }
+        
+        function completeSetup() {
+            const submitBtn = document.querySelector('.btn-primary');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Setting up...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Team setup complete! Your team members will receive invitation emails shortly.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Role card selection
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+    </script>
+</body>
+</html>

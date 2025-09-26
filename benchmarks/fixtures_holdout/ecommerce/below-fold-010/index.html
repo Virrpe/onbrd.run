@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Shopping Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-feature {
+            text-align: center;
+        }
+        
+        .hero-feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-feature-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            text-align: center;
+            color: #718096;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        .feature-description {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .testimonials {
+            background: #f7fafc;
+            padding: 80px 20px;
+            margin: 80px -20px;
+        }
+        
+        .testimonials-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .testimonial-rating {
+            color: #f6ad55;
+            margin-bottom: 10px;
+        }
+        
+        .signup-section {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            margin: 80px -20px;
+        }
+        
+        .signup-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .signup-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .signup-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .signup-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            text-align: left;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .benefits-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .benefits-list li {
+            padding: 5px 0;
+            color: #4a5568;
+        }
+        
+        .benefits-list li::before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .hero-features {
+                gap: 20px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .signup-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Premium Shopping Experience</h1>
+            <p class="hero-subtitle">Discover exclusive products with personalized recommendations</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">🚀</div>
+                    <div class="hero-feature-text">Fast Shipping</div>
+                </div>
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">⭐</div>
+                    <div class="hero-feature-text">Premium Quality</div>
+                </div>
+                <div class="hero-feature">
+                    <div class="hero-feature-icon">🎁</div>
+                    <div class="hero-feature-text">Exclusive Deals</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-section">
+        <h2 class="section-title">Why Choose Our Platform?</h2>
+        <p class="section-subtitle">Experience shopping like never before with our curated selection and personalized service</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Personalized Recommendations</h3>
+                <p class="feature-description">Our AI-powered system learns your preferences to suggest products you'll love</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Lightning-Fast Delivery</h3>
+                <p class="feature-description">Get your orders delivered within 24-48 hours with our premium shipping</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3 class="feature-title">Exclusive Member Benefits</h3>
+                <p class="feature-description">Access member-only discounts, early sales, and special promotions</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="testimonials">
+        <div class="testimonials-content">
+            <h2 class="section-title">What Our Members Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"The personalized recommendations are spot on! I've discovered so many great products I wouldn't have found otherwise."</p>
+                    <p class="testimonial-author">- Sarah M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Fast shipping and excellent customer service. The member benefits make it totally worth it!"</p>
+                    <p class="testimonial-author">- John D.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Quality products and exclusive deals. This is my go-to shopping platform now."</p>
+                    <p class="testimonial-author">- Emily R.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="signup-section">
+        <div class="signup-content">
+            <h2 class="signup-title">Join Our Exclusive Community</h2>
+            <p class="signup-subtitle">Create your account to unlock personalized shopping experiences</p>
+            
+            <div class="signup-form">
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Create Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Choose a secure password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter your password">
+                    </div>
+                    
+                    <ul class="benefits-list">
+                        <li>Personalized product recommendations</li>
+                        <li>Exclusive member discounts and early access</li>
+                        <li>Fast, free shipping on all orders</li>
+                        <li>Priority customer support</li>
+                        <li>Easy returns and exchanges</li>
+                    </ul>
+                    
+                    <button type="submit" class="btn-primary">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long!');
+                return;
+            }
+            
+            alert('Welcome to our exclusive community! Your account has been created successfully.');
+        });
+    </script>
+</body>
+</html>

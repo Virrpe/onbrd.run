@@ -62,6 +62,7 @@
       <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Features</a>
       <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Pricing</a>
       <a href="#testimonials" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Testimonials</a>
+      <a href="./docs/benchmarks.html" class="text-gray-600 hover:text-gray-900 transition-colors u-underline">Benchmarks</a>
       <a href="https://github.com/Virrpe/onbrd.run/releases/download/v0.1.7/onboarding-audit-extension.zip"
          download rel="noopener"
          class="btn-primary">
@@ -106,7 +107,7 @@
           Audit your onboarding in about a minute
         </h1>
         <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-          Run a free browser audit to find friction in signup, activation, and first-run. Get a 0–100 score with prioritized, actionable checks and a shareable HTML report.
+          Run a free browser audit to find friction in signup, activation, and first-run. Get a deterministic 0–100 score with prioritized, actionable checks and a shareable HTML report. 100% local operation with optional AI insights.
         </p>
         
         <!-- Primary CTA - Above the fold (600px) -->
@@ -123,7 +124,7 @@
         </div>
 
         <!-- Privacy & Security Microcopy -->
-        <p class="mt-4 text-sm text-white/70 hero-privacy">Runs locally in your browser. We don't send your page content anywhere. Exported reports are saved to your machine.</p>
+        <p class="mt-4 text-sm text-white/70 hero-privacy">Runs 100% locally in your browser. No data leaves your device. Optional AI insights available with explicit opt-in. Exported reports are saved to your machine.</p>
 
         <!-- Trust Signals -->
         <ul class="k-list flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
@@ -140,13 +141,13 @@
             <span>No Signup Required</span>
           </li>
           <li class="k-item">
-            <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-            </svg>
-            <span>1-Click Install</span>
-          </li>
-        </ul>
-        <p class="subnote-lg mt-2 text-xs text-white/60 text-center">Privacy-first: zero data collection, open-source, GDPR-ready</p>
+             <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+             </svg>
+             <span>1-Click Install</span>
+           </li>
+         </ul>
+         <p class="subnote-lg mt-2 text-xs text-white/60 text-center">Privacy-first: local-only operation, optional AI, open-source, GDPR-ready</p>
       </div>
     </div>
     <!-- Demo teaser (optional) -->
@@ -167,7 +168,7 @@
         <div class="how-step p-6 reveal">
           <span class="step-num">1</span>
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Install & run</h3>
-          <p class="text-gray-700">Install the Chrome extension and open your onboarding flow. Click "Audit" — it runs locally in the browser.</p>
+          <p class="text-gray-700">Install the Chrome extension and open your onboarding flow. Click "Audit" — it runs 100% locally in your browser with no data sent externally.</p>
         </div>
         <div class="how-step p-6 reveal">
           <span class="step-num">2</span>
@@ -207,8 +208,8 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant scoring</h3>
-          <p class="text-gray-600">0–100 score with a breakdown by category. Re-run to see progress after changes.</p>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Deterministic scoring</h3>
+          <p class="text-gray-600">0–100 score with a breakdown by category. Re-run to see progress after changes. Fully reproducible results.</p>
         </div>
         
         <div class="feature-card text-center p-6 reveal">
@@ -394,15 +395,16 @@
         </div>
         
         <div>
-          <h4 class="font-semibold mb-4">Product</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="#features" class="hover:text-white transition-colors u-underline">Features</a></li>
-            <li><a href="#pricing" class="hover:text-white transition-colors u-underline">Pricing</a></li>
-            <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors u-underline">API</a></li>
-            <li><a href="./docs/checks.html" class="hover:text-white transition-colors u-underline">Docs</a></li>
-            <li><a href="./docs/parity.html" class="hover:text-white transition-colors u-underline">Parity</a></li>
-          </ul>
-        </div>
+         <h4 class="font-semibold mb-4">Product</h4>
+         <ul class="space-y-2 text-gray-400">
+           <li><a href="#features" class="hover:text-white transition-colors u-underline">Features</a></li>
+           <li><a href="#pricing" class="hover:text-white transition-colors u-underline">Pricing</a></li>
+           <li><a href="https://api.onbrd.run/api/openapi" target="_blank" rel="noopener" class="hover:text-white transition-colors u-underline">API</a></li>
+           <li><a href="./docs/checks.html" class="hover:text-white transition-colors u-underline">Docs</a></li>
+           <li><a href="./docs/parity.html" class="hover:text-white transition-colors u-underline">Parity</a></li>
+           <li><a href="./docs/benchmarks.html" class="hover:text-white transition-colors u-underline">Benchmarks</a></li>
+         </ul>
+       </div>
         
         <div>
           <h4 class="font-semibold mb-4">Support</h4>

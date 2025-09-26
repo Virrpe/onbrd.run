@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FitTrack - Health & Fitness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .onboarding-header {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .step-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .content-area {
+            padding: 1.5rem;
+            min-height: calc(100vh - 200px);
+            padding-bottom: 120px;
+        }
+        
+        .onboarding-step {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .onboarding-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .step-content {
+            text-align: center;
+        }
+        
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 25px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .step-description {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .feature-showcase {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .showcase-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .showcase-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .showcase-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .showcase-icon {
+            width: 50px;
+            height: 50px;
+            background: #ef4444;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .showcase-text {
+            flex: 1;
+        }
+        
+        .showcase-title-small {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .showcase-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .goal-setting {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .goal-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .goal-option {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        
+        .goal-option:hover,
+        .goal-option.selected {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .goal-option:last-child {
+            margin-bottom: 0;
+        }
+        
+        .goal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .goal-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .goal-option.selected .goal-radio {
+            border-color: #ef4444;
+        }
+        
+        .goal-option.selected .goal-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+        }
+        
+        .goal-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .goal-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-left: 2.5rem;
+        }
+        
+        .activity-selection {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .activity-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .activity-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .activity-card:hover,
+        .activity-card.selected {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .activity-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .activity-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .activity-description {
+            color: #6b7280;
+            font-size: 0.75rem;
+        }
+        
+        .permission-request {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .permission-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .permission-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .permission-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .permission-icon {
+            width: 40px;
+            height: 40px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .permission-text {
+            flex: 1;
+        }
+        
+        .permission-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .permission-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .permission-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #ef4444;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(20px);
+        }
+        
+        .toggle-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .skip-onboarding {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .skip-onboarding:hover {
+            color: white;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+            
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="onboarding-header">
+            <a href="#" class="skip-onboarding" onclick="skipOnboarding()">Skip</a>
+            <div class="app-icon">💪</div>
+            <div class="app-title">FitTrack</div>
+            <div class="app-subtitle">Your Fitness Journey Starts Here</div>
+            <div class="step-indicator">
+                <div class="step-dot active"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <!-- Step 1: Welcome -->
+            <div class="onboarding-step active">
+                <div class="step-content">
+                    <div class="step-icon">🎯</div>
+                    <h2 class="step-title">Welcome to FitTrack</h2>
+                    <p class="step-description">
+                        Transform your health and fitness with personalized workout plans, nutrition tracking, and progress monitoring.
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Fitness Features</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">💪</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Personalized Workouts</div>
+                                <div class="showcase-description">AI-powered exercise plans tailored to you</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🥗</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Nutrition Tracking</div>
+                                <div class="showcase-description">Log meals and track your macros</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📊</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Progress Monitoring</div>
+                                <div class="showcase-description">Visualize your fitness journey</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Fitness Goals -->
+            <div class="onboarding-step">
+                <div class="step-content">
+                    <div class="step-icon">🎯</div>
+                    <h2 class="step-title">What's Your Goal?</h2>
+                    <p class="step-description">
+                        Select your primary fitness goal to get a personalized workout and nutrition plan.
+                    </p>
+                    
+                    <div class="goal-setting">
+                        <div class="goal-title">Choose Your Goal</div>
+                        
+                        <div class="goal-option" onclick="selectGoal(this)">
+                            <div class="goal-header">
+                                <div class="goal-radio"></div>
+                                <div class="goal-name">Weight Loss</div>
+                            </div>
+                            <div class="goal-description">Lose weight and improve overall health</div>
+                        </div>
+                        
+                        <div class="goal-option" onclick="selectGoal(this)">
+                            <div class="goal-header">
+                                <div class="goal-radio"></div>
+                                <div class="goal-name">Muscle Building</div>
+                            </div>
+                            <div class="goal-description">Build muscle and increase strength</div>
+                        </div>
+                        
+                        <div class="goal-option" onclick="selectGoal(this)">
+                            <div class="goal-header">
+                                <div class="goal-radio"></div>
+                                <div class="goal-name">General Fitness</div>
+                            </div>
+                            <div class="goal-description">Improve overall fitness and energy</div>
+                        </div>
+                        
+                        <div class="goal-option" onclick="selectGoal(this)">
+                            <div class="goal-header">
+                                <div class="goal-radio"></div>
+                                <div class="goal-name">Endurance Training</div>
+                            </div>
+                            <div class="goal-description">Increase stamina and cardiovascular health</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Activity Level -->
+            <div class="onboarding-step">
+                <div class="step-content">
+                    <div class="step-icon">🏃</div>
+                    <h2 class="step-title">Activity Level</h2>
+                    <p class="step-description">
+                        Tell us about your current activity level to create the perfect workout plan.
+                    </p>
+                    
+                    <div class="activity-selection">
+                        <div class="activity-title">Select Your Activity Level</div>
+                        
+                        <div class="activity-grid">
+                            <div class="activity-card" onclick="selectActivity(this)">
+                                <div class="activity-icon">🚶</div>
+                                <div class="activity-name">Beginner</div>
+                                <div class="activity-description">New to fitness or returning after a break</div>
+                            </div>
+                            
+                            <div class="activity-card" onclick="selectActivity(this)">
+                                <div class="activity-icon">🏃</div>
+                                <div class="activity-name">Intermediate</div>
+                                <div class="activity-description">Regular exercise 2-3 times per week</div>
+                            </div>
+                            
+                            <div class="activity-card" onclick="selectActivity(this)">
+                                <div class="activity-icon">💪</div>
+                                <div class="activity-name">Advanced</div>
+                                <div class="activity-description">Exercise 4+ times per week</div>
+                            </div>
+                            
+                            <div class="activity-card" onclick="selectActivity(this)">
+                                <div class="activity-icon">🏆</div>
+                                <div class="activity-name">Athlete</div>
+                                <div class="activity-description">High-intensity training daily</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4: Permissions -->
+            <div class="onboarding-step">
+                <div class="step-content">
+                    <div class="step-icon">🔒</div>
+                    <h2 class="step-title">Enable Features</h2>
+                    <p class="step-description">
+                        Allow access to these features for the best fitness tracking experience.
+                    </p>
+                    
+                    <div class="permission-request">
+                        <div class="permission-title">App Permissions</div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-icon">📍</div>
+                            <div class="permission-text">
+                                <div class="permission-name">Location Access</div>
+                                <div class="permission-description">Track outdoor workouts and running routes</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="toggle-switch" onclick="togglePermission(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <span class="toggle-label">Allow</span>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-icon">❤️</div>
+                            <div class="permission-text">
+                                <div class="permission-name">Health Data</div>
+                                <div class="permission-description">Sync with Apple Health for comprehensive tracking</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="toggle-switch" onclick="togglePermission(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <span class="toggle-label">Allow</span>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-icon">📱</div>
+                            <div class="permission-text">
+                                <div class="permission-name">Notifications</div>
+                                <div class="permission-description">Get workout reminders and motivation</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="toggle-switch active" onclick="togglePermission(this)">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                                <span class="toggle-label">Allow</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5: Get Started -->
+            <div class="onboarding-step">
+                <div class="step-content">
+                    <div class="step-icon">🚀</div>
+                    <h2 class="step-title">Ready to Get Fit!</h2>
+                    <p class="step-description">
+                        You're all set! Let's create your personalized fitness plan and start your transformation.
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Quick Start Guide</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📋</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Complete Your Profile</div>
+                                <div class="showcase-description">Add your age, weight, and fitness preferences</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">⏰</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Set Workout Schedule</div>
+                                <div class="showcase-description">Choose your preferred workout times</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🎯</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Set Weekly Goals</div>
+                                <div class="showcase-description">Define your workout and nutrition targets</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Data Encrypted</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Free Basic Plan</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" style="display: none;">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        let selectedGoal = null;
+        let selectedActivity = null;
+        
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.onboarding-step').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show current step
+            document.querySelectorAll('.onboarding-step')[step - 1].classList.add('active');
+            
+            // Update step dots
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === step - 1);
+            });
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = step === 1 ? 'none' : 'block';
+            
+            if (step === totalSteps) {
+                nextBtn.textContent = 'Start Fitness Journey';
+                nextBtn.onclick = function() {
+                    completeOnboarding();
+                };
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = function() {
+                    changeStep(1);
+                };
+            }
+            
+            // Validate current step
+            validateCurrentStep();
+        }
+        
+        function changeStep(direction) {
+            if (direction === 1 && currentStep < totalSteps) {
+                currentStep++;
+            } else if (direction === -1 && currentStep > 1) {
+                currentStep--;
+            }
+            showStep(currentStep);
+        }
+        
+        function validateCurrentStep() {
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentStep === 2 && !selectedGoal) {
+                nextBtn.disabled = true;
+            } else if (currentStep === 3 && !selectedActivity) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+        
+        function completeOnboarding() {
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.textContent;
+            
+            nextBtn.textContent = 'Setting up...';
+            nextBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('🎉 Welcome to FitTrack! Your personalized fitness plan is ready. Let\'s get started!');
+                nextBtn.textContent = originalText;
+                nextBtn.disabled = false;
+            }, 1500);
+        }
+        
+        function skipOnboarding() {
+            if (confirm('Skip the onboarding? You can access help anytime in the app.')) {
+                alert('Welcome to FitTrack! Check the help section if you need guidance.');
+            }
+        }
+        
+        function selectGoal(element) {
+            // Remove selection from all goals
+            document.querySelectorAll('.goal-option').forEach(goal => {
+                goal.classList.remove('selected');
+            });
+            
+            // Add selection to clicked goal
+            element.classList.add('selected');
+            selectedGoal = element.querySelector('.goal-name').textContent;
+            
+            // Enable next button
+            validateCurrentStep();
+        }
+        
+        function selectActivity(element) {
+            // Remove selection from all activities
+            document.querySelectorAll('.activity-card').forEach(activity => {
+                activity.classList.remove('selected');
+            });
+            
+            // Add selection to clicked activity
+            element.classList.add('selected');
+            selectedActivity = element.querySelector('.activity-name').textContent;
+            
+            // Enable next button
+            validateCurrentStep();
+        }
+        
+        function togglePermission(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Initialize
+        showStep(currentStep);
+    </script>
+</body>
+</html>

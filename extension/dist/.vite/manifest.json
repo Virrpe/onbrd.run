@@ -5,8 +5,26 @@
     "src": "../../../../../../@crx/manifest",
     "isEntry": true
   },
+  "../site/lib/analytics.ts": {
+    "file": "assets/analytics-DVNtq7TE.js",
+    "name": "analytics",
+    "src": "../site/lib/analytics.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/popup/main.ts"
+    ],
+    "dynamicImports": [
+      "../site/lib/featureFlags.ts"
+    ]
+  },
+  "../site/lib/featureFlags.ts": {
+    "file": "assets/featureFlags-En2c0q61.js",
+    "name": "featureFlags",
+    "src": "../site/lib/featureFlags.ts",
+    "isDynamicEntry": true
+  },
   "service-worker-loader.js": {
-    "file": "assets/service-worker-loader.js-D3QlgskP.js",
+    "file": "assets/service-worker-loader.js-BBl4_iGR.js",
     "name": "service-worker-loader.js",
     "src": "service-worker-loader.js",
     "isEntry": true
@@ -20,19 +38,22 @@
     "src": "src/popup/fonts/geist/GeistVariable.woff2"
   },
   "src/popup/main.ts": {
-    "file": "assets/popup-B7WVFD2R.js",
+    "file": "assets/popup-Dpp589KV.js",
     "name": "popup",
     "src": "src/popup/main.ts",
     "isEntry": true,
+    "dynamicImports": [
+      "../site/lib/analytics.ts"
+    ],
     "css": [
-      "assets/popup-B1C7fCIG.css"
+      "assets/popup-BkizQ2Op.css"
     ],
     "assets": [
       "assets/GeistVariable-p2GUc8qZ.woff2"
     ]
   },
   "src/popup/popup.html": {
-    "file": "assets/popup.html-CPVcCy40.js",
+    "file": "assets/popup.html-DCyErU42.js",
     "name": "popup.html",
     "src": "src/popup/popup.html",
     "isEntry": true,

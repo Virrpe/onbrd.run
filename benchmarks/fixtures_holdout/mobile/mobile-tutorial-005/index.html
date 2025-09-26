@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TaskFlow - App Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .tutorial-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tutorial-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .content-area {
+            padding: 1.5rem;
+            min-height: calc(100vh - 200px);
+            padding-bottom: 120px;
+        }
+        
+        .tutorial-slide {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .tutorial-slide.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-content {
+            text-align: center;
+        }
+        
+        .slide-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 25px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .slide-title {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .slide-description {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .feature-showcase {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .showcase-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .showcase-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .showcase-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .showcase-icon {
+            width: 50px;
+            height: 50px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .showcase-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .showcase-title-small {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .showcase-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .demo-area {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px dashed #e5e7eb;
+        }
+        
+        .demo-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .demo-item {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .demo-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .demo-task-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-task-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .demo-task-priority {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .priority-high {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .priority-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .priority-low {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .gesture-demo {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gesture-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .gesture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .gesture-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .gesture-icon {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .gesture-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .gesture-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .gesture-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .skip-tutorial {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .skip-tutorial:hover {
+            color: white;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+            
+            .slide-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="tutorial-header">
+            <a href="#" class="skip-tutorial" onclick="skipTutorial()">Skip</a>
+            <div class="tutorial-title">Welcome to TaskFlow</div>
+            <div class="tutorial-subtitle">Master your productivity</div>
+            <div class="progress-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <!-- Slide 1: Welcome -->
+            <div class="tutorial-slide active">
+                <div class="slide-content">
+                    <div class="slide-icon">🚀</div>
+                    <h2 class="slide-title">Welcome to TaskFlow</h2>
+                    <p class="slide-description">
+                        Your intelligent task management companion. Organize, prioritize, and accomplish more with less stress.
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Key Features</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📋</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Smart Lists</div>
+                                <div class="showcase-description">Automatically organize your tasks</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🎯</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Priority Scoring</div>
+                                <div class="showcase-description">AI-powered task prioritization</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">⏰</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Time Tracking</div>
+                                <div class="showcase-description">Monitor your productivity</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2: Creating Tasks -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">✏️</div>
+                    <h2 class="slide-title">Creating Tasks</h2>
+                    <p class="slide-description">
+                        Add tasks quickly and easily. Our smart system helps you organize them automatically.
+                    </p>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">Try it yourself:</div>
+                        
+                        <div class="demo-item" onclick="demoTaskClick(this)">
+                            <div class="demo-task-title">Complete project proposal</div>
+                            <div class="demo-task-description">Finish the Q4 marketing strategy document</div>
+                            <span class="demo-task-priority priority-high">High Priority</span>
+                        </div>
+                        
+                        <div class="demo-item" onclick="demoTaskClick(this)">
+                            <div class="demo-task-title">Team meeting preparation</div>
+                            <div class="demo-task-description">Prepare agenda for Monday's team sync</div>
+                            <span class="demo-task-priority priority-medium">Medium Priority</span>
+                        </div>
+                        
+                        <div class="demo-item" onclick="demoTaskClick(this)">
+                            <div class="demo-task-title">Update LinkedIn profile</div>
+                            <div class="demo-task-description">Add recent project achievements</div>
+                            <span class="demo-task-priority priority-low">Low Priority</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3: Gestures -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">👆</div>
+                    <h2 class="slide-title">Gesture Controls</h2>
+                    <p class="slide-description">
+                        Navigate TaskFlow with intuitive gestures designed for mobile productivity.
+                    </p>
+                    
+                    <div class="gesture-demo">
+                        <div class="gesture-title">Essential Gestures</div>
+                        
+                        <div class="gesture-item">
+                            <div class="gesture-icon">↔️</div>
+                            <div class="gesture-text">
+                                <div class="gesture-name">Swipe Left</div>
+                                <div class="gesture-description">Complete a task or mark as done</div>
+                            </div>
+                        </div>
+                        
+                        <div class="gesture-item">
+                            <div class="gesture-icon">↔️</div>
+                            <div class="gesture-text">
+                                <div class="gesture-name">Swipe Right</div>
+                                <div class="gesture-description">Snooze or reschedule a task</div>
+                            </div>
+                        </div>
+                        
+                        <div class="gesture-item">
+                            <div class="gesture-icon">👇</div>
+                            <div class="gesture-text">
+                                <div class="gesture-name">Long Press</div>
+                                <div class="gesture-description">Edit or delete a task</div>
+                            </div>
+                        </div>
+                        
+                        <div class="gesture-item">
+                            <div class="gesture-icon">👆</div>
+                            <div class="gesture-text">
+                                <div class="gesture-name">Pull Down</div>
+                                <div class="gesture-description">Refresh and sync your tasks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4: Smart Features -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">🤖</div>
+                    <h2 class="slide-title">Smart Features</h2>
+                    <p class="slide-description">
+                        TaskFlow learns from your habits and helps you work smarter, not harder.
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">AI-Powered Features</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🧠</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Smart Scheduling</div>
+                                <div class="showcase-description">Suggests optimal times for your tasks</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📊</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Productivity Insights</div>
+                                <div class="showcase-description">Track your progress and patterns</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🔄</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Auto-Suggestions</div>
+                                <div class="showcase-description">Intelligent task recommendations</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5: Get Started -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">🎉</div>
+                    <h2 class="slide-title">You're All Set!</h2>
+                    <p class="slide-description">
+                        You're ready to boost your productivity with TaskFlow. Let's create your first task!
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Quick Start Tips</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📝</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Start Simple</div>
+                                <div class="showcase-description">Add 3-5 tasks to get started</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🏷️</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Use Tags</div>
+                                <div class="showcase-description">Organize tasks with categories</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">⏰</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Set Deadlines</div>
+                                <div class="showcase-description">Keep yourself accountable</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Cloud Sync</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Free Forever</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)" style="display: none;">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        function showSlide(slide) {
+            // Hide all slides
+            document.querySelectorAll('.tutorial-slide').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show current slide
+            document.querySelectorAll('.tutorial-slide')[slide - 1].classList.add('active');
+            
+            // Update progress dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === slide - 1);
+            });
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = slide === 1 ? 'none' : 'block';
+            
+            if (slide === totalSlides) {
+                nextBtn.textContent = 'Get Started';
+                nextBtn.onclick = function() {
+                    completeTutorial();
+                };
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = function() {
+                    changeSlide(1);
+                };
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides) {
+                currentSlide++;
+            } else if (direction === -1 && currentSlide > 1) {
+                currentSlide--;
+            }
+            showSlide(currentSlide);
+        }
+        
+        function completeTutorial() {
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.textContent;
+            
+            nextBtn.textContent = 'Starting...';
+            nextBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Welcome to TaskFlow! Your productivity journey begins now.');
+                nextBtn.textContent = originalText;
+                nextBtn.disabled = false;
+            }, 1500);
+        }
+        
+        function skipTutorial() {
+            if (confirm('Skip the tutorial? You can access help anytime in the app.')) {
+                alert('Welcome to TaskFlow! Check the help section if you need guidance.');
+            }
+        }
+        
+        function demoTaskClick(element) {
+            element.style.background = '#dcfce7';
+            element.style.borderColor = '#16a34a';
+            
+            setTimeout(() => {
+                element.style.background = 'white';
+                element.style.borderColor = '#e5e7eb';
+            }, 1000);
+        }
+        
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

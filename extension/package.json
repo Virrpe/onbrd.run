@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build -c vite.content.config.ts && vite build",
+    "build": "node ../scripts/hash-weights.mjs && vite build -c vite.content.config.ts && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

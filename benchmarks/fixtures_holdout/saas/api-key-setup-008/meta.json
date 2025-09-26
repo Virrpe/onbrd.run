@@ -1,0 +1,28 @@
+{
+  "id": "saas/api-key-setup-008",
+  "category": "saas",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 65439,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 6,
+    "h_copy_clarity": "fair",
+    "h_trust_markers": 5,
+    "h_perceived_signup_speed_sec": 100,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      60,
+      75
+    ],
+    "top_issues_contains": [
+      "steps_count",
+      "copy_clarity"
+    ]
+  }
+}

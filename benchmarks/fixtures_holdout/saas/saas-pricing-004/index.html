@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataSync - Pricing & Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .toggle-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #4f46e5;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .pricing-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: #4f46e5;
+        }
+        
+        .pricing-card.featured {
+            border-color: #4f46e5;
+            background: linear-gradient(135deg, #f0f4ff, #ffffff);
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-description {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6b7280;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .plan-features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .btn-plan {
+            width: 100%;
+            padding: 0.75rem 2rem;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-plan:hover {
+            background: #3730a3;
+        }
+        
+        .featured .btn-plan {
+            background: #10b981;
+        }
+        
+        .featured .btn-plan:hover {
+            background: #059669;
+        }
+        
+        .signup-form {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #6b7280;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DataSync Platform</h1>
+            <p>Choose the perfect plan for your data synchronization needs</p>
+        </div>
+        
+        <div class="pricing-toggle">
+            <span class="toggle-label">Monthly</span>
+            <div class="toggle-switch" onclick="togglePricing(this)">
+                <div class="toggle-slider"></div>
+            </div>
+            <span class="toggle-label">Annual (Save 20%)</span>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">Starter</div>
+                <div class="plan-description">Perfect for small teams</div>
+                <div class="plan-price">$29<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>Up to 5 team members</li>
+                    <li>10GB storage</li>
+                    <li>Basic integrations</li>
+                    <li>Email support</li>
+                </ul>
+                <button class="btn-plan">Choose Starter</button>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="plan-name">Professional</div>
+                <div class="plan-description">Most popular choice</div>
+                <div class="plan-price">$79<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>Up to 25 team members</li>
+                    <li>100GB storage</li>
+                    <li>Advanced integrations</li>
+                    <li>Priority support</li>
+                    <li>Custom workflows</li>
+                </ul>
+                <button class="btn-plan">Choose Professional</button>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="plan-name">Enterprise</div>
+                <div class="plan-description">For large organizations</div>
+                <div class="plan-price">$199<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>Unlimited team members</li>
+                    <li>1TB storage</li>
+                    <li>All integrations</li>
+                    <li>24/7 phone support</li>
+                    <li>Custom training</li>
+                    <li>SLA guarantee</li>
+                </ul>
+                <button class="btn-plan">Choose Enterprise</button>
+            </div>
+        </div>
+        
+        <div class="signup-form">
+            <div class="form-header">
+                <h3>Start Your Free Trial</h3>
+                <p>No credit card required • 14-day free trial</p>
+            </div>
+            
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                
+                <button type="submit" class="btn-plan">Start Free Trial</button>
+            </form>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>SSL Secured</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>GDPR Compliant</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Cancel Anytime</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function togglePricing(element) {
+            element.classList.toggle('active');
+            // In a real implementation, this would toggle pricing between monthly/annual
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FitPal - Fitness Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 20%;
+            transition: width 0.3s ease;
+        }
+        
+        .content-area {
+            padding: 1.5rem 1rem;
+            min-height: calc(100vh - 200px);
+            padding-bottom: 100px;
+        }
+        
+        .onboarding-step {
+            display: none;
+        }
+        
+        .onboarding-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .step-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .goal-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .goal-card {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .goal-card:hover,
+        .goal-card.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        
+        .goal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .goal-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .goal-description {
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .fitness-level {
+            margin-bottom: 2rem;
+        }
+        
+        .level-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .level-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .level-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .level-option:hover,
+        .level-option.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            background: #f97316;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .level-text {
+            flex: 1;
+        }
+        
+        .level-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .level-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .workout-preferences {
+            margin-bottom: 2rem;
+        }
+        
+        .preferences-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .preference-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .preference-item {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .preference-item:hover,
+        .preference-item.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        
+        .preference-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preference-name {
+            font-size: 0.9rem;
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        .time-selection {
+            margin-bottom: 2rem;
+        }
+        
+        .time-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .time-option {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .time-option:hover,
+        .time-option.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        
+        .equipment-selection {
+            margin-bottom: 2rem;
+        }
+        
+        .equipment-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .equipment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .equipment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .equipment-option:hover,
+        .equipment-option.selected {
+            border-color: #f97316;
+            background: #fff7ed;
+        }
+        
+        .equipment-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .equipment-option.selected .equipment-checkbox {
+            background: #f97316;
+            border-color: #f97316;
+        }
+        
+        .equipment-option.selected .equipment-checkbox::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .equipment-text {
+            flex: 1;
+        }
+        
+        .equipment-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .equipment-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .goal-selection {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-icon">💪</div>
+            <div class="app-title">FitPal</div>
+            <div class="app-subtitle">Your Personal Fitness Coach</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <!-- Step 1: Fitness Goal -->
+            <div class="onboarding-step active" data-step="1">
+                <div class="step-header">
+                    <h2 class="step-title">What's your fitness goal?</h2>
+                    <p class="step-description">This helps us create a personalized plan for you</p>
+                </div>
+                
+                <div class="goal-selection">
+                    <div class="goal-card" data-goal="lose-weight">
+                        <div class="goal-icon">⚖️</div>
+                        <div class="goal-name">Lose Weight</div>
+                        <div class="goal-description">Burn fat and slim down</div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="build-muscle">
+                        <div class="goal-icon">💪</div>
+                        <div class="goal-name">Build Muscle</div>
+                        <div class="goal-description">Gain strength and mass</div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="improve-endurance">
+                        <div class="goal-icon">🏃</div>
+                        <div class="goal-name">Improve Endurance</div>
+                        <div class="goal-description">Boost stamina and cardio</div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="maintain">
+                        <div class="goal-icon">🧘</div>
+                        <div class="goal-name">Stay Healthy</div>
+                        <div class="goal-description">Maintain current fitness</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Fitness Level -->
+            <div class="onboarding-step" data-step="2">
+                <div class="step-header">
+                    <h2 class="step-title">What's your fitness level?</h2>
+                    <p class="step-description">Be honest - we'll adjust your workouts accordingly</p>
+                </div>
+                
+                <div class="fitness-level">
+                    <div class="level-options">
+                        <div class="level-option" data-level="beginner">
+                            <div class="level-icon">🌱</div>
+                            <div class="level-text">
+                                <div class="level-name">Beginner</div>
+                                <div class="level-description">New to fitness or returning after a break</div>
+                            </div>
+                        </div>
+                        
+                        <div class="level-option" data-level="intermediate">
+                            <div class="level-icon">🌿</div>
+                            <div class="level-text">
+                                <div class="level-name">Intermediate</div>
+                                <div class="level-description">Some experience with regular exercise</div>
+                            </div>
+                        </div>
+                        
+                        <div class="level-option" data-level="advanced">
+                            <div class="level-icon">🌳</div>
+                            <div class="level-text">
+                                <div class="level-name">Advanced</div>
+                                <div class="level-description">Experienced with consistent training</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Workout Preferences -->
+            <div class="onboarding-step" data-step="3">
+                <div class="step-header">
+                    <h2 class="step-title">What workouts do you enjoy?</h2>
+                    <p class="step-description">Choose your favorite activities</p>
+                </div>
+                
+                <div class="workout-preferences">
+                    <div class="preference-grid">
+                        <div class="preference-item" data-preference="strength">
+                            <div class="preference-icon">🏋️</div>
+                            <div class="preference-name">Strength</div>
+                        </div>
+                        
+                        <div class="preference-item" data-preference="cardio">
+                            <div class="preference-icon">🏃</div>
+                            <div class="preference-name">Cardio</div>
+                        </div>
+                        
+                        <div class="preference-item" data-preference="yoga">
+                            <div class="preference-icon">🧘</div>
+                            <div class="preference-name">Yoga</div>
+                        </div>
+                        
+                        <div class="preference-item" data-preference="hiit">
+                            <div class="preference-icon">⚡</div>
+                            <div class="preference-name">HIIT</div>
+                        </div>
+                        
+                        <div class="preference-item" data-preference="pilates">
+                            <div class="preference-icon">🤸</div>
+                            <div class="preference-name">Pilates</div>
+                        </div>
+                        
+                        <div class="preference-item" data-preference="dance">
+                            <div class="preference-icon">💃</div>
+                            <div class="preference-name">Dance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4: Workout Time -->
+            <div class="onboarding-step" data-step="4">
+                <div class="step-header">
+                    <h2 class="step-title">When do you prefer to workout?</h2>
+                    <p class="step-description">Choose your preferred workout times</p>
+                </div>
+                
+                <div class="time-selection">
+                    <div class="time-options">
+                        <div class="time-option" data-time="5am">5-7 AM</div>
+                        <div class="time-option" data-time="7am">7-9 AM</div>
+                        <div class="time-option" data-time="9am">9-11 AM</div>
+                        <div class="time-option" data-time="11am">11 AM-1 PM</div>
+                        <div class="time-option" data-time="1pm">1-3 PM</div>
+                        <div class="time-option" data-time="3pm">3-5 PM</div>
+                        <div class="time-option" data-time="5pm">5-7 PM</div>
+                        <div class="time-option" data-time="7pm">7-9 PM</div>
+                        <div class="time-option" data-time="9pm">9-11 PM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5: Equipment -->
+            <div class="onboarding-step" data-step="5">
+                <div class="step-header">
+                    <h2 class="step-title">What equipment do you have?</h2>
+                    <p class="step-description">Select all that apply</p>
+                </div>
+                
+                <div class="equipment-selection">
+                    <div class="equipment-options">
+                        <div class="equipment-option" data-equipment="none">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">No Equipment</div>
+                                <div class="equipment-description">Bodyweight exercises only</div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-option" data-equipment="dumbbells">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">Dumbbells</div>
+                                <div class="equipment-description">Basic weights for strength training</div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-option" data-equipment="resistance-bands">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">Resistance Bands</div>
+                                <div class="equipment-description">Portable and versatile</div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-option" data-equipment="yoga-mat">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">Yoga Mat</div>
+                                <div class="equipment-description">For floor exercises and stretching</div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-option" data-equipment="kettlebell">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">Kettlebell</div>
+                                <div class="equipment-description">For dynamic strength training</div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-option" data-equipment="full-gym">
+                            <div class="equipment-checkbox"></div>
+                            <div class="equipment-text">
+                                <div class="equipment-name">Full Gym Access</div>
+                                <div class="equipment-description">Complete gym equipment available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Personalized Plans</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Expert Guidance</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Progress Tracking</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeStep(-1)" style="display: none;">Back</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeStep(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.onboarding-step').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show current step
+            document.querySelector(`[data-step="${step}"]`).classList.add('active');
+            
+            // Update progress bar
+            const progress = (step / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = step === 1 ? 'none' : 'block';
+            
+            if (step === totalSteps) {
+                nextBtn.textContent = 'Create My Plan';
+                nextBtn.onclick = function() {
+                    completeOnboarding();
+                };
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = function() {
+                    changeStep(1);
+                };
+            }
+        }
+        
+        function changeStep(direction) {
+            if (direction === 1 && currentStep < totalSteps) {
+                currentStep++;
+            } else if (direction === -1 && currentStep > 1) {
+                currentStep--;
+            }
+            showStep(currentStep);
+        }
+        
+        function completeOnboarding() {
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.textContent;
+            
+            nextBtn.textContent = 'Creating Plan...';
+            nextBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('🎉 Your personalized fitness plan is ready! Let\'s start your transformation.');
+                nextBtn.textContent = originalText;
+                nextBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Goal selection
+        document.querySelectorAll('.goal-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Level selection
+        document.querySelectorAll('.level-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.level-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Workout preferences
+        document.querySelectorAll('.preference-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Time selection
+        document.querySelectorAll('.time-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Equipment selection
+        document.querySelectorAll('.equipment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Initialize
+        showStep(currentStep);
+    </script>
+</body>
+</html>
