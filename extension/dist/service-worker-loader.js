@@ -1,1 +1,1 @@
-import './assets/service-worker-loader.js-D3QlgskP.js';
+import './assets/service-worker-loader.js-BBl4_iGR.js';

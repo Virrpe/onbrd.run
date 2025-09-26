@@ -1,0 +1,37 @@
+{
+  "id": "holdout-ecommerce-guest-checkout",
+  "name": "Holdout: Ecommerce Guest Checkout",
+  "category": "ecommerce",
+  "description": "Guest checkout option without account creation",
+  "url": "https://shop.example.com/guest-checkout",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 100,
+      "element": "button.guest-checkout"
+    },
+    "h_steps_count": {
+      "total": 2,
+      "forms": 1,
+      "screens": 2
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 6,
+      "passive_voice_ratio": 3,
+      "jargon_density": 1
+    },
+    "h_trust_markers": {
+      "testimonials": 0,
+      "security_badges": 2,
+      "customer_logos": 0,
+      "total": 2
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 6,
+      "required_fields": 4,
+      "estimated_seconds": 30
+    }
+  },
+  "expected_score_range": [80, 90],
+  "notes": "Guest checkout reduces friction significantly"
+}

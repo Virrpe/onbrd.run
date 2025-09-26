@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ConnectPro - Professional Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .skip-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .content-area {
+            padding: 1.5rem 1rem;
+            min-height: calc(100vh - 120px);
+            padding-bottom: 120px;
+        }
+        
+        .profile-setup {
+            text-align: center;
+        }
+        
+        .setup-header {
+            margin-bottom: 2rem;
+        }
+        
+        .setup-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .setup-title {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .setup-subtitle {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .photo-section {
+            margin-bottom: 2rem;
+        }
+        
+        .photo-upload-area {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #f8fafc;
+            border: 2px dashed #d1d5db;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+        
+        .photo-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #6b7280;
+        }
+        
+        .photo-upload-text {
+            font-size: 0.8rem;
+            color: #6b7280;
+            text-align: center;
+        }
+        
+        .add-photo-btn {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            color: #6b7280;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-photo-btn:hover {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            color: #1e293b;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .username-input {
+            position: relative;
+        }
+        
+        .username-input input {
+            padding-right: 3rem;
+        }
+        
+        .username-status {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 1.2rem;
+        }
+        
+        .username-status.available {
+            color: #10b981;
+        }
+        
+        .username-status.taken {
+            color: #ef4444;
+        }
+        
+        .bio-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .industry-section {
+            margin-bottom: 2rem;
+        }
+        
+        .industry-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .industry-item {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+        
+        .industry-item:hover,
+        .industry-item.selected {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+        
+        .custom-industry {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .custom-industry input {
+            flex: 1;
+        }
+        
+        .add-industry-btn {
+            background: #0ea5e9;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .skills-section {
+            margin-bottom: 2rem;
+        }
+        
+        .skills-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .skills-input {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .skills-input input {
+            padding-right: 3rem;
+        }
+        
+        .add-skill-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0ea5e9;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            background: #f0f9ff;
+            color: #0ea5e9;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .experience-section {
+            margin-bottom: 2rem;
+        }
+        
+        .experience-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .experience-slider {
+            margin-bottom: 1rem;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #0ea5e9;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #0ea5e9;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .experience-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        .experience-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0ea5e9;
+            margin-top: 0.5rem;
+        }
+        
+        .visibility-section {
+            margin-bottom: 2rem;
+        }
+        
+        .visibility-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .visibility-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .visibility-label {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+        
+        .visibility-description {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 30px;
+            background: #d1d5db;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #0ea5e9;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .industry-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <a href="#" class="skip-btn">Skip</a>
+            <div class="app-icon">💼</div>
+            <div class="app-title">ConnectPro</div>
+            <div class="app-subtitle">Professional Networking</div>
+        </div>
+        
+        <div class="content-area">
+            <div class="profile-setup">
+                <div class="setup-header">
+                    <div class="setup-icon">👤</div>
+                    <h1 class="setup-title">Complete Your Profile</h1>
+                    <p class="setup-subtitle">Build your professional presence</p>
+                </div>
+                
+                <div class="photo-section">
+                    <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+                        <div class="photo-upload-icon">📷</div>
+                        <div class="photo-upload-text">Add Profile Photo</div>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                    <button type="button" class="add-photo-btn">Upload Photo</button>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Professional Headline</label>
+                        <input type="text" placeholder="e.g., Senior Software Engineer at TechCorp" id="headline">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Current Position</label>
+                        <input type="text" placeholder="Your current job title" id="position">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" placeholder="Current company name" id="company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" placeholder="City, State or Country" id="location">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Professional Summary</label>
+                        <textarea placeholder="Brief description of your professional background and expertise" id="summary" maxlength="500"></textarea>
+                        <div class="bio-counter"><span id="summaryCount">0</span>/500</div>
+                    </div>
+                </div>
+                
+                <div class="industry-section">
+                    <div class="industry-title">Industry & Skills</div>
+                    
+                    <div class="industry-grid">
+                        <div class="industry-item" data-industry="technology">Technology</div>
+                        <div class="industry-item" data-industry="finance">Finance</div>
+                        <div class="industry-item" data-industry="healthcare">Healthcare</div>
+                        <div class="industry-item" data-industry="education">Education</div>
+                        <div class="industry-item" data-industry="marketing">Marketing</div>
+                        <div class="industry-item" data-industry="consulting">Consulting</div>
+                    </div>
+                    
+                    <div class="custom-industry">
+                        <input type="text" placeholder="Other industry" id="customIndustry">
+                        <button type="button" class="add-industry-btn">Add</button>
+                    </div>
+                </div>
+                
+                <div class="skills-section">
+                    <div class="skills-title">Skills & Expertise</div>
+                    
+                    <div class="skills-input">
+                        <input type="text" placeholder="Add a skill (e.g., Project Management)" id="skillInput">
+                        <button type="button" class="add-skill-btn">Add</button>
+                    </div>
+                    
+                    <div class="skills-list" id="skillsList"></div>
+                </div>
+                
+                <div class="experience-section">
+                    <div class="experience-title">Years of Experience</div>
+                    
+                    <div class="experience-slider">
+                        <input type="range" min="0" max="30" value="5" class="slider" id="experienceSlider">
+                        <div class="experience-labels">
+                            <span>0</span>
+                            <span>15</span>
+                            <span>30+</span>
+                        </div>
+                        <div class="experience-display" id="experienceDisplay">5 years</div>
+                    </div>
+                </div>
+                
+                <div class="visibility-section">
+                    <div class="visibility-title">Profile Visibility</div>
+                    
+                    <div class="visibility-option">
+                        <div>
+                            <div class="visibility-label">Public Profile</div>
+                            <div class="visibility-description">Anyone can view your profile</div>
+                        </div>
+                        <div class="toggle-switch active" id="publicProfile"></div>
+                    </div>
+                    
+                    <div class="visibility-option">
+                        <div>
+                            <div class="visibility-label">Open to Opportunities</div>
+                            <div class="visibility-description">Let recruiters know you're available</div>
+                        </div>
+                        <div class="toggle-switch" id="openToWork"></div>
+                    </div>
+                    
+                    <div class="visibility-option">
+                        <div>
+                            <div class="visibility-label">Show Activity</div>
+                            <div class="visibility-description">Display your posts and interactions</div>
+                        </div>
+                        <div class="toggle-switch active" id="showActivity"></div>
+                    </div>
+                </div>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Privacy Protected</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Professional Network</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Career Growth</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" onclick="skipProfile()">Skip for now</button>
+            <button type="button" class="btn btn-primary" onclick="completeProfile()">Complete Profile</button>
+        </div>
+    </div>
+
+    <script>
+        let skills = [];
+        
+        // Username availability check
+        document.getElementById('headline').addEventListener('input', function() {
+            const username = this.value;
+            const statusIcon = document.querySelector('.username-status');
+            
+            if (username.length > 5) {
+                // Simulate availability check
+                setTimeout(() => {
+                    const isAvailable = Math.random() > 0.3; // 70% chance available
+                    statusIcon.className = isAvailable ? 'username-status available' : 'username-status taken';
+                    statusIcon.textContent = isAvailable ? '✓' : '✗';
+                }, 500);
+            } else {
+                statusIcon.className = 'username-status';
+                statusIcon.textContent = '✓';
+            }
+        });
+        
+        // Summary character counter
+        document.getElementById('summary').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('summaryCount').textContent = count;
+        });
+        
+        // Experience slider
+        document.getElementById('experienceSlider').addEventListener('input', function() {
+            const years = this.value;
+            const display = document.getElementById('experienceDisplay');
+            
+            if (years == 0) {
+                display.textContent = 'Entry level';
+            } else if (years == 30) {
+                display.textContent = '30+ years';
+            } else {
+                display.textContent = years + ' years';
+            }
+        });
+        
+        // Industry selection
+        document.querySelectorAll('.industry-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.industry-item').forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Custom industry
+        document.querySelector('.add-industry-btn').addEventListener('click', function() {
+            const input = document.getElementById('customIndustry');
+            const industry = input.value.trim();
+            
+            if (industry) {
+                // Add as selected industry
+                document.querySelectorAll('.industry-item').forEach(i => i.classList.remove('selected'));
+                
+                const newIndustry = document.createElement('div');
+                newIndustry.className = 'industry-item selected';
+                newIndustry.textContent = industry;
+                document.querySelector('.industry-grid').appendChild(newIndustry);
+                
+                input.value = '';
+                
+                // Add click handler
+                newIndustry.addEventListener('click', function() {
+                    document.querySelectorAll('.industry-item').forEach(i => i.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            }
+        });
+        
+        // Skills functionality
+        document.querySelector('.add-skill-btn').addEventListener('click', function() {
+            const input = document.getElementById('skillInput');
+            const skill = input.value.trim();
+            
+            if (skill && !skills.includes(skill)) {
+                skills.push(skill);
+                renderSkills();
+                input.value = '';
+            }
+        });
+        
+        document.getElementById('skillInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.add-skill-btn').click();
+            }
+        });
+        
+        function renderSkills() {
+            const skillsList = document.getElementById('skillsList');
+            skillsList.innerHTML = '';
+            
+            skills.forEach(skill => {
+                const skillTag = document.createElement('div');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `
+                    ${skill}
+                    <span class="skill-remove" onclick="removeSkill('${skill}')">×</span>
+                `;
+                skillsList.appendChild(skillTag);
+            });
+        }
+        
+        function removeSkill(skill) {
+            skills = skills.filter(s => s !== skill);
+            renderSkills();
+        }
+        
+        // Toggle switches
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Skip profile
+        function skipProfile() {
+            if (confirm('Skip profile setup? You can complete this later in settings.')) {
+                alert('Welcome to ConnectPro! You can complete your profile anytime in settings.');
+            }
+        }
+        
+        // Complete profile
+        function completeProfile() {
+            const headline = document.getElementById('headline').value;
+            const position = document.getElementById('position').value;
+            
+            if (!headline || !position) {
+                alert('Please fill in at least your headline and current position.');
+                return;
+            }
+            
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Creating Profile...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('🎉 Profile created successfully! Welcome to ConnectPro.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+        
+        // Photo upload
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadArea = document.querySelector('.photo-upload-area');
+                uploadArea.innerHTML = '<div class="photo-upload-icon">✓</div><div class="photo-upload-text">Photo Added!</div>';
+                uploadArea.style.borderColor = '#10b981';
+            }
+        });
+    </script>
+</body>
+</html>

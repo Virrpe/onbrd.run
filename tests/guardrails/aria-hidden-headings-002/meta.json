@@ -1,0 +1,30 @@
+{
+  "id": "guardrails/aria-hidden-headings-002",
+  "category": "guardrails",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 12345,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 1,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 0,
+    "h_perceived_signup_speed_sec": 15,
+    "a11y_focus_trap": false
+  },
+  "expected": {
+    "score_band": [
+      60,
+      80
+    ],
+    "top_issues_contains": [
+      "trust_markers"
+    ],
+    "guardrail_test": true,
+    "description": "Tests that aria-hidden elements are not counted in copy analysis and trust marker detection",
+    "expected_behavior": "aria-hidden headings, paragraphs, and trust signals should be ignored by heuristics"
+  }
+}

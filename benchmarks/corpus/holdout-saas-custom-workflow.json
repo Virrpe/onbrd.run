@@ -1,0 +1,37 @@
+{
+  "id": "holdout-saas-custom-workflow",
+  "name": "Holdout: SaaS Custom Workflow Builder",
+  "category": "saas",
+  "description": "SaaS with custom workflow and automation setup",
+  "url": "https://saas.example.com/custom-workflow",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 135,
+      "element": "button.build-workflow"
+    },
+    "h_steps_count": {
+      "total": 6,
+      "forms": 4,
+      "screens": 6
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 13,
+      "passive_voice_ratio": 10,
+      "jargon_density": 8
+    },
+    "h_trust_markers": {
+      "testimonials": 2,
+      "security_badges": 2,
+      "customer_logos": 7,
+      "total": 11
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 20,
+      "required_fields": 14,
+      "estimated_seconds": 180
+    }
+  },
+  "expected_score_range": [45, 60],
+  "notes": "Complex workflow builder with extensive customization"
+}

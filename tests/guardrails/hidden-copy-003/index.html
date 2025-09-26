@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hidden Copy Test - Should Not Count Hidden Text</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    h1 { 
+      color: #2c3e50; 
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    .form-group { 
+      margin-bottom: 20px; 
+      text-align: left;
+    }
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: 600;
+      color: #555;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    button:hover { background: #2980b9; }
+    /* Hidden elements that should be ignored */
+    .display-none { display: none; }
+    .visibility-hidden { visibility: hidden; }
+    .opacity-zero { opacity: 0; }
+    .height-zero { height: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <h1>Get Started</h1>
+      <p class="subtitle">Join thousands of users who trust our service</p>
+      
+      <!-- This paragraph is hidden with display: none and should NOT be counted -->
+      <p class="display-none">This is an extremely poorly written paragraph with very long sentences that contain excessive amounts of passive voice and technical jargon like "paradigm shift optimization" and "synergistic workflow enhancement methodologies" which would normally negatively impact the copy clarity score if it were visible.</p>
+      
+      <!-- This paragraph is hidden with visibility: hidden and should NOT be counted -->
+      <p class="visibility-hidden">Another terrible paragraph with run-on sentences that never seem to end and contain way too many words per sentence while utilizing passive voice constructions extensively and incorporating industry-specific terminology that most users would not understand.</p>
+      
+      <!-- This paragraph has opacity: 0 and should NOT be counted -->
+      <p class="opacity-zero">Yet another example of atrocious copywriting that features sentences with more than twenty words each, passive voice ratios exceeding fifty percent, and jargon density levels that would make even the most patient reader abandon the page immediately.</p>
+      
+      <!-- This paragraph has height: 0 and should NOT be counted -->
+      <div class="height-zero">
+        <p>This hidden content contains the worst possible copy imaginable with extremely long sentences that go on and on without any clear purpose, passive voice usage that dominates every single sentence, and technical jargon that would confuse even experts in the field.</p>
+      </div>
+      
+      <form id="mainForm">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        
+        <button type="submit">Create Account</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

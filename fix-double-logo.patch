@@ -1,0 +1,27 @@
+--- a/site/index.html
++++ b/site/index.html
+@@ -31,11 +31,8 @@
+   <style>
+     /* Button and motion handled in styles.css and tokens.css (DRY) */
+   </style>
+-</head>
+-<body class="bg-gray-50 text-gray-900">
+-  <!-- Header -->
+-  <img class="brand" src="assets/brand/logo-512.png" srcset="assets/brand/logo-128.png 128w, assets/brand/logo-512.png 512w, assets/brand/logo-1024.png 1024w" sizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px" width="1024" height="1024">
+-<header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
++ </head>
++<body class="bg-gray-50 text-gray-900">
++  <header class="container" style="display:flex;align-items:center;gap:.5rem;margin:24px auto;">
+     <img src="./assets/logo/bird-1024.png?v=%BUILD_ID%" srcset="./assets/logo/bird-128.png?v=%BUILD_ID% 128w, ./assets/logo/bird-512.png?v=%BUILD_ID% 512w, ./assets/logo/bird-1024.png?v=%BUILD_ID% 1024w" sizes="(max-width:640px) 24px, (max-width:1200px) 32px, 40px" width="40" height="40" alt="Onbrd" aria-hidden="true" decoding="async" fetchpriority="high" class="brand__mark">
+     <div class="brand" style="font-size:20px;letter-spacing:-0.3px;">Onbrd</div>
+   </header>
+@@ -317,7 +314,8 @@
+       }
+     });
+   </script>
+-  <- Add Stripe test card reminder to build: a3a275bce624ca45e712d7b3c75cae64a2431a9c @ 2025-09-24T12:38:29Z -->
++  <!-- Add Stripe test card reminder to build: a3a275bce624ca45e712d7b3c75cae64a2431a9c @ 2025-09-24T12:38:29Z -->
++  <!-- build: %GIT_SHA% @ %ISO_TIME% -->
+ </body>
+ </html>
+

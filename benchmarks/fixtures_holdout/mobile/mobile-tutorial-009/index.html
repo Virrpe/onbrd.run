@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>StudyBuddy - Learning Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .tutorial-header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .tutorial-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .tutorial-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tutorial-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .progress-step {
+            width: 30px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: white;
+            width: 40px;
+        }
+        
+        .content-area {
+            padding: 1.5rem;
+            min-height: calc(100vh - 200px);
+            padding-bottom: 120px;
+        }
+        
+        .tutorial-slide {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .tutorial-slide.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-content {
+            text-align: center;
+        }
+        
+        .slide-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border-radius: 25px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .slide-title {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .slide-description {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .feature-showcase {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .showcase-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .showcase-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .showcase-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .showcase-icon {
+            width: 50px;
+            height: 50px;
+            background: #8b5cf6;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .showcase-text {
+            flex: 1;
+        }
+        
+        .showcase-title-small {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .showcase-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .learning-demo {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .demo-subject {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #8b5cf6;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: #6b7280;
+            min-width: 40px;
+        }
+        
+        .demo-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        .study-tips {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tips-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tip-icon {
+            width: 40px;
+            height: 40px;
+            background: #8b5cf6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .tip-text {
+            flex: 1;
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .tip-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .interactive-demo {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .interactive-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .interactive-element {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .interactive-element:hover,
+        .interactive-element.active {
+            border-color: #8b5cf6;
+            background: #f5f3ff;
+        }
+        
+        .interactive-element:last-child {
+            margin-bottom: 0;
+        }
+        
+        .element-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .element-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .element-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .skip-tutorial {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .skip-tutorial:hover {
+            color: white;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+            
+            .slide-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="tutorial-header">
+            <a href="#" class="skip-tutorial" onclick="skipTutorial()">Skip</a>
+            <div class="tutorial-icon">📚</div>
+            <div class="tutorial-title">Welcome to StudyBuddy</div>
+            <div class="tutorial-subtitle">Your Learning Companion</div>
+            <div class="progress-indicator">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <!-- Slide 1: Welcome -->
+            <div class="tutorial-slide active">
+                <div class="slide-content">
+                    <div class="slide-icon">🎯</div>
+                    <h2 class="slide-title">Welcome to StudyBuddy</h2>
+                    <p class="slide-description">
+                        Transform your learning experience with personalized study plans, progress tracking, and smart recommendations.
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Learning Features</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📚</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Smart Study Plans</div>
+                                <div class="showcase-description">AI-powered personalized learning paths</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📊</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Progress Tracking</div>
+                                <div class="showcase-description">Monitor your learning journey</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🧠</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Memory Techniques</div>
+                                <div class="showcase-description">Spaced repetition and active recall</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2: Your Subjects -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">📖</div>
+                    <h2 class="slide-title">Your Learning Dashboard</h2>
+                    <p class="slide-description">
+                        Organize your subjects and track your progress across different topics and courses.
+                    </p>
+                    
+                    <div class="learning-demo">
+                        <div class="demo-title">Your Current Subjects</div>
+                        
+                        <div class="demo-card" onclick="demoCardClick(this)">
+                            <div class="demo-subject">Mathematics - Calculus</div>
+                            <div class="demo-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                                <div class="progress-text">75%</div>
+                            </div>
+                            <div class="demo-stats">
+                                <span>12 lessons completed</span>
+                                <span>4 hours studied</span>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-card" onclick="demoCardClick(this)">
+                            <div class="demo-subject">Science - Physics</div>
+                            <div class="demo-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%"></div>
+                                </div>
+                                <div class="progress-text">45%</div>
+                            </div>
+                            <div class="demo-stats">
+                                <span>8 lessons completed</span>
+                                <span>2.5 hours studied</span>
+                            </div>
+                        </div>
+                        
+                        <div class="demo-card" onclick="demoCardClick(this)">
+                            <div class="demo-subject">Language - Spanish</div>
+                            <div class="demo-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
+                                </div>
+                                <div class="progress-text">90%</div>
+                            </div>
+                            <div class="demo-stats">
+                                <span>18 lessons completed</span>
+                                <span>6 hours studied</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3: Study Tips -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">💡</div>
+                    <h2 class="slide-title">Smart Study Tips</h2>
+                    <p class="slide-description">
+                        Learn proven techniques to study more effectively and retain information longer.
+                    </p>
+                    
+                    <div class="study-tips">
+                        <div class="tips-title">Proven Study Methods</div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">🕐</div>
+                            <div class="tip-text">
+                                <div class="tip-title">Pomodoro Technique</div>
+                                <div class="tip-description">Study for 25 minutes, then take a 5-minute break</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">🔄</div>
+                            <div class="tip-text">
+                                <div class="tip-title">Spaced Repetition</div>
+                                <div class="tip-description">Review material at increasing intervals</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">🎯</div>
+                            <div class="tip-text">
+                                <div class="tip-title">Active Recall</div>
+                                <div class="tip-description">Test yourself instead of just re-reading</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">📝</div>
+                            <div class="tip-text">
+                                <div class="tip-title">Mind Mapping</div>
+                                <div class="tip-description">Visualize connections between concepts</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4: Interactive Learning -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">🎮</div>
+                    <h2 class="slide-title">Interactive Learning</h2>
+                    <p class="slide-description">
+                        Engage with interactive content, quizzes, and challenges to make learning fun and effective.
+                    </p>
+                    
+                    <div class="interactive-demo">
+                        <div class="interactive-title">Try Interactive Learning</div>
+                        
+                        <div class="interactive-element" onclick="selectElement(this)">
+                            <div class="element-icon">❓</div>
+                            <div class="element-title">Practice Questions</div>
+                            <div class="element-description">Test your knowledge with interactive quizzes</div>
+                        </div>
+                        
+                        <div class="interactive-element" onclick="selectElement(this)">
+                            <div class="element-icon">🎯</div>
+                            <div class="element-title">Flash Cards</div>
+                            <div class="element-description">Digital flashcards with spaced repetition</div>
+                        </div>
+                        
+                        <div class="interactive-element" onclick="selectElement(this)">
+                            <div class="element-icon">🏆</div>
+                            <div class="element-title">Study Challenges</div>
+                            <div class="element-description">Complete challenges to earn rewards</div>
+                        </div>
+                        
+                        <div class="interactive-element" onclick="selectElement(this)">
+                            <div class="element-icon">👥</div>
+                            <div class="element-title">Study Groups</div>
+                            <div class="element-description">Collaborate with other learners</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5: Get Started -->
+            <div class="tutorial-slide">
+                <div class="slide-content">
+                    <div class="slide-icon">🚀</div>
+                    <h2 class="slide-title">Ready to Learn!</h2>
+                    <p class="slide-description">
+                        You're all set to begin your learning journey. Let's create your first study plan!
+                    </p>
+                    
+                    <div class="feature-showcase">
+                        <div class="showcase-title">Quick Start Guide</div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">📋</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Add Your Subjects</div>
+                                <div class="showcase-description">Start with 2-3 subjects you want to focus on</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">⏰</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Set Study Schedule</div>
+                                <div class="showcase-description">Dedicate specific times for studying</div>
+                            </div>
+                        </div>
+                        
+                        <div class="showcase-item">
+                            <div class="showcase-icon">🎯</div>
+                            <div class="showcase-text">
+                                <div class="showcase-title-small">Set Learning Goals</div>
+                                <div class="showcase-description">Define what you want to achieve</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Progress Saved</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Free to Use</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)" style="display: none;">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        function showSlide(slide) {
+            // Hide all slides
+            document.querySelectorAll('.tutorial-slide').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show current slide
+            document.querySelectorAll('.tutorial-slide')[slide - 1].classList.add('active');
+            
+            // Update progress steps
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.toggle('active', index === slide - 1);
+            });
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = slide === 1 ? 'none' : 'block';
+            
+            if (slide === totalSlides) {
+                nextBtn.textContent = 'Start Learning';
+                nextBtn.onclick = function() {
+                    completeTutorial();
+                };
+            } else {
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = function() {
+                    changeSlide(1);
+                };
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides) {
+                currentSlide++;
+            } else if (direction === -1 && currentSlide > 1) {
+                currentSlide--;
+            }
+            showSlide(currentSlide);
+        }
+        
+        function completeTutorial() {
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.textContent;
+            
+            nextBtn.textContent = 'Setting up...';
+            nextBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('🎉 Welcome to StudyBuddy! Your learning journey begins now.');
+                nextBtn.textContent = originalText;
+                nextBtn.disabled = false;
+            }, 1500);
+        }
+        
+        function skipTutorial() {
+            if (confirm('Skip the tutorial? You can access help anytime in the app.')) {
+                alert('Welcome to StudyBuddy! Check the help section if you need guidance.');
+            }
+        }
+        
+        function demoCardClick(element) {
+            element.style.background = '#f5f3ff';
+            element.style.borderColor = '#8b5cf6';
+            
+            setTimeout(() => {
+                element.style.background = 'white';
+                element.style.borderColor = '#e5e7eb';
+            }, 1000);
+        }
+        
+        function selectElement(element) {
+            // Remove selection from all elements
+            document.querySelectorAll('.interactive-element').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('active');
+            
+            // Simulate interaction
+            setTimeout(() => {
+                element.classList.remove('active');
+            }, 2000);
+        }
+        
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

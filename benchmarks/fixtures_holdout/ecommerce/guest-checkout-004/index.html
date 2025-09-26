@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickCheckout - Express Guest Checkout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3182ce;
+        }
+        
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #38a169;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .main-content {
+            padding: 3rem 0;
+        }
+        
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .checkout-title {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .checkout-subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .checkout-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .progress-step.active {
+            color: #3182ce;
+        }
+        
+        .progress-step.completed {
+            color: #38a169;
+        }
+        
+        .progress-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .progress-step.active .progress-number {
+            background: #3182ce;
+            color: white;
+        }
+        
+        .progress-step.completed .progress-number {
+            background: #38a169;
+            color: white;
+        }
+        
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .checkout-form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-icon {
+            color: #3182ce;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-label.required::after {
+            content: ' *';
+            color: #e53e3e;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #e53e3e;
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-input {
+            width: 18px;
+            height: 18px;
+            accent-color: #3182ce;
+        }
+        
+        .checkbox-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        .guest-option {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .guest-option-title {
+            font-weight: 600;
+            color: #2b6cb0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .guest-option-text {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .account-option {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .account-option-title {
+            font-weight: 600;
+            color: #276749;
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-option-text {
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .password-toggle {
+            position: relative;
+        }
+        
+        .password-toggle-btn {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #718096;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .summary-title {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 500;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-details {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .summary-totals {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .total-row.final {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .promo-code-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .promo-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .promo-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .promo-btn {
+            padding: 0.5rem 1rem;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .promo-btn:hover {
+            background: #2c5282;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .checkout-btn:hover {
+            background: #2c5282;
+            transform: translateY(-1px);
+        }
+        
+        .checkout-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #38a169;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            font-size: 1rem;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .payment-method {
+            width: 40px;
+            height: 25px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+                            justify-content: center;
+            font-size: 0.7rem;
+            color: #4a5568;
+        }
+        
+        @media (max-width: 968px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-progress {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">QuickCheckout</div>
+                <div class="secure-badge">
+                    <span>🔒</span>
+                    <span>Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="checkout-header">
+                <h1 class="checkout-title">Express Checkout</h1>
+                <p class="checkout-subtitle">
+                    Complete your purchase quickly and securely. No account required for guest checkout.
+                </p>
+            </div>
+
+            <div class="checkout-progress">
+                <div class="progress-step active">
+                    <div class="progress-number">1</div>
+                    <span>Information</span>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-number">2</div>
+                    <span>Payment</span>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-number">3</div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+
+            <div class="checkout-container">
+                <div class="checkout-form-section">
+                    <form id="checkoutForm">
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span class="section-icon">👤</span>
+                                Contact Information
+                            </h2>
+                            
+                            <div class="guest-option">
+                                <div class="guest-option-title">Continue as Guest</div>
+                                <div class="guest-option-text">
+                                    No account needed. We'll send your order confirmation to your email.
+                                </div>
+                            </div>
+                            
+                            <div class="account-option">
+                                <div class="account-option-title">Create Account (Optional)</div>
+                                <div class="account-option-text">
+                                    Save your information for faster checkout next time and track your orders.
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="email">Email Address</label>
+                                <input type="email" id="email" class="form-input" required>
+                                <div class="error-message" id="emailError">Please enter a valid email address</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input" required>
+                                <div class="error-message" id="phoneError">Please enter your phone number</div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="newsletter" class="checkbox-input">
+                                <label for="newsletter" class="checkbox-label">
+                                    Send me exclusive offers and updates
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span class="section-icon">📍</span>
+                                Shipping Address
+                            </h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label required" for="firstName">First Name</label>
+                                    <input type="text" id="firstName" class="form-input" required>
+                                    <div class="error-message" id="firstNameError">Please enter your first name</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="form-input" required>
+                                    <div class="error-message" id="lastNameError">Please enter your last name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="address">Street Address</label>
+                                <input type="text" id="address" class="form-input" required>
+                                <div class="error-message" id="addressError">Please enter your street address</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label required" for="city">City</label>
+                                    <input type="text" id="city" class="form-input" required>
+                                    <div class="error-message" id="cityError">Please enter your city</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="zipCode">ZIP Code</label>
+                                    <input type="text" id="zipCode" class="form-input" required>
+                                    <div class="error-message" id="zipCodeError">Please enter your ZIP code</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label required" for="state">State</label>
+                                    <select id="state" class="form-input" required>
+                                        <option value="">Select State</option>
+                                        <option value="CA">California</option>
+                                        <option value="NY">New York</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="WA">Washington</option>
+                                    </select>
+                                    <div class="error-message" id="stateError">Please select your state</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="country">Country</label>
+                                    <select id="country" class="form-input" required>
+                                        <option value="">Select Country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                    </select>
+                                    <div class="error-message" id="countryError">Please select your country</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span class="section-icon">💳</span>
+                                Payment Information
+                            </h2>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                <div class="error-message" id="cardNumberError">Please enter a valid card number</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label required" for="expiry">Expiry Date</label>
+                                    <input type="text" id="expiry" class="form-input" placeholder="MM/YY" maxlength="5" required>
+                                    <div class="error-message" id="expiryError">Please enter expiry date</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="cvv">CVV</label>
+                                    <input type="text" id="cvv" class="form-input" placeholder="123" maxlength="4" required>
+                                    <div class="error-message" id="cvvError">Please enter CVV</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="cardName">Name on Card</label>
+                                <input type="text" id="cardName" class="form-input" required>
+                                <div class="error-message" id="cardNameError">Please enter cardholder name</div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="saveCard" class="checkbox-input">
+                                <label for="saveCard" class="checkbox-label">
+                                    Save this card for future purchases (optional)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h2 class="section-title">
+                                <span class="section-icon">🔐</span>
+                                Account Creation (Optional)
+                            </h2>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="newPassword">Create Password</label>
+                                <div class="password-toggle">
+                                    <input type="password" id="newPassword" class="form-input" placeholder="Min. 8 characters">
+                                    <button type="button" class="password-toggle-btn" onclick="togglePassword('newPassword')">Show</button>
+                                </div>
+                                <div class="error-message" id="newPasswordError">Password must be at least 8 characters</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="confirmNewPassword">Confirm Password</label>
+                                <div class="password-toggle">
+                                    <input type="password" id="confirmNewPassword" class="form-input">
+                                    <button type="button" class="password-toggle-btn" onclick="togglePassword('confirmNewPassword')">Show</button>
+                                </div>
+                                <div class="error-message" id="confirmNewPasswordError">Passwords do not match</div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="createAccount" class="checkbox-input">
+                                <label for="createAccount" class="checkbox-label">
+                                    Create account for faster checkout next time
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="order-summary">
+                    <h3 class="summary-title">Order Summary</h3>
+                    
+                    <div class="summary-item">
+                        <div class="item-info">
+                            <div class="item-name">Wireless Headphones</div>
+                            <div class="item-details">Black, Bluetooth 5.0</div>
+                        </div>
+                        <div class="item-price">$149.99</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="item-info">
+                            <div class="item-name">Phone Case</div>
+                            <div class="item-details">Protective, Clear</div>
+                        </div>
+                        <div class="item-price">$24.99</div>
+                    </div>
+                    
+                    <div class="promo-code-section">
+                        <label class="form-label" for="promoCode">Promo Code</label>
+                        <div class="promo-input-group">
+                            <input type="text" id="promoCode" class="promo-input" placeholder="Enter code">
+                            <button type="button" class="promo-btn" onclick="applyPromo()">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span>$174.98</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping</span>
+                            <span style="color: #38a169;">FREE</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax</span>
+                            <span>$14.00</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>Total</span>
+                            <span>$188.98</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="checkout-btn" id="completeOrderBtn" onclick="completeOrder()">
+                        Complete Order - $188.98
+                    </button>
+                    
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span class="trust-icon">🔒</span>
+                            <span>Secure</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">✓</span>
+                            <span>30-day returns</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">🚚</span>
+                            <span>Free shipping</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method">Visa</div>
+                        <div class="payment-method">MC</div>
+                        <div class="payment-method">Amex</div>
+                        <div class="payment-method">PayPal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        let selectedBundle = null;
+        let selectedBundleData = null;
+
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const toggleBtn = field.nextElementSibling;
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                toggleBtn.textContent = 'Hide';
+            } else {
+                field.type = 'password';
+                toggleBtn.textContent = 'Show';
+            }
+        }
+
+        function applyPromo() {
+            const promoInput = document.getElementById('promoCode');
+            const promoBtn = promoInput.nextElementSibling;
+            
+            if (promoInput.value.trim()) {
+                promoBtn.textContent = 'Applied!';
+                promoBtn.style.background = '#38a169';
+                setTimeout(() => {
+                    promoBtn.textContent = 'Apply';
+                    promoBtn.style.background = '#3182ce';
+                }, 2000);
+            }
+        }
+
+        function completeOrder() {
+            const form = document.getElementById('checkoutForm');
+            
+            // Validate required fields
+            let isValid = true;
+            const requiredFields = ['email', 'phone', 'firstName', 'lastName', 'address', 'city', 'zipCode', 'state', 'country', 'cardNumber', 'expiry', 'cvv', 'cardName'];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const error = document.getElementById(fieldId + 'Error');
+                
+                if (!field.value.trim()) {
+                    error.classList.add('show');
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    error.classList.remove('show');
+                    field.classList.remove('error');
+                }
+            });
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email.value && !emailRegex.test(email.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+                email.classList.add('error');
+                isValid = false;
+            }
+            
+            // Phone validation
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            const phoneRegex = /^[\d\s\-\(\)]+$/;
+            
+            if (phone.value && !phoneRegex.test(phone.value)) {
+                phoneError.textContent = 'Please enter a valid phone number';
+                phoneError.classList.add('show');
+                phone.classList.add('error');
+                isValid = false;
+            }
+            
+            // Card number validation
+            const cardNumber = document.getElementById('cardNumber');
+            const cardNumberError = document.getElementById('cardNumberError');
+            
+            if (cardNumber.value && !/^\d{4}\s\d{4}\s\d{4}\s\d{4}$/.test(cardNumber.value.replace(/\s/g, ''))) {
+                cardNumberError.classList.add('show');
+                cardNumber.classList.add('error');
+                isValid = false;
+            }
+            
+            // Expiry validation
+            const expiry = document.getElementById('expiry');
+            const expiryError = document.getElementById('expiryError');
+            
+            if (expiry.value && !/^\d{2}\/\d{2}$/.test(expiry.value)) {
+                expiryError.classList.add('show');
+                expiry.classList.add('error');
+                isValid = false;
+            }
+            
+            // CVV validation
+            const cvv = document.getElementById('cvv');
+            const cvvError = document.getElementById('cvvError');
+            
+            if (cvv.value && !/^\d{3,4}$/.test(cvv.value)) {
+                cvvError.classList.add('show');
+                cvv.classList.add('error');
+                isValid = false;
+            }
+            
+            // Password validation (if creating account)
+            const createAccount = document.getElementById('createAccount').checked;
+            if (createAccount) {
+                const newPassword = document.getElementById('newPassword');
+                const confirmNewPassword = document.getElementById('confirmNewPassword');
+                const newPasswordError = document.getElementById('newPasswordError');
+                const confirmNewPasswordError = document.getElementById('confirmNewPasswordError');
+                
+                if (newPassword.value && newPassword.value.length < 8) {
+                    newPasswordError.classList.add('show');
+                    newPassword.classList.add('error');
+                    isValid = false;
+                }
+                
+                if (newPassword.value && confirmNewPassword.value && newPassword.value !== confirmNewPassword.value) {
+                    confirmNewPasswordError.classList.add('show');
+                    confirmNewPassword.classList.add('error');
+                    isValid = false;
+                }
+            }
+            
+            if (isValid) {
+                const completeBtn = document.getElementById('completeOrderBtn');
+                const originalText = completeBtn.textContent;
+                
+                completeBtn.textContent = 'Processing...';
+                completeBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('🎉 Order confirmed! You\'ll receive a confirmation email shortly. Your order will be shipped within 2-3 business days.');
+                    completeBtn.textContent = originalText;
+                    completeBtn.disabled = false;
+                }, 2000);
+            }
+        }
+
+        // Real-time validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const error = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (this.value && !emailRegex.test(this.value)) {
+                error.textContent = 'Please enter a valid email address';
+                error.classList.add('show');
+                this.classList.add('error');
+            } else if (!this.value.trim()) {
+                error.textContent = 'Please enter your email address';
+                error.classList.add('show');
+                this.classList.add('error');
+            } else {
+                error.classList.remove('show');
+                this.classList.remove('error');
+            }
+        });
+
+        document.getElementById('phone').addEventListener('blur', function() {
+            const error = document.getElementById('phoneError');
+            const phoneRegex = /^[\d\s\-\(\)]+$/;
+            
+            if (this.value && !phoneRegex.test(this.value)) {
+                error.textContent = 'Please enter a valid phone number';
+                error.classList.add('show');
+                this.classList.add('error');
+            } else if (!this.value.trim()) {
+                error.textContent = 'Please enter your phone number';
+                error.classList.add('show');
+                this.classList.add('error');
+            } else {
+                error.classList.remove('show');
+                this.classList.remove('error');
+            }
+        });
+
+        // Card number formatting
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Expiry formatting
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV validation
+        document.getElementById('cvv').addEventListener('blur', function() {
+            const error = document.getElementById('cvvError');
+            if (this.value && !/^\d{3,4}$/.test(this.value)) {
+                error.classList.add('show');
+                this.classList.add('error');
+            } else {
+                error.classList.remove('show');
+                this.classList.remove('error');
+            }
+        });
+    </script>
+</body>
+</html>

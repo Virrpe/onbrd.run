@@ -1,0 +1,25 @@
+{
+  "id": "mobile/mobile-permission-002",
+  "category": "mobile",
+  "viewport": {
+    "width": 375,
+    "height": 812,
+    "deviceScaleFactor": 2
+  },
+  "seed": 22222,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 3,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 2,
+    "h_perceived_signup_speed_sec": 30,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      70,
+      85
+    ],
+    "top_issues_contains": []
+  }
+}

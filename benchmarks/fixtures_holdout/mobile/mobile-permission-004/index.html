@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WeatherNow - Enable Notifications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: rgba(0, 0, 0, 0.1);
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: transparent;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .content-area {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 200px);
+            margin-top: 1rem;
+        }
+        
+        .permission-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .permission-title {
+            font-size: 1.3rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .permission-subtitle {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .permission-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .permission-benefits {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .benefits-title {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        .benefit-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .benefit-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .permission-details {
+            margin-bottom: 2rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .detail-icon {
+            color: #3b82f6;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        .detail-text {
+            flex: 1;
+        }
+        
+        .detail-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .detail-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .privacy-note {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .privacy-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .privacy-text {
+            color: #92400e;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .later-option {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .later-link {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .later-link:hover {
+            color: #4b5563;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        .permission-animation {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .animation-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        
+        .animation-circle {
+            width: 100%;
+            height: 100%;
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1.5rem 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-icon">🌤️</div>
+            <div class="app-title">WeatherNow</div>
+            <div class="app-subtitle">Your Personal Weather Assistant</div>
+        </div>
+        
+        <div class="content-area">
+            <div class="permission-header">
+                <div class="permission-icon">🔔</div>
+                <h1 class="permission-title">Enable Notifications</h1>
+                <p class="permission-subtitle">Stay informed about weather changes</p>
+            </div>
+            
+            <div class="permission-animation">
+                <div class="animation-container">
+                    <div class="animation-circle"></div>
+                </div>
+            </div>
+            
+            <div class="permission-benefits">
+                <div class="benefits-title">Why enable notifications?</div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">⏰</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Weather Alerts</div>
+                        <div class="benefit-description">Get notified about severe weather conditions in your area</div>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌅</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Daily Forecast</div>
+                        <div class="benefit-description">Morning weather updates to plan your day</div>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌧️</div>
+                    <div class="benefit-text">
+                        <div class="benefit-title">Rain Alerts</div>
+                        <div class="benefit-description">Know when to bring an umbrella</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="permission-details">
+                <div class="detail-item">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-text">
+                        <div class="detail-title">Location Access</div>
+                        <div class="detail-description">We'll use your location to provide accurate local weather alerts</div>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">🔋</div>
+                    <div class="detail-text">
+                        <div class="detail-title">Battery Friendly</div>
+                        <div class="detail-description">Optimized to use minimal battery power</div>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">⚙️</div>
+                    <div class="detail-text">
+                        <div class="detail-title">Full Control</div>
+                        <div class="detail-description">You can customize or disable notifications anytime in settings</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="privacy-note">
+                <div class="privacy-title">Your Privacy Matters</div>
+                <div class="privacy-text">
+                    We only send relevant weather notifications. Your location data is encrypted and never shared with third parties.
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Minimal Battery</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Full Control</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-primary" onclick="enableNotifications()">Enable Notifications</button>
+            <button type="button" class="btn btn-secondary" onclick="skipNotifications()">Not Now</button>
+            <div class="later-option">
+                <a href="#" class="later-link" onclick="remindLater()">Remind me later</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function enableNotifications() {
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Enabling...';
+            btn.disabled = true;
+            
+            // Simulate permission request
+            setTimeout(() => {
+                // Simulate success (in real app, this would request actual permission)
+                const success = Math.random() > 0.2; // 80% success rate
+                
+                if (success) {
+                    alert('Notifications enabled! You\'ll now receive weather alerts.');
+                } else {
+                    alert('Notifications could not be enabled. You can enable them later in settings.');
+                }
+                
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+        
+        function skipNotifications() {
+            if (confirm('Skip notification setup? You can enable them later in settings.')) {
+                alert('You can enable notifications anytime in the app settings.');
+            }
+        }
+        
+        function remindLater() {
+            alert('We\'ll ask you again in a few days. You can also enable notifications in settings.');
+        }
+        
+        // Auto-advance animation
+        let animationFrame = 0;
+        function animatePermission() {
+            animationFrame++;
+            const circles = document.querySelectorAll('.animation-circle');
+            circles.forEach(circle => {
+                const rotation = (animationFrame * 2) % 360;
+                circle.style.transform = `rotate(${rotation}deg)`;
+            });
+            
+            if (animationFrame < 100) {
+                requestAnimationFrame(animatePermission);
+            }
+        }
+        
+        // Start animation
+        animatePermission();
+    </script>
+</body>
+</html>

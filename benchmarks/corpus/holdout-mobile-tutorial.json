@@ -1,0 +1,37 @@
+{
+  "id": "holdout-mobile-tutorial",
+  "name": "Holdout: Mobile Interactive Tutorial",
+  "category": "mobile",
+  "description": "Interactive tutorial with tap and swipe gestures",
+  "url": "https://app.example.com/mobile-tutorial",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 65,
+      "element": "button.start-tutorial"
+    },
+    "h_steps_count": {
+      "total": 6,
+      "forms": 0,
+      "screens": 6
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 4,
+      "passive_voice_ratio": 1,
+      "jargon_density": 0
+    },
+    "h_trust_markers": {
+      "testimonials": 0,
+      "security_badges": 0,
+      "customer_logos": 0,
+      "total": 0
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 0,
+      "required_fields": 0,
+      "estimated_seconds": 45
+    }
+  },
+  "expected_score_range": [70, 80],
+  "notes": "Tutorial-focused with minimal form requirements"
+}

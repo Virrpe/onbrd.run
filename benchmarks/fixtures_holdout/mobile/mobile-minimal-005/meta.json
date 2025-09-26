@@ -1,0 +1,27 @@
+{
+  "id": "mobile/mobile-minimal-005",
+  "category": "mobile",
+  "viewport": {
+    "width": 375,
+    "height": 812,
+    "deviceScaleFactor": 2
+  },
+  "seed": 55555,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 1,
+    "h_copy_clarity": "excellent",
+    "h_trust_markers": 1,
+    "h_perceived_signup_speed_sec": 5,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      75,
+      90
+    ],
+    "top_issues_contains": [
+      "trust_markers"
+    ]
+  }
+}

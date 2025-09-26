@@ -30,7 +30,8 @@
     "validate:all": "pnpm -w run build && pnpm -w run validate:batch && pnpm -w run validate:summarize",
     "type-check": "tsc --noEmit",
     "release": "pnpm -w run build && pnpm -w run validate:all && pnpm -w run pack",
-    "lhci": "lhci autorun --config=lighthouserc.json"
+    "lhci": "lhci autorun --config=lighthouserc.json",
+    "leakage:check": "node scripts/leakage_check.mjs"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.19",

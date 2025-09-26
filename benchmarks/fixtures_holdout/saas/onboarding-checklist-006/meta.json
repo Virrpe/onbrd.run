@@ -1,0 +1,28 @@
+{
+  "id": "saas/onboarding-checklist-006",
+  "category": "saas",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 65437,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 8,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 6,
+    "h_perceived_signup_speed_sec": 180,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      55,
+      70
+    ],
+    "top_issues_contains": [
+      "steps_count",
+      "perceived_signup_speed"
+    ]
+  }
+}

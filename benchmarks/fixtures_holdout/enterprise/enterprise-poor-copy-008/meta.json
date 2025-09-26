@@ -1,0 +1,27 @@
+{
+  "id": "enterprise/enterprise-poor-copy-008",
+  "category": "enterprise",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 89012,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 5,
+    "h_copy_clarity": "poor",
+    "h_trust_markers": 3,
+    "h_perceived_signup_speed_sec": 90,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      45,
+      60
+    ],
+    "top_issues_contains": [
+      "copy_clarity"
+    ]
+  }
+}

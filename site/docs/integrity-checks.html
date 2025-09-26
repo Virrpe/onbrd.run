@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrity Checks - OnboardingAudit.ai</title>
+    <meta name="description" content="Comprehensive guide to integrity checks and robustness validation in OnboardingAudit.ai benchmarks.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/styles.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Check Cards */
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .check-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .check-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .check-card h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .check-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .check-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pass {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-fail {
+            background: var(--error);
+            color: white;
+        }
+
+        .status-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .code-block .comment {
+            color: #64748b;
+        }
+
+        .code-block .string {
+            color: #34d399;
+        }
+
+        .code-block .keyword {
+            color: #60a5fa;
+        }
+
+        /* Results Table */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-table th {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .results-table td {
+            color: var(--text-secondary);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .warning-box::before {
+            content: "⚠️ ";
+            font-weight: 600;
+        }
+
+        /* Success Box */
+        .success-box {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .success-box::before {
+            content: "✅ ";
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .check-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../" class="logo">
+                    <img src="../assets/logo/bird-128.png" alt="OnboardingAudit.ai">
+                    OnboardingAudit.ai
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="../">Home</a></li>
+                        <li><a href="./checks.html">Checks</a></li>
+                        <li><a href="./scoring.html">Scoring</a></li>
+                        <li><a href="./parity.html">Parity</a></li>
+                        <li><a href="./benchmarks.html">Benchmarks</a></li>
+                        <li><a href="#" class="active">Integrity</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>Integrity Checks & Robustness Validation</h1>
+                <p>Comprehensive validation framework ensuring benchmark reliability, detecting overfitting, and maintaining scoring integrity through systematic falsification tests and perturbation analysis.</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Why Integrity Checks Matter</h2>
+                <p>Benchmark integrity is crucial for ensuring that scoring algorithms provide meaningful and reliable results. Without proper validation, models can overfit to specific test cases or exploit unintended patterns in the data.</p>
+                
+                <div class="warning-box">
+                    <strong>Overfitting Risk:</strong> Without integrity checks, scoring systems might learn to recognize specific benchmark patterns rather than general onboarding quality principles, leading to poor performance on real-world scenarios.
+                </div>
+
+                <p>Our integrity validation framework addresses three critical areas:</p>
+                <ul>
+                    <li><strong>Data Leakage Prevention:</strong> Ensures scoring logic doesn't access ground truth data</li>
+                    <li><strong>Robustness Validation:</strong> Tests sensitivity to input perturbations and variations</li>
+                    <li><strong>Falsification Testing:</strong> Validates that degraded inputs produce appropriately degraded scores</li>
+                </ul>
+            </section>
+
+            <section class="content-section">
+                <h2>Ground Truth Leakage Detection</h2>
+                <p>Ground truth leakage occurs when the scoring system has access to the correct answers during evaluation, leading to artificially inflated performance metrics.</p>
+
+                <div class="check-grid">
+                    <div class="check-card">
+                        <h4>Direct Data Access</h4>
+                        <p>Prevents scoring algorithms from reading meta.json files or accessing fixture directories during evaluation.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                    
+                    <div class="check-card">
+                        <h4>Meta Information Isolation</h4>
+                        <p>Ensures no imports of ground truth data in probe implementations or scoring logic.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                    
+                    <div class="check-card">
+                        <h4>Directory Traversal Protection</h4>
+                        <p>Blocks attempts to traverse fixture directories to discover test case information.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<span class="comment">// Example: Leakage detection in validate-benchmarks.mjs</span>
+<span class="keyword">const</span> leakageChecks = [
+  <span class="string">'No direct meta.json imports'</span>,
+  <span class="string">'No fixture directory traversal'</span>,
+  <span class="string">'No ground truth data access'</span>,
+  <span class="string">'Scoring logic isolation'</span>
+];
+
+<span class="comment">// Each check must pass for validation to succeed</span>
+<span class="keyword">if</span> (leakageChecks.every(check => check.passed)) {
+  <span class="keyword">console</span>.log(<span class="string">'✅ No ground truth leakage detected'</span>);
+}
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Falsification Tests</h2>
+                <p>Falsification tests intentionally degrade input quality to verify that the scoring system responds appropriately. These tests help detect overfitting and ensure the model generalizes well.</p>
+
+                <h3>Label Shuffle Falsification</h3>
+                <p>Randomly shuffles heuristic labels to test if the scoring system is learning meaningful patterns rather than memorizing specific combinations.</p>
+                
+                <div class="success-box">
+                    <strong>Expected Result:</strong> Scores should degrade significantly (typically 40-60%) when labels are shuffled, indicating the system learns meaningful patterns.
+                </div>
+
+                <h3>DOM Perturbation Tests</h3>
+                <p>Applies systematic perturbations to the DOM structure while preserving semantic meaning:</p>
+                
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Perturbation Type</th>
+                            <th>Description</th>
+                            <th>Expected Impact</th>
+                            <th>Acceptance Threshold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Light Perturbation</td>
+                            <td>Minor CSS changes, font variations</td>
+                            <td>Minimal score change (<5%)</td>
+                            <td>±10%</td>
+                        </tr>
+                        <tr>
+                            <td>Medium Perturbation</td>
+                            <td>Layout shifts, spacing changes</td>
+                            <td>Moderate score change (5-15%)</td>
+                            <td>±20%</td>
+                        </tr>
+                        <tr>
+                            <td>Heavy Perturbation</td>
+                            <td>Structural DOM changes</td>
+                            <td>Significant score change (>15%)</td>
+                            <td>±30%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Inverted Heuristics Test</h3>
+                <p>Intentionally inverts heuristic logic to test if the scoring system recognizes degraded quality:</p>
+                
+                <div class="code-block">
+<span class="comment">// Example: Inverted heuristics test</span>
+<span class="keyword">const</span> invertedHeuristics = {
+  <span class="string">'H-CTA-ABOVE-FOLD'</span>: <span class="keyword">false</span>,  <span class="comment">// CTA should be below fold</span>
+  <span class="string">'H-COPY-CLARITY'</span>: <span class="string">'poor'</span>,     <span class="comment">// Copy should be unclear</span>
+  <span class="string">'H-TRUST-MARKERS'</span>: <span class="keyword">false</span>,  <span class="comment">// No trust signals</span>
+  <span class="string">'H-PERCEIVED-SPEED'</span>: <span class="string">'slow'</span>   <span class="comment">// Process should feel slow</span>
+};
+
+<span class="comment">// Expected: Score should decrease by 40-60%</span>
+<span class="keyword">const</span> expectedDegradation = 0.5; <span class="comment">// 50%</span>
+                </div>
+
+                <h3>CI Test Matrix</h3>
+                <p>Our continuous integration runs a comprehensive test matrix with different falsification modes:</p>
+                
+                <div class="check-grid">
+                    <div class="check-card">
+                        <h4>A-Baseline-Train-NoPerturb</h4>
+                        <p>Standard benchmark on training data. <strong>Targets:</strong> Macro-F1 ≥ 0.85, R² ≥ 0.80</p>
+                        <span class="check-status status-pass">Baseline</span>
+                    </div>
+                    <div class="check-card">
+                        <h4>B-Perturbation-Train-Light</h4>
+                        <p>Light DOM perturbation testing. <strong>Purpose:</strong> Evaluate stability under layout changes</p>
+                        <span class="check-status status-pass">Robustness</span>
+                    </div>
+                    <div class="check-card">
+                        <h4>C-Holdout-NoPerturb</h4>
+                        <p>Independent validation on unseen data. <strong>Targets:</strong> Macro-F1 ≥ 0.80, R² ≥ 0.75</p>
+                        <span class="check-status status-pass">Validation</span>
+                    </div>
+                    <div class="check-card">
+                        <h4>D-Falsification-Train-Shuffle</h4>
+                        <p>Label shuffle falsification test. <strong>Targets:</strong> Macro-F1 ≤ 0.40, R² ≤ 0.10</p>
+                        <span class="check-status status-fail">Falsification</span>
+                    </div>
+                    <div class="check-card">
+                        <h4>E-BandMidpoint-Ablation</h4>
+                        <p>Band midpoint sensitivity analysis. <strong>Purpose:</strong> Test scoring calibration stability</p>
+                        <span class="check-status status-warning">Ablation</span>
+                    </div>
+                    <div class="check-card">
+                        <h4>F-Leakage-Sentry</h4>
+                        <p>Enhanced validation with strict thresholds. <strong>Targets:</strong> Macro-F1 ≥ 0.90, R² ≥ 0.85</p>
+                        <span class="check-status status-pass">Strict</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Holdout Validation</h2>
+                <p>Holdout validation uses separate test sets that are not used during development to provide an unbiased estimate of model performance.</p>
+
+                <h3>Holdout Dataset Structure</h3>
+                <p>Our holdout validation includes:</p>
+                <ul>
+                    <li><strong>30% of total fixtures:</strong> Reserved exclusively for final validation</li>
+                    <li><strong>Balanced categories:</strong> Each category represented proportionally</li>
+                    <li><strong>Temporal separation:</strong> Holdout data collected after training set</li>
+                    <li><strong>Blind evaluation:</strong> No access to holdout results during development</li>
+                </ul>
+
+                <div class="check-grid">
+                    <div class="check-card">
+                        <h4>Category Balance</h4>
+                        <p>Ensures holdout set maintains proportional representation across all benchmark categories.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                    
+                    <div class="check-card">
+                        <h4>Temporal Validation</h4>
+                        <p>Validates that performance doesn't degrade significantly on newer data patterns.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                    
+                    <div class="check-card">
+                        <h4>Generalization Test</h4>
+                        <p>Measures performance consistency between training and holdout datasets.</p>
+                        <span class="check-status status-pass">✅ PASS</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Acceptance Thresholds</h2>
+                <p>Clear thresholds define what constitutes acceptable performance across different integrity checks.</p>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Check Type</th>
+                            <th>Metric</th>
+                            <th>Acceptable Range</th>
+                            <th>Warning Threshold</th>
+                            <th>Failure Threshold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data Leakage</td>
+                            <td>Direct access violations</td>
+                            <td>0 violations</td>
+                            <td>N/A</td>
+                            <td>>0 violations</td>
+                        </tr>
+                        <tr>
+                            <td>Label Shuffle</td>
+                            <td>Score degradation</td>
+                            <td>>30% decrease</td>
+                            <td>20-30% decrease</td>
+                            <td><20% decrease</td>
+                        </tr>
+                        <tr>
+                            <td>DOM Perturbation</td>
+                            <td>Score variance</td>
+                            <td><±20%</td>
+                            <td>±20-30%</td>
+                            <td>>±30%</td>
+                        </tr>
+                        <tr>
+                            <td>Inverted Heuristics</td>
+                            <td>Score degradation</td>
+                            <td>>40% decrease</td>
+                            <td>30-40% decrease</td>
+                            <td><30% decrease</td>
+                        </tr>
+                        <tr>
+                            <td>Holdout Validation</td>
+                            <td>Performance gap</td>
+                            <td><10% difference</td>
+                            <td>10-15% difference</td>
+                            <td>>15% difference</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>Threshold Violations:</strong> When any check falls below the warning threshold, it indicates potential issues with model robustness or generalization that should be investigated.
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Interpreting Results</h2>
+                <p>Understanding integrity check results is crucial for maintaining benchmark reliability.</p>
+
+                <h3>Green Flags (Good Signs)</h3>
+                <ul>
+                    <li><strong>Strong falsification response:</strong> 40-60% score degradation on inverted tests</li>
+                    <li><strong>Robust perturbation handling:</strong> Minimal sensitivity to minor DOM changes</li>
+                    <li><strong>Consistent holdout performance:</strong> <10% difference from training results</li>
+                    <li><strong>No leakage violations:</strong> Zero unauthorized data access attempts</li>
+                </ul>
+
+                <h3>Red Flags (Warning Signs)</h3>
+                <ul>
+                    <li><strong>Weak falsification response:</strong> <30% degradation suggests overfitting</li>
+                    <li><strong>Excessive perturbation sensitivity:</strong> >30% variance indicates instability</li>
+                    <li><strong>Holdout performance gap:</strong> >15% difference suggests poor generalization</li>
+                    <li><strong>Leakage violations:</strong> Any unauthorized data access is critical</li>
+                </ul>
+
+                <h3>Action Items for Failed Checks</h3>
+                <ol>
+                    <li><strong>Investigate the root cause:</strong> Determine why the check failed</li>
+                    <li><strong>Review model architecture:</strong> Check for potential overfitting patterns</li>
+                    <li><strong>Validate data pipeline:</strong> Ensure no unintended data leakage</li>
+                    <li><strong>Retrain with fixes:</strong> Address identified issues and re-run validation</li>
+                    <li><strong>Document findings:</strong> Record issues and solutions for future reference</li>
+                </ol>
+            </section>
+
+            <section class="content-section">
+                <h2>Implementation Details</h2>
+                <p>Technical implementation of integrity checks in the OnboardingAudit.ai framework.</p>
+
+                <h3>Running Integrity Checks</h3>
+                <div class="code-block">
+<span class="comment"># Run all integrity checks</span>
+npm run test:integrity
+
+<span class="comment"># Run specific falsification tests</span>
+node scripts/validate-benchmarks.mjs --mode inverted-heuristics
+node scripts/validate-benchmarks.mjs --mode label-shuffle
+
+<span class="comment"># Run perturbation tests</span>
+node scripts/run-benchmarks.mjs --perturb light
+node scripts/run-benchmarks.mjs --perturb medium
+node scripts/run-benchmarks.mjs --perturb heavy
+
+<span class="comment"># Check for data leakage</span>
+node scripts/leakage_check.mjs
+                </div>
+
+                <h3>Configuration Options</h3>
+                <p>Integrity checks can be configured through various parameters:</p>
+                <ul>
+                    <li><strong>--falsification-mode:</strong> Type of falsification test (shuffle, invert, perturb)</li>
+                    <li><strong>--perturbation-level:</strong> Intensity of DOM perturbations (light, medium, heavy)</li>
+                    <li><strong>--holdout-ratio:</strong> Percentage of data reserved for holdout validation</li>
+                    <li><strong>--threshold-strictness:</strong> Tolerance for acceptance thresholds (strict, normal, relaxed)</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OnboardingAudit.ai. Open source onboarding audit tools.</p>
+        </div>
+    </footer>
+</body>
+</html>
