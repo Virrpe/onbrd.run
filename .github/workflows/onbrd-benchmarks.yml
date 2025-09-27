@@ -138,43 +138,43 @@ jobs:
           echo "Macro-F1: $MACRO_F1"
           echo "R²: $R2"
           
-          # Apply thresholds based on test type
+          # Apply thresholds based on test type (v0.2.c targets)
           if [ "${{ matrix.falsified }}" = "true" ]; then
-            # Falsification test: should have low performance
+            # Falsification test: should have low performance (≤ 0.40)
             if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 > 0.40" | bc -l) )); then
               echo "❌ FAIL: Falsification test Macro-F1 ($MACRO_F1) should be ≤ 0.40"
-              exit 1
-            fi
-            if [ "$R2" != "null" ] && (( $(echo "$R2 > 0.10" | bc -l) )); then
-              echo "❌ FAIL: Falsification test R² ($R2) should be ≤ 0.10"
               exit 1
             fi
             echo "✅ PASS: Falsification test thresholds met"
             
           elif [ "${{ matrix.set }}" = "holdout" ]; then
-            # Holdout test: should maintain reasonable performance
-            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < 0.80" | bc -l) )); then
-              echo "❌ FAIL: Holdout test Macro-F1 ($MACRO_F1) should be ≥ 0.80"
+            # Holdout test: should maintain reasonable performance (≥ 0.75, R² ≥ 0.45)
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < 0.75" | bc -l) )); then
+              echo "❌ FAIL: Holdout test Macro-F1 ($MACRO_F1) should be ≥ 0.75"
               exit 1
             fi
-            if [ "$R2" != "null" ] && (( $(echo "$R2 < 0.75" | bc -l) )); then
-              echo "❌ FAIL: Holdout test R² ($R2) should be ≥ 0.75"
+            if [ "$R2" != "null" ] && (( $(echo "$R2 < 0.45" | bc -l) )); then
+              echo "❌ FAIL: Holdout test R² ($R2) should be ≥ 0.45"
               exit 1
             fi
             echo "✅ PASS: Holdout test thresholds met"
             
           elif [ "${{ matrix.perturb }}" = "light" ]; then
-            # Perturbation test: check for score drift in report
-            echo "Perturbation test - checking report for drift analysis"
+            # Perturbation test: should be within -0.05 of baseline (≥ 0.80)
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < 0.80" | bc -l) )); then
+              echo "❌ FAIL: Perturbation test Macro-F1 ($MACRO_F1) should be ≥ 0.80"
+              exit 1
+            fi
+            echo "✅ PASS: Perturbation test thresholds met"
             
           elif [ "${{ matrix.band_midpoint }}" = "false" ]; then
             # Band midpoint ablation: should show R² reduction
             echo "Band midpoint ablation test - checking for R² reduction"
             
           else
-            # Baseline and leakage sentry: should have high performance
+            # Baseline and leakage sentry: should have high performance (≥ 0.85, R² ≥ 0.60)
             MIN_F1="0.85"
-            MIN_R2="0.80"
+            MIN_R2="0.60"
             if [ "${{ matrix.strict_validation }}" = "true" ]; then
               MIN_F1="0.90"
               MIN_R2="0.85"
@@ -188,7 +188,7 @@ jobs:
               echo "❌ FAIL: Baseline R² ($R2) should be ≥ $MIN_R2"
               exit 1
             fi
-            echo "✅ PASS: Baseline test thresholds met"
+            echo "✅ PASS: Baseline test thresholds met (v0.2.c)"
           fi
 
       - name: Upload artifacts

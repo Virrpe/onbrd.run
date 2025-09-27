@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-09-26T20:17:23.602Z",
+  "generatedAt": "2025-09-27T08:58:14.040Z",
   "config": {
     "shuffleLabels": false,
     "bandMidpoint": true,
@@ -8,35 +8,35 @@
   "baseline_metrics": {
     "checks": {
       "h_cta_above_fold": {
-        "precision": 1,
+        "precision": 0.6721,
         "recall": 1,
-        "f1": 1
+        "f1": 0.8039
       },
       "h_steps_count": {
-        "precision": 1,
+        "precision": 0.8571,
         "recall": 1,
-        "f1": 1
+        "f1": 0.9231
       },
       "h_copy_clarity": {
-        "precision": 1,
+        "precision": 0.7188,
         "recall": 1,
-        "f1": 1
+        "f1": 0.8364
       },
       "h_trust_markers": {
-        "precision": 1,
-        "recall": 1,
-        "f1": 1
+        "precision": 0.5345,
+        "recall": 0.8857,
+        "f1": 0.6667
       },
       "h_perceived_signup_speed": {
-        "precision": 1,
-        "recall": 1,
-        "f1": 1
+        "precision": 0.9375,
+        "recall": 0.8333,
+        "f1": 0.8824
       }
     },
-    "categories": {},
     "calibration": {
-      "r2": 1,
-      "n": 0
-    }
+      "r2": 0.517,
+      "n": 66
+    },
+    "macro_f1": 0.8225
   }
 }

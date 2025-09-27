@@ -12,6 +12,9 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { readFileSync, readdirSync, writeFileSync } from 'fs';
 
+// Import the real HTML scoring function
+import { scoreHTML } from './scoring-server.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -278,173 +281,10 @@ function createDeterministicEnv(seed, timestamp) {
   };
 }
 
-// Simplified scoring implementation (based on packages/core/src/scoring.ts)
-function calculateScores(heuristics, _env) {
-  // H-CTA-ABOVE-FOLD: 100% if detected, 0% if not
-  const ctaScore = heuristics.h_cta_above_fold.detected ? 100 : 0;
-  
-  // H-STEPS-COUNT: 1-3 steps = 100%, 4-5 = 80%, 6-7 = 60%, 8+ = 40%
-  let stepsScore = 100;
-  if (heuristics.h_steps_count.total >= 8) stepsScore = 40;
-  else if (heuristics.h_steps_count.total >= 6) stepsScore = 60;
-  else if (heuristics.h_steps_count.total >= 4) stepsScore = 80;
-  
-  // H-COPY-CLARITY: <15 words/sentence, <10% passive, <5% jargon = 100%
-  let copyScore = 100;
-  if (heuristics.h_copy_clarity.avg_sentence_length > 15) {
-    copyScore -= Math.min(50, (heuristics.h_copy_clarity.avg_sentence_length - 15) * 2);
-  }
-  if (heuristics.h_copy_clarity.passive_voice_ratio > 10) {
-    copyScore -= Math.min(30, (heuristics.h_copy_clarity.passive_voice_ratio - 10) * 3);
-  }
-  if (heuristics.h_copy_clarity.jargon_density > 5) {
-    copyScore -= Math.min(20, (heuristics.h_copy_clarity.jargon_density - 5) * 4);
-  }
-  copyScore = Math.max(0, copyScore);
-  
-  // H-TRUST-MARKERS: 3+ trust elements = 100%, 2 = 80%, 1 = 60%, 0 = 40%
-  let trustScore = 40;
-  if (heuristics.h_trust_markers.total >= 3) trustScore = 100;
-  else if (heuristics.h_trust_markers.total === 2) trustScore = 80;
-  else if (heuristics.h_trust_markers.total === 1) trustScore = 60;
-  
-  // H-PERCEIVED-SIGNUP-SPEED: <30 seconds = 100%, 30-60s = 80%, 60-120s = 60%, 120s+ = 40%
-  let speedScore = 40;
-  if (heuristics.h_perceived_signup_speed.estimated_seconds < 30) speedScore = 100;
-  else if (heuristics.h_perceived_signup_speed.estimated_seconds < 60) speedScore = 80;
-  else if (heuristics.h_perceived_signup_speed.estimated_seconds < 120) speedScore = 60;
-  
-  // Calculate weighted overall score
-  const overall = Math.round(
-    ctaScore * 0.25 +
-    stepsScore * 0.20 +
-    copyScore * 0.20 +
-    trustScore * 0.20 +
-    speedScore * 0.15
-  );
-  
-  return {
-    h_cta_above_fold: ctaScore,
-    h_steps_count: stepsScore,
-    h_copy_clarity: copyScore,
-    h_trust_markers: trustScore,
-    h_perceived_signup_speed: speedScore,
-    overall
-  };
-}
-
-function generateIssues(heuristics) {
-  const issues = [];
-  
-  if (!heuristics.h_cta_above_fold.detected) {
-    issues.push("No clear call-to-action found above the fold (top 600px)");
-  }
-  
-  if (heuristics.h_steps_count.total > 3) {
-    issues.push(`Onboarding flow has ${heuristics.h_steps_count.total} steps, which may cause friction and abandonment`);
-  }
-  
-  if (heuristics.h_copy_clarity.avg_sentence_length > 15) {
-    issues.push(`Average sentence length is ${heuristics.h_copy_clarity.avg_sentence_length} words, which may reduce comprehension`);
-  }
-  
-  if (heuristics.h_copy_clarity.passive_voice_ratio > 10) {
-    issues.push(`${heuristics.h_copy_clarity.passive_voice_ratio}% of sentences use passive voice, which can reduce clarity`);
-  }
-  
-  if (heuristics.h_copy_clarity.jargon_density > 5) {
-    issues.push(`${heuristics.h_copy_clarity.jargon_density}% of words are jargon, which may confuse users`);
-  }
-  
-  if (heuristics.h_trust_markers.total < 3) {
-    issues.push(`Only ${heuristics.h_trust_markers.total} trust signals detected, which may reduce user confidence`);
-  }
-  
-  if (heuristics.h_perceived_signup_speed.estimated_seconds > 60) {
-    issues.push(`Signup process appears to take ${heuristics.h_perceived_signup_speed.estimated_seconds} seconds, which may cause abandonment`);
-  }
-  
-  return issues;
-}
-
-function generateRecommendations(heuristics) {
-  const recommendations = [];
-  const fixes = {
-    h_cta_above_fold: "Move your primary CTA above the fold for immediate visibility",
-    h_steps_count: "Reduce onboarding to 3 steps or fewer when possible",
-    h_copy_clarity: "Use shorter sentences, active voice, and plain language",
-    h_trust_markers: "Add testimonials, security badges, or customer logos",
-    h_perceived_signup_speed: "Minimize required fields and show progress indicators"
-  };
-  
-  if (!heuristics.h_cta_above_fold.detected) {
-    recommendations.push({
-      heuristic: "h_cta_above_fold",
-      priority: "high",
-      description: "No clear call-to-action found above the fold (top 600px)",
-      fix: fixes.h_cta_above_fold
-    });
-  }
-  
-  if (heuristics.h_steps_count.total > 3) {
-    recommendations.push({
-      heuristic: "h_steps_count",
-      priority: "medium",
-      description: `Onboarding flow has ${heuristics.h_steps_count.total} steps, which may cause friction`,
-      fix: fixes.h_steps_count
-    });
-  }
-  
-  if (heuristics.h_copy_clarity.avg_sentence_length > 15) {
-    recommendations.push({
-      heuristic: "h_copy_clarity",
-      priority: "medium",
-      description: `Average sentence length is ${heuristics.h_copy_clarity.avg_sentence_length} words, which may reduce comprehension`,
-      fix: fixes.h_copy_clarity
-    });
-  }
-  
-  if (heuristics.h_copy_clarity.passive_voice_ratio > 10) {
-    recommendations.push({
-      heuristic: "h_copy_clarity",
-      priority: "low",
-      description: `${heuristics.h_copy_clarity.passive_voice_ratio}% of sentences use passive voice, which can reduce clarity`,
-      fix: "Use active voice to make sentences more direct and engaging"
-    });
-  }
-  
-  if (heuristics.h_copy_clarity.jargon_density > 5) {
-    recommendations.push({
-      heuristic: "h_copy_clarity",
-      priority: "low",
-      description: `${heuristics.h_copy_clarity.jargon_density}% of words are jargon, which may confuse users`,
-      fix: "Replace technical terms with plain language"
-    });
-  }
-  
-  if (heuristics.h_trust_markers.total < 3) {
-    recommendations.push({
-      heuristic: "h_trust_markers",
-      priority: "medium",
-      description: `Only ${heuristics.h_trust_markers.total} trust signals detected, which may reduce user confidence`,
-      fix: fixes.h_trust_markers
-    });
-  }
-  
-  if (heuristics.h_perceived_signup_speed.estimated_seconds > 60) {
-    recommendations.push({
-      heuristic: "h_perceived_signup_speed",
-      priority: "high",
-      description: `Signup process appears to take ${heuristics.h_perceived_signup_speed.estimated_seconds} seconds, which may cause abandonment`,
-      fix: fixes.h_perceived_signup_speed
-    });
-  }
-  
-  return recommendations;
-}
+// Real HTML analysis is now handled by scoreHTML function from scoring-server.ts
 
 // Run benchmarks
-function runBenchmarks() {
+async function runBenchmarks() {
   console.log(`📊 Loading benchmark fixtures...`);
   const benchmarks = loadBenchmarks();
   console.log(`✅ Loaded ${benchmarks.length} benchmarks\n`);
@@ -469,8 +309,6 @@ function runBenchmarks() {
       console.log(`\n🔍 Running: ${benchmark.name}`);
     }
     
-    // Apply DOM perturbation if enabled
-    let perturbedHeuristics = benchmark.heuristics;
     if (perturbator && benchmark.html) {
       try {
         const originalHTML = benchmark.html;
@@ -490,40 +328,119 @@ function runBenchmarks() {
       }
     }
     
-    const scores = calculateScores(perturbedHeuristics, env);
-    const issues = generateIssues(perturbedHeuristics);
-    const recommendations = generateRecommendations(perturbedHeuristics);
+    // Use real HTML analysis for scoring
+    let htmlContent = benchmark.html || '';
+    let perturbedHTML = htmlContent;
+    
+    // Apply DOM perturbation if enabled
+    if (perturbator && htmlContent) {
+      try {
+        const perturbedContent = perturbator.perturbHTML(htmlContent);
+        if (perturbator.validatePerturbation(htmlContent, perturbedContent)) {
+          perturbedHTML = perturbedContent;
+          if (options.verbose) {
+            console.log(`   📝 DOM perturbation applied`);
+          }
+        } else {
+          console.warn(`   ⚠️  DOM perturbation validation failed for ${benchmark.name}`);
+        }
+      } catch (error) {
+        console.warn(`   ⚠️  Error applying DOM perturbation to ${benchmark.name}: ${error.message}`);
+      }
+    }
+    
+    // Use pre-computed heuristics from benchmark fixture
+    let heuristics = benchmark.heuristics || {};
+    
+    // If we have HTML content, analyze it with enhanced heuristics
+    if (perturbedHTML && perturbedHTML.trim().length > 0) {
+      const { score, score_raw, score_calibrated, checks } = await scoreHTML(perturbedHTML, { env });
+      
+      const result = {
+        id: benchmark.id,
+        name: benchmark.name,
+        category: benchmark.category,
+        score: score_calibrated, // Use calibrated score as primary score
+        score_raw: score_raw,
+        score_calibrated: score_calibrated,
+        checks: checks,
+        expected_score_range: benchmark.expected_score_range,
+        validation: {
+          within_expected_range: score_calibrated >= benchmark.expected_score_range[0] &&
+                                 score_calibrated <= benchmark.expected_score_range[1],
+          meets_minimum: score_calibrated >= 0,
+          meets_maximum: score_calibrated <= 100
+        }
+      };
+      
+      results.push(result);
+      totalScore += score;
+      minScore = Math.min(minScore, score);
+      maxScore = Math.max(maxScore, score);
+      
+      if (options.verbose) {
+        console.log(`   Score: ${score}/100`);
+        console.log(`   Expected: [${benchmark.expected_score_range[0]}-${benchmark.expected_score_range[1]}]`);
+        console.log(`   Validation: ${result.validation.within_expected_range ? '✅' : '❌'}`);
+      }
+      
+      continue;
+    }
+    
+    // Fallback: Calculate scores from pre-computed heuristics
+    const { calculateScores } = await import('./scoring-server.js');
+    const scores = calculateScores(heuristics);
+    
+    // Apply calibration if available
+    let score_calibrated = scores.overall;
+    let score_raw = scores.overall;
+    
+    try {
+      // Load calibration configuration and apply calibration
+      const calibrationConfigPath = join(__dirname, '../packages/core/src/calibration_v0_2c.json');
+      const calibrationConfig = JSON.parse(readFileSync(calibrationConfigPath, 'utf8'));
+      
+      // Apply linear calibration: S_cal = a * S_raw + b, clamped to [0, 100]
+      const calibrated = calibrationConfig.a * scores.overall + calibrationConfig.b;
+      score_calibrated = Math.max(0, Math.min(100, calibrated));
+    } catch (error) {
+      // Calibration not available, use raw score
+      score_calibrated = scores.overall;
+    }
+    
+    // Convert scores to boolean checks (threshold: >= 60 for pass)
+    const checks = {
+      h_cta_above_fold: scores.h_cta_above_fold >= 60,
+      h_steps_count: scores.h_steps_count >= 60,
+      h_copy_clarity: scores.h_copy_clarity >= 60,
+      h_trust_markers: scores.h_trust_markers >= 60,
+      h_perceived_signup_speed: scores.h_perceived_signup_speed >= 60
+    };
     
     const result = {
       id: benchmark.id,
       name: benchmark.name,
       category: benchmark.category,
-      score: scores.overall,
-      individual_scores: {
-        h_cta_above_fold: scores.h_cta_above_fold,
-        h_steps_count: scores.h_steps_count,
-        h_copy_clarity: scores.h_copy_clarity,
-        h_trust_markers: scores.h_trust_markers,
-        h_perceived_signup_speed: scores.h_perceived_signup_speed
-      },
-      issues,
-      recommendations,
+      score: score_calibrated, // Use calibrated score as primary score
+      score_raw: score_raw,
+      score_calibrated: score_calibrated,
+      checks: checks,
       expected_score_range: benchmark.expected_score_range,
       validation: {
-        within_expected_range: scores.overall >= benchmark.expected_score_range[0] && 
-                               scores.overall <= benchmark.expected_score_range[1],
-        meets_minimum: scores.overall >= 0,
-        meets_maximum: scores.overall <= 100
+        within_expected_range: score_calibrated >= benchmark.expected_score_range[0] &&
+                               score_calibrated <= benchmark.expected_score_range[1],
+        meets_minimum: score_calibrated >= 0,
+        meets_maximum: score_calibrated <= 100
       }
     };
     
     results.push(result);
-    totalScore += scores.overall;
-    minScore = Math.min(minScore, scores.overall);
-    maxScore = Math.max(maxScore, scores.overall);
+    totalScore += score_calibrated;
+    minScore = Math.min(minScore, score_calibrated);
+    maxScore = Math.max(maxScore, score_calibrated);
     
     if (options.verbose) {
-      console.log(`   Score: ${scores.overall}/100`);
+      console.log(`   Score: ${score_calibrated}/100`);
       console.log(`   Expected: [${benchmark.expected_score_range[0]}-${benchmark.expected_score_range[1]}]`);
       console.log(`   Validation: ${result.validation.within_expected_range ? '✅' : '❌'}`);
     }
@@ -581,7 +498,7 @@ function calculateMedian(scores) {
 
 // Run the benchmarks
 try {
-  runBenchmarks();
+  await runBenchmarks();
   console.log('\n🎉 Benchmark run completed successfully!');
 } catch (error) {
   console.error('\n❌ Benchmark run failed:', error.message);

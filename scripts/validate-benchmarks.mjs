@@ -70,9 +70,9 @@ function macroF1(perCheck){
 function computeCalibration(items){
   const y=[], yhat=[];
   for (const it of items){
-    if (typeof it.pred?.score === 'number' && typeof it.expected_numeric === 'number'){
+    if (typeof it.pred?.score_calibrated === 'number' && typeof it.expected_numeric === 'number'){
       y.push(it.expected_numeric);
-      yhat.push(it.pred.score);
+      yhat.push(it.pred.score_calibrated);
     }
   }
   const n = y.length;
@@ -108,11 +108,14 @@ const SEED = parseInt(args["--seed"] || "1337", 10);
 
 // Load results
 const resultsRaw = await fs.readFile(IN, "utf8");
-const results = JSON.parse(resultsRaw);
+const resultsData = JSON.parse(resultsRaw);
+
+// Handle both old format (direct array) and new format (nested under results property)
+const results = Array.isArray(resultsData) ? resultsData : resultsData.results || [];
 
 // Build a working list that includes predictions and expected labels
 const baseItems = results.map(r => ({
-  pred: { score: r.score, checks: r.checks || {} },
+  pred: { score: r.score, score_calibrated: r.score_calibrated, checks: r.checks || {} },
   expected: r.expected || {}
 }));
 
