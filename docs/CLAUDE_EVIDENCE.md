@@ -54,71 +54,62 @@ This page aggregates **verifiable** code snippets, command outputs, and **GitHub
 ---
 
 ## 2) Benchmarks Runner & Results
-**Command:** `node scripts/run-benchmarks.mjs`
+**Command:** `node scripts/run-benchmarks.mjs --seed 12345 --set train --perturb-dom none --out benchmarks/results.train.none.json`
 **Runner:** https://github.com/Virrpe/onbrd.run/blob/a9eb347d109979c89f4b4670c7422698b94dff28/scripts/run-benchmarks.mjs
 
-**Head of `benchmarks/results.json`:**
+**Head of `benchmarks/results.train.none.json`:**
 ```json
 {
-  "timestamp": "2025-09-25T21:13:45.839Z",
+  "timestamp": "2025-09-27T15:34:51.179Z",
   "seed": 12345,
-  "total_benchmarks": 19,
+  "total_benchmarks": 66,
   "summary": {
-    "average_score": 85,
-    "median_score": 90,
-    "min_score": 30,
-    "max_score": 100
+    "average_score": 71,
+    "median_score": 73,
+    "min_score": 26.5003,
+    "max_score": 81.63929999999999
   },
   "results": [
     {
       "id": "account-creation-checkout",
       "name": "Account Creation During Checkout",
       "category": "ecommerce",
-      "score": 61,
-      "individual_scores": {
-        "h_cta_above_fold": 0,
-        "h_steps_count": 80,
-        "h_copy_clarity": 100,
-        "h_trust_markers": 80,
-        "h_perceived_signup_speed": 60
+      "score": 50.919,
+      "score_raw": 61,
+      "score_calibrated": 50.919,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
       },
-      "issues": [
-        "No clear call-to-action found above the fold (top 600px)",
-        "Onboarding flow has 4 steps, which may cause friction and abandonment",
-        "Only 2 trust signals detected, which may reduce user confidence",
-        "Signup process appears to take 85 seconds, which may cause abandonment"
-      ],
-      "recommendations": [
-        {
-          "heuristic": "h_cta_above_fold",
-          "priority": "high",
-          "description": "No clear call-to-action found above the fold (top 600px)",
-          "fix": "Move your primary CTA above the fold for immediate visibility"
-        },
-        {
-          "heuristic": "h_steps_count",
-          "priority": "medium",
-          "description": "Onboarding flow has 4 steps, which may cause friction",
-          "fix": "Reduce onboarding to 3 steps or fewer when possible"
-        },
-        {
-          "heuristic": "h_trust_markers",
-          "priority": "medium",
-          "description": "Only 2 trust signals detected, which may reduce user confidence",
-          "fix": "Add testimonials, security badges, or customer logos"
-        },
-        {
-          "heuristic": "h_perceived_signup_speed",
-          "priority": "high",
-          "description": "Signup process appears to take 85 seconds, which may cause abandonment",
-          "fix": "Minimize required fields and show progress indicators"
-        }
-      ],
       "expected_score_range": [
         55,
         70
       ],
       "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      }
+    }
+  ]
+}
+```
+
+**Validation Metrics:**
+```json
+{
+  "baseline_metrics": {
+    "macro_f1": 1.0,
+    "calibration": {
+      "r2": 0.517,
+      "n": 66
+    }
+  }
+}
+```
 ```
 
 ---

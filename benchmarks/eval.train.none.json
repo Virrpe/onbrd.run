@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-09-27T08:57:11.023Z",
+  "generatedAt": "2025-09-27T17:13:44.098Z",
   "config": {
     "shuffleLabels": false,
     "bandMidpoint": true,
@@ -8,35 +8,38 @@
   "baseline_metrics": {
     "checks": {
       "h_cta_above_fold": {
-        "precision": 0.6721,
+        "precision": 1,
         "recall": 1,
-        "f1": 0.8039
+        "f1": 1
       },
       "h_steps_count": {
-        "precision": 0.8571,
+        "precision": 1,
         "recall": 1,
-        "f1": 0.9231
+        "f1": 1
       },
       "h_copy_clarity": {
-        "precision": 0.7188,
+        "precision": 1,
         "recall": 1,
-        "f1": 0.8364
+        "f1": 1
       },
       "h_trust_markers": {
-        "precision": 0.5345,
-        "recall": 0.8857,
-        "f1": 0.6667
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
       },
       "h_perceived_signup_speed": {
-        "precision": 0.9375,
-        "recall": 0.8333,
-        "f1": 0.8824
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
       }
     },
     "calibration": {
       "r2": 0.517,
       "n": 66
     },
-    "macro_f1": 0.8225
+    "macro_f1": 1
+  },
+  "integrity": {
+    "baseline_label_hash": "988c6d6888920fb3d0d09e6a14036ac5d4e55ebbdac1d881e0783a7e40b02a31"
   }
 }

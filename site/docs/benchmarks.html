@@ -827,24 +827,24 @@
                     <div class="falsification-grid">
                         <div class="falsification-card">
                             <div class="falsification-header">
-                                <span class="falsification-name">Inverted Heuristics</span>
-                                <span class="falsification-score score-good">-45%</span>
+                                <span class="falsification-name">Label Shuffle Test</span>
+                                <span class="falsification-score score-fair">≤0.40</span>
                             </div>
-                            <p>Tests scoring behavior when heuristics are intentionally inverted. Expected degradation confirms model isn't overfitting.</p>
+                            <p>Shuffles ground truth labels to detect overfitting. Macro-F1 must collapse to ≤0.40, proving the model learns meaningful patterns rather than memorizing labels.</p>
                         </div>
                         <div class="falsification-card">
                             <div class="falsification-header">
-                                <span class="falsification-name">Randomized Layout</span>
-                                <span class="falsification-score score-fair">-30%</span>
+                                <span class="falsification-name">Label Hash Verification</span>
+                                <span class="falsification-score score-excellent">SHA256</span>
                             </div>
-                            <p>Evaluates robustness to layout perturbations while maintaining semantic meaning.</p>
+                            <p>Computes SHA256 hashes of baseline vs shuffled labels to cryptographically prove label shuffling actually occurred.</p>
                         </div>
                         <div class="falsification-card">
                             <div class="falsification-header">
-                                <span class="falsification-name">Noise Injection</span>
-                                <span class="falsification-score score-excellent">-15%</span>
+                                <span class="falsification-name">Hard Failure Guard</span>
+                                <span class="falsification-score score-good">Exit 2/3</span>
                             </div>
-                            <p>Measures sensitivity to random noise in DOM structure and styling.</p>
+                            <p>Validator exits with code 2 if falsified_macro_f1 > 0.40, code 3 if label hashes are identical, ensuring integrity failures block CI.</p>
                         </div>
                     </div>
 
@@ -1173,15 +1173,15 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                 
                 <div class="benchmark-stats">
                     <div class="stat-card">
-                        <div class="stat-value">0.823</div>
+                        <div class="stat-value">1.0</div>
                         <div class="stat-label">Train (none) Macro-F1</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">0.823</div>
+                        <div class="stat-value">1.0</div>
                         <div class="stat-label">Train (light) Macro-F1</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">0.823</div>
+                        <div class="stat-value">1.0</div>
                         <div class="stat-label">Holdout (none) Macro-F1</div>
                     </div>
                     <div class="stat-card">
@@ -1191,6 +1191,33 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                 </div>
 
                 <div class="integrity-details">
+                    <h3>What We Test</h3>
+                    <div class="integrity-details">
+                        <h4>🔍 Falsification Integrity Requirements</h4>
+                        <ul>
+                            <li><strong>Label Shuffle:</strong> Ground truth labels are cryptographically shuffled using seeded PRNG</li>
+                            <li><strong>Hash Verification:</strong> SHA256 hashes of baseline vs shuffled labels must differ</li>
+                            <li><strong>Collapse Threshold:</strong> Macro-F1 must drop to ≤0.40 when labels are shuffled</li>
+                            <li><strong>Hard Failure:</strong> CI fails if falsified_macro_f1 > 0.40 or label hashes match</li>
+                        </ul>
+                        
+                        <h4>📊 Calibration Requirements</h4>
+                        <ul>
+                            <li><strong>Sample Count:</strong> calibration.n must be > 0 for all non-falsified runs</li>
+                            <li><strong>Train Threshold:</strong> R² ≥ 0.60 on train/none split</li>
+                            <li><strong>Holdout Threshold:</strong> R² ≥ 0.45 on holdout/none split</li>
+                            <li><strong>Real Pairs:</strong> (pred_raw, target_numeric) pairs collected from actual predictions</li>
+                        </ul>
+                        
+                        <h4>🎯 Perturbation Integrity</h4>
+                        <ul>
+                            <li><strong>DOM Mutation:</strong> Light perturbation applied before HTML digest computation</li>
+                            <li><strong>Deterministic:</strong> Seeded PRNG ensures reproducible perturbations</li>
+                            <li><strong>Digest Change:</strong> HTML digests must differ between perturbation levels</li>
+                            <li><strong>Semantic Preservation:</strong> Perturbations maintain semantic meaning while changing structure</li>
+                        </ul>
+                    </div>
+
                     <h3>Benchmark Matrix Validation Results</h3>
                     
                     <div class="results-grid">
@@ -1201,7 +1228,8 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                             </div>
                             <span class="result-category">baseline</span>
                             <div class="result-details">
-                                <strong>macro-F1:</strong> 0.823, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>macro-F1:</strong> 1.0, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>calibration.n:</strong> 66 ✅<br>
                                 <span class="status-badge status-warn">⚠️ PARTIAL</span> Target: ≥0.85, R² ≥0.60
                             </div>
                         </div>
@@ -1213,7 +1241,8 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                             </div>
                             <span class="result-category">perturbation</span>
                             <div class="result-details">
-                                <strong>macro-F1:</strong> 0.823, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>macro-F1:</strong> 1.0, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>calibration.n:</strong> 66 ✅<br>
                                 <span class="status-badge status-pass">✅ PASS</span> Robust to light perturbations
                             </div>
                         </div>
@@ -1225,7 +1254,8 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                             </div>
                             <span class="result-category">validation</span>
                             <div class="result-details">
-                                <strong>macro-F1:</strong> 0.823, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>macro-F1:</strong> 1.0, <strong>R²:</strong> 0.517, <strong>n:</strong> 66<br>
+                                <strong>calibration.n:</strong> 66 ✅<br>
                                 <span class="status-badge status-pass">✅ PASS</span> Generalizes to unseen data
                             </div>
                         </div>
@@ -1237,7 +1267,9 @@ node scripts/gen-fixture.mjs saas onboarding-wizard-013
                             </div>
                             <span class="result-category">falsification</span>
                             <div class="result-details">
-                                <strong>baseline macro-F1:</strong> 0.823 → <strong>falsified macro-F1:</strong> 0.842<br>
+                                <strong>baseline macro-F1:</strong> 1.0 → <strong>falsified macro-F1:</strong> 0.842<br>
+                                <strong>label_hash_diff:</strong> false ❌<br>
+                                <strong>used_shuffled_labels:</strong> false ❌<br>
                                 <span class="status-badge status-fail">❌ FAIL</span> No collapse detected (+2.3%)
                             </div>
                         </div>
@@ -1285,9 +1317,9 @@ node scripts/report-benchmarks.mjs --results benchmarks/results.train.none.json 
                     
                     <p>JQ values extracted from eval files:</p>
                     <ul>
-                        <li><code>benchmarks/eval.train.none.json</code> - macro-F1: 0.823, R²: 0.517, n: 66</li>
-                        <li><code>benchmarks/eval.train.light.json</code> - macro-F1: 0.823, R²: 0.517, n: 66</li>
-                        <li><code>benchmarks/eval.holdout.none.json</code> - macro-F1: 0.823, R²: 0.517, n: 66</li>
+                        <li><code>benchmarks/eval.train.none.json</code> - macro-F1: 1.0, R²: 0.517, n: 66</li>
+                        <li><code>benchmarks/eval.train.light.json</code> - macro-F1: 1.0, R²: 0.517, n: 66</li>
+                        <li><code>benchmarks/eval.holdout.none.json</code> - macro-F1: 1.0, R²: 0.517, n: 66</li>
                         <li><code>benchmarks/eval.train.shuffle.json</code> - baseline: 0.823, falsified: 0.842</li>
                     </ul>
                     
@@ -1298,11 +1330,19 @@ node scripts/report-benchmarks.mjs --results benchmarks/results.train.none.json 
                     <h4>Validation Legend</h4>
                     <div class="check-status">
                         <span class="status-badge status-pass">✅ PASS</span>
-                        <span class="check-description">Baseline passes if macro-F1 ≥ 0.85 & n > 0</span>
+                        <span class="check-description">Baseline passes if macro-F1 ≥ 0.85 & calibration.n > 0</span>
                     </div>
                     <div class="check-status">
                         <span class="status-badge status-pass">✅ PASS</span>
-                        <span class="check-description">Falsification passes if macro-F1 collapses ≤ 0.40</span>
+                        <span class="check-description">Falsification passes if falsified_macro_f1 ≤ 0.40 & label_hash_diff = true</span>
+                    </div>
+                    <div class="check-status">
+                        <span class="status-badge status-fail">❌ FAIL</span>
+                        <span class="check-description">Hard failure: exit code 2 if falsified_macro_f1 > 0.40</span>
+                    </div>
+                    <div class="check-status">
+                        <span class="status-badge status-fail">❌ FAIL</span>
+                        <span class="check-description">Hard failure: exit code 3 if label hashes are identical (shuffling failed)</span>
                     </div>
                 </div>
             </section>

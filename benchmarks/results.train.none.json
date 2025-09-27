@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-27T08:28:23.206Z",
+  "timestamp": "2025-09-27T15:34:51.179Z",
   "seed": 12345,
   "total_benchmarks": 66,
   "summary": {
@@ -23,6 +23,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         70
@@ -31,19 +32,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          70
-        ]
       }
     },
     {
@@ -60,6 +48,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         40,
         60
@@ -68,19 +57,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          40,
-          60
-        ]
       }
     },
     {
@@ -97,6 +73,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         45,
         65
@@ -105,19 +82,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          45,
-          65
-        ]
       }
     },
     {
@@ -134,6 +98,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         90,
         100
@@ -142,19 +107,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          90,
-          100
-        ]
       }
     },
     {
@@ -171,6 +123,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         85
@@ -179,19 +132,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          85
-        ]
       }
     },
     {
@@ -208,6 +148,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         72,
         87
@@ -216,19 +157,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          72,
-          87
-        ]
       }
     },
     {
@@ -245,6 +173,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         45,
         65
@@ -253,19 +182,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          45,
-          65
-        ]
       }
     },
     {
@@ -282,6 +198,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         90
@@ -290,19 +207,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          90
-        ]
       }
     },
     {
@@ -319,6 +223,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         40,
         60
@@ -327,19 +232,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          40,
-          60
-        ]
       }
     },
     {
@@ -356,6 +248,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         85
@@ -364,19 +257,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          85
-        ]
       }
     },
     {
@@ -393,6 +273,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         80
@@ -401,19 +282,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          80
-        ]
       }
     },
     {
@@ -430,6 +298,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         35,
         55
@@ -438,19 +307,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          35,
-          55
-        ]
       }
     },
     {
@@ -467,6 +323,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         85
@@ -475,19 +332,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          85
-        ]
       }
     },
     {
@@ -504,6 +348,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         95
@@ -512,19 +357,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          95
-        ]
       }
     },
     {
@@ -541,6 +373,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         90
@@ -549,19 +382,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          90
-        ]
       }
     },
     {
@@ -578,6 +398,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         85,
         95
@@ -586,19 +407,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          85,
-          95
-        ]
       }
     },
     {
@@ -615,6 +423,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         50,
         65
@@ -623,19 +432,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          50,
-          65
-        ]
       }
     },
     {
@@ -652,6 +448,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         75
@@ -660,19 +457,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          75
-        ]
       }
     },
     {
@@ -689,6 +473,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         50,
         65
@@ -697,19 +482,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          50,
-          65
-        ]
       }
     },
     {
@@ -726,6 +498,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         90
@@ -734,19 +507,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          90
-        ]
       }
     },
     {
@@ -763,6 +523,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         70
@@ -771,19 +532,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          70
-        ]
       }
     },
     {
@@ -800,6 +548,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         60,
         70
@@ -808,19 +557,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          60,
-          70
-        ]
       }
     },
     {
@@ -837,6 +573,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         60,
         75
@@ -845,19 +582,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          60,
-          75
-        ]
       }
     },
     {
@@ -874,6 +598,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         85
@@ -882,19 +607,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          85
-        ]
       }
     },
     {
@@ -911,6 +623,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -919,19 +632,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -948,6 +648,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         50,
         60
@@ -956,19 +657,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          50,
-          60
-        ]
       }
     },
     {
@@ -985,6 +673,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         90
@@ -993,19 +682,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          90
-        ]
       }
     },
     {
@@ -1022,6 +698,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         85
@@ -1030,19 +707,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          85
-        ]
       }
     },
     {
@@ -1059,6 +723,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         75
@@ -1067,19 +732,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          75
-        ]
       }
     },
     {
@@ -1096,6 +748,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         60,
         70
@@ -1104,19 +757,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          60,
-          70
-        ]
       }
     },
     {
@@ -1133,6 +773,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1141,19 +782,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1170,6 +798,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         65
@@ -1178,19 +807,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          65
-        ]
       }
     },
     {
@@ -1207,6 +823,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         65
@@ -1215,19 +832,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          65
-        ]
       }
     },
     {
@@ -1244,6 +848,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1252,19 +857,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1281,6 +873,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         85
@@ -1289,19 +882,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          85
-        ]
       }
     },
     {
@@ -1318,6 +898,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         90
@@ -1326,19 +907,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          90
-        ]
       }
     },
     {
@@ -1355,6 +923,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         60,
         70
@@ -1363,19 +932,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          60,
-          70
-        ]
       }
     },
     {
@@ -1392,6 +948,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         85
@@ -1400,19 +957,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          85
-        ]
       }
     },
     {
@@ -1429,6 +973,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1437,19 +982,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1466,6 +998,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1474,19 +1007,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1503,6 +1023,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1511,19 +1032,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1540,6 +1048,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         90
@@ -1548,19 +1057,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          90
-        ]
       }
     },
     {
@@ -1577,6 +1073,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1585,19 +1082,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1614,6 +1098,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         70
@@ -1622,19 +1107,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          70
-        ]
       }
     },
     {
@@ -1651,6 +1123,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         75
@@ -1659,19 +1132,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          75
-        ]
       }
     },
     {
@@ -1688,6 +1148,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         45,
         60
@@ -1696,19 +1157,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          45,
-          60
-        ]
       }
     },
     {
@@ -1725,6 +1173,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         70
@@ -1733,19 +1182,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          70
-        ]
       }
     },
     {
@@ -1762,6 +1198,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         40,
         60
@@ -1770,19 +1207,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          40,
-          60
-        ]
       }
     },
     {
@@ -1799,6 +1223,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         55,
         70
@@ -1807,19 +1232,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          55,
-          70
-        ]
       }
     },
     {
@@ -1836,6 +1248,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         60,
         75
@@ -1844,19 +1257,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          60,
-          75
-        ]
       }
     },
     {
@@ -1873,6 +1273,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         85
@@ -1881,19 +1282,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          85
-        ]
       }
     },
     {
@@ -1910,6 +1298,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         50,
         65
@@ -1918,19 +1307,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          50,
-          65
-        ]
       }
     },
     {
@@ -1947,6 +1323,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         80
@@ -1955,19 +1332,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          80
-        ]
       }
     },
     {
@@ -1984,6 +1348,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         50,
         70
@@ -1992,19 +1357,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": true,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          50,
-          70
-        ]
       }
     },
     {
@@ -2021,6 +1373,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         80,
         95
@@ -2029,19 +1382,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          80,
-          95
-        ]
       }
     },
     {
@@ -2058,6 +1398,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         78,
         92
@@ -2066,19 +1407,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          78,
-          92
-        ]
       }
     },
     {
@@ -2095,6 +1423,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         72,
         87
@@ -2103,19 +1432,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          72,
-          87
-        ]
       }
     },
     {
@@ -2132,6 +1448,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         80
@@ -2140,19 +1457,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          80
-        ]
       }
     },
     {
@@ -2169,6 +1473,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         68,
         83
@@ -2177,19 +1482,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          68,
-          83
-        ]
       }
     },
     {
@@ -2206,6 +1498,7 @@
         "h_trust_markers": false,
         "h_perceived_signup_speed": false
       },
+      "html_digest": null,
       "expected_score_range": [
         15,
         35
@@ -2214,19 +1507,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": false,
-          "h_steps_count": false,
-          "h_copy_clarity": false,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": false
-        },
-        "score_band": [
-          15,
-          35
-        ]
       }
     },
     {
@@ -2243,6 +1523,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         85
@@ -2251,19 +1532,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          85
-        ]
       }
     },
     {
@@ -2280,6 +1548,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         65,
         80
@@ -2288,19 +1557,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": false,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          65,
-          80
-        ]
       }
     },
     {
@@ -2317,6 +1573,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         70,
         85
@@ -2325,19 +1582,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          70,
-          85
-        ]
       }
     },
     {
@@ -2354,6 +1598,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         75,
         95
@@ -2362,19 +1607,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          75,
-          95
-        ]
       }
     },
     {
@@ -2391,6 +1623,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         85,
         100
@@ -2399,19 +1632,6 @@
         "within_expected_range": false,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          85,
-          100
-        ]
       }
     },
     {
@@ -2428,6 +1648,7 @@
         "h_trust_markers": true,
         "h_perceived_signup_speed": true
       },
+      "html_digest": null,
       "expected_score_range": [
         68,
         82
@@ -2436,19 +1657,6 @@
         "within_expected_range": true,
         "meets_minimum": true,
         "meets_maximum": true
-      },
-      "expected": {
-        "checks": {
-          "h_cta_above_fold": true,
-          "h_steps_count": true,
-          "h_copy_clarity": true,
-          "h_trust_markers": true,
-          "h_perceived_signup_speed": true
-        },
-        "score_band": [
-          68,
-          82
-        ]
       }
     }
   ]
