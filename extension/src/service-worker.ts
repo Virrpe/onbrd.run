@@ -1,4 +1,5 @@
-import { MAX_RETRY, RETRY_BACKOFF_MINUTES, API_BASE_URL, RULES_TIMEOUT_MS } from './config';
+import { MAX_RETRY, RETRY_BACKOFF_MINUTES, API_BASE_URL, RULES_TIMEOUT_MS, LOCAL_ONLY, ALLOW_NETWORK } from './config';
+import { guardedFetch, NetworkDisabledError } from './net/guard';
 
 // persist ingest response for popup/report; add queue + flush on online
 async function storeBenchmark(resp: {percentile: number, median: number, count: number}) {
@@ -16,16 +17,22 @@ async function flushQueue() {
   const now = Date.now();
   const next = [];
   
+  // Check if network access is allowed before processing queue
+  if (LOCAL_ONLY && !ALLOW_NETWORK) {
+    console.log('[SW] Network access disabled in local-only mode, skipping queue flush');
+    return;
+  }
+  
   for (const item of onbrd_queue) {
-    if (item.nextAt > now) { 
-      next.push(item); 
-      continue; 
+    if (item.nextAt > now) {
+      next.push(item);
+      continue;
     }
     
     try {
-      const r = await fetch(`${(self as any).API_BASE_URL || API_BASE_URL}/api/v1/ingest`, {
-        method: 'POST', 
-        headers: {'content-type': 'application/json'}, 
+      const r = await guardedFetch(`${(self as any).API_BASE_URL || API_BASE_URL}/api/v1/ingest`, {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
         body: JSON.stringify(item.body)
       });
       
@@ -35,12 +42,15 @@ async function flushQueue() {
         continue;
       }
       throw new Error('http ' + r.status);
-    } catch {
-      item.tries++;
-      const idx = Math.min(item.tries - 1, 5);
-      const delayMin = RETRY_BACKOFF_MINUTES[idx];
-      item.nextAt = Date.now() + delayMin * 60 * 1000;
-      if (item.tries < MAX_RETRY) next.push(item);
+    } catch (error) {
+      // Only retry if it's not a NetworkDisabledError
+      if (!(error instanceof NetworkDisabledError)) {
+        item.tries++;
+        const idx = Math.min(item.tries - 1, 5);
+        const delayMin = RETRY_BACKOFF_MINUTES[idx];
+        item.nextAt = Date.now() + delayMin * 60 * 1000;
+        if (item.tries < MAX_RETRY) next.push(item);
+      }
     }
   }
   
@@ -101,17 +111,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function fetchConfig() {
+  // Check if network access is allowed before attempting fetch
+  if (LOCAL_ONLY && !ALLOW_NETWORK) {
+    console.log('[SW] Network access disabled in local-only mode, skipping config fetch');
+    return;
+  }
+  
   const controller = new AbortController();
   const id = setTimeout(()=>controller.abort(), RULES_TIMEOUT_MS);
   try {
     const url = `${(self as any).API_BASE_URL || API_BASE_URL}/api/v1/config`;
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await guardedFetch(url, { signal: controller.signal });
     clearTimeout(id);
     if (res.ok) {
       const cfg = await res.json();
       await chrome.storage.session.set({ onbrd_cfg: cfg });
     }
-  } catch {/* ignore */}
+  } catch (error) {
+    // Only log if it's not a NetworkDisabledError
+    if (!(error instanceof NetworkDisabledError)) {
+      console.log('[SW] Config fetch failed');
+    }
+  }
 }
 
 // Initialize on startup

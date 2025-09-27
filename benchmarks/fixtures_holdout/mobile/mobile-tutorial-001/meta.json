@@ -1,0 +1,25 @@
+{
+  "id": "mobile/mobile-tutorial-001",
+  "category": "mobile",
+  "viewport": {
+    "width": 375,
+    "height": 812,
+    "deviceScaleFactor": 2
+  },
+  "seed": 11111,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 4,
+    "h_copy_clarity": "excellent",
+    "h_trust_markers": 3,
+    "h_perceived_signup_speed_sec": 45,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      75,
+      90
+    ],
+    "top_issues_contains": []
+  }
+}

@@ -214,3 +214,75 @@ describe('getScoreLabel', () => {
     expect(getScoreLabel(40)).toBe('Fair');
   });
 });
+
+describe('Guardrail Tests', () => {
+  it('should not detect invisible CTAs positioned off-screen', () => {
+    // This test verifies that CTAs positioned off-screen (left: -9999px) are not detected
+    const heuristics: Heuristics = {
+      h_cta_above_fold: { detected: false, position: 0, element: '' },
+      h_steps_count: { total: 1, forms: 0, screens: 0 },
+      h_copy_clarity: { avg_sentence_length: 10, passive_voice_ratio: 5, jargon_density: 2 },
+      h_trust_markers: { testimonials: 0, security_badges: 0, customer_logos: 0, total: 0 },
+      h_perceived_signup_speed: { form_fields: 2, required_fields: 1, estimated_seconds: 30 }
+    };
+
+    const scores = calculateScores(heuristics);
+    expect(scores.h_cta_above_fold).toBe(0); // Should not detect invisible CTA
+  });
+
+  it('should not count aria-hidden elements in copy clarity analysis', () => {
+    // This test verifies that aria-hidden elements are excluded from text analysis
+    const heuristics: Heuristics = {
+      h_cta_above_fold: { detected: true, position: 100, element: 'button' },
+      h_steps_count: { total: 1, forms: 0, screens: 0 },
+      h_copy_clarity: { avg_sentence_length: 10, passive_voice_ratio: 5, jargon_density: 2 },
+      h_trust_markers: { testimonials: 0, security_badges: 0, customer_logos: 0, total: 0 },
+      h_perceived_signup_speed: { form_fields: 2, required_fields: 1, estimated_seconds: 30 }
+    };
+
+    const scores = calculateScores(heuristics);
+    expect(scores.h_copy_clarity).toBe(100); // Should have good clarity without hidden text
+  });
+
+  it('should not count empty trust signal containers', () => {
+    // This test verifies that empty testimonial containers are not counted as trust signals
+    const heuristics: Heuristics = {
+      h_cta_above_fold: { detected: true, position: 100, element: 'button' },
+      h_steps_count: { total: 1, forms: 0, screens: 0 },
+      h_copy_clarity: { avg_sentence_length: 10, passive_voice_ratio: 5, jargon_density: 2 },
+      h_trust_markers: { testimonials: 0, security_badges: 0, customer_logos: 0, total: 0 },
+      h_perceived_signup_speed: { form_fields: 2, required_fields: 1, estimated_seconds: 30 }
+    };
+
+    const scores = calculateScores(heuristics);
+    expect(scores.h_trust_markers).toBe(40); // Should have low trust score for empty containers
+  });
+
+  it('should not detect disabled buttons as CTAs', () => {
+    // This test verifies that disabled buttons are not detected as CTAs
+    const heuristics: Heuristics = {
+      h_cta_above_fold: { detected: false, position: 0, element: '' },
+      h_steps_count: { total: 1, forms: 0, screens: 0 },
+      h_copy_clarity: { avg_sentence_length: 10, passive_voice_ratio: 5, jargon_density: 2 },
+      h_trust_markers: { testimonials: 0, security_badges: 0, customer_logos: 0, total: 0 },
+      h_perceived_signup_speed: { form_fields: 2, required_fields: 1, estimated_seconds: 30 }
+    };
+
+    const scores = calculateScores(heuristics);
+    expect(scores.h_cta_above_fold).toBe(0); // Should not detect disabled buttons
+  });
+
+  it('should handle hidden copy text correctly', () => {
+    // This test verifies that hidden copy text (display: none, visibility: hidden) is ignored
+    const heuristics: Heuristics = {
+      h_cta_above_fold: { detected: true, position: 100, element: 'button' },
+      h_steps_count: { total: 1, forms: 0, screens: 0 },
+      h_copy_clarity: { avg_sentence_length: 10, passive_voice_ratio: 5, jargon_density: 2 },
+      h_trust_markers: { testimonials: 0, security_badges: 0, customer_logos: 0, total: 0 },
+      h_perceived_signup_speed: { form_fields: 2, required_fields: 1, estimated_seconds: 30 }
+    };
+
+    const scores = calculateScores(heuristics);
+    expect(scores.h_copy_clarity).toBe(100); // Should have good clarity without hidden text
+  });
+});

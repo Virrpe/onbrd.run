@@ -1,0 +1,37 @@
+{
+  "id": "holdout-saas-security-setup",
+  "name": "Holdout: SaaS Security Configuration",
+  "category": "saas",
+  "description": "Security-focused SaaS with SSO and compliance setup",
+  "url": "https://saas.example.com/security-setup",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 125,
+      "element": "button.secure-setup"
+    },
+    "h_steps_count": {
+      "total": 5,
+      "forms": 3,
+      "screens": 5
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 14,
+      "passive_voice_ratio": 11,
+      "jargon_density": 9
+    },
+    "h_trust_markers": {
+      "testimonials": 3,
+      "security_badges": 5,
+      "customer_logos": 6,
+      "total": 14
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 18,
+      "required_fields": 12,
+      "estimated_seconds": 150
+    }
+  },
+  "expected_score_range": [50, 65],
+  "notes": "Security-heavy setup with compliance requirements"
+}

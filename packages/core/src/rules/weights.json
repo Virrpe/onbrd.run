@@ -1,0 +1,19 @@
+{
+  "version": "0.2.c",
+  "updatedAt": "2025-09-27T08:30:00Z",
+  "categories": {
+    "CTA": 0.25,
+    "Steps": 0.20,
+    "Copy": 0.20,
+    "Trust": 0.20,
+    "Speed": 0.15
+  },
+  "mapping": {
+    "Foundation": "Speed",
+    "Attention": "CTA",
+    "Clarity": "Copy",
+    "Trust": "Trust",
+    "Action": "Steps",
+    "Retention": "Speed"
+  }
+}

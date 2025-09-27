@@ -1,0 +1,37 @@
+{
+  "id": "signup-basic",
+  "name": "Basic Signup Flow",
+  "category": "basic-signup",
+  "description": "Simple email/password registration with minimal friction",
+  "url": "https://example.com/signup",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 150,
+      "element": "button.signup-primary"
+    },
+    "h_steps_count": {
+      "total": 2,
+      "forms": 1,
+      "screens": 1
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 8,
+      "passive_voice_ratio": 5,
+      "jargon_density": 2
+    },
+    "h_trust_markers": {
+      "testimonials": 0,
+      "security_badges": 1,
+      "customer_logos": 0,
+      "total": 1
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 3,
+      "required_fields": 2,
+      "estimated_seconds": 25
+    }
+  },
+  "expected_score_range": [75, 95],
+  "notes": "Clean, minimal design with clear value proposition"
+}

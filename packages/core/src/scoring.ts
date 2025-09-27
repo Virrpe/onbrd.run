@@ -1,13 +1,54 @@
 import { Heuristics, Scores, Recommendation } from './types';
+import { applyCalibration, loadCalibrationConfig, DEFAULT_CALIBRATION } from './calibration';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-// Heuristic weights from docs/heuristics.md
-const HEURISTIC_WEIGHTS = {
+// Environment interface for deterministic operations
+export interface Env {
+  clock?: {
+    now(): number;
+  };
+  random?: () => number;
+}
+
+// Load calibration configuration
+let CALIBRATION_CONFIG = DEFAULT_CALIBRATION;
+try {
+  const configPath = join(__dirname, 'calibration_v0_2c.json');
+  const configJson = readFileSync(configPath, 'utf8');
+  CALIBRATION_CONFIG = loadCalibrationConfig(configJson);
+} catch (error) {
+  console.warn('Could not load calibration config, using default:', error);
+}
+
+// Load optimized weights from v0.2c configuration
+let HEURISTIC_WEIGHTS = {
   h_cta_above_fold: 0.25,
   h_steps_count: 0.20,
   h_copy_clarity: 0.20,
   h_trust_markers: 0.20,
   h_perceived_signup_speed: 0.15
 } as const;
+
+// Try to load optimized weights from v0.2c configuration
+try {
+  const weightsPath = join(__dirname, 'rules', 'weights.v0_2c.json');
+  const weightsJson = readFileSync(weightsPath, 'utf8');
+  const weightsConfig = JSON.parse(weightsJson);
+  const optimizedWeights = weightsConfig.weights;
+  
+  HEURISTIC_WEIGHTS = {
+    h_cta_above_fold: optimizedWeights.CTA,
+    h_steps_count: optimizedWeights.Steps,
+    h_copy_clarity: optimizedWeights.Copy,
+    h_trust_markers: optimizedWeights.Trust,
+    h_perceived_signup_speed: optimizedWeights.Speed
+  } as const;
+  
+  console.log('Loaded optimized weights v0.2c:', HEURISTIC_WEIGHTS);
+} catch (error) {
+  console.warn('Could not load optimized weights v0.2c, using defaults:', error);
+}
 
 // Heuristic fix texts from docs/heuristics.md
 const HEURISTIC_FIXES = {
@@ -19,24 +60,20 @@ const HEURISTIC_FIXES = {
 } as const;
 
 export interface ScoringResult {
-  overall: number;
+  overall: number; // Calibrated score S_cal ∈ [0,100]
+  overall_raw: number; // Raw heuristic score S_raw ∈ [0,100]
   individual: Scores;
+  individual_raw: Scores;
   issues: string[];
 }
 
-export function calculateWeightedScore(heuristics: Heuristics): number {
-  const scores = calculateScores(heuristics);
-  
-  return Math.round(
-    scores.h_cta_above_fold * HEURISTIC_WEIGHTS.h_cta_above_fold +
-    scores.h_steps_count * HEURISTIC_WEIGHTS.h_steps_count +
-    scores.h_copy_clarity * HEURISTIC_WEIGHTS.h_copy_clarity +
-    scores.h_trust_markers * HEURISTIC_WEIGHTS.h_trust_markers +
-    scores.h_perceived_signup_speed * HEURISTIC_WEIGHTS.h_perceived_signup_speed
-  );
+export function calculateWeightedScore(heuristics: Heuristics, env?: Env): number {
+  const scores = calculateScores(heuristics, env);
+  // Apply calibration to get the calibrated score
+  return applyCalibration(scores.overall, CALIBRATION_CONFIG);
 }
 
-export function calculateScores(heuristics: Heuristics): Scores {
+export function calculateScores(heuristics: Heuristics, _env?: Env): Scores {
   // Calculate scores based on heuristics with proper scoring logic from docs/heuristics.md
   
   // H-CTA-ABOVE-FOLD: 100% if detected, 0% if not
@@ -73,8 +110,8 @@ export function calculateScores(heuristics: Heuristics): Scores {
   else if (heuristics.h_perceived_signup_speed.estimated_seconds < 60) speedScore = 80;
   else if (heuristics.h_perceived_signup_speed.estimated_seconds < 120) speedScore = 60;
   
-  // Calculate weighted overall score
-  const overall = Math.round(
+  // Calculate weighted overall score (raw score ∈ [0,100])
+  const overall_raw = Math.round(
     ctaScore * HEURISTIC_WEIGHTS.h_cta_above_fold +
     stepsScore * HEURISTIC_WEIGHTS.h_steps_count +
     copyScore * HEURISTIC_WEIGHTS.h_copy_clarity +
@@ -82,17 +119,20 @@ export function calculateScores(heuristics: Heuristics): Scores {
     speedScore * HEURISTIC_WEIGHTS.h_perceived_signup_speed
   );
   
+  // Apply calibration to get the calibrated score
+  const overall_calibrated = applyCalibration(overall_raw, CALIBRATION_CONFIG);
+  
   return {
     h_cta_above_fold: ctaScore,
     h_steps_count: stepsScore,
     h_copy_clarity: copyScore,
     h_trust_markers: trustScore,
     h_perceived_signup_speed: speedScore,
-    overall
+    overall: overall_calibrated // This is the calibrated score S_cal ∈ [0,100]
   };
 }
 
-export function generateIssues(heuristics: Heuristics): string[] {
+export function generateIssues(heuristics: Heuristics, _env?: Env): string[] {
   const issues: string[] = [];
   
   // H-CTA-ABOVE-FOLD issue
@@ -131,7 +171,7 @@ export function generateIssues(heuristics: Heuristics): string[] {
   return issues;
 }
 
-export function generateRecommendations(heuristics: Heuristics): Recommendation[] {
+export function generateRecommendations(heuristics: Heuristics, _env?: Env): Recommendation[] {
   const recommendations: Recommendation[] = [];
   
   // H-CTA-ABOVE-FOLD recommendation

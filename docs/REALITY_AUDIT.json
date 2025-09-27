@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-09-25T17:45:49.438Z",
+  "branch": "chore/reality-audit",
+  "findings": {
+    "extension": {
+      "status": "FOUND",
+      "version": "0.1.7",
+      "permissions": {
+        "activeTab": true,
+        "scripting": true,
+        "storage": true
+      },
+      "chromeAPIs": 65,
+      "details": "Chrome extension v0.1.7 with 65 API usages"
+    },
+    "scoring": {
+      "status": "FOUND",
+      "weights": "h_cta_above_fold: 0.25,\n  h_steps_count: 0.20,\n  h_copy_clarity: 0.20,\n  h_trust_markers: 0.20,\n  h_perceived_signup_speed: 0.15",
+      "rulesCount": 18,
+      "details": "Scoring system implemented with weighted heuristics"
+    },
+    "ai": {
+      "status": "DETECTED",
+      "lines": 390,
+      "providers": {
+        "openai": true,
+        "anthropic": true,
+        "claude": true,
+        "gpt": true
+      },
+      "details": "AI usage detected in 390 locations"
+    },
+    "determinism": {
+      "status": "ISSUES DETECTED",
+      "randomness": {
+        "detected": true,
+        "lines": 108
+      },
+      "locale": {
+        "detected": true,
+        "lines": 394
+      },
+      "details": "Non-deterministic elements found"
+    },
+    "privacy": {
+      "status": "PRIVACY CONCERNS",
+      "networkExfiltration": false,
+      "websocketUsage": true,
+      "details": "Network communication detected"
+    },
+    "site": {
+      "status": "ANALYZED",
+      "content": {
+        "howItWorks": true,
+        "scoring": true,
+        "localProcessing": true,
+        "checksPage": true,
+        "scoringPage": true
+      },
+      "details": "Homepage analyzed, documentation pages: found"
+    }
+  },
+  "realityCheck": {
+    "localProcessing": false,
+    "noAI": false,
+    "deterministic": false,
+    "privacyFirst": false
+  }
+}

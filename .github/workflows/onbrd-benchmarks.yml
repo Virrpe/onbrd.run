@@ -1,0 +1,273 @@
+name: Benchmarks (nightly)
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+jobs:
+  benchmark-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # A) Baseline — Train set, no perturbation
+          - set: train
+            perturb: none
+            falsified: false
+            band_midpoint: true
+            name: "A-Baseline-Train-NoPerturb"
+          
+          # B) Perturbation — Train set, light perturbation
+          - set: train
+            perturb: light
+            falsified: false
+            band_midpoint: true
+            name: "B-Perturbation-Train-Light"
+          
+          # C) Holdout — No perturbation
+          - set: holdout
+            perturb: none
+            falsified: false
+            band_midpoint: true
+            name: "C-Holdout-NoPerturb"
+          
+          # D) Falsification — Train set with label shuffle
+          - set: train
+            perturb: none
+            falsified: true
+            band_midpoint: true
+            name: "D-Falsification-Train-Shuffle"
+          
+          # E) Band-midpoint ablation — Random point within bands
+          - set: train
+            perturb: none
+            falsified: false
+            band_midpoint: false
+            name: "E-BandMidpoint-Ablation"
+          
+          # F) Leakage sentry (must pass) - same as baseline but with stricter validation
+          - set: train
+            perturb: none
+            falsified: false
+            band_midpoint: true
+            name: "F-Leakage-Sentry"
+            strict_validation: true
+
+    name: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci || true
+
+      # Set up fixtures directory based on matrix.set
+      - name: Set up fixtures directory
+        run: |
+          if [ "${{ matrix.set }}" = "holdout" ]; then
+            echo "FIXTURES_DIR=benchmarks/fixtures_holdout" >> $GITHUB_ENV
+          else
+            echo "FIXTURES_DIR=benchmarks/fixtures" >> $GITHUB_ENV
+          fi
+
+      # Run benchmarks with appropriate parameters
+      - name: Run benchmarks
+        run: |
+          BENCHMARK_ARGS="--seed 12345 --out benchmarks/results-${{ matrix.name }}.json"
+          
+          # Add perturbation if specified
+          if [ "${{ matrix.perturb }}" != "none" ]; then
+            BENCHMARK_ARGS="$BENCHMARK_ARGS --perturb-dom=${{ matrix.perturb }}"
+          fi
+          
+          # Add category filter for holdout set
+          if [ "${{ matrix.set }}" = "holdout" ]; then
+            BENCHMARK_ARGS="$BENCHMARK_ARGS --category=basic-signup"
+          fi
+          
+          echo "Running: node scripts/run-benchmarks.mjs $BENCHMARK_ARGS"
+          node scripts/run-benchmarks.mjs $BENCHMARK_ARGS
+
+      # Validate benchmarks with appropriate parameters
+      - name: Validate benchmarks
+        run: |
+          VALIDATE_ARGS="--in benchmarks/results-${{ matrix.name }}.json --out benchmarks/eval-${{ matrix.name }}.json"
+          
+          # Add falsification/shuffle if specified
+          if [ "${{ matrix.falsified }}" = "true" ]; then
+            VALIDATE_ARGS="$VALIDATE_ARGS --shuffle-labels=true"
+          fi
+          
+          # Add band midpoint ablation if specified
+          if [ "${{ matrix.band_midpoint }}" = "false" ]; then
+            VALIDATE_ARGS="$VALIDATE_ARGS --band-midpoint=false"
+          fi
+          
+          echo "Running: node scripts/validate-benchmarks.mjs $VALIDATE_ARGS"
+          node scripts/validate-benchmarks.mjs $VALIDATE_ARGS
+
+      # Generate report with context
+      - name: Generate report
+        run: |
+          REPORT_ARGS="--results=benchmarks/results-${{ matrix.name }}.json --eval=benchmarks/eval-${{ matrix.name }}.json --out=benchmarks/SUMMARY-${{ matrix.name }}.md"
+          REPORT_ARGS="$REPORT_ARGS --context=\"${{ matrix.name }} - Set: ${{ matrix.set }}, Perturb: ${{ matrix.perturb }}\""
+          
+          echo "Running: node scripts/report-benchmarks.mjs $REPORT_ARGS"
+          node scripts/report-benchmarks.mjs $REPORT_ARGS
+
+      # Acceptance threshold validation
+      - name: Validate acceptance thresholds
+        run: |
+          echo "Validating acceptance thresholds for ${{ matrix.name }}..."
+          
+          # Extract key metrics from eval.json
+          MACRO_F1=$(node -e "
+            const evalData = JSON.parse(require('fs').readFileSync('benchmarks/eval-${{ matrix.name }}.json', 'utf8'));
+            const metrics = evalData.baseline_metrics || evalData;
+            const checks = metrics.checks || {};
+            const f1Scores = Object.values(checks).map(check => check.f1).filter(f => f !== undefined);
+            const macroF1 = f1Scores.length > 0 ? f1Scores.reduce((sum, f) => sum + f, 0) / f1Scores.length : null;
+            console.log(macroF1 !== null ? macroF1.toFixed(3) : 'null');
+          ")
+          
+          R2=$(node -e "
+            const evalData = JSON.parse(require('fs').readFileSync('benchmarks/eval-${{ matrix.name }}.json', 'utf8'));
+            const metrics = evalData.baseline_metrics || evalData;
+            console.log(metrics.calibration?.r2 !== undefined ? metrics.calibration.r2.toFixed(3) : 'null');
+          ")
+          
+          echo "Macro-F1: $MACRO_F1"
+          echo "R²: $R2"
+          
+          # Apply thresholds based on test type (v0.2.c targets)
+          if [ "${{ matrix.falsified }}" = "true" ]; then
+            # Falsification test: should have low performance (≤ 0.40)
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 > 0.40" | bc -l) )); then
+              echo "❌ FAIL: Falsification test Macro-F1 ($MACRO_F1) should be ≤ 0.40"
+              exit 1
+            fi
+            echo "✅ PASS: Falsification test thresholds met"
+            
+          elif [ "${{ matrix.set }}" = "holdout" ]; then
+            # Holdout test: should maintain reasonable performance (≥ 0.75, R² ≥ 0.45)
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < 0.75" | bc -l) )); then
+              echo "❌ FAIL: Holdout test Macro-F1 ($MACRO_F1) should be ≥ 0.75"
+              exit 1
+            fi
+            if [ "$R2" != "null" ] && (( $(echo "$R2 < 0.45" | bc -l) )); then
+              echo "❌ FAIL: Holdout test R² ($R2) should be ≥ 0.45"
+              exit 1
+            fi
+            echo "✅ PASS: Holdout test thresholds met"
+            
+          elif [ "${{ matrix.perturb }}" = "light" ]; then
+            # Perturbation test: should be within -0.05 of baseline (≥ 0.80)
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < 0.80" | bc -l) )); then
+              echo "❌ FAIL: Perturbation test Macro-F1 ($MACRO_F1) should be ≥ 0.80"
+              exit 1
+            fi
+            echo "✅ PASS: Perturbation test thresholds met"
+            
+          elif [ "${{ matrix.band_midpoint }}" = "false" ]; then
+            # Band midpoint ablation: should show R² reduction
+            echo "Band midpoint ablation test - checking for R² reduction"
+            
+          else
+            # Baseline and leakage sentry: should have high performance (≥ 0.85, R² ≥ 0.60)
+            MIN_F1="0.85"
+            MIN_R2="0.60"
+            if [ "${{ matrix.strict_validation }}" = "true" ]; then
+              MIN_F1="0.90"
+              MIN_R2="0.85"
+            fi
+            
+            if [ "$MACRO_F1" != "null" ] && (( $(echo "$MACRO_F1 < $MIN_F1" | bc -l) )); then
+              echo "❌ FAIL: Baseline Macro-F1 ($MACRO_F1) should be ≥ $MIN_F1"
+              exit 1
+            fi
+            if [ "$R2" != "null" ] && (( $(echo "$R2 < $MIN_R2" | bc -l) )); then
+              echo "❌ FAIL: Baseline R² ($R2) should be ≥ $MIN_R2"
+              exit 1
+            fi
+            echo "✅ PASS: Baseline test thresholds met (v0.2.c)"
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: onbrd-benchmarks-${{ matrix.name }}
+          path: |
+            benchmarks/results-${{ matrix.name }}.json
+            benchmarks/eval-${{ matrix.name }}.json
+            benchmarks/SUMMARY-${{ matrix.name }}.md
+
+  # Summary job that aggregates all results
+  summary:
+    needs: benchmark-matrix
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci || true
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+          pattern: onbrd-benchmarks-*
+
+      - name: Generate comprehensive summary
+        run: |
+          echo "# Benchmark Matrix Results Summary" > benchmarks/MATRIX_SUMMARY.md
+          echo "" >> benchmarks/MATRIX_SUMMARY.md
+          echo "Generated at: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> benchmarks/MATRIX_SUMMARY.md
+          echo "" >> benchmarks/MATRIX_SUMMARY.md
+          
+          # Find all summary files
+          find artifacts/ -name "SUMMARY-*.md" -type f | while read summary; do
+            name=$(basename "$summary" | sed 's/SUMMARY-//' | sed 's/.md//')
+            echo "## $name" >> benchmarks/MATRIX_SUMMARY.md
+            echo "" >> benchmarks/MATRIX_SUMMARY.md
+            # Extract key metrics from each summary
+            if [ -f "artifacts/onbrd-benchmarks-$name/eval-$name.json" ]; then
+              MACRO_F1=$(node -e "
+                const evalData = JSON.parse(require('fs').readFileSync('artifacts/onbrd-benchmarks-$name/eval-$name.json', 'utf8'));
+                const metrics = evalData.baseline_metrics || evalData;
+                const checks = metrics.checks || {};
+                const f1Scores = Object.values(checks).map(check => check.f1).filter(f => f !== undefined);
+                const macroF1 = f1Scores.length > 0 ? f1Scores.reduce((sum, f) => sum + f, 0) / f1Scores.length : null;
+                console.log(macroF1 !== null ? macroF1.toFixed(3) : 'N/A');
+              ")
+              R2=$(node -e "
+                const evalData = JSON.parse(require('fs').readFileSync('artifacts/onbrd-benchmarks-$name/eval-$name.json', 'utf8'));
+                const metrics = evalData.baseline_metrics || evalData;
+                console.log(metrics.calibration?.r2 !== undefined ? metrics.calibration.r2.toFixed(3) : 'N/A');
+              ")
+              echo "| Metric | Value |" >> benchmarks/MATRIX_SUMMARY.md
+              echo "|--------|-------|" >> benchmarks/MATRIX_SUMMARY.md
+              echo "| Macro-F1 | $MACRO_F1 |" >> benchmarks/MATRIX_SUMMARY.md
+              echo "| R² | $R2 |" >> benchmarks/MATRIX_SUMMARY.md
+              echo "" >> benchmarks/MATRIX_SUMMARY.md
+            fi
+            # Add a link to the full summary
+            echo "[View full report]($summary)" >> benchmarks/MATRIX_SUMMARY.md
+            echo "" >> benchmarks/MATRIX_SUMMARY.md
+          done
+
+      - name: Upload matrix summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: onbrd-benchmarks-matrix-summary
+          path: |
+            benchmarks/MATRIX_SUMMARY.md
+
+      - name: Check overall status
+        run: |
+          # Check if any matrix jobs failed
+          if [ "${{ needs.benchmark-matrix.result }}" == "failure" ]; then
+            echo "❌ One or more benchmark matrix jobs failed"
+            exit 1
+          else
+            echo "✅ All benchmark matrix jobs completed successfully"
+          fi

@@ -4,6 +4,30 @@ import manifest from './manifest.json'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { resolve } from 'path'
 import preprocess from 'svelte-preprocess'
+import { readFileSync } from 'fs'
+
+// Read build metadata
+function getBuildMetadata() {
+  try {
+    const rulesetHash = readFileSync(resolve(__dirname, 'src/scoring/weights.hash'), 'utf8').trim()
+    return {
+      rulesetHash,
+      rulesetVersion: '1.1.0',
+      buildId: `build-${Date.now()}`,
+      mode: 'local' as const
+    }
+  } catch (error) {
+    // Fallback values if weights.hash doesn't exist
+    return {
+      rulesetHash: 'unknown',
+      rulesetVersion: '1.1.0',
+      buildId: `dev-${Date.now()}`,
+      mode: 'local' as const
+    }
+  }
+}
+
+const buildMetadata = getBuildMetadata()
 
 export default defineConfig(({ mode }) => ({
   root: __dirname,
@@ -52,5 +76,9 @@ export default defineConfig(({ mode }) => ({
   },
   define: {
     'import.meta.env.VITE_DEBUG_LOGS': JSON.stringify(mode !== 'production'),
+    'BUILD_ID': JSON.stringify(buildMetadata.buildId),
+    'MODE': JSON.stringify(buildMetadata.mode),
+    'RULESET_HASH': JSON.stringify(buildMetadata.rulesetHash),
+    'RULESET_VERSION': JSON.stringify(buildMetadata.rulesetVersion),
   },
 }))

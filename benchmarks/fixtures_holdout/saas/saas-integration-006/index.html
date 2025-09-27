@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Integration Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 2rem;
+        }
+        
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .integration-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .integration-card:hover {
+            border-color: #4299e1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(66, 153, 225, 0.15);
+        }
+        
+        .integration-card.selected {
+            border-color: #4299e1;
+            background: #ebf8ff;
+        }
+        
+        .integration-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .integration-icon.slack { background: #4a154b; color: white; }
+        .integration-icon.google { background: #4285f4; color: white; }
+        .integration-icon.github { background: #24292e; color: white; }
+        .integration-icon.trello { background: #0079bf; color: white; }
+        .integration-icon.zoom { background: #2d8cff; color: white; }
+        .integration-icon.dropbox { background: #0061ff; color: white; }
+        
+        .integration-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .integration-description {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .selected-integrations {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .selected-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .selected-header h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+        }
+        
+        .selected-count {
+            background: #4299e1;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .selected-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .selected-item {
+            background: #ebf8ff;
+            border: 1px solid #4299e1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .selected-item span {
+            color: #2b6cb0;
+            font-weight: 500;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #4299e1;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .signup-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: #718096;
+        }
+        
+        .signup-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4299e1;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .btn-primary {
+            grid-column: 1 / -1;
+            padding: 1rem 2rem;
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #3182ce;
+        }
+        
+        .btn-primary:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Connect Your Favorite Tools</h1>
+            <p>Choose from 50+ integrations to streamline your workflow</p>
+        </div>
+        
+        <div class="integration-grid">
+            <div class="integration-card" onclick="toggleIntegration(this, 'Slack')">
+                <div class="integration-icon slack">💬</div>
+                <div class="integration-name">Slack</div>
+                <div class="integration-description">Team communication</div>
+            </div>
+            
+            <div class="integration-card" onclick="toggleIntegration(this, 'Google Workspace')">
+                <div class="integration-icon google">📧</div>
+                <div class="integration-name">Google Workspace</div>
+                <div class="integration-description">Email and productivity</div>
+            </div>
+            
+            <div class="integration-card" onclick="toggleIntegration(this, 'GitHub')">
+                <div class="integration-icon github">🐙</div>
+                <div class="integration-name">GitHub</div>
+                <div class="integration-description">Code repository</div>
+            </div>
+            
+            <div class="integration-card" onclick="toggleIntegration(this, 'Trello')">
+                <div class="integration-icon trello">📋</div>
+                <div class="integration-name">Trello</div>
+                <div class="integration-description">Project management</div>
+            </div>
+            
+            <div class="integration-card" onclick="toggleIntegration(this, 'Zoom')">
+                <div class="integration-icon zoom">📹</div>
+                <div class="integration-name">Zoom</div>
+                <div class="integration-description">Video conferencing</div>
+            </div>
+            
+            <div class="integration-card" onclick="toggleIntegration(this, 'Dropbox')">
+                <div class="integration-icon dropbox">📁</div>
+                <div class="integration-name">Dropbox</div>
+                <div class="integration-description">File storage</div>
+            </div>
+        </div>
+        
+        <div class="selected-integrations" id="selectedSection" style="display: none;">
+            <div class="selected-header">
+                <h3>Selected Integrations</h3>
+                <div class="selected-count" id="selectedCount">0</div>
+            </div>
+            <div class="selected-list" id="selectedList"></div>
+        </div>
+        
+        <div class="signup-section">
+            <div class="signup-header">
+                <h3>Create Your Account</h3>
+                <p>Connect your tools and start automating your workflow</p>
+            </div>
+            
+            <form class="signup-form">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary" id="submitBtn" disabled>Continue to Setup</button>
+            </form>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Free 30-day trial</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>SSL encrypted</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>24/7 support</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedIntegrations = [];
+        
+        function toggleIntegration(element, name) {
+            element.classList.toggle('selected');
+            
+            if (selectedIntegrations.includes(name)) {
+                selectedIntegrations = selectedIntegrations.filter(int => int !== name);
+            } else {
+                selectedIntegrations.push(name);
+            }
+            
+            updateSelectedDisplay();
+            updateSubmitButton();
+        }
+        
+        function updateSelectedDisplay() {
+            const selectedSection = document.getElementById('selectedSection');
+            const selectedList = document.getElementById('selectedList');
+            const selectedCount = document.getElementById('selectedCount');
+            
+            if (selectedIntegrations.length === 0) {
+                selectedSection.style.display = 'none';
+            } else {
+                selectedSection.style.display = 'block';
+                selectedCount.textContent = selectedIntegrations.length;
+                
+                selectedList.innerHTML = selectedIntegrations.map(int => `
+                    <div class="selected-item">
+                        <span>${int}</span>
+                        <button type="button" class="remove-item" onclick="removeIntegration('${int}')">×</button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function removeIntegration(name) {
+            selectedIntegrations = selectedIntegrations.filter(int => int !== name);
+            
+            // Remove selected class from the card
+            const cards = document.querySelectorAll('.integration-card');
+            cards.forEach(card => {
+                if (card.querySelector('.integration-name').textContent === name) {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            updateSelectedDisplay();
+            updateSubmitButton();
+        }
+        
+        function updateSubmitButton() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = selectedIntegrations.length === 0;
+        }
+    </script>
+</body>
+</html>

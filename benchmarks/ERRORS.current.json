@@ -1,0 +1,445 @@
+{
+  "generated_at": "2025-09-27T07:58:38.464Z",
+  "results_path": "benchmarks/results.json",
+  "summary": {
+    "total_benchmarks": 66,
+    "total_errors": 48,
+    "error_rate": 0.14545454545454545
+  },
+  "confusion_matrices": {
+    "h_cta_above_fold": {
+      "true_positives": 52,
+      "false_positives": 9,
+      "true_negatives": 3,
+      "false_negatives": 2
+    },
+    "h_steps_count": {
+      "true_positives": 62,
+      "false_positives": 1,
+      "true_negatives": 1,
+      "false_negatives": 2
+    },
+    "h_copy_clarity": {
+      "true_positives": 64,
+      "false_positives": 0,
+      "true_negatives": 2,
+      "false_negatives": 0
+    },
+    "h_trust_markers": {
+      "true_positives": 48,
+      "false_positives": 10,
+      "true_negatives": 2,
+      "false_negatives": 6
+    },
+    "h_perceived_signup_speed": {
+      "true_positives": 47,
+      "false_positives": 1,
+      "true_negatives": 1,
+      "false_negatives": 17
+    }
+  },
+  "metrics": {
+    "h_cta_above_fold": {
+      "precision": 0.8524590163934426,
+      "recall": 0.9629629629629629,
+      "f1": 0.9043478260869565
+    },
+    "h_steps_count": {
+      "precision": 0.9841269841269841,
+      "recall": 0.96875,
+      "f1": 0.9763779527559054
+    },
+    "h_copy_clarity": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "h_trust_markers": {
+      "precision": 0.8275862068965517,
+      "recall": 0.8888888888888888,
+      "f1": 0.8571428571428572
+    },
+    "h_perceived_signup_speed": {
+      "precision": 0.9791666666666666,
+      "recall": 0.734375,
+      "f1": 0.8392857142857143
+    }
+  },
+  "by_category": {
+    "ecommerce": {
+      "total": 12,
+      "errors": 7,
+      "false_positives": [
+        {
+          "id": "holdout-ecommerce-account-creation-checkout",
+          "name": "Holdout: Ecommerce Account Creation Checkout",
+          "check": "h_cta_above_fold",
+          "score": 71.3992,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-ecommerce-account-creation-checkout",
+          "name": "Holdout: Ecommerce Account Creation Checkout",
+          "check": "h_trust_markers",
+          "score": 71.3992,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-ecommerce-compliance-verification",
+          "name": "Holdout: Ecommerce Compliance Verification",
+          "check": "h_cta_above_fold",
+          "score": 74.55,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-ecommerce-compliance-verification",
+          "name": "Holdout: Ecommerce Compliance Verification",
+          "check": "h_trust_markers",
+          "score": 74.55,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        }
+      ],
+      "false_negatives": [
+        {
+          "id": "account-creation-checkout",
+          "name": "Account Creation During Checkout",
+          "check": "h_cta_above_fold",
+          "score": 50.919,
+          "reason": "CTA not detected above fold but should be (possibly below threshold or hidden)"
+        },
+        {
+          "id": "holdout-ecommerce-account-creation-checkout",
+          "name": "Holdout: Ecommerce Account Creation Checkout",
+          "check": "h_perceived_signup_speed",
+          "score": 71.3992,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-ecommerce-multi-step-checkout",
+          "name": "Holdout: Ecommerce Multi-Step Checkout",
+          "check": "h_perceived_signup_speed",
+          "score": 71.3992,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        }
+      ]
+    },
+    "enterprise": {
+      "total": 12,
+      "errors": 17,
+      "false_positives": [
+        {
+          "id": "compliance-verification",
+          "name": "Compliance Verification",
+          "check": "h_cta_above_fold",
+          "score": 62.7345,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "compliance-verification",
+          "name": "Compliance Verification",
+          "check": "h_trust_markers",
+          "score": 62.7345,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "enterprise-multi-user",
+          "name": "Enterprise Multi-User Setup",
+          "check": "h_cta_above_fold",
+          "score": 61.946799999999996,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "enterprise-multi-user",
+          "name": "Enterprise Multi-User Setup",
+          "check": "h_trust_markers",
+          "score": 61.946799999999996,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-enterprise-compliance-setup",
+          "name": "Holdout: Enterprise Compliance Setup",
+          "check": "h_trust_markers",
+          "score": 42.2543,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        }
+      ],
+      "false_negatives": [
+        {
+          "id": "compliance-verification",
+          "name": "Compliance Verification",
+          "check": "h_perceived_signup_speed",
+          "score": 62.7345,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "enterprise-multi-user",
+          "name": "Enterprise Multi-User Setup",
+          "check": "h_steps_count",
+          "score": 61.946799999999996,
+          "reason": "Steps not counted properly (possibly complex flow or missing indicators)"
+        },
+        {
+          "id": "enterprise-multi-user",
+          "name": "Enterprise Multi-User Setup",
+          "check": "h_perceived_signup_speed",
+          "score": 61.946799999999996,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-compliance-setup",
+          "name": "Holdout: Enterprise Compliance Setup",
+          "check": "h_steps_count",
+          "score": 42.2543,
+          "reason": "Steps not counted properly (possibly complex flow or missing indicators)"
+        },
+        {
+          "id": "holdout-enterprise-compliance-setup",
+          "name": "Holdout: Enterprise Compliance Setup",
+          "check": "h_perceived_signup_speed",
+          "score": 42.2543,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-integration-setup",
+          "name": "Holdout: Enterprise Integration Setup",
+          "check": "h_perceived_signup_speed",
+          "score": 69.82379999999999,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-multi-user-setup",
+          "name": "Holdout: Enterprise Multi-User Setup",
+          "check": "h_perceived_signup_speed",
+          "score": 67.46069999999999,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-onboarding-wizard",
+          "name": "Holdout: Enterprise Onboarding Wizard",
+          "check": "h_perceived_signup_speed",
+          "score": 67.46069999999999,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-security-config",
+          "name": "Holdout: Enterprise Security Configuration",
+          "check": "h_perceived_signup_speed",
+          "score": 66.673,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-enterprise-sso-config",
+          "name": "Holdout: Enterprise SSO Configuration",
+          "check": "h_cta_above_fold",
+          "score": 45.4051,
+          "reason": "CTA not detected above fold but should be (possibly below threshold or hidden)"
+        },
+        {
+          "id": "holdout-enterprise-sso-config",
+          "name": "Holdout: Enterprise SSO Configuration",
+          "check": "h_perceived_signup_speed",
+          "score": 45.4051,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "integration-config",
+          "name": "Integration Configuration",
+          "check": "h_perceived_signup_speed",
+          "score": 65.0976,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        }
+      ]
+    },
+    "basic-signup": {
+      "total": 16,
+      "errors": 9,
+      "false_positives": [
+        {
+          "id": "holdout-basic-signup-below-fold",
+          "name": "Holdout: CTA Below Fold",
+          "check": "h_trust_markers",
+          "score": 61.946799999999996,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-basic-signup-long-form",
+          "name": "Holdout: Long Comprehensive Form",
+          "check": "h_cta_above_fold",
+          "score": 74.55,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-basic-signup-long-form",
+          "name": "Holdout: Long Comprehensive Form",
+          "check": "h_trust_markers",
+          "score": 74.55,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-basic-signup-poor-copy",
+          "name": "Holdout: Poor Copy Quality",
+          "check": "h_cta_above_fold",
+          "score": 63.5222,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-basic-signup-poor-copy",
+          "name": "Holdout: Poor Copy Quality",
+          "check": "h_steps_count",
+          "score": 63.5222,
+          "reason": "Too many steps detected (possibly counting navigation or decorative elements)"
+        },
+        {
+          "id": "holdout-basic-signup-poor-copy",
+          "name": "Holdout: Poor Copy Quality",
+          "check": "h_perceived_signup_speed",
+          "score": 63.5222,
+          "reason": "Signup speed estimated as fast but shouldn't be (possibly missing required fields or time cues)"
+        }
+      ],
+      "false_negatives": [
+        {
+          "id": "holdout-basic-signup-long-form",
+          "name": "Holdout: Long Comprehensive Form",
+          "check": "h_perceived_signup_speed",
+          "score": 74.55,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-basic-signup-minimal-form",
+          "name": "Holdout: Minimal Form Design",
+          "check": "h_trust_markers",
+          "score": 72.1869,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        },
+        {
+          "id": "holdout-basic-signup-simple-email",
+          "name": "Holdout: Simple Email Signup",
+          "check": "h_trust_markers",
+          "score": 72.1869,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        }
+      ]
+    },
+    "saas": {
+      "total": 14,
+      "errors": 11,
+      "false_positives": [
+        {
+          "id": "holdout-saas-custom-workflow",
+          "name": "Holdout: SaaS Custom Workflow Builder",
+          "check": "h_cta_above_fold",
+          "score": 66.673,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-saas-custom-workflow",
+          "name": "Holdout: SaaS Custom Workflow Builder",
+          "check": "h_trust_markers",
+          "score": 66.673,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-saas-enterprise-config",
+          "name": "Holdout: SaaS Enterprise Configuration",
+          "check": "h_cta_above_fold",
+          "score": 66.673,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-saas-enterprise-config",
+          "name": "Holdout: SaaS Enterprise Configuration",
+          "check": "h_trust_markers",
+          "score": 66.673,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        },
+        {
+          "id": "holdout-saas-security-setup",
+          "name": "Holdout: SaaS Security Configuration",
+          "check": "h_cta_above_fold",
+          "score": 68.24839999999999,
+          "reason": "CTA detected above fold but shouldn't be (possibly decorative element or wrong threshold)"
+        },
+        {
+          "id": "holdout-saas-security-setup",
+          "name": "Holdout: SaaS Security Configuration",
+          "check": "h_trust_markers",
+          "score": 68.24839999999999,
+          "reason": "Trust markers detected but shouldn't be (possibly decorative icons or false positives)"
+        }
+      ],
+      "false_negatives": [
+        {
+          "id": "holdout-saas-analytics-dashboard",
+          "name": "Holdout: SaaS Analytics Dashboard Setup",
+          "check": "h_perceived_signup_speed",
+          "score": 69.82379999999999,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-saas-custom-workflow",
+          "name": "Holdout: SaaS Custom Workflow Builder",
+          "check": "h_perceived_signup_speed",
+          "score": 66.673,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-saas-enterprise-config",
+          "name": "Holdout: SaaS Enterprise Configuration",
+          "check": "h_perceived_signup_speed",
+          "score": 66.673,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-saas-onboarding-wizard",
+          "name": "Holdout: SaaS Onboarding Wizard",
+          "check": "h_perceived_signup_speed",
+          "score": 71.3992,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        },
+        {
+          "id": "holdout-saas-security-setup",
+          "name": "Holdout: SaaS Security Configuration",
+          "check": "h_perceived_signup_speed",
+          "score": 68.24839999999999,
+          "reason": "Signup speed issues missed (possibly long forms or missing time indicators)"
+        }
+      ]
+    },
+    "mobile": {
+      "total": 12,
+      "errors": 4,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "id": "holdout-mobile-dark-mode",
+          "name": "Holdout: Mobile Dark Mode",
+          "check": "h_trust_markers",
+          "score": 72.1869,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        },
+        {
+          "id": "holdout-mobile-location-permissions",
+          "name": "Holdout: Mobile Location Permissions",
+          "check": "h_trust_markers",
+          "score": 72.1869,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        },
+        {
+          "id": "holdout-mobile-tutorial",
+          "name": "Holdout: Mobile Interactive Tutorial",
+          "check": "h_trust_markers",
+          "score": 63.5222,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        },
+        {
+          "id": "mobile-tutorial",
+          "name": "Mobile App Tutorial",
+          "check": "h_trust_markers",
+          "score": 66.673,
+          "reason": "Trust markers not detected (possibly subtle indicators or missing elements)"
+        }
+      ]
+    }
+  }
+}

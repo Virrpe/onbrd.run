@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Onbrd Fixture Ground Truth",
+  "type": "object",
+  "required": ["id", "category", "viewport", "seed", "ground_truth", "expected"],
+  "properties": {
+    "id": { "type": "string" },
+    "category": { "type": "string", "enum": ["basic", "saas", "ecommerce", "enterprise", "mobile"] },
+    "viewport": {
+      "type": "object",
+      "properties": {
+        "width": { "type": "integer", "minimum": 240, "maximum": 3840 },
+        "height": { "type": "integer", "minimum": 240, "maximum": 2160 },
+        "deviceScaleFactor": { "type": "number", "minimum": 1, "maximum": 3 }
+      },
+      "required": ["width", "height", "deviceScaleFactor"]
+    },
+    "seed": { "type": "integer" },
+    "ground_truth": {
+      "type": "object",
+      "properties": {
+        "h_cta_above_fold": { "type": "boolean" },
+        "h_steps_count": { "type": "integer", "minimum": 0, "maximum": 12 },
+        "h_copy_clarity": { "type": "string", "enum": ["poor", "fair", "good"] },
+        "h_trust_markers": { "type": "integer", "minimum": 0, "maximum": 6 },
+        "h_perceived_signup_speed_sec": { "type": "integer", "minimum": 0, "maximum": 300 },
+        "a11y_focus_trap": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "expected": {
+      "type": "object",
+      "properties": {
+        "score_band": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "minItems": 2, "maxItems": 2
+        },
+        "top_issues_contains": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["score_band"]
+    }
+  }
+}

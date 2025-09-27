@@ -52,10 +52,20 @@
         <li><strong>Core Web Vitals baseline</strong> — Why: perf affects completion. Fix: image sizing, lazy-load.</li>
         <li><strong>Focus order</strong> — Why: keyboard users. Fix: logical tab sequence, visible focus.</li>
         <li><strong>Mobile tap targets</strong> — Why: fat-finger errors. Fix: 44px min target.</li>
-      </ul>
-    </section>
-    
-    <p><a href="/docs/scoring.html">Next: Scoring methodology →</a></p>
+        </ul>
+        
+        <h3>Integrity & Robustness</h3>
+        <p>Validates that our scoring system is reliable and not overfitting to benchmark data through comprehensive falsification testing.</p>
+        <ul>
+          <li><strong>Ground truth leakage detection</strong> — Why: prevents scoring system from accessing fixture data. Fix: automated validation of probe implementations.</li>
+          <li><strong>Label shuffle falsification</strong> — Why: tests robustness to random label permutations. Fix: expected score degradation confirms no overfitting.</li>
+          <li><strong>DOM perturbation testing</strong> — Why: evaluates stability under layout changes. Fix: maintains semantic meaning while varying presentation.</li>
+          <li><strong>Holdout validation</strong> — Why: ensures unbiased performance estimation. Fix: separate test sets for final validation.</li>
+        </ul>
+        <p><a href="/docs/integrity-checks.html">Learn more about integrity checks →</a></p>
+      </section>
+      
+      <p><a href="/docs/scoring.html">Next: Scoring methodology →</a></p>
   </main>
 </body>
 </html>

@@ -1,0 +1,27 @@
+{
+  "id": "basic-signup/simple-email-001",
+  "category": "basic-signup",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 54321,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 1,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 1,
+    "h_perceived_signup_speed_sec": 15,
+    "a11y_focus_trap": false
+  },
+  "expected": {
+    "score_band": [
+      80,
+      95
+    ],
+    "top_issues_contains": [
+      "trust_markers"
+    ]
+  }
+}

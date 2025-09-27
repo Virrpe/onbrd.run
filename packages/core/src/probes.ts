@@ -1,15 +1,15 @@
 import { Audit, Heuristics } from './types';
-import { calculateScores, generateRecommendations } from './scoring';
+import { calculateScores, generateRecommendations, Env } from './scoring';
 
-export function performAudit(): Audit {
+export function performAudit(env?: Env): Audit {
   const heuristics = detectHeuristics();
-  const scores = calculateScores(heuristics);
-  const recommendations = generateRecommendations(heuristics);
+  const scores = calculateScores(heuristics, env);
+  const recommendations = generateRecommendations(heuristics, env);
   
   return {
-    id: generateAuditId(),
+    id: generateAuditId(env),
     url: window.location.href,
-    timestamp: new Date().toISOString(),
+    timestamp: getTimestamp(env),
     heuristics,
     scores,
     recommendations
@@ -155,6 +155,15 @@ function estimateSignupSpeed() {
 }
 
 
-function generateAuditId(): string {
-  return `audit-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+function generateAuditId(env?: Env): string {
+  const timestamp = env?.clock?.now() ?? Date.now();
+  const randomPart = env?.random ?
+    Math.floor(env.random() * 1000000000).toString(36) :
+    Math.random().toString(36).substr(2, 9);
+  return `audit-${timestamp}-${randomPart}`;
+}
+
+function getTimestamp(env?: Env): string {
+  const timestamp = env?.clock?.now() ?? Date.now();
+  return new Date(timestamp).toISOString();
 }

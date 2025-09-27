@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FitTrack - Get Started</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .status-bar {
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+        
+        .content-area {
+            padding: 1.5rem 1rem;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .welcome-screen {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .welcome-title {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-text {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .input-icon {
+            position: relative;
+        }
+        
+        .input-icon input {
+            padding-left: 2.5rem;
+        }
+        
+        .input-icon::before {
+            content: "📧";
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+        
+        .password-input::before {
+            content: "🔒";
+        }
+        
+        .name-input::before {
+            content: "👤";
+        }
+        
+        .phone-input::before {
+            content: "📱";
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        
+        .btn-secondary:active {
+            background: #e2e8f0;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:active {
+            background: #2563eb;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+        
+        .trust-icon {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+        
+        .slide-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 414px) {
+            .mobile-container {
+                max-width: 100%;
+            }
+            
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .action-buttons {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="status-bar">
+            <span>9:41 AM</span>
+            <span>🔋 85%</span>
+        </div>
+        
+        <div class="app-header">
+            <div class="app-title">FitTrack</div>
+            <div class="app-subtitle">Your Personal Fitness Companion</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <div class="slide-container">
+                <!-- Welcome Slide -->
+                <div class="slide active fade-in" data-slide="1">
+                    <div class="welcome-screen">
+                        <div class="app-icon">💪</div>
+                        <h1 class="welcome-title">Welcome to FitTrack</h1>
+                        <p class="welcome-text">
+                            Transform your fitness journey with personalized workouts, nutrition tracking, and progress monitoring.
+                        </p>
+                        
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <div class="feature-icon">🏃</div>
+                                <div class="feature-text">
+                                    <div class="feature-title">Smart Workouts</div>
+                                    <div class="feature-description">AI-powered exercise recommendations</div>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">📊</div>
+                                <div class="feature-text">
+                                    <div class="feature-title">Progress Tracking</div>
+                                    <div class="feature-description">Visualize your fitness journey</div>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">🥗</div>
+                                <div class="feature-text">
+                                    <div class="feature-title">Nutrition Guide</div>
+                                    <div class="feature-description">Personalized meal plans</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Personal Info Slide -->
+                <div class="slide" data-slide="2">
+                    <div class="step-indicator">Step 1 of 3</div>
+                    <h2 class="welcome-title">Tell us about yourself</h2>
+                    <p class="welcome-text">This helps us create a personalized fitness plan for you.</p>
+                    
+                    <div class="form-group">
+                        <label>What's your name?</label>
+                        <div class="input-icon name-input">
+                            <input type="text" placeholder="Enter your name" id="userName">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What's your email?</label>
+                        <div class="input-icon">
+                            <input type="email" placeholder="your@email.com" id="userEmail">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What's your fitness goal?</label>
+                        <select id="fitnessGoal">
+                            <option value="">Select your goal</option>
+                            <option value="lose-weight">Lose Weight</option>
+                            <option value="build-muscle">Build Muscle</option>
+                            <option value="improve-endurance">Improve Endurance</option>
+                            <option value="maintain">Maintain Fitness</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Fitness Level Slide -->
+                <div class="slide" data-slide="3">
+                    <div class="step-indicator">Step 2 of 3</div>
+                    <h2 class="welcome-title">What's your fitness level?</h2>
+                    <p class="welcome-text">Be honest - we'll adjust your plan accordingly.</p>
+                    
+                    <div class="form-group">
+                        <label>Current fitness level</label>
+                        <select id="fitnessLevel">
+                            <option value="">Select level</option>
+                            <option value="beginner">Beginner - New to fitness</option>
+                            <option value="intermediate">Intermediate - Some experience</option>
+                            <option value="advanced">Advanced - Regular exerciser</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>How often do you exercise?</label>
+                        <select id="exerciseFrequency">
+                            <option value="">Select frequency</option>
+                            <option value="never">Never</option>
+                            <option value="1-2">1-2 times per week</option>
+                            <option value="3-4">3-4 times per week</option>
+                            <option value="5+">5+ times per week</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Notifications Slide -->
+                <div class="slide" data-slide="4">
+                    <div class="step-indicator">Step 3 of 3</div>
+                    <h2 class="welcome-title">Stay motivated</h2>
+                    <p class="welcome-text">Choose how you'd like to stay updated on your progress.</p>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="workoutReminders" checked>
+                        <label for="workoutReminders">Send me workout reminders</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="progressUpdates" checked>
+                        <label for="progressUpdates">Weekly progress updates</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tipsArticles" checked>
+                        <label for="tipsArticles">Fitness tips and articles</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Privacy Protected</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>No Spam</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Cancel Anytime</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeSlide(-1)" style="display: none;">Back</button>
+            <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeSlide(1)">Get Started</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+        
+        function showSlide(slide) {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Show current slide
+            document.querySelector(`[data-slide="${slide}"]`).classList.add('active');
+            
+            // Update progress bar
+            const progress = (slide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.style.display = slide === 1 ? 'none' : 'block';
+            
+            if (slide === totalSlides) {
+                nextBtn.textContent = 'Start Fitness Journey';
+                nextBtn.onclick = function() {
+                    completeOnboarding();
+                };
+            } else {
+                nextBtn.textContent = slide === 1 ? 'Get Started' : 'Continue';
+                nextBtn.onclick = function() {
+                    changeSlide(1);
+                };
+            }
+        }
+        
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides) {
+                currentSlide++;
+            } else if (direction === -1 && currentSlide > 1) {
+                currentSlide--;
+            }
+            showSlide(currentSlide);
+        }
+        
+        function completeOnboarding() {
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.textContent;
+            
+            nextBtn.textContent = 'Setting up...';
+            nextBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Welcome to FitTrack! Your personalized fitness journey begins now.');
+                nextBtn.textContent = originalText;
+                nextBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

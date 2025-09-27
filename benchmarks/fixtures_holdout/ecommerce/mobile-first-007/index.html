@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Checkout - Quick Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #fff;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .header {
+            background: #000;
+            color: white;
+            padding: 20px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 3px;
+            background: #e0e0e0;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #007AFF;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+        
+        .content {
+            padding: 24px 16px;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding: 0 20px;
+        }
+        
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .step::after {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            right: -50%;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: -1;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0 auto 8px;
+        }
+        
+        .step.active .step-number {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #34C759;
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .step.active .step-label {
+            color: #007AFF;
+            font-weight: 600;
+        }
+        
+        .form-section {
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007AFF;
+            background: white;
+        }
+        
+        .btn-primary {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #007AFF;
+            border: 1px solid #007AFF;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+        
+        .benefits {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .benefits h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .benefits ul {
+            list-style: none;
+        }
+        
+        .benefits li {
+            font-size: 13px;
+            color: #666;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefits li:before {
+            content: "✓";
+            color: #34C759;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .trust-badge .icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .keyboard-avoid {
+            padding-bottom: 100px;
+        }
+        
+        @media (max-width: 375px) {
+            .content {
+                padding: 20px 12px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn">←</button>
+        <h1>Checkout</h1>
+        <div></div>
+    </div>
+    
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+    
+    <div class="content">
+        <div class="step-indicator">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Account</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-label">Shipping</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-label">Payment</div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2 class="section-title">Create Account</h2>
+            <p class="section-subtitle">Save your details for faster checkout next time</p>
+            
+            <div class="benefits">
+                <h3>Account Benefits</h3>
+                <ul>
+                    <li>1-click checkout on future orders</li>
+                    <li>Track your orders in real-time</li>
+                    <li>Exclusive member discounts</li>
+                    <li>Easy returns & exchanges</li>
+                </ul>
+            </div>
+            
+            <div class="trust-badge">
+                <span class="icon">🔒</span>
+                SSL Encrypted & Secure
+            </div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone (optional)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="For order updates">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Min 6 characters">
+                </div>
+                
+                <button type="submit" class="btn-primary">Continue</button>
+            </form>
+            
+            <button class="btn-secondary">Checkout as Guest</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+            
+            // Simulate progress
+            document.querySelector('.progress-fill').style.width = '66%';
+            document.querySelector('.step.active').classList.add('completed');
+            document.querySelector('.step.active').classList.remove('active');
+            document.querySelectorAll('.step')[1].classList.add('active');
+            
+            alert('Account created! Proceeding to shipping...');
+        });
+        
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            window.history.back();
+        });
+        
+        // Handle keyboard on mobile
+        if ('visualViewport' in window) {
+            window.visualViewport.addEventListener('resize', function() {
+                document.body.style.paddingBottom = window.visualViewport.height < window.innerHeight ? '200px' : '0';
+            });
+        }
+    </script>
+</body>
+</html>

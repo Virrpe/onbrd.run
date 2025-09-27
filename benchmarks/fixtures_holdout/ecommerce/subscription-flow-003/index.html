@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshBox - Meal Subscription Plans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav a:hover {
+            color: #667eea;
+        }
+        
+        .main-content {
+            padding: 4rem 0;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.2rem;
+        }
+        
+        .plans-section {
+            margin-bottom: 4rem;
+        }
+        
+        .plans-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .plan-card.recommended {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+        
+        .plan-card.recommended::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg) translate(30px, -10px);
+        }
+        
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-description {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price-currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+        
+        .plan-price-period {
+            font-size: 1rem;
+            color: #718096;
+            font-weight: 400;
+        }
+        
+        .plan-features {
+            margin-bottom: 2rem;
+        }
+        
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+        
+        .plan-feature:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feature-check {
+            color: #48bb78;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .plan-button {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-button:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        .plan-button.selected {
+            background: #48bb78;
+        }
+        
+        .plan-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .customization-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .customization-title {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .customization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .customization-group {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .customization-label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .option-group {
+            margin-bottom: 1rem;
+        }
+        
+        .option-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        
+        .option-item:hover {
+            background: #edf2f7;
+        }
+        
+        .option-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .option-radio {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #cbd5e0;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .option-item.selected .option-radio {
+            border-color: #667eea;
+        }
+        
+        .option-item.selected .option-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        
+        .option-text {
+            flex: 1;
+        }
+        
+        .option-name {
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        .option-description {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+        
+        .option-price {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .frequency-selector {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .frequency-title {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .frequency-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .frequency-option {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            max-width: 200px;
+        }
+        
+        .frequency-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .frequency-option.selected {
+            border-color: #667eea;
+            background: #ebf4ff;
+        }
+        
+        .frequency-option-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .frequency-option-discount {
+            background: #48bb78;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .frequency-option-price {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .signup-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .signup-title {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .signup-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .signup-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .trust-icon {
+            color: #48bb78;
+        }
+        
+        .error-message {
+            color: #f56565;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .customization-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .frequency-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .trust-indicators {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">FreshBox</div>
+                <nav class="nav">
+                    <a href="#">Menu</a>
+                    <a href="#">Plans</a>
+                    <a href="#">How It Works</a>
+                    <a href="#">Login</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero-section">
+                <h1 class="hero-title">Fresh Meals, Delivered Weekly</h1>
+                <p class="hero-subtitle">
+                    Choose your meals, customize your plan, and get fresh ingredients delivered to your door. 
+                    Healthy eating has never been this convenient.
+                </p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <span class="feature-icon">🚚</span>
+                        <span>Free Delivery</span>
+                    </div>
+                    <div class="hero-feature">
+                        <span class="feature-icon">🥗</span>
+                        <span>Fresh Ingredients</span>
+                    </div>
+                    <div class="hero-feature">
+                        <span class="feature-icon">⏰</span>
+                        <span>Skip Anytime</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="plans-section">
+                <h2 class="plans-title">Choose Your Plan</h2>
+                <div class="plans-grid">
+                    <div class="plan-card" data-plan="basic">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Basic Plan</h3>
+                            <p class="plan-description">Perfect for individuals</p>
+                            <div class="plan-price">
+                                <span class="plan-price-currency">$</span>49
+                                <span class="plan-price-period">/week</span>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>3 meals per week</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Serves 2 people</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Free shipping</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Recipe cards included</span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="plan-button" onclick="selectPlan('basic', 49)">
+                            Select Plan
+                        </button>
+                    </div>
+
+                    <div class="plan-card recommended" data-plan="family">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Family Plan</h3>
+                            <p class="plan-description">Most popular choice</p>
+                            <div class="plan-price">
+                                <span class="plan-price-currency">$</span>79
+                                <span class="plan-price-period">/week</span>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>4 meals per week</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Serves 4 people</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Free shipping</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Recipe cards included</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Priority customer support</span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="plan-button" onclick="selectPlan('family', 79)">
+                            Select Plan
+                        </button>
+                    </div>
+
+                    <div class="plan-card" data-plan="premium">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Premium Plan</h3>
+                            <p class="plan-description">Gourmet experience</p>
+                            <div class="plan-price">
+                                <span class="plan-price-currency">$</span>129
+                                <span class="plan-price-period">/week</span>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>5 meals per week</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Serves 4 people</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Free shipping</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Gourmet recipes</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Organic ingredients</span>
+                            </div>
+                            <div class="plan-feature">
+                                <span class="feature-check">✓</span>
+                                <span>Personal chef consultation</span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="plan-button" onclick="selectPlan('premium', 129)">
+                            Select Plan
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="customization-section">
+                <h2 class="customization-title">Customize Your Meals</h2>
+                <div class="customization-grid">
+                    <div class="customization-group">
+                        <label class="customization-label">Dietary Preferences</label>
+                        <div class="option-group">
+                            <div class="option-item" onclick="selectOption(this, 'dietary')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">No Restrictions</div>
+                                    <div class="option-description">All cuisines available</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'dietary')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Vegetarian</div>
+                                    <div class="option-description">Plant-based meals only</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'dietary')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Gluten-Free</div>
+                                    <div class="option-description">No gluten ingredients</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'dietary')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Keto-Friendly</div>
+                                    <div class="option-description">Low-carb options</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customization-group">
+                        <label class="customization-label">Cuisine Preferences</label>
+                        <div class="option-group">
+                            <div class="option-item" onclick="selectOption(this, 'cuisine')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">International Mix</div>
+                                    <div class="option-description">Global cuisines</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'cuisine')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Mediterranean</div>
+                                    <div class="option-description">Fresh & healthy</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'cuisine')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Asian Fusion</div>
+                                    <div class="option-description">Asian-inspired dishes</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'cuisine')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Comfort Food</div>
+                                    <div class="option-description">Classic favorites</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customization-group">
+                        <label class="customization-label">Spice Level</label>
+                        <div class="option-group">
+                            <div class="option-item" onclick="selectOption(this, 'spice')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Mild</div>
+                                    <div class="option-description">No spice</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'spice')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Medium</div>
+                                    <div class="option-description">A little kick</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'spice')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Spicy</div>
+                                    <div class="option-description">Bring the heat</div>
+                                </div>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'spice')">
+                                <div class="option-radio"></div>
+                                <div class="option-text">
+                                    <div class="option-name">Extra Hot</div>
+                                    <div class="option-description">Maximum spice</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="frequency-selector">
+                <h2 class="frequency-title">Delivery Frequency</h2>
+                <div class="frequency-options">
+                    <div class="frequency-option" onclick="selectFrequency(this, 'weekly')">
+                        <div class="frequency-option-name">Weekly</div>
+                        <div class="frequency-option-discount">Most Flexible</div>
+                        <div class="frequency-option-price">Standard pricing</div>
+                    </div>
+                    <div class="frequency-option" onclick="selectFrequency(this, 'biweekly')">
+                        <div class="frequency-option-name">Bi-weekly</div>
+                        <div class="frequency-option-discount">5% OFF</div>
+                        <div class="frequency-option-price">Save 5%</div>
+                    </div>
+                    <div class="frequency-option" onclick="selectFrequency(this, 'monthly')">
+                        <div class="frequency-option-name">Monthly</div>
+                        <div class="frequency-option-discount">10% OFF</div>
+                        <div class="frequency-option-price">Save 10%</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="signup-section">
+                <h2 class="signup-title">Create Your Account</h2>
+                <form class="signup-form" id="signupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name *</label>
+                            <input type="text" id="firstName" class="form-input" required>
+                            <div class="error-message" id="firstNameError">Please enter your first name</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" class="form-input" required>
+                            <div class="error-message" id="lastNameError">Please enter your last name</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-input" required>
+                        <div class="error-message" id="emailError">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password *</label>
+                        <input type="password" id="password" class="form-input" required>
+                        <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" class="form-input" required>
+                        <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="deliveryAddress">Delivery Address *</label>
+                        <input type="text" id="deliveryAddress" class="form-input" placeholder="Enter your delivery address" required>
+                        <div class="error-message" id="addressError">Please enter your delivery address</div>
+                    </div>
+                    
+                    <button type="submit" class="signup-btn" id="signupBtn" disabled>
+                        Start My Subscription
+                    </button>
+                </form>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        <span>Secure signup</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span>Cancel anytime</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🚚</span>
+                        <span>Free delivery</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        let selectedPlan = null;
+        let selectedPlanPrice = 0;
+        let selectedFrequency = null;
+        let selectedOptions = {
+            dietary: null,
+            cuisine: null,
+            spice: null
+        };
+
+        function selectPlan(plan, price) {
+            // Remove selection from all plans
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelectorAll('.plan-button').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.disabled = false;
+            });
+            
+            // Add selection to clicked plan
+            const selectedCard = document.querySelector(`[data-plan="${plan}"]`);
+            const selectedBtn = selectedCard.querySelector('.plan-button');
+            
+            selectedCard.classList.add('selected');
+            selectedBtn.classList.add('selected');
+            selectedBtn.textContent = 'Selected';
+            
+            selectedPlan = plan;
+            selectedPlanPrice = price;
+            
+            validateForm();
+        }
+
+        function selectOption(element, type) {
+            // Remove selection from all options in this group
+            const parent = element.closest('.option-group');
+            parent.querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            element.classList.add('selected');
+            selectedOptions[type] = element.querySelector('.option-name').textContent;
+            
+            validateForm();
+        }
+
+        function selectFrequency(element, frequency) {
+            // Remove selection from all frequencies
+            document.querySelectorAll('.frequency-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked frequency
+            element.classList.add('selected');
+            selectedFrequency = frequency;
+            
+            validateForm();
+        }
+
+        function validateForm() {
+            const signupBtn = document.getElementById('signupBtn');
+            const isValid = selectedPlan && selectedFrequency && 
+                          selectedOptions.dietary && selectedOptions.cuisine && selectedOptions.spice;
+            
+            signupBtn.disabled = !isValid;
+        }
+
+        // Form validation
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedPlan) {
+                alert('Please select a subscription plan.');
+                return;
+            }
+            
+            if (!selectedFrequency) {
+                alert('Please select a delivery frequency.');
+                return;
+            }
+            
+            // Validate required fields
+            let isValid = true;
+            const requiredFields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword', 'deliveryAddress'];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const error = document.getElementById(fieldId + 'Error');
+                
+                if (!field.value.trim()) {
+                    error.classList.add('show');
+                    isValid = false;
+                } else {
+                    error.classList.remove('show');
+                }
+            });
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email.value && !emailRegex.test(email.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+                isValid = false;
+            }
+            
+            // Password validation
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            
+            if (password.value && password.value.length < 8) {
+                passwordError.classList.add('show');
+                isValid = false;
+            } else {
+                passwordError.classList.remove('show');
+            }
+            
+            // Password confirmation
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            
+            if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+                confirmPasswordError.classList.add('show');
+                isValid = false;
+            } else {
+                confirmPasswordError.classList.remove('show');
+            }
+            
+            if (isValid) {
+                const signupBtn = document.getElementById('signupBtn');
+                const originalText = signupBtn.textContent;
+                
+                signupBtn.textContent = 'Creating Account...';
+                signupBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`🎉 Welcome to FreshBox! Your ${selectedPlan} subscription is confirmed. Your first delivery will arrive next week with meals customized to your preferences.`);
+                    signupBtn.textContent = originalText;
+                    signupBtn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        // Real-time validation
+        document.getElementById('firstName').addEventListener('blur', function() {
+            const error = document.getElementById('firstNameError');
+            if (!this.value.trim()) {
+                error.classList.add('show');
+            } else {
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('lastName').addEventListener('blur', function() {
+            const error = document.getElementById('lastNameError');
+            if (!this.value.trim()) {
+                error.classList.add('show');
+            } else {
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('email').addEventListener('blur', function() {
+            const error = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!this.value.trim()) {
+                error.textContent = 'Please enter your email address';
+                error.classList.add('show');
+            } else if (!emailRegex.test(this.value)) {
+                error.textContent = 'Please enter a valid email address';
+                error.classList.add('show');
+            } else {
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('password').addEventListener('blur', function() {
+            const error = document.getElementById('passwordError');
+            if (this.value && this.value.length < 8) {
+                error.classList.add('show');
+            } else {
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('confirmPassword').addEventListener('blur', function() {
+            const error = document.getElementById('confirmPasswordError');
+            const password = document.getElementById('password').value;
+            
+            if (this.value && password && this.value !== password) {
+                error.classList.add('show');
+            } else {
+                error.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

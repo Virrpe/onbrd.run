@@ -1,0 +1,27 @@
+{
+  "id": "ecommerce/account-creation-checkout-002",
+  "category": "ecommerce",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 76544,
+  "ground_truth": {
+    "h_cta_above_fold": true,
+    "h_steps_count": 4,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 5,
+    "h_perceived_signup_speed_sec": 80,
+    "a11y_focus_trap": false
+  },
+  "expected": {
+    "score_band": [
+      65,
+      80
+    ],
+    "top_issues_contains": [
+      "steps_count"
+    ]
+  }
+}

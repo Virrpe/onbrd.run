@@ -2,24 +2,38 @@
 // Implements deterministic handshake pattern for reliable communication
 
 import { backgroundLogger as logger } from '../shared/logger';
-import { RULES_TIMEOUT_MS } from '../config';
+import { RULES_TIMEOUT_MS, LOCAL_ONLY, ALLOW_NETWORK } from '../config';
 import { RULES_V11_FALLBACK } from '@onboarding-audit/core/rules/defaults';
+import { guardedFetch, NetworkDisabledError } from '../net/guard';
 
 chrome.runtime.onInstalled.addListener(() => {
   logger.ok('OnboardingAudit.ai extension installed');
 });
 
 async function fetchRules() {
+  // Check if network access is allowed before attempting fetch
+  if (LOCAL_ONLY && !ALLOW_NETWORK) {
+    logger.ok('Network access disabled in local-only mode, using fallback rules');
+    await chrome.storage.session.set({ onbrd_rules: RULES_V11_FALLBACK });
+    return;
+  }
+  
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), RULES_TIMEOUT_MS);
   try {
     const url = `${(self as any).API_BASE_URL || ''}/api/v1/rules`;
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await guardedFetch(url, { signal: controller.signal });
     clearTimeout(id);
     if (!res.ok) throw new Error('rules http ' + res.status);
     const data = await res.json();
     await chrome.storage.session.set({ onbrd_rules: data });
-  } catch {
+  } catch (error) {
+    // Only use fallback if it's not a NetworkDisabledError
+    if (!(error instanceof NetworkDisabledError)) {
+      logger.error('Failed to fetch rules, using fallback');
+    } else {
+      logger.ok('Network disabled, using fallback rules');
+    }
     await chrome.storage.session.set({ onbrd_rules: RULES_V11_FALLBACK });
   }
 }

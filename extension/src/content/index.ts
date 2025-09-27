@@ -1,8 +1,10 @@
-import { v4 as uuidv4 } from 'uuid';
-import { USE_BACKEND, API_BASE_URL, INGEST_TIMEOUT_MS } from '../config';
+import { USE_BACKEND, API_BASE_URL, INGEST_TIMEOUT_MS, LOCAL_ONLY, ALLOW_NETWORK } from '../config';
+import { guardedFetch, NetworkDisabledError } from '../net/guard';
 import { probeLCP } from '@onboarding-audit/core/probes/lcp';
 import { probeA11yFocus } from '@onboarding-audit/core/probes/a11yFocus';
 import { probeMobileResponsive } from '@onboarding-audit/core/probes/mobileResponsive';
+import { makeEnv } from '../env';
+import { calculateScore, generateAuditId } from '../scoring';
 
 // Type declaration for window property
 declare global {
@@ -21,29 +23,35 @@ async function getRules() {
   return onbrd_rules;
 }
 
-function computeScore(rules: any[], metrics: Record<string, boolean>) {
-  const sum = rules.reduce((acc: number, r: any) => acc + (metrics[r.id] ? r.weight : 0), 0);
-  return Math.round(sum * 100);
-}
 
 async function runAudit() {
   const rules = await getRules();
+  // Create deterministic environment for scoring
+  const env = makeEnv({ deterministic: true, seed: 12345 });
+  
   // minimal metrics – add more probes as needed
   const metrics: Record<string, boolean> = {};
   metrics['F-PERFORMANCE-LCP']   = await probeLCP();
-  metrics['F-ACCESSIBILITY-FOCUS']= probeA11yFocus();
+  metrics['F-ACCESSIBILITY-FOCUS']= probeA11yFocus().passed;
   metrics['F-MOBILE-RESPONSIVE'] = probeMobileResponsive();
   // other rule IDs default to heuristic checks you already have
-  const score = computeScore(rules.rules, metrics);
+  const scoringResult = calculateScore(rules.rules, metrics, env);
 
   // gate POST by telemetry_opt_in; message SW to enqueue when needed
   async function postIngest(body: any) {
     const { telemetry_opt_in } = await chrome.storage.sync.get('telemetry_opt_in');
     if (!telemetry_opt_in) return;
+    
+    // Check if network access is allowed before attempting fetch
+    if (LOCAL_ONLY && !ALLOW_NETWORK) {
+      console.log('[Onbrd] Network access disabled in local-only mode, skipping ingest');
+      return;
+    }
+    
     try {
       const controller = new AbortController();
       setTimeout(()=>controller.abort(), INGEST_TIMEOUT_MS);
-      const res = await fetch(`${API_BASE_URL}/api/v1/ingest`, {
+      const res = await guardedFetch(`${API_BASE_URL}/api/v1/ingest`, {
         method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body), signal: controller.signal
       });
       if (res.ok) {
@@ -52,28 +60,42 @@ async function runAudit() {
         return;
       }
       throw new Error('http '+res.status);
-    } catch {
-      // ask SW to enqueue for retry
-      chrome.runtime.sendMessage({ type:'ONBRD_ENQUEUE_INGEST', body });
+    } catch (error) {
+      // Only enqueue if it's not a NetworkDisabledError
+      if (!(error instanceof NetworkDisabledError)) {
+        // ask SW to enqueue for retry
+        chrome.runtime.sendMessage({ type:'ONBRD_ENQUEUE_INGEST', body });
+      }
     }
   }
 
   // Send telemetry (fire-and-forget)
   if (USE_BACKEND) {
     const body = {
-      audit_id: uuidv4(),
+      audit_id: generateAuditId(env),
       url_hash: "", // let server compute if preferred; else pre-hash on client (avoid sending raw URL)
-      score,
+      score: scoringResult.score,
       metrics,
       user_agent: navigator.userAgent,
-      created_at: new Date().toISOString()
+      created_at: new Date(env.clock.now()).toISOString()
     };
     postIngest(body);
   }
 
   // Expose result for popup
-  (window as any).__ONBRD_LAST_AUDIT__ = { score, metrics, ts: Date.now() };
-  return { score, metrics };
+  (window as any).__ONBRD_LAST_AUDIT__ = {
+    score: scoringResult.score,
+    metrics,
+    ts: env.clock.now(),
+    passedRules: scoringResult.passedRules,
+    failedRules: scoringResult.failedRules
+  };
+  return {
+    score: scoringResult.score,
+    metrics,
+    passedRules: scoringResult.passedRules,
+    failedRules: scoringResult.failedRules
+  };
 }
 
 // Content script message handler
@@ -82,7 +104,8 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   
   // PING handler - respond with timestamp
   if (request.type === 'PING') {
-    sendResponse({ ok: true, ts: Date.now() });
+    const env = makeEnv({ deterministic: true, seed: 12345 });
+    sendResponse({ ok: true, ts: env.clock.now() });
     return true; // Keep channel open for async response
   }
   
@@ -241,7 +264,8 @@ async function exportAuditHtml() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `onbrd-report-${host}-${Date.now()}.html`;
+  const env = makeEnv({ deterministic: true, seed: 12345 });
+  a.download = `onbrd-report-${host}-${env.clock.now()}.html`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

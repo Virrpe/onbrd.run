@@ -1,0 +1,2059 @@
+{
+  "timestamp": "2025-09-27T08:28:23.274Z",
+  "seed": 12345,
+  "total_benchmarks": 66,
+  "summary": {
+    "average_score": 71,
+    "median_score": 73,
+    "min_score": 26.5003,
+    "max_score": 81.63929999999999
+  },
+  "results": [
+    {
+      "id": "account-creation-checkout",
+      "name": "Account Creation During Checkout",
+      "category": "ecommerce",
+      "score": 50.919,
+      "score_raw": 61,
+      "score_calibrated": 50.919,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 70,
+        "midpoint": 62.5
+      },
+      "expected": {
+        "score_band": [
+          55,
+          70
+        ]
+      }
+    },
+    {
+      "id": "compliance-verification",
+      "name": "Compliance Verification",
+      "category": "enterprise",
+      "score": 62.7345,
+      "score_raw": 76,
+      "score_calibrated": 62.7345,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 40,
+        "max": 60,
+        "midpoint": 50
+      },
+      "expected": {
+        "score_band": [
+          40,
+          60
+        ]
+      }
+    },
+    {
+      "id": "enterprise-multi-user",
+      "name": "Enterprise Multi-User Setup",
+      "category": "enterprise",
+      "score": 61.946799999999996,
+      "score_raw": 75,
+      "score_calibrated": 61.946799999999996,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": false,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 45,
+        "max": 65,
+        "midpoint": 55
+      },
+      "expected": {
+        "score_band": [
+          45,
+          65
+        ]
+      }
+    },
+    {
+      "id": "excellent-example",
+      "name": "Excellent Onboarding Example",
+      "category": "basic-signup",
+      "score": 81.63929999999999,
+      "score_raw": 100,
+      "score_calibrated": 81.63929999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 90,
+        "max": 100,
+        "midpoint": 95
+      },
+      "expected": {
+        "score_band": [
+          90,
+          100
+        ]
+      }
+    },
+    {
+      "id": "feature-tour",
+      "name": "Feature Tour Integration",
+      "category": "saas",
+      "score": 72.9746,
+      "score_raw": 89,
+      "score_calibrated": 72.9746,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 85,
+        "midpoint": 77.5
+      },
+      "expected": {
+        "score_band": [
+          70,
+          85
+        ]
+      }
+    },
+    {
+      "id": "guest-checkout",
+      "name": "Guest Checkout Flow",
+      "category": "ecommerce",
+      "score": 79.27619999999999,
+      "score_raw": 97,
+      "score_calibrated": 79.27619999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 72,
+        "max": 87,
+        "midpoint": 79.5
+      },
+      "expected": {
+        "score_band": [
+          72,
+          87
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-below-fold",
+      "name": "Holdout: CTA Below Fold",
+      "category": "basic-signup",
+      "score": 61.946799999999996,
+      "score_raw": 75,
+      "score_calibrated": 61.946799999999996,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 45,
+        "max": 65,
+        "midpoint": 55
+      },
+      "expected": {
+        "score_band": [
+          45,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-email-password",
+      "name": "Holdout: Email Password Combo",
+      "category": "basic-signup",
+      "score": 75.3377,
+      "score_raw": 92,
+      "score_calibrated": 75.3377,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 90,
+        "midpoint": 82.5
+      },
+      "expected": {
+        "score_band": [
+          75,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-long-form",
+      "name": "Holdout: Long Comprehensive Form",
+      "category": "basic-signup",
+      "score": 74.55,
+      "score_raw": 91,
+      "score_calibrated": 74.55,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 40,
+        "max": 60,
+        "midpoint": 50
+      },
+      "expected": {
+        "score_band": [
+          40,
+          60
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-minimal-form",
+      "name": "Holdout: Minimal Form Design",
+      "category": "basic-signup",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 85,
+        "midpoint": 77.5
+      },
+      "expected": {
+        "score_band": [
+          70,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-phone-verification",
+      "name": "Holdout: Phone Verification Flow",
+      "category": "basic-signup",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 80,
+        "midpoint": 72.5
+      },
+      "expected": {
+        "score_band": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-poor-copy",
+      "name": "Holdout: Poor Copy Quality",
+      "category": "basic-signup",
+      "score": 63.5222,
+      "score_raw": 77,
+      "score_calibrated": 63.5222,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": false,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 35,
+        "max": 55,
+        "midpoint": 45
+      },
+      "expected": {
+        "score_band": [
+          35,
+          55
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-progressive-form",
+      "name": "Holdout: Progressive Form Disclosure",
+      "category": "basic-signup",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 85,
+        "midpoint": 77.5
+      },
+      "expected": {
+        "score_band": [
+          70,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-simple-email",
+      "name": "Holdout: Simple Email Signup",
+      "category": "basic-signup",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 95,
+        "midpoint": 87.5
+      },
+      "expected": {
+        "score_band": [
+          80,
+          95
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-social-login",
+      "name": "Holdout: Social Login Options",
+      "category": "basic-signup",
+      "score": 75.3377,
+      "score_raw": 92,
+      "score_calibrated": 75.3377,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 90,
+        "midpoint": 82.5
+      },
+      "expected": {
+        "score_band": [
+          75,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-basic-signup-trust-heavy",
+      "name": "Holdout: Trust-Heavy Signup",
+      "category": "basic-signup",
+      "score": 81.63929999999999,
+      "score_raw": 100,
+      "score_calibrated": 81.63929999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 85,
+        "max": 95,
+        "midpoint": 90
+      },
+      "expected": {
+        "score_band": [
+          85,
+          95
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-account-creation-checkout",
+      "name": "Holdout: Ecommerce Account Creation Checkout",
+      "category": "ecommerce",
+      "score": 71.3992,
+      "score_raw": 87,
+      "score_calibrated": 71.3992,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 50,
+        "max": 65,
+        "midpoint": 57.5
+      },
+      "expected": {
+        "score_band": [
+          50,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-account-creation",
+      "name": "Holdout: Ecommerce Account Creation",
+      "category": "ecommerce",
+      "score": 76.91309999999999,
+      "score_raw": 94,
+      "score_calibrated": 76.91309999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 75,
+        "midpoint": 70
+      },
+      "expected": {
+        "score_band": [
+          65,
+          75
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-compliance-verification",
+      "name": "Holdout: Ecommerce Compliance Verification",
+      "category": "ecommerce",
+      "score": 74.55,
+      "score_raw": 91,
+      "score_calibrated": 74.55,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 50,
+        "max": 65,
+        "midpoint": 57.5
+      },
+      "expected": {
+        "score_band": [
+          50,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-guest-checkout",
+      "name": "Holdout: Ecommerce Guest Checkout",
+      "category": "ecommerce",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 90,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-multi-step-checkout",
+      "name": "Holdout: Ecommerce Multi-Step Checkout",
+      "category": "ecommerce",
+      "score": 71.3992,
+      "score_raw": 87,
+      "score_calibrated": 71.3992,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 70,
+        "midpoint": 62.5
+      },
+      "expected": {
+        "score_band": [
+          55,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-payment-integration",
+      "name": "Holdout: Ecommerce Payment Integration",
+      "category": "ecommerce",
+      "score": 73.7623,
+      "score_raw": 90,
+      "score_calibrated": 73.7623,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 60,
+        "max": 70,
+        "midpoint": 65
+      },
+      "expected": {
+        "score_band": [
+          60,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-shipping-address",
+      "name": "Holdout: Ecommerce Shipping Address",
+      "category": "ecommerce",
+      "score": 76.91309999999999,
+      "score_raw": 94,
+      "score_calibrated": 76.91309999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 60,
+        "max": 75,
+        "midpoint": 67.5
+      },
+      "expected": {
+        "score_band": [
+          60,
+          75
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-simple-checkout",
+      "name": "Holdout: Ecommerce Simple Checkout",
+      "category": "ecommerce",
+      "score": 79.27619999999999,
+      "score_raw": 97,
+      "score_calibrated": 79.27619999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 85,
+        "midpoint": 80
+      },
+      "expected": {
+        "score_band": [
+          75,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-ecommerce-subscription-flow",
+      "name": "Holdout: Ecommerce Subscription Flow",
+      "category": "ecommerce",
+      "score": 79.27619999999999,
+      "score_raw": 97,
+      "score_calibrated": 79.27619999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-compliance-setup",
+      "name": "Holdout: Enterprise Compliance Setup",
+      "category": "enterprise",
+      "score": 42.2543,
+      "score_raw": 50,
+      "score_calibrated": 42.2543,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": false,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 50,
+        "max": 60,
+        "midpoint": 55
+      },
+      "expected": {
+        "score_band": [
+          50,
+          60
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-contact-sales",
+      "name": "Holdout: Enterprise Contact Sales",
+      "category": "enterprise",
+      "score": 79.27619999999999,
+      "score_raw": 97,
+      "score_calibrated": 79.27619999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 90,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-demo-request",
+      "name": "Holdout: Enterprise Demo Request",
+      "category": "enterprise",
+      "score": 76.91309999999999,
+      "score_raw": 94,
+      "score_calibrated": 76.91309999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 85,
+        "midpoint": 80
+      },
+      "expected": {
+        "score_band": [
+          75,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-integration-setup",
+      "name": "Holdout: Enterprise Integration Setup",
+      "category": "enterprise",
+      "score": 69.82379999999999,
+      "score_raw": 85,
+      "score_calibrated": 69.82379999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 75,
+        "midpoint": 70
+      },
+      "expected": {
+        "score_band": [
+          65,
+          75
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-multi-user-setup",
+      "name": "Holdout: Enterprise Multi-User Setup",
+      "category": "enterprise",
+      "score": 67.46069999999999,
+      "score_raw": 82,
+      "score_calibrated": 67.46069999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 60,
+        "max": 70,
+        "midpoint": 65
+      },
+      "expected": {
+        "score_band": [
+          60,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-onboarding-wizard",
+      "name": "Holdout: Enterprise Onboarding Wizard",
+      "category": "enterprise",
+      "score": 67.46069999999999,
+      "score_raw": 82,
+      "score_calibrated": 67.46069999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-security-config",
+      "name": "Holdout: Enterprise Security Configuration",
+      "category": "enterprise",
+      "score": 66.673,
+      "score_raw": 81,
+      "score_calibrated": 66.673,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 65,
+        "midpoint": 60
+      },
+      "expected": {
+        "score_band": [
+          55,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-sso-config",
+      "name": "Holdout: Enterprise SSO Configuration",
+      "category": "enterprise",
+      "score": 45.4051,
+      "score_raw": 54,
+      "score_calibrated": 45.4051,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 65,
+        "midpoint": 60
+      },
+      "expected": {
+        "score_band": [
+          55,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-enterprise-team-invitation",
+      "name": "Holdout: Enterprise Team Invitation",
+      "category": "enterprise",
+      "score": 73.7623,
+      "score_raw": 90,
+      "score_calibrated": 73.7623,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-biometric-setup",
+      "name": "Holdout: Mobile Biometric Setup",
+      "category": "mobile",
+      "score": 75.3377,
+      "score_raw": 92,
+      "score_calibrated": 75.3377,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 85,
+        "midpoint": 80
+      },
+      "expected": {
+        "score_band": [
+          75,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-dark-mode",
+      "name": "Holdout: Mobile Dark Mode",
+      "category": "mobile",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 90,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-location-permissions",
+      "name": "Holdout: Mobile Location Permissions",
+      "category": "mobile",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 60,
+        "max": 70,
+        "midpoint": 65
+      },
+      "expected": {
+        "score_band": [
+          60,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-onboarding",
+      "name": "Holdout: Mobile App Onboarding",
+      "category": "mobile",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 85,
+        "midpoint": 80
+      },
+      "expected": {
+        "score_band": [
+          75,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-permission",
+      "name": "Holdout: Mobile Permission Requests",
+      "category": "mobile",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-profile-setup",
+      "name": "Holdout: Mobile Profile Setup",
+      "category": "mobile",
+      "score": 72.9746,
+      "score_raw": 89,
+      "score_calibrated": 72.9746,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-push-notifications",
+      "name": "Holdout: Mobile Push Notifications",
+      "category": "mobile",
+      "score": 72.9746,
+      "score_raw": 89,
+      "score_calibrated": 72.9746,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-social-login",
+      "name": "Holdout: Mobile Social Login",
+      "category": "mobile",
+      "score": 78.48849999999999,
+      "score_raw": 96,
+      "score_calibrated": 78.48849999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 90,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "id": "holdout-mobile-tutorial",
+      "name": "Holdout: Mobile Interactive Tutorial",
+      "category": "mobile",
+      "score": 63.5222,
+      "score_raw": 77,
+      "score_calibrated": 63.5222,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-analytics-dashboard",
+      "name": "Holdout: SaaS Analytics Dashboard Setup",
+      "category": "saas",
+      "score": 69.82379999999999,
+      "score_raw": 85,
+      "score_calibrated": 69.82379999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 70,
+        "midpoint": 62.5
+      },
+      "expected": {
+        "score_band": [
+          55,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-billing-setup",
+      "name": "Holdout: SaaS Billing Configuration",
+      "category": "saas",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 75,
+        "midpoint": 70
+      },
+      "expected": {
+        "score_band": [
+          65,
+          75
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-custom-workflow",
+      "name": "Holdout: SaaS Custom Workflow Builder",
+      "category": "saas",
+      "score": 66.673,
+      "score_raw": 81,
+      "score_calibrated": 66.673,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 45,
+        "max": 60,
+        "midpoint": 52.5
+      },
+      "expected": {
+        "score_band": [
+          45,
+          60
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-data-migration",
+      "name": "Holdout: SaaS Data Migration",
+      "category": "saas",
+      "score": 72.9746,
+      "score_raw": 89,
+      "score_calibrated": 72.9746,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 70,
+        "midpoint": 62.5
+      },
+      "expected": {
+        "score_band": [
+          55,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-enterprise-config",
+      "name": "Holdout: SaaS Enterprise Configuration",
+      "category": "saas",
+      "score": 66.673,
+      "score_raw": 81,
+      "score_calibrated": 66.673,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 40,
+        "max": 60,
+        "midpoint": 50
+      },
+      "expected": {
+        "score_band": [
+          40,
+          60
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-integration-setup",
+      "name": "Holdout: SaaS Integration Setup",
+      "category": "saas",
+      "score": 72.1869,
+      "score_raw": 88,
+      "score_calibrated": 72.1869,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 55,
+        "max": 70,
+        "midpoint": 62.5
+      },
+      "expected": {
+        "score_band": [
+          55,
+          70
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-onboarding-wizard",
+      "name": "Holdout: SaaS Onboarding Wizard",
+      "category": "saas",
+      "score": 71.3992,
+      "score_raw": 87,
+      "score_calibrated": 71.3992,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 60,
+        "max": 75,
+        "midpoint": 67.5
+      },
+      "expected": {
+        "score_band": [
+          60,
+          75
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-quick-setup",
+      "name": "Holdout: SaaS Quick Setup",
+      "category": "saas",
+      "score": 79.27619999999999,
+      "score_raw": 97,
+      "score_calibrated": 79.27619999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 85,
+        "midpoint": 80
+      },
+      "expected": {
+        "score_band": [
+          75,
+          85
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-security-setup",
+      "name": "Holdout: SaaS Security Configuration",
+      "category": "saas",
+      "score": 68.24839999999999,
+      "score_raw": 83,
+      "score_calibrated": 68.24839999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 50,
+        "max": 65,
+        "midpoint": 57.5
+      },
+      "expected": {
+        "score_band": [
+          50,
+          65
+        ]
+      }
+    },
+    {
+      "id": "holdout-saas-team-invitation",
+      "name": "Holdout: SaaS Team Invitation Flow",
+      "category": "saas",
+      "score": 76.91309999999999,
+      "score_raw": 94,
+      "score_calibrated": 76.91309999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 80,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          70,
+          80
+        ]
+      }
+    },
+    {
+      "id": "integration-config",
+      "name": "Integration Configuration",
+      "category": "enterprise",
+      "score": 65.0976,
+      "score_raw": 79,
+      "score_calibrated": 65.0976,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 50,
+        "max": 70,
+        "midpoint": 60
+      },
+      "expected": {
+        "score_band": [
+          50,
+          70
+        ]
+      }
+    },
+    {
+      "id": "minimal-form",
+      "name": "Minimal Form Design",
+      "category": "basic-signup",
+      "score": 81.63929999999999,
+      "score_raw": 100,
+      "score_calibrated": 81.63929999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 80,
+        "max": 95,
+        "midpoint": 87.5
+      },
+      "expected": {
+        "score_band": [
+          80,
+          95
+        ]
+      }
+    },
+    {
+      "id": "mobile-permission",
+      "name": "Mobile Permission Requests",
+      "category": "mobile",
+      "score": 75.3377,
+      "score_raw": 92,
+      "score_calibrated": 75.3377,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 78,
+        "max": 92,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          78,
+          92
+        ]
+      }
+    },
+    {
+      "id": "mobile-profile",
+      "name": "Mobile Profile Setup",
+      "category": "mobile",
+      "score": 69.82379999999999,
+      "score_raw": 85,
+      "score_calibrated": 69.82379999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 72,
+        "max": 87,
+        "midpoint": 79.5
+      },
+      "expected": {
+        "score_band": [
+          72,
+          87
+        ]
+      }
+    },
+    {
+      "id": "mobile-tutorial",
+      "name": "Mobile App Tutorial",
+      "category": "mobile",
+      "score": 66.673,
+      "score_raw": 81,
+      "score_calibrated": 66.673,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 80,
+        "midpoint": 72.5
+      },
+      "expected": {
+        "score_band": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "id": "payment-integration",
+      "name": "Payment Integration Flow",
+      "category": "saas",
+      "score": 72.9746,
+      "score_raw": 89,
+      "score_calibrated": 72.9746,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 68,
+        "max": 83,
+        "midpoint": 75.5
+      },
+      "expected": {
+        "score_band": [
+          68,
+          83
+        ]
+      }
+    },
+    {
+      "id": "poor-example",
+      "name": "Poor Onboarding Example",
+      "category": "basic-signup",
+      "score": 26.5003,
+      "score_raw": 30,
+      "score_calibrated": 26.5003,
+      "checks": {
+        "h_cta_above_fold": false,
+        "h_steps_count": false,
+        "h_copy_clarity": false,
+        "h_trust_markers": false,
+        "h_perceived_signup_speed": false
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 15,
+        "max": 35,
+        "midpoint": 25
+      },
+      "expected": {
+        "score_band": [
+          15,
+          35
+        ]
+      }
+    },
+    {
+      "id": "progressive-disclosure",
+      "name": "Progressive Disclosure Flow",
+      "category": "basic-signup",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 85,
+        "midpoint": 77.5
+      },
+      "expected": {
+        "score_band": [
+          70,
+          85
+        ]
+      }
+    },
+    {
+      "id": "saas-wizard",
+      "name": "SaaS Multi-Step Wizard",
+      "category": "saas",
+      "score": 73.7623,
+      "score_raw": 90,
+      "score_calibrated": 73.7623,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 65,
+        "max": 80,
+        "midpoint": 72.5
+      },
+      "expected": {
+        "score_band": [
+          65,
+          80
+        ]
+      }
+    },
+    {
+      "id": "shipping-address",
+      "name": "Shipping Address Collection",
+      "category": "ecommerce",
+      "score": 76.12539999999998,
+      "score_raw": 93,
+      "score_calibrated": 76.12539999999998,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 70,
+        "max": 85,
+        "midpoint": 77.5
+      },
+      "expected": {
+        "score_band": [
+          70,
+          85
+        ]
+      }
+    },
+    {
+      "id": "signup-basic",
+      "name": "Basic Signup Flow",
+      "category": "basic-signup",
+      "score": 75.3377,
+      "score_raw": 92,
+      "score_calibrated": 75.3377,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 75,
+        "max": 95,
+        "midpoint": 85
+      },
+      "expected": {
+        "score_band": [
+          75,
+          95
+        ]
+      }
+    },
+    {
+      "id": "social-login",
+      "name": "Social Login Integration",
+      "category": "basic-signup",
+      "score": 81.63929999999999,
+      "score_raw": 100,
+      "score_calibrated": 81.63929999999999,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": false,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 85,
+        "max": 100,
+        "midpoint": 92.5
+      },
+      "expected": {
+        "score_band": [
+          85,
+          100
+        ]
+      }
+    },
+    {
+      "id": "team-invitation",
+      "name": "Team Invitation Flow",
+      "category": "saas",
+      "score": 73.7623,
+      "score_raw": 90,
+      "score_calibrated": 73.7623,
+      "checks": {
+        "h_cta_above_fold": true,
+        "h_steps_count": true,
+        "h_copy_clarity": true,
+        "h_trust_markers": true,
+        "h_perceived_signup_speed": true
+      },
+      "validation": {
+        "within_expected_range": true,
+        "meets_minimum": true,
+        "meets_maximum": true
+      },
+      "expected_score_band": {
+        "min": 68,
+        "max": 82,
+        "midpoint": 75
+      },
+      "expected": {
+        "score_band": [
+          68,
+          82
+        ]
+      }
+    }
+  ]
+}

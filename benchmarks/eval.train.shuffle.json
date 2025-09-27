@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2025-09-27T08:58:35.867Z",
+  "config": {
+    "shuffleLabels": true,
+    "bandMidpoint": true,
+    "seed": 1337
+  },
+  "baseline_metrics": {
+    "checks": {
+      "h_cta_above_fold": {
+        "precision": 0.6721,
+        "recall": 1,
+        "f1": 0.8039
+      },
+      "h_steps_count": {
+        "precision": 0.8571,
+        "recall": 1,
+        "f1": 0.9231
+      },
+      "h_copy_clarity": {
+        "precision": 0.7188,
+        "recall": 1,
+        "f1": 0.8364
+      },
+      "h_trust_markers": {
+        "precision": 0.5345,
+        "recall": 0.8857,
+        "f1": 0.6667
+      },
+      "h_perceived_signup_speed": {
+        "precision": 0.9375,
+        "recall": 0.8333,
+        "f1": 0.8824
+      }
+    },
+    "calibration": {
+      "r2": 0.517,
+      "n": 66
+    },
+    "macro_f1": 0.8225
+  },
+  "falsified_metrics": {
+    "checks": {
+      "h_cta_above_fold": {
+        "precision": 0.8525,
+        "recall": 0.963,
+        "f1": 0.9043
+      },
+      "h_steps_count": {
+        "precision": 0.8571,
+        "recall": 1,
+        "f1": 0.9231
+      },
+      "h_copy_clarity": {
+        "precision": 0.7188,
+        "recall": 1,
+        "f1": 0.8364
+      },
+      "h_trust_markers": {
+        "precision": 0.6207,
+        "recall": 0.878,
+        "f1": 0.7273
+      },
+      "h_perceived_signup_speed": {
+        "precision": 0.7083,
+        "recall": 0.9714,
+        "f1": 0.8193
+      }
+    },
+    "macro_f1": 0.8420799999999999
+  }
+}

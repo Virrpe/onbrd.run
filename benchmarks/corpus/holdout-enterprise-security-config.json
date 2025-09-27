@@ -1,0 +1,37 @@
+{
+  "id": "holdout-enterprise-security-config",
+  "name": "Holdout: Enterprise Security Configuration",
+  "category": "enterprise",
+  "description": "Security settings and policy configuration",
+  "url": "https://enterprise.example.com/security",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 180,
+      "element": "button.configure-security"
+    },
+    "h_steps_count": {
+      "total": 7,
+      "forms": 3,
+      "screens": 7
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 14,
+      "passive_voice_ratio": 10,
+      "jargon_density": 7
+    },
+    "h_trust_markers": {
+      "testimonials": 1,
+      "security_badges": 5,
+      "customer_logos": 2,
+      "total": 8
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 18,
+      "required_fields": 10,
+      "estimated_seconds": 240
+    }
+  },
+  "expected_score_range": [55, 65],
+  "notes": "Security configuration with policy settings"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "enterprise/enterprise-below-fold-009",
+  "category": "enterprise",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "deviceScaleFactor": 1
+  },
+  "seed": 90123,
+  "ground_truth": {
+    "h_cta_above_fold": false,
+    "h_steps_count": 4,
+    "h_copy_clarity": "good",
+    "h_trust_markers": 3,
+    "h_perceived_signup_speed_sec": 60,
+    "a11y_focus_trap": true
+  },
+  "expected": {
+    "score_band": [
+      50,
+      65
+    ],
+    "top_issues_contains": [
+      "cta_above_fold"
+    ]
+  }
+}

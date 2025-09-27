@@ -1,0 +1,37 @@
+{
+  "id": "excellent-example",
+  "name": "Excellent Onboarding Example",
+  "category": "basic-signup",
+  "description": "Best practice onboarding flow example",
+  "url": "https://excellent-example.com/signup",
+  "heuristics": {
+    "h_cta_above_fold": {
+      "detected": true,
+      "position": 50,
+      "element": "button.get-started-now"
+    },
+    "h_steps_count": {
+      "total": 2,
+      "forms": 1,
+      "screens": 1
+    },
+    "h_copy_clarity": {
+      "avg_sentence_length": 6,
+      "passive_voice_ratio": 2,
+      "jargon_density": 0
+    },
+    "h_trust_markers": {
+      "testimonials": 3,
+      "security_badges": 2,
+      "customer_logos": 6,
+      "total": 11
+    },
+    "h_perceived_signup_speed": {
+      "form_fields": 2,
+      "required_fields": 1,
+      "estimated_seconds": 15
+    }
+  },
+  "expected_score_range": [90, 100],
+  "notes": "Excellent example with minimal friction and strong trust signals"
+}

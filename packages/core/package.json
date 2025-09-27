@@ -12,6 +12,7 @@
     "./probes/a11yFocus": "./src/probes/a11yFocus.ts",
     "./probes/mobileResponsive": "./src/probes/mobileResponsive.ts",
     "./scoring": "./src/scoring.ts",
+    "./scoring-server": "./src/scoring-server.ts",
     "./types": "./src/types.ts",
     "./rules/types": "./src/rules/types.ts",
     "./rules/defaults": "./src/rules/defaults.ts"
